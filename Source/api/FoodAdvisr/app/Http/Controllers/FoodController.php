@@ -94,7 +94,7 @@ class FoodController extends Controller
             } 
            
         }
-          return back()->with('success','Insert Records successfully.'); 
+          return 'Inserted Records successfully'; 
     }
 
     /**
