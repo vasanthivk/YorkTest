@@ -10,8 +10,9 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+use App\Establishment;
 Route::get('/', function () {
-    return view('welcome');
+	$establishment_count = Establishment::all()->count();
+    return view('welcome', compact('establishment_count'));
 });
 Route::post('store','FoodController@store');

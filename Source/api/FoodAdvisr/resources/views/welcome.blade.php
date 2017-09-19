@@ -11,11 +11,11 @@
 </head>
 <body>
 
-<div class="container">  
+<div class="container">
   <form action="{{URL::to('store')}}" class="form-horizontal" method="post">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
     <div class="form-group">
-     <h2 style="text-align: center;">Food Advisr</h2>
+     <h2 style="text-align: center;">Food Advisr(<?php echo $establishment_count; ?>)</h2>
     </div>
     <div class="form-group">
        <label for="inputdefault">Url</label>

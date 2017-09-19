@@ -94,7 +94,7 @@ class FoodController extends Controller
             } 
            
         }
-          return 'Inserted Records successfully'; 
+          echo "<script>alert('Inserted Records successfully!');window.location.href='/';</script>"; 
     }
 
     /**
