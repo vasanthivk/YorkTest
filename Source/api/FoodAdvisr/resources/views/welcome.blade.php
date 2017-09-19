@@ -19,7 +19,7 @@
     </div>
     <div class="form-group">
        <label for="inputdefault">Url</label>
-      <input class="form-control" id="inputdefault" type="text" name="url">
+      <input class="form-control" id="inputdefault" type="text" name="url" required>
     </div>
       <button type="submit" class="btn btn-default">Submit</button>
   </form>
