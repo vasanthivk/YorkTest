@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Establishment;
-ini_set('max_execution_time', 300);
+// ini_set('max_execution_time', 5000);
 
 class FoodController extends Controller
 {
