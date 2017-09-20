@@ -16,3 +16,6 @@ Route::get('/', function () {
     return view('welcome', compact('establishment_count'));
 });
 Route::post('store','FoodController@store');
+
+Route::post('api/gethoteldetailsbyid', array('as' => 'gethoteldetailsbyid', 'uses' => 'RestApiGeneralController@GetHotelDetailsById'));
+Route::post('api/gethotels', array('as' => 'gethotels', 'uses' => 'RestApiGeneralController@GetHotels'));
