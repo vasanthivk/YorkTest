@@ -1,4 +1,5 @@
 <?php
+use App\Defaults;
 
 	function gethoteldetailsbyid($fhrs_id)
 	{
@@ -9,10 +10,11 @@
 
 	function gethotels($latitude,$longitude)
 	{
-		$search_radius = 4000;
-    	 $sql  = "select FHRSID from establishment where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(Latitude)) * pi()/180 / 2),2) + 
-                COS($latitude * pi()/180 ) * COS(abs(Latitude) * pi()/180) * POWER(SIN(($longitude - Longitude) * pi()/180 / 2), 2) )) 
-                <= $search_radius) limit 99";
+		 $defaults = Defaults::all();    
+         $search_radius = $defaults[0]->search_radius;
+         $search_result_limit = $defaults[0]->search_result_limit;
+    	 $sql  = "select FHRSID
+            from establishment where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ";
         $result = DB::select( DB::raw($sql));
         $hotelsids = [];
          foreach($result as $result1)
@@ -21,12 +23,10 @@
     	}
     	
     	$hotels = DB::table('establishment')
-    		    ->select(DB::raw('establishment.*,(((acos(sin(("'.$latitude.'"*pi()/180)) *
-            sin((`latitude`*pi()/180))+cos(("'.$latitude.'"*pi()/180)) *
-            cos((`latitude`*pi()/180)) * cos((("'.$longitude.'"- `longitude`)*
-            pi()/180))))*180/pi())*60*1.1515
-        ) as distance'))
+    		    ->select(DB::raw('establishment.*,round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(("'.$latitude.'" - abs(latitude)) * pi()/180 / 2),2) +  COS("'.$latitude.'" * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(("'.$longitude.'" - longitude) * pi()/180 / 2), 2) ))),2) as distance'))
     		   ->wherein('FHRSID',$hotelsids)
+               ->orderby('distance','asc')
+               ->limit($search_result_limit)
     		   ->get();    	
     	return $hotels;
 	}

@@ -46,9 +46,9 @@ class RestApiGeneralController extends Controller
         if (isset($postdata)) 
         {
 		 	$request = json_decode($postdata);
-            $longitude = $request->{'longitude'};
-            $latitude = $request->{'latitude'};
-	        $gethotels = gethotels($longitude,$latitude);
+		 	$latitude = $request->{'latitude'};
+            $longitude = $request->{'longitude'};            
+	        $gethotels = gethotels($latitude,$longitude);
 	        $data = array('status' => 0,'message' => 'Success','result' => $gethotels);
 	        return $this->appendHeaders($data);
      	}
