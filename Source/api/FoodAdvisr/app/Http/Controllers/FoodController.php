@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Establishment;
+use Redirect;
 ini_set('max_execution_time', 5000);
 
 class FoodController extends Controller
@@ -16,7 +17,7 @@ class FoodController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        return view('uploadhotel.index');
     }
 
     /**
@@ -38,6 +39,11 @@ class FoodController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
+        $url_last = substr($input['url'], -4);
+        $this->validate($request, [
+            'url'  => 'required']);
+        if($url_last == '.xml')
+        {
         $xml = simplexml_load_file($input['url']);// print_r($xml);
         $data = array();
         $data = $xml->EstablishmentCollection->EstablishmentDetail;
@@ -94,7 +100,13 @@ class FoodController extends Controller
             } 
            
         }
-          echo "<script>alert('Inserted Records successfully!');window.location.href='/';</script>"; 
+      }
+      else
+      {
+        return Redirect::back()->with('warning','Required Only XML Url!')
+        ->withInput(); 
+      }
+        return Redirect::back()->with('warning','Hotels Uploaded Successfully!');
     }
 
     /**
