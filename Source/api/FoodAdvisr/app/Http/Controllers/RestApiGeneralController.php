@@ -33,6 +33,11 @@ class RestApiGeneralController extends Controller
 	        $data = array('status' => 0,'message' => 'Success','result' => $gethoteldetailsbyid);
 	        return $this->appendHeaders($data);
      	}
+     	else
+        {
+            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
+            return $this->appendHeaders($data);
+        }
     }
 
     public function GetHotels(Request $request)
@@ -47,5 +52,10 @@ class RestApiGeneralController extends Controller
 	        $data = array('status' => 0,'message' => 'Success','result' => $gethotels);
 	        return $this->appendHeaders($data);
      	}
+     	else
+        {
+            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
+            return $this->appendHeaders($data);
+        }
     }  
 }
