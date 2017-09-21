@@ -20,9 +20,10 @@ User
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('login','Login :',$user->login,array('maxlength' => '100'))  }}               
-                {{ Form::ahSelect('employee_id','Name:',$user->name,$employees) }}
-                {{ Form::ahSelect('mobile_no','Mobile No :',$user->mobile_no,$employee_mobile) }}
+		        {{ Form::ahText('login','Login :',$user->login,array('maxlength' => '100'))  }}
+		        {{ Form::ahText('name','Name :',$user->name,array('maxlength' => '100'))  }}
+		        {{ Form::ahNumber('mobile_no','Mobile No :',$user->mobile_no,array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}               
+                {{ Form::ahSelect('company_id','Company Name:',$user->company_id,$companies) }}
                 {{ Form::ahSelect('role_id','Role :',$user->role_id,$role) }}
                 {{ Form::ahSelect('status','Status :',$user->status,array('1' => 'Active', '2' => 'Inactive')) }}
 		        </br>
@@ -38,41 +39,5 @@ User
 	    </div>
 	 </div>
  </div>
- <script>
-       $(document).ready(function(){    
-    
-        
-        $("#employee_id").change(function(){
-          empChange();
-        });
-       
-        empChange();
-        var value ='<?php echo Session::get('mobile_no') ?>';
-        $("select#mobile_no option") .each(function() {
-            this.selected = (this.value == '<?php echo Session::get('mobile_no') ?>'); 
-        });
-
-    }); 
-       
-    function empChange(){
-
-  var id = $("#employee_id").val();
-            $.get("../../api/getMobilenumberbyid?employee_id="+id, function(data){
-                $('#mobile_no').empty();
-                var emp_value ='<?php echo Session::get('mobile_no') ?>';
-                $.each(data, function(i, obj){
-                    if( emp_value == obj.mobile_no) {
-                    $('#mobile_no').append($('<option selected>').text(obj.mobile_no).attr('value', obj.mobile_no)); 
-                }
-                else{
-                 $('#mobile_no').append($('<option>').text(obj.mobile_no).attr('value', obj.mobile_no)); 
-
-                }
-
-                });
-            
-            });
-
-    }
-</script>
+ 
 @endsection

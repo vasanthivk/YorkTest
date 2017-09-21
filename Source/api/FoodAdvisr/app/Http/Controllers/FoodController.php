@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Establishment;
 use Redirect;
+use Session;
 ini_set('max_execution_time', 5000);
 
 class FoodController extends Controller
@@ -15,9 +16,24 @@ class FoodController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private function getPrivileges()
+     {
+        $roleid = Session::get("role_id");
+        $privileges['Upload']  = ValidateUserPrivileges($roleid,3,1);//role, module, privilege
+        
+        // $privileges['Approve']  = ValidateUserPrivileges(1,7,5);
+        // $privileges['Reject']  = ValidateUserPrivileges(1,7,6);
+        
+        return $privileges;
+     }
+
     public function index()
     {
-        return view('uploadhotel.index');
+        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        return view('uploadhotel.index')
+        ->with('privileges',$privileges);
     }
 
     /**
@@ -106,6 +122,15 @@ class FoodController extends Controller
         return Redirect::back()->with('warning','Required Only XML Url!')
         ->withInput(); 
       }
+            $log = new Log();
+            $log->module_id=3;
+            $log->action='upload';      
+            $log->description='Hotel ' . $establishment->LocalAuthorityName . ' is uploaded';
+            $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get('user_id'); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
         return Redirect::back()->with('warning','Hotels Uploaded Successfully!');
     }
 

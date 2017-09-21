@@ -27,6 +27,9 @@ Route::post('forgot', array('as' => 'forgot', 'uses' => 'LoginController@forgot'
 Route::resource('dashboard', 'DashboardController');
 Route::resource('hotel', 'HotelController');
 Route::resource('uploadhotel', 'FoodController');
+Route::resource('user', 'UserController');
+Route::resource('company', 'CompanyController');
+Route::resource('items', 'ItemsController');
 Route::post('allowprivileges/{role_id}/{module_id}/{privilege_id}', array('as' => 'allowprivileges', 'uses' => 'PrivilegesController@allowprivileges'));
 Route::post('denyprivileges/{role_id}/{module_id}/{privilege_id}', array('as' => 'denyprivileges', 'uses' => 'PrivilegesController@denyprivileges'));
 Route::resource('privilegesmatrix', 'PrivilegesController@privilegesmatrix');

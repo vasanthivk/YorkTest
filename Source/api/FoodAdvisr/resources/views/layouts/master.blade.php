@@ -60,9 +60,9 @@
                     <li class="xn-icon-button pull-right">
                         <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
                     </li> 
-                      <li class="xn-icon-button pull-right">
+                      <!-- <li class="xn-icon-button pull-right">
                         <a href="/profile"><span class="fa fa-user"></span></a>                        
-                    </li>                           
+                    </li>  -->                          
                     <!-- END SEARCH -->
                     <!-- SIGN OUT -->
                     
