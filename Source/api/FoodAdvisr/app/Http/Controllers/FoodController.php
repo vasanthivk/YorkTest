@@ -7,6 +7,9 @@ use Illuminate\Support\Facades\Input;
 use App\Establishment;
 use Redirect;
 use Session;
+use App\Log;
+use Carbon\Carbon;
+use DateTimeZone;
 ini_set('max_execution_time', 5000);
 
 class FoodController extends Controller

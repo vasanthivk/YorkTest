@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Hotel
+Food Advisr-Hotels
 @endsection
 @section('module')
-Hotel
+Hotels
 @endsection
 
 @section('content')
