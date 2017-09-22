@@ -23,7 +23,6 @@ User
 		        {{ Form::ahText('login','Login :',$user->login,array('maxlength' => '100'))  }}
 		        {{ Form::ahText('name','Name :',$user->name,array('maxlength' => '100'))  }}
 		        {{ Form::ahNumber('mobile_no','Mobile No :',$user->mobile_no,array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}               
-                {{ Form::ahSelect('company_id','Company Name:',$user->company_id,$companies) }}
                 {{ Form::ahSelect('role_id','Role :',$user->role_id,$role) }}
                 {{ Form::ahSelect('status','Status :',$user->status,array('1' => 'Active', '2' => 'Inactive')) }}
 		        </br>

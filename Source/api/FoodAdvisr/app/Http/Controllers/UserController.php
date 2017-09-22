@@ -106,7 +106,6 @@ class UserController extends Controller
             $user->role_id =  Input::get('role_id'); 
             $user->status =  Input::get('status');
             $user->mobile_no =  Input::get('mobile_no');
-            $user->company_id =  Input::get('company_id');
             $user->save();            
 
             $log = new Log();
@@ -193,7 +192,6 @@ class UserController extends Controller
             $user->role_id =  Input::get('role_id'); 
             $user->status =  Input::get('status');
             $user->mobile_no =  Input::get('mobile_no');
-            $user->company_id =  Input::get('company_id');
             $user ->update();
 
             $log = new Log();

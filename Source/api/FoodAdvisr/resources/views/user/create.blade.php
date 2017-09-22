@@ -24,7 +24,6 @@ User
 		        {{ Form::ahPassword('password','Password :',array('maxlength' => '100')) }}
 		        {{ Form::ahText('name','Name :','',array('maxlength' => '100'))  }}
 		        {{ Form::ahNumber('mobile','Mobile No :','',array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}
-		        {{ Form::ahSelect('company_id','Company Name:',null,$companies) }}
 		        {{ Form::ahSelect('role_id','Role :',null,$role) }}
 		        {{ Form::ahSelect('status','Status :','1',array('1' => 'Active', '2' => 'Inactive')) }}
 		        </br>
