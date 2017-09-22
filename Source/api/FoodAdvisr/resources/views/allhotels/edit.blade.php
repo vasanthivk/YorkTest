@@ -45,6 +45,7 @@ Hotels
 		        {{ Form::ahNumber('Structural','Structural :',$hotel->Structural,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :',$hotel->ConfidenceInManagement,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        </br>
+		        <div id="map" style="width: 500px;height: 350px;"></div>
 		    </div>
 	    <div class="form-group">
 		    <div class="panel-footer">
@@ -56,5 +57,20 @@ Hotels
 	    </div>
 	 </div>
  </div>
- 
+ <script>
+      function initMap() {
+        var uluru = {lat: <?php echo $hotel->Latitude; ?>, lng: <?php echo $hotel->Longitude; ?>};
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 18,
+          center: uluru
+        });
+        var marker = new google.maps.Marker({
+          position: uluru,
+          map: map
+        });
+      }
+    </script>
+    <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAyD5F_aHW5hjzw-Cqt91YUcr8N8WCnnyQ&callback=initMap">
+    </script>
 @endsection
