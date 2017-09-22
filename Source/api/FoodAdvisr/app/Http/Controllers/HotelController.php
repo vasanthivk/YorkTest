@@ -21,7 +21,6 @@ class HotelController extends Controller
         $allhotels = DB::table('establishment')
                     ->select(DB::raw('*'))
                     ->get();
-               return    $allhotels;  
         $locations = DB::table('establishment')
                     ->select(DB::raw('establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
                     ->orderby('location_name','asc')

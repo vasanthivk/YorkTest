@@ -14,7 +14,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $establishment_count = $establishment_count = DB::table('establishment')
+        $establishment_count =DB::table('establishment')
             ->select(DB::raw('*'))
             ->count();
         return view('dashboard.index', compact('establishment_count'));
