@@ -36,3 +36,4 @@ Route::post('denyprivileges/{role_id}/{module_id}/{privilege_id}', array('as' =>
 Route::resource('privilegesmatrix', 'PrivilegesController@privilegesmatrix');
 Route::resource('privileges', 'PrivilegesController');
 Route::resource('logs', 'LogsController');
+Route::resource('configuration', 'ConfigurationController');

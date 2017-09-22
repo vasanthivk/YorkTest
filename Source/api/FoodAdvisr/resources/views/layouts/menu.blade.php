@@ -26,5 +26,7 @@
                     </li>
                      <li class="{{ Request::segment(1) === 'logs' ? 'active' : null }}"><a href="{{action('LogsController@index')}}"><span class="fa fa-database"></span> <span class="xn-text">Logs</span></a>     
                     </li>
+                     <li class="{{ Request::segment(1) === 'configuration' ? 'active' : null }}"><a href="{{action('ConfigurationController@index')}}"><span class="fa fa-database"></span> <span class="xn-text">Configurations</span></a>     
+                    </li>
                 </ul>
             </div>
