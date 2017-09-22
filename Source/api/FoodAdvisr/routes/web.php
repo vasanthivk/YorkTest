@@ -25,7 +25,7 @@ Route::resource('login', 'LoginController');
 Route::post('validateuser', array('as' => 'validateuser', 'uses' => 'LoginController@validateuser'));
 Route::post('forgot', array('as' => 'forgot', 'uses' => 'LoginController@forgot'));
 Route::resource('dashboard', 'DashboardController');
-Route::resource('hotel', 'HotelController');
+Route::resource('gethotel', 'HotelController');
 Route::resource('uploadhotel', 'FoodController');
 Route::resource('user', 'UserController');
 Route::resource('company', 'CompanyController');

@@ -28,7 +28,7 @@ class HotelController extends Controller
             ->select(DB::raw('*'))
             ->where('establishment.LocalAuthorityCode','=',$location_id)
             ->get();
-        return view('hotel.index',compact('hotels'))
+        return view('gethotel.index',compact('hotels'))
         ->with('locations',$locations);
     }
 

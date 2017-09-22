@@ -10,7 +10,7 @@ Hotels
 @include('components.message')
 {{Form::component('ahSelect', 'components.form.select', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
 
-{{ Form::open(array('method' => 'GET','route' => 'hotel.index')) }}
+{{ Form::open(array('method' => 'GET','route' => 'gethotel.index')) }}
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
