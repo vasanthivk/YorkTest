@@ -13,19 +13,16 @@ Upload Hotels
 {{ Form::open(array('route' => 'uploadhotel.store','files'=>true,'onClick'=> 'this.form.submit()')) }}
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
-		</br>
-			<div class="col-md-7">				
-				{{ Form::ahText('url','Url :','',array('maxlength' => '100'))  }}
-		        </br>
-		    </div>
-		    
-        <div class="form-group">
-		    <div class="panel-footer">
-		        <div class="col-md-6 col-md-offset-3">
-		            {{ Form::submit('Upload', array('class' => 'btn btn-primary','id' => 'btnSubmit')) }}
-		        </div>
-		    </div>
-	    </div>
+		</br>			
+		     <div class="col-md-6">              
+               {{ Form::ahText('url','Url :','',array('maxlength' => '100'))  }}
+                </br>
+            </div>
+            <div class="col-md-4" style="padding-top: 5px;"> 
+                  {{ Form::submit('Upload', array('class' => 'btn btn-primary','id' => 'btnSubmit')) }}
+                </br>
+            </div> 
+       
 	 </div>
  </div>
  <div class="loading" align="center">
