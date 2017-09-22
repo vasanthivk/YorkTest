@@ -14,7 +14,9 @@
                     </li>
                      <li class="{{ Request::segment(1) === 'company' ? 'active' : null }}"><a href="{{action('CompanyController@index')}}"><span class="fa fa-university"></span> <span class="xn-text">Company</span></a>     
                     </li>
-                    <li class="{{ Request::segment(1) === 'gethotel' ? 'active' : null }}"><a href="{{action('HotelController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Hotels</span></a>     
+                   <!--  <li class="{{ Request::segment(1) === 'gethotel' ? 'active' : null }}"><a href="{{action('HotelController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Hotels</span></a>     
+                    </li> -->
+                    <li class="{{ Request::segment(1) === 'allhotels' ? 'active' : null }}"><a href="{{action('AllHotelsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">All Hotels</span></a>     
                     </li>
                     <li class="{{ Request::segment(1) === 'uploadhotel' ? 'active' : null }}"><a href="{{action('FoodController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Hotels</span></a>     
                     </li>
