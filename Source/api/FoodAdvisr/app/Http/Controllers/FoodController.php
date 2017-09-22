@@ -131,7 +131,7 @@ class FoodController extends Controller
             $log = new Log();
             $log->module_id=3;
             $log->action='upload';      
-            $log->description='Hotel ' . $establishment->LocalAuthorityName . ' is uploaded';
+            $log->description='Hotel ' . $value->LocalAuthorityName . ' is uploaded';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
