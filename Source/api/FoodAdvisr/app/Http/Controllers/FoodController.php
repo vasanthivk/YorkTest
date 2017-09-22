@@ -10,6 +10,7 @@ use Session;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
+use DB;
 ini_set('max_execution_time', 5000);
 
 class FoodController extends Controller
@@ -68,8 +69,10 @@ class FoodController extends Controller
         $data = $xml->EstablishmentCollection->EstablishmentDetail;
         foreach ($data as $key => $value) 
         {
-           
-           $establishment_count = Establishment::all()->where('FHRSID','=',$value->FHRSID)->count();
+           $establishment_count = DB::table('establishment')
+            ->select(DB::raw('*'))
+            ->where('establishment.FHRSID','=',$value->FHRSID)
+            ->count();
             if($establishment_count == 0)
             {
             $establishment = new Establishment();
