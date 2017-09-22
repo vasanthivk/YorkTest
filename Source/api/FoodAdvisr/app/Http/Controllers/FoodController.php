@@ -137,7 +137,7 @@ class FoodController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::back()->with('warning','Hotels Uploaded Successfully!');
+        return Redirect::back()->with('success','Hotels Uploaded Successfully!');
     }
 
     /**

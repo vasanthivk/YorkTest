@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Establishment;
-
+use DB;
 class DashboardController extends Controller
 {
     /**
@@ -14,7 +14,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $establishment_count = Establishment::all()->count();
+        $establishment_count = $establishment_count = DB::table('establishment')
+            ->select(DB::raw('*'))
+            ->count();
         return view('dashboard.index', compact('establishment_count'));
     }
 
