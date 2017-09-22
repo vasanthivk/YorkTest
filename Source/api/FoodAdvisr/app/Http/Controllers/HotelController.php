@@ -16,20 +16,21 @@ class HotelController extends Controller
      */
     public function index()
     {
-        $location_id = Input::get('location_id');
-        $allhotels = Establishment::all();
+       $location_id = Input::get('location_id');
+        
+        $allhotels = DB::table('establishment')
+                    ->select(DB::raw('*'))
+                    ->get();
         $locations = DB::table('establishment')
-                    ->select(DB::raw('establishment.LocalAuthorityCode,establishment.LocalAuthorityName'))
-                    ->orderby('establishment.LocalAuthorityName','asc')
-                    ->pluck('LocalAuthorityName','LocalAuthorityCode');
+                    ->select(DB::raw('establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
+                    ->orderby('location_name','asc')
+                    ->pluck('location_name','id');
         if($location_id=='')
             $location_id = $allhotels[0]->LocalAuthorityCode;
         $hotels = DB::table('establishment')
             ->select(DB::raw('*'))
             ->where('establishment.LocalAuthorityCode','=',$location_id)
-            ->limit(10)
             ->get();
-            return $hotels;
         return view('gethotel.index',compact('hotels'))
         ->with('locations',$locations);
     }
