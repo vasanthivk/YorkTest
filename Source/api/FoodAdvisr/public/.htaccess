@@ -1,26 +1,20 @@
-<Limit GET POST PUT DELETE>
-#For REST support
-       Allow from all
- </Limit>
-
 <IfModule mod_rewrite.c>
     <IfModule mod_negotiation.c>
         Options -MultiViews
     </IfModule>
 
     RewriteEngine On
-    RewriteBase / # <------------ This one you missed
 
-    #Just to redirect to www.site.com when only site.com comes
-     RewriteCond %{HTTP_HOST} !^www\. [NC]
-     RewriteRule ^(.*)$ http://www.%{HTTP_HOST} [R=301,L]
-    #end of codes
-
-    # Redirect Trailing Slashes...
+    # Redirect Trailing Slashes If Not A Folder...
+    RewriteCond %{REQUEST_FILENAME} !-d
     RewriteRule ^(.*)/$ /$1 [L,R=301]
 
     # Handle Front Controller...
     RewriteCond %{REQUEST_FILENAME} !-d
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
+
+    # Handle Authorization Header
+    RewriteCond %{HTTP:Authorization} .
+    RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 </IfModule>
