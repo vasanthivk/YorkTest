@@ -61,7 +61,7 @@ Hotels
       function initMap() {
         var uluru = {lat: <?php echo $hotel->Latitude; ?>, lng: <?php echo $hotel->Longitude; ?>};
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 18,
+          zoom: 17,
           center: uluru
         });
         var marker = new google.maps.Marker({
