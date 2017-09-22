@@ -29,6 +29,7 @@ class HotelController extends Controller
             ->where('establishment.LocalAuthorityCode','=',$location_id)
             ->limit(10)
             ->get();
+            return $hotels;
         return view('gethotel.index',compact('hotels'))
         ->with('locations',$locations);
     }
