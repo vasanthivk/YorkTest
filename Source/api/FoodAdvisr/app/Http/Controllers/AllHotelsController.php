@@ -14,6 +14,8 @@ use File;
 use Image;
 use Carbon\Carbon;
 use DateTimeZone;
+ini_set('memory_limit', '5048M');
+ini_set('max_execution_time', 5000);
 
 class AllHotelsController extends Controller
 {
@@ -43,6 +45,7 @@ class AllHotelsController extends Controller
         $location_id = Input::get('location_id');
         $gethotels = DB::table('establishment')
                     ->select(DB::raw('establishment.LocalAuthorityCode'))
+                    ->orderby('LocalAuthorityCode','asc')
                     ->get();
         $locations = DB::table('establishment')
                     ->select(DB::raw('establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
