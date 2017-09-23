@@ -58,4 +58,23 @@ class RestApiGeneralController extends Controller
             return $this->appendHeaders($data);
         }
     }  
+    public function GetTop10Hotels(Request $request)
+    {
+    	 $postdata = file_get_contents("php://input");
+        if (isset($postdata)) 
+        {
+		 	$request = json_decode($postdata);
+		 	$latitude = $request->{'latitude'};
+            $longitude = $request->{'longitude'};            
+	        $gethotels = gettop10hotels($latitude,$longitude);
+	        $data = array('status' => 0,'message' => 'Success','result' => $gethotels);
+	        return $this->appendHeaders($data);
+     	}
+     	else
+        {
+            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
+            return $this->appendHeaders($data);
+        }
+    }  
+    
 }

@@ -13,6 +13,7 @@
 
 Route::post('api/gethoteldetailsbyid', array('as' => 'gethoteldetailsbyid', 'uses' => 'RestApiGeneralController@GetHotelDetailsById'));
 Route::post('api/gethotels', array('as' => 'gethotels', 'uses' => 'RestApiGeneralController@GetHotels'));
+Route::post('api/gettop10hotels', array('as' => 'gettop10hotels', 'uses' => 'RestApiGeneralController@GetTop10Hotels'));
 
 
 Route::get('/', function () {

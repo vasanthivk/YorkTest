@@ -30,4 +30,10 @@ use App\Defaults;
     		   ->get();    	
     	return $hotels;
 	}
+	function gettop10hotels($latitude,$longitude)
+	{
+		$sql  = "select * from establishment LIMIT 10";
+		$result = DB::select( DB::raw($sql));
+		return $result;
+	}	
 ?>
