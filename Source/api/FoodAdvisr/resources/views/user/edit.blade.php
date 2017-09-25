@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-TSLamb Scheme-User
+FoodAdvisr-User
 @endsection
 @section('module')
 User

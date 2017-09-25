@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Configuration
+FoodAdvisr-Configuration
 @endsection
 @section('module')
 Configuration

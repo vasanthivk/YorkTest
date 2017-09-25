@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Logs
+FoodAdvisr-Logs
 @endsection
 @section('module')
 Logs

@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-User
+FoodAdvisr-User
 @endsection
 @section('module')
 User
