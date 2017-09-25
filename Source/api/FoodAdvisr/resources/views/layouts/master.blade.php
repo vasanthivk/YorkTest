@@ -216,9 +216,7 @@ window.location.href="/";
             });
         }
         </script>
-        <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&callback=initialize_map">
-</script> 
+       
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->         
     </body>

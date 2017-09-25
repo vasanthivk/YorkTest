@@ -45,7 +45,7 @@ Hotels
 		        {{ Form::ahNumber('Structural','Structural :',$hotel->Structural,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :',$hotel->ConfidenceInManagement,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        </br>
-		         <body style="margin:0px; padding:0px;" onload="initialize_map()"> 
+		         <body style="margin:0px; padding:0px;" onload="initializemap()"> 
             <div id="map_canvas" style="width: 500px; height: 400px"></div> 
             </body>
 		    </div>
@@ -60,7 +60,7 @@ Hotels
 	 </div>
  </div>
  <script type="text/javascript">  
-    function initialize_map() {
+    function initializemap() {
   
        geocoder = new google.maps.Geocoder();
        var myOptions = {
@@ -171,5 +171,7 @@ function findAddress(address) {
     }
     });
 </script>
-    
+  <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&callback=initializemap">
+</script>    
 @endsection
