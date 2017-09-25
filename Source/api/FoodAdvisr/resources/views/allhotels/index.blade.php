@@ -93,7 +93,7 @@ Hotels
                                                    @endif
                                                 </div>
                                                 <div class="btn-group pull-left">                      
-                                                    <a href="{{URL::to('menu/')}}" class="btn btn-info">Menu</a>
+                                                    <a href="{{URL::to('menu/')}}" class="btn btn-success">Menu</a>
                                                 </div>
                                             </div>
                                         </td>
