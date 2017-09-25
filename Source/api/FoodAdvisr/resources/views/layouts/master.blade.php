@@ -189,7 +189,36 @@ window.location.href="/";
                 tabMode: "shift"                                                
             });
             editor.setSize('100%','420px');
-        </script>   
+
+
+             function getlatitudelongitude(inputAddress)
+        {
+            var geocoder = new google.maps.Geocoder();
+            var address = inputAddress.value;
+
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    $("#locationmessage").html('');
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    document.getElementById("Latitude").value = latitude;
+                    document.getElementById("Longitude").value = longitude;
+                }
+                else {
+                    document.getElementById("Latitude").value = "";
+                    document.getElementById("Longitude").value = "";
+                    if($("#LocalAuthorityName").val().trim() != "") {
+                        $("#errorMessage").css("display", "block");
+                        $("#locationmessage").html('Invalid Location');
+                        $("#locationmessage").css('color', 'red');
+                    }
+                }
+            });
+        }
+        </script>
+        <script async defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&callback=initialize_map">
+</script> 
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->         
     </body>
