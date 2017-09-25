@@ -14,9 +14,29 @@ Hotels
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
-           <div class="col-md-6">              
-                {{ Form::ahSelect('location_id','Local Authority Name :','',$locations)  }}
-                </br>
+           <div class="col-md-6">                            
+               <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4">Local Authority Name :</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="location_id" name="location_id">
+                            <option  selected disabled>Please select local authority name</option>
+                            @foreach($locations as $location)
+                            <option value="{{ $location->id }}"
+                               <?php 
+                                $val = $location_id;
+                                $res = $location->id;
+                               if($val == $res) 
+                                {
+                                  ?> selected="selected"
+                                  <?php 
+                                } ?>> 
+                              {{ $location->location_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                      
+               <br/>
             </div>
             <div class="col-md-4" style="padding-top: 5px;"> 
                  {{ Form::submit('Show', array('class' => 'btn btn-primary')) }}
@@ -40,7 +60,8 @@ Hotels
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th>Business Name</th>    
+                                                <th>Business Name</th>
+                                                <th>Business Type</th>    
                                                 <th>Rating Value</th>
                                                 <th>Edit/Delete</th>              
                                             </tr>
@@ -50,12 +71,15 @@ Hotels
                                     <tr>
                                         <td>
                                             {{$hotel->BusinessName}}
+                                        </td> 
+                                        <td>
+                                            {{$hotel->BusinessType}}
                                         </td>                                        
                                         <td>
                                             {{$hotel->RatingValue}}
                                         </td>
                                          <td width="30%">
-                                            <div >
+                                            <div>
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
                                                 {{ link_to_route('allhotels.edit','Edit',array($hotel->id), array('class' => 'btn btn-info')) }}
@@ -67,6 +91,9 @@ Hotels
                                                     <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
                                                     {{ Form::close() }}
                                                    @endif
+                                                </div>
+                                                <div class="btn-group pull-left">                      
+                                                    <a href="{{URL::to('menu/')}}" class="btn btn-info">Menu</a>
                                                 </div>
                                             </div>
                                         </td>

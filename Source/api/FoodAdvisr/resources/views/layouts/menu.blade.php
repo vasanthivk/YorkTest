@@ -12,11 +12,9 @@
                     </li>
                     <li class="{{ Request::segment(1) === 'dashboard' ? 'active' : null }}"><a href="{{action('DashboardController@index')}}"><span class="fa fa-dashboard"></span> <span class="xn-text">Dashboard</span></a>     
                     </li>
-                    <!--  <li class="{{ Request::segment(1) === 'company' ? 'active' : null }}"><a href="{{action('CompanyController@index')}}"><span class="fa fa-university"></span> <span class="xn-text">Company</span></a>     
-                    </li> -->
-                   <!--  <li class="{{ Request::segment(1) === 'gethotel' ? 'active' : null }}"><a href="{{action('HotelController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Hotels</span></a>     
-                    </li> -->
                     <li class="{{ Request::segment(1) === 'allhotels' ? 'active' : null }}"><a href="{{action('AllHotelsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Hotels</span></a>     
+                    </li>
+                     <li class="{{ Request::segment(1) === 'menu' ? 'active' : null }}"><a href="{{action('MenuController@index')}}"><span class="fa fa-cutlery"></span> <span class="xn-text">Menu</span></a>     
                     </li>
                     <li class="{{ Request::segment(1) === 'uploadhotel' ? 'active' : null }}"><a href="{{action('FoodController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Hotels</span></a>     
                     </li>
