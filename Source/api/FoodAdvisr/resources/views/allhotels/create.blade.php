@@ -45,7 +45,7 @@ Hotels
 		        {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 
 		        <body style="margin:0px; padding:0px;" onload="initialize_map()"> 
- 					 <div id="map_canvas_create" style="width: 500px; height: 400px"></div> 
+ 					 <div id="canvas_create" style="width: 500px; height: 400px"></div> 
   
   				</body> 
 		        </br>
@@ -92,7 +92,7 @@ Hotels
 
         
         
-        map = new google.maps.Map(document.getElementById("map_canvas_create"), myOptions);
+        map = new google.maps.Map(document.getElementById("canvas_create"), myOptions);
      
          // initialize marker
        
