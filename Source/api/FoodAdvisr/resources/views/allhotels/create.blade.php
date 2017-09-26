@@ -23,14 +23,14 @@ Hotels
 			<div class="col-md-6">
 		        {{ Form::ahNumber('FHRSID','FHRSID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
 		        {{ Form::ahText('LocalAuthorityBusinessID','Local Authority BusinessID :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahText('BusinessName','Business Name :','',array('maxlength' => '100'))  }}		
+		        {{ Form::ahText('BusinessName','Business Name :','',array("onchange"=>"getlatitudelongitude(this)",'maxlength'=> '1000'))  }}		
 		        {{ Form::ahText('BusinessType','Business Type :','',array('maxlength' => '100'))  }}
 		        {{ Form::ahNumber('BusinessTypeID','Business Type ID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
 		        {{ Form::ahNumber('RatingValue','Rating Value :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahText('RatingKey','Rating Key :','',array('maxlength' => '100'))  }}
 		        {{ Form::ahDate('RatingDate','Rating Date :', \Carbon\Carbon::now()) }}
 		        {{ Form::ahNumber('LocalAuthorityCode','Local Authority Code :','',array('min'=>'0','maxlength' => '5','max'=>'99999'))  }}
-		        {{ Form::ahText('LocalAuthorityName','Local Authority Name :','',array("onchange"=>"getlatitudelongitude(this)",'maxlength'=> '1000'))  }}
+		        {{ Form::ahText('LocalAuthorityName','Local Authority Name :','',array('maxlength'=> '1000'))  }}
 		        {{ Form::ahText('LocalAuthorityWebSite','Local Authority WebSite :','',array('maxlength' => '100'))  }}
 		        </br>
             
@@ -39,8 +39,8 @@ Hotels
 		        {{ Form::ahText('LocalAuthorityEmailAddress','Local Authority EmailAddress :','',array('maxlength' => '100'))  }}		
 		        {{ Form::ahText('SchemeType','SchemeType :','',array('maxlength' => '100'))  }}
 		        {{ Form::ahNumber('NewRatingPending','New Rating Pending :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-		        {{ Form::ahText('Longitude','Longitude :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahText('Latitude','Latitude :','',array('maxlength' => '100'))  }}
+		        {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
+		        {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
 		        {{ Form::ahNumber('Hygiene','Hygiene :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahNumber('Structural','Structural :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
@@ -85,7 +85,7 @@ function initialize() {
         marker.setVisible(false);
         var place = autocomplete.getPlace();
         if (!place.geometry) {
-            window.alert("Autocomplete's returned place contains no geometry");
+            alert("Autocomplete's returned place contains no geometry");
             return;
         }
   
@@ -119,7 +119,7 @@ function initialize() {
     });
 }
 function bindDataToForm(address,lat,lng){
-   document.getElementById('LocalAuthorityName').value = address;
+   document.getElementById('BusinessName').value = address;
    document.getElementById('Latitude').value = lat;
    document.getElementById('Longitude').value = lng;
 }
