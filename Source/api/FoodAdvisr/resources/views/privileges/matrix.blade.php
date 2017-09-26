@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Privileges
+FoodAdvisr-Privileges
 @endsection
 @section('module')
 Privileges

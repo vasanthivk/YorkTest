@@ -93,27 +93,15 @@ class ConfigurationController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $template_sms_otp = Input::get('template_sms_otp');
-        $template_forgotpassword = Input::get('template_forgotpassword');
-        
-        if(strpos($template_sms_otp,'%OTP%') != true)
-        {
-            return Redirect::back()->with('success','Please Mention The  %OTP%!')
-            ->withInput();
-        }
-        if(strpos($template_forgotpassword,'%PWD%') != true)
-        {
-            return Redirect::back()->with('success','Please Mention The %PWD%!')
-            ->withInput();
-        }
-        else
-        {
-       $rules = array('search_radius'=>'required|numeric','search_result_limit'=>'required|numeric','template_sms_otp'=>'required','template_forgotpassword'=>'required','log_max_days'=>'required|numeric');
+        $input = Input::all(); 
+        $this->validate($request, [
+            'search_radius'=>'required|numeric','search_result_limit'=>'required|numeric','log_max_days'=>'required|numeric']);
 
+        $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
-        { 
-            return Redirect::route('configuration.index',$id)
+        {
+            return Redirect::route('configuration.index')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -123,8 +111,6 @@ class ConfigurationController extends Controller
             $defaults = Defaults::find($id);           
             $defaults->search_radius =  Input::get('search_radius');
             $defaults->search_result_limit =  Input::get('search_result_limit');
-            $defaults->template_sms_otp =  Input::get('template_sms_otp');
-            $defaults->template_forgotpassword =  Input::get('template_forgotpassword');
             $defaults->allow_create_logs =  (Input::get('allow_create_logs')== ''  ? '0' : '1');
             $defaults->allow_edit_logs =  (Input::get('allow_edit_logs')== ''  ? '0' : '1');
             $defaults->allow_delete_logs =  (Input::get('allow_delete_logs')== ''  ? '0' : '1');
@@ -132,7 +118,6 @@ class ConfigurationController extends Controller
             $defaults->update();
              return Redirect::back()->with('success','Configuration details are updated successfully!');           
             }
-        }
     }
 
     /**

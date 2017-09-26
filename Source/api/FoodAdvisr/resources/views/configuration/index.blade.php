@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-TSLamb Scheme-Configuration
+FoodAdvisr-Configuration
 @endsection
 @section('module')
 Configuration
@@ -22,9 +22,7 @@ Configuration
     </br>
       <div class="col-md-6">
        {{ Form::ahNumber('search_radius','Search Radius :',$defaults->search_radius,array('maxlength' => '1','min'=>'0','max'=>'9')) }}  
-       {{ Form::ahNumber('search_result_limit','Search Result Limit :',$defaults->search_result_limit,array('maxlength' => '2','min'=>'0','max'=>'99')) }} 
-       {{ Form::ahText('template_sms_otp','Template Sms Otp :',$defaults->template_sms_otp,array('maxlength' => '150')) }} 
-       {{ Form::ahText('template_forgotpassword','Template Forgot Password :',$defaults->template_forgotpassword,array('maxlength' => '50')) }} 
+       {{ Form::ahNumber('search_result_limit','Search Result Limit :',$defaults->search_result_limit,array('maxlength' => '2','min'=>'0','max'=>'99')) }}
        {{ Form::ahCheckbox('allow_create_logs','Allow Create Logs :',null,$defaults->allow_create_logs ) }}
        {{ Form::ahCheckbox('allow_edit_logs','Allow Edit Logs :',null,$defaults->allow_edit_logs ) }}
        {{ Form::ahCheckbox('allow_delete_logs','Allow Delete Logs :',null,$defaults->allow_delete_logs ) }}      

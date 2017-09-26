@@ -1,5 +1,7 @@
 <?php
 use App\Defaults;
+ini_set('memory_limit', '5048M');
+ini_set('max_execution_time', 5000);
 
 	function gethoteldetailsbyid($fhrs_id)
 	{

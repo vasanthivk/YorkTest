@@ -3,11 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Establishment;
-use DB;
-use Input;
-ini_set('max_execution_time', 5000);
-class HotelController extends Controller
+
+class MenuController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,23 +13,7 @@ class HotelController extends Controller
      */
     public function index()
     {
-       $location_id = Input::get('location_id');
-        
-        $allhotels = DB::table('establishment')
-                    ->select(DB::raw('*'))
-                    ->get();
-        $locations = DB::table('establishment')
-                    ->select(DB::raw('establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
-                    ->orderby('location_name','asc')
-                    ->pluck('location_name','id');
-        if($location_id=='')
-            $location_id = $allhotels[0]->LocalAuthorityCode;
-        $hotels = DB::table('establishment')
-            ->select(DB::raw('*'))
-            ->where('establishment.LocalAuthorityCode','=',$location_id)
-            ->get();
-        return view('gethotel.index',compact('hotels'))
-        ->with('locations',$locations);
+        return view('menu.index');
     }
 
     /**

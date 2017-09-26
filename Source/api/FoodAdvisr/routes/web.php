@@ -15,7 +15,6 @@ Route::post('api/gethoteldetailsbyid', array('as' => 'gethoteldetailsbyid', 'use
 Route::post('api/gethotels', array('as' => 'gethotels', 'uses' => 'RestApiGeneralController@GetHotels'));
 Route::post('api/gettop10hotels', array('as' => 'gettop10hotels', 'uses' => 'RestApiGeneralController@GetTop10Hotels'));
 
-
 Route::get('/', function () {
     return view('login.login');
 });
@@ -26,9 +25,9 @@ Route::resource('login', 'LoginController');
 Route::post('validateuser', array('as' => 'validateuser', 'uses' => 'LoginController@validateuser'));
 Route::post('forgot', array('as' => 'forgot', 'uses' => 'LoginController@forgot'));
 Route::resource('dashboard', 'DashboardController');
-Route::resource('gethotel', 'HotelController');
 Route::resource('allhotels', 'AllHotelsController');
 Route::resource('uploadhotel', 'FoodController');
+Route::resource('menu', 'MenuController');
 Route::resource('user', 'UserController');
 Route::resource('company', 'CompanyController');
 Route::resource('items', 'ItemsController');

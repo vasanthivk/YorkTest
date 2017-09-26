@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" id="theme" href="../../css/theme-blue.css"/>
         <link href="../../css/bootstrap-imageupload.css" rel="stylesheet">
         <link href="../../css/jasny-bootstrap.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     </head>
     <style>
     #save {
@@ -189,7 +190,34 @@ window.location.href="/";
                 tabMode: "shift"                                                
             });
             editor.setSize('100%','420px');
-        </script>   
+
+
+             function getlatitudelongitude(inputAddress)
+        {
+            var geocoder = new google.maps.Geocoder();
+            var address = inputAddress.value;
+
+            geocoder.geocode({'address': address}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    $("#locationmessage").html('');
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    document.getElementById("Latitude").value = latitude;
+                    document.getElementById("Longitude").value = longitude;
+                }
+                else {
+                    document.getElementById("Latitude").value = "";
+                    document.getElementById("Longitude").value = "";
+                    if($("#LocalAuthorityName").val().trim() != "") {
+                        $("#errorMessage").css("display", "block");
+                        $("#locationmessage").html('Invalid Location');
+                        $("#locationmessage").css('color', 'red');
+                    }
+                }
+            });
+        }
+        </script>
+       
         <!-- END TEMPLATE -->
     <!-- END SCRIPTS -->         
     </body>

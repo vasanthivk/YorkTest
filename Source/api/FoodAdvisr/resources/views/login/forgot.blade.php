@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en" class="body-full-height">
     <head>        
-        <title>Food Advisr</title>            
+        <title>FoodAdvisr</title>            
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" /> 
@@ -12,7 +12,7 @@
     <body>        
         <div class="login-container">        
             <div class="login-box animated fadeInDown">
-                <div style="color: white;font-size: 25px;text-align: center;padding-bottom: 10px;">Food Advisr</div>
+                <div style="color: white;font-size: 25px;text-align: center;padding-bottom: 10px;">FoodAdvisr</div>
                 <div class="login-body">
                     <div class="login-title" style="text-align: center;"><strong>Forgot Password</strong> </div>
                     <div class="col-md-12">
@@ -68,7 +68,7 @@
                     </form>
                 </div>
                 <div class="login-footer" style="text-align: center;">                    
-                        &copy; <?php echo date("Y"); ?> Food Advisr                    
+                        &copy; <?php echo date("Y"); ?> FoodAdvisr                    
                 </div>
             </div>
             

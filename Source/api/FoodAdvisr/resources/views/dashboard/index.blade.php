@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Dashboard
+FoodAdvisr-Dashboard
 @endsection
 @section('module')
 Dashboard

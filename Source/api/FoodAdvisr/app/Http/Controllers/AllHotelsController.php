@@ -14,6 +14,8 @@ use File;
 use Image;
 use Carbon\Carbon;
 use DateTimeZone;
+ini_set('memory_limit', '5048M');
+ini_set('max_execution_time', 5000);
 
 class AllHotelsController extends Controller
 {
@@ -40,24 +42,30 @@ class AllHotelsController extends Controller
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $location_id = Input::get('location_id');
-        $gethotels = DB::table('establishment')
-                    ->select(DB::raw('establishment.LocalAuthorityCode'))
-                    ->get();
+        $location_id = Input::get('location_id');       
         $locations = DB::table('establishment')
-                    ->select(DB::raw('establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
+                    ->select(DB::raw('DISTINCT establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
                     ->orderby('location_name','asc')
-                    ->pluck('location_name','id');
-
+                    ->get();
+                    
         if($location_id=='')
-            $location_id = $gethotels[0]->LocalAuthorityCode;
+        {
+            $all_hotels = DB::table('establishment')
+            ->select(DB::raw('establishment.BusinessName,establishment.BusinessType,establishment.RatingValue,establishment.FHRSID as id'))
+            ->where('establishment.LocalAuthorityCode','=','')
+            ->get();
+        }
+        else{
         $all_hotels = DB::table('establishment')
-            ->select(DB::raw('establishment.BusinessName,establishment.RatingValue,establishment.FHRSID as id'))
+            ->select(DB::raw('establishment.BusinessName,establishment.BusinessType,establishment.RatingValue,establishment.FHRSID as id'))
             ->where('establishment.LocalAuthorityCode','=',$location_id)
             ->get();
+        }
+
         return view('allhotels.index')
         ->with('all_hotels',$all_hotels)
         ->with('locations',$locations)
+        ->with('location_id',$location_id)
          ->with('privileges',$privileges);
     }
 
