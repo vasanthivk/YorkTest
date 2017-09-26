@@ -59,7 +59,7 @@ Hotels
 	    </div>
 	 </div>
  </div>
- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+ <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&libraries=places"></script>
   <script>
 /* script */
 function initialize() {
