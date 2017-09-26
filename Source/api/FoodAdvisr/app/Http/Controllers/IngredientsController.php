@@ -68,7 +68,7 @@ class IngredientsController extends Controller
     {
        $input = Input::all();        
         $this->validate($request, [
-            'title'  => 'required','description' => 'required']);        
+            'title'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -144,7 +144,7 @@ class IngredientsController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-           'title'  => 'required','description' => 'required']); 
+           'title'  => 'required']); 
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         

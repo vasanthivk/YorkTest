@@ -68,7 +68,7 @@ class NutritionController extends Controller
     {
        $input = Input::all();        
         $this->validate($request, [
-            'title'  => 'required','description' => 'required']);        
+            'title'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -142,7 +142,7 @@ class NutritionController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-           'title'  => 'required','description' => 'required']); 
+           'title'  => 'required']); 
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
