@@ -65,7 +65,7 @@ function initialize() {
    var latlng = new google.maps.LatLng(<?php echo floatval($hotel->Latitude); ?>,<?php echo floatval($hotel->Longitude); ?>);
     var map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,
-      zoom: 13
+      zoom: 16
     });
     var marker = new google.maps.Marker({
       map: map,
