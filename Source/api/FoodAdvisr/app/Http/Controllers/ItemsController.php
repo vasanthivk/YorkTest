@@ -8,7 +8,8 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Input;
-use App\Company;
+use App\Items;
+use App\Category;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
@@ -22,26 +23,28 @@ class ItemsController extends Controller
      private function getPrivileges()
      {
         $roleid = Session::get("role_id");
-        $privileges['View']  = ValidateUserPrivileges($roleid,5,1);  //role, module, privilege
-        $privileges['Add']  = ValidateUserPrivileges($roleid,5,2);
-        $privileges['Edit']  = ValidateUserPrivileges($roleid,5,3);
-        $privileges['Delete']  = ValidateUserPrivileges($roleid,5,4);
-        // $privileges['Approve']  = ValidateUserPrivileges(1,7,5);
-        // $privileges['Reject']  = ValidateUserPrivileges(1,7,5);
+        $privileges['View']  = ValidateUserPrivileges($roleid,8,1);  //role, module, privilege
+        $privileges['Add']  = ValidateUserPrivileges($roleid,8,2);
+        $privileges['Edit']  = ValidateUserPrivileges($roleid,8,3);
+        $privileges['Delete']  = ValidateUserPrivileges($roleid,8,4);
+        // $privileges['Approve']  = ValidateUserPrivileges(1,7,8);
+        // $privileges['Reject']  = ValidateUserPrivileges(1,7,8);
         
         return $privileges;
      }
 
-    public function index()
+    public function index(Request $request)
     {
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $companies = DB::table('company')
-        ->select(DB::raw('*'))
-        ->get();
-         return View('company.index', compact('companies'))         
-        ->with('privileges',$privileges);
+        $hotel_id = $request['hotel_id'];
+        $items = DB::table('items')
+        ->select(DB::raw('*,items.item_id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
+        ->get();        
+         return View('items.index', compact('items'))         
+        ->with('privileges',$privileges)
+        ->with('hotel_id',$hotel_id);
     }
 
     /**
@@ -49,13 +52,18 @@ class ItemsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        return View('company.create')          
-        ->with('privileges',$privileges);
+        $hotel_id = $request['hotel_id'];
+        $category = Category::all()->pluck('category_name','category_id');
+
+        return View('items.create')          
+        ->with('privileges',$privileges)
+        ->with('category',$category)
+        ->with('hotel_id',$hotel_id);
     }
 
     /**
@@ -66,35 +74,41 @@ class ItemsController extends Controller
      */
     public function store(Request $request)
     {
-       $input = Input::all();        
+       $input = Input::all();
         $this->validate($request, [
-            'company_name'  => 'required']);        
+            'title'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('company.create')
+            $hotel_id = $request['hotel_id'];
+            return Redirect::route('items.create',array('hotel_id' => $hotel_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
         }
         else
         {    
-            $company = new Company();
-            $company->company_name =  Input::get('company_name');
-            $company->save();            
+            $items = new Items();
+            $items->title =  Input::get('title');
+            $items->description =  Input::get('description');
+            $items->FHRSID =  $request['hotel_id'];
+            $items->category_id =  Input::get('category_id');
+            $items->is_visible =  Input::get('is_visible');
+            $items->display_order =  Input::get('display_order');
+            $items->save();            
 
             $log = new Log();
-            $log->module_id=5;
+            $log->module_id=8;
             $log->action='create';      
-            $log->description='Company ' . $company->company_name . ' is created';
+            $log->description='items ' . $items->title . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('company.index')->with('success','Company Created Successfully!');
+        return Redirect::route('items.index',array('hotel_id' => $items->FHRSID))->with('success','Item Created Successfully!');
         
         }
     }
@@ -116,15 +130,20 @@ class ItemsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         if($privileges['Edit'] !='true')
-            return Redirect::to('/');        
-        $company = Company::find($id);
-        return View('company.edit', compact('company'))
+            return Redirect::to('/');
+        $hotel_id = $request['hotel_id'];
+        $category = Category::all()->pluck('category_name','category_id');        
+        $items = Items::where('items.item_id',$id)->get();
+        return View('items.edit')
+        ->with('items',$items[0])
+        ->with('hotel_id',$hotel_id)
+        ->with('category',$category)
         ->with('privileges',$privileges);
     }
 
@@ -140,33 +159,34 @@ class ItemsController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-            'company_name'  => 'required']);
+            'title'  => 'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
         if ($validator->fails()) 
         {
-            return Redirect::route('company.edit',$id)
+            $hotel_id = $request['hotel_id'];
+            return Redirect::route('items.edit',$id,array('hotel_id' => $hotel_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('warning', 'There were validation errors');
         }
         else
         {   
-            $company = Company::find($id);
-            $company->company_name =  Input::get('company_name');
-            $company ->update();
+            Items::where('item_id','=',$id)
+             ->update(array('title'=> Input::get('title'),'description'=> Input::get('description'),'is_visible'=> Input::get('is_visible'),'FHRSID'=> $request['hotel_id'],'category_id'=>Input::get('category_id'),'display_order' => Input::get('display_order')
+                 ));
 
             $log = new Log();
-            $log->module_id=5;
+            $log->module_id=8;
             $log->action='update';      
-            $log->description='Company ' . $company->company_name . ' is updated';
+            $log->description='items ' . Input::get('title') . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('company.index')->with('success','Company Updated Successfully!');
+        return Redirect::route('items.index',array('hotel_id' => $request['hotel_id']))->with('success','Item Updated Successfully!');
         
         }
     }
@@ -179,24 +199,24 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-         $company = Company::find($id);
-        if (is_null($company))
+         $items = Items::where('item_id','=',$id)->get();
+        if (is_null($items))
         {
-         return Redirect::back()->with('warning','User Details Are Not Found!');
+         return Redirect::back()->with('warning','Item Details Are Not Found!');
         }
         else
         {
-           Company::find($id)->delete();
+           Items::where('item_id','=',$id)->delete();
             $log = new Log();
-            $log->module_id=5;
+            $log->module_id=8;
             $log->action='delete';      
-            $log->description='Company '. $company->company_name . ' is Deleted';
+            $log->description='Item '. $items->title . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','Company Deleted Successfully!');
+           return Redirect::back()->with('warning','Item Deleted Successfully!');
         }
     }
 }

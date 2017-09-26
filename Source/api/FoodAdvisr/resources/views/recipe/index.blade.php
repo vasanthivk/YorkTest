@@ -1,0 +1,66 @@
+@extends('layouts.master')
+@section('title')
+FoodAdvisr-Recipe
+@endsection
+@section('module')
+Recipe
+@endsection
+
+@section('content')
+@include('components.message')  
+<div class="row">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+                                <div class="panel-heading">          
+                                    <div class="btn-group pull-left">
+                                    @if($privileges['Add']=='true') 
+                                        <a href="recipe/create?item_id={{$item_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Recipe</a>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="panel-body">
+                                    <table id="customers2" class="table datatable">
+                                        <thead>
+                                            <tr>
+                                                <th>Ingredient</th>   
+                                                <th>Edit/Delete</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>                                                    @foreach($recipes as $recipe)
+                                    <tr>
+                                        <td>
+                                            {{$recipe->ingredient}}
+                                        </td> 
+                                        <td width="30%">
+                                            <div >
+                                                <!-- <div style="float:left;padding-right:10px;">
+                                                 @if($privileges['Edit']=='true')
+                                                {{ link_to_route('recipe.edit','Edit',array($recipe->id,'item_id' => $recipe->item_id), array('class' => 'btn btn-info')) }}
+                                                @endif 
+                                                </div> -->
+                                                <div style="float:left;padding-right:10px;">
+                                                   @if($privileges['Delete']=='true')
+                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('recipe.destroy', $recipe->id))) }}
+                                                    <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
+                                                    {{ Form::close() }}
+                                                   @endif
+                                                </div>
+                                               
+                                            </div>
+                                        </td>
+                                         </tr>
+                                    @endforeach
+                                        </tbody>
+                                    </table> 
+                                </div>
+                            </div>
+                            @isset($recipe->hotel_id)
+                                                         <div class="panel-heading">
+        <div class="btn-group pull-left">
+            <a href="../../items?hotel_id={{$recipe->hotel_id}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Items</a>
+        </div>
+    </div>
+    @endisset
+                        </div>
+                    </div>        
+@endsection
