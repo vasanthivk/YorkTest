@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Nutritions
+FoodAdvisr-Nutritions
 @endsection
 @section('module')
 Nutritions

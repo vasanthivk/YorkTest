@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Item
+FoodAdvisr-Items
 @endsection
 @section('module')
-Item
+Items
 @endsection
 
 @section('content')
