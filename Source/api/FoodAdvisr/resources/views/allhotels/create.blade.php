@@ -33,6 +33,7 @@ Hotels
 		        {{ Form::ahText('LocalAuthorityName','Local Authority Name :','',array("onchange"=>"getlatitudelongitude(this)",'maxlength'=> '1000'))  }}
 		        {{ Form::ahText('LocalAuthorityWebSite','Local Authority WebSite :','',array('maxlength' => '100'))  }}
 		        </br>
+            
 		    </div>
 		     <div class="col-md-6">
 		        {{ Form::ahText('LocalAuthorityEmailAddress','Local Authority EmailAddress :','',array('maxlength' => '100'))  }}		
@@ -43,11 +44,9 @@ Hotels
 		        {{ Form::ahNumber('Hygiene','Hygiene :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahNumber('Structural','Structural :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
 		        {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-
-		        <body style="margin:0px; padding:0px;" onload="initialize_map()"> 
- 					 <div id="canvas_create" style="width: 500px; height: 400px"></div> 
-  
-  				</body> 
+		     
+            <input id="searchInput" class="input-controls" type="text" placeholder="Enter a location">
+              <div id="map" style="width: 500px; height: 400px"></div>
 		        </br>
 		    </div>
 	    <div class="form-group">
@@ -60,128 +59,96 @@ Hotels
 	    </div>
 	 </div>
  </div>
-  <script type="text/javascript">  
-    function initialize_map() {
-  if(!!navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function(position) {
-                
-                    var geolocate = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                    
-                    var infowindow = new google.maps.InfoWindow({
-                        map: map,
-                        position: geolocate,
-                        content:
-                            '<h6>Your Current Location</h6>' +
-                            '<h6>Latitude: ' + position.coords.latitude + '</h6>' +
-                            '<h6>Longitude: ' + position.coords.longitude + '</h6>'
-                    });
-                    
-                    map.setCenter(geolocate);
-                    
-                });
-       geocoder = new google.maps.Geocoder();
-       var myOptions = {
-                   zoom: 18,
-                   // center: new google.maps.LatLng(13.288828765662416, 80.945261001586914),
-                   mapTypeControl: true,
-                   mapTypeControlOptions: {style: google.maps.MapTypeControlStyle.DROPDOWN_MENU},
-                   navigationControl: true,
-                   mapTypeId: google.maps.MapTypeId.ROADMAP
-             };
-        
-
-        
-        
-        map = new google.maps.Map(document.getElementById("canvas_create"), myOptions);
-     
-         // initialize marker
-       
-      var marker = new google.maps.Marker({
-        position: map.getCenter(),
-        draggable: true,
-        map: map
-      });
-      
-      // intercept map and marker movements
-      google.maps.event.addListener(map, "idle", function() {
-        marker.setPosition(map.getCenter());
-        
-        var latitude = map.getCenter().lat().toFixed(6);
-        var longitude = map.getCenter().lng().toFixed(6);
-        document.getElementById("Latitude").value = latitude;
-        document.getElementById("Longitude").value = longitude;
-        google.maps.event.trigger(map, "resize");
-      });
-      google.maps.event.addListener(marker, "dragend", function(mapEvent) {
-        map.panTo(mapEvent.latLng);
-        var geocoder = new google.maps.Geocoder;
-       geocoder.geocode({'location': mapEvent.latLng}, function(results, status) {
-          if (status === google.maps.GeocoderStatus.OK) {
-            if (results[1]) {
-       
-               document.getElementById("LocalAuthorityName").value = results[1].formatted_address;
-          
-            }
-        }
+ <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?sensor=false&libraries=places"></script>
+  <script>
+/* script */
+function initialize() {
+   var latlng = new google.maps.LatLng(51.509865,-0.118092);
+    var map = new google.maps.Map(document.getElementById('map'), {
+      center: latlng,
+      zoom: 13
     });
-      });
-      
-     
-     findAddress(document.getElementById("LocalAuthorityName").value);
-     }
-    }
+    var marker = new google.maps.Marker({
+      map: map,
+      position: latlng,
+      draggable: true,
+      anchorPoint: new google.maps.Point(0, -29)
+   });
+    var input = document.getElementById('searchInput');
+    map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
+    var geocoder = new google.maps.Geocoder();
+    var autocomplete = new google.maps.places.Autocomplete(input);
+    autocomplete.bindTo('bounds', map);
+    var infowindow = new google.maps.InfoWindow();   
+    autocomplete.addListener('place_changed', function() {
+        infowindow.close();
+        marker.setVisible(false);
+        var place = autocomplete.getPlace();
+        if (!place.geometry) {
+            window.alert("Autocomplete's returned place contains no geometry");
+            return;
+        }
   
-function findAddress(address) {
-  if ((address != '') && geocoder) {
-    geocoder.geocode( { 'address': address}, function(results, status) {
-      if (status == google.maps.GeocoderStatus.OK) {
-        if (status != google.maps.GeocoderStatus.ZERO_RESULTS) {
-          if (results && results[0]
-            && results[0].geometry && results[0].geometry.viewport)
-            map.fitBounds(results[0].geometry.viewport);
+        // If the place has a geometry, then present it on a map.
+        if (place.geometry.viewport) {
+            map.fitBounds(place.geometry.viewport);
         } else {
-          alert("No results found");
+            map.setCenter(place.geometry.location);
+            map.setZoom(17);
         }
-      } else {
-        // alert("Geocode was not successful for the following reason: " + status);
-      }
-    });
-  }
-} 
-  
-</script>
-  
-  <script type="text/javascript">
-  $( document ).ready(function() {
-    $( "#country_name" ).blur(function() {
-      var address = $("#country_name").val();
-      findAddress(address);
-    });
-    $( "#state" ).blur(function() {
-      var address = $("#country_name").val()+' '+$("#state").val();
-      findAddress(address);
-    });
+       
+        marker.setPosition(place.geometry.location);
+        marker.setVisible(true);          
     
-    $( "#LocalAuthorityName" ).blur(function() {
-      var address = $("#LocalAuthorityName").val()+' '+$("#state").val()+' '+$("#country_name").val();
-      findAddress(address);
+        bindDataToForm(place.formatted_address,place.geometry.location.lat(),place.geometry.location.lng());
+        infowindow.setContent(place.formatted_address);
+        infowindow.open(map, marker);
+       
     });
-
-    $( "#area" ).blur(function() {
-      var address = $("#area").val()+' '+$("#LocalAuthorityName").val()+' '+$("#state").val()+' '+$("#country_name").val();
-      findAddress(address);
+    // this function will work on marker move event into map 
+    google.maps.event.addListener(marker, 'dragend', function() {
+        geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+        if (status == google.maps.GeocoderStatus.OK) {
+          if (results[0]) {        
+              bindDataToForm(results[0].formatted_address,marker.getPosition().lat(),marker.getPosition().lng());
+              infowindow.setContent(results[0].formatted_address);
+              // infowindow.open(map, marker);
+          }
+        }
+        });
     });
-
-    $( "#street_name" ).blur(function() {
-      var address = $("#street_name").val()+' '+$("#area").val()+' '+$("#LocalAuthorityName").val()+' '+$("#state").val()+' '+$("#country_name").val();
-      findAddress(address);
-    });   
-    
-    
-  });
-  
-  </script>
-     <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&callback=initialize_map">
+}
+function bindDataToForm(address,lat,lng){
+   document.getElementById('LocalAuthorityName').value = address;
+   document.getElementById('Latitude').value = lat;
+   document.getElementById('Longitude').value = lng;
+}
+google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
+
+<style type="text/css">
+    .input-controls {
+      margin-top: 10px;
+      border: 1px solid transparent;
+      border-radius: 2px 0 0 2px;
+      box-sizing: border-box;
+      -moz-box-sizing: border-box;
+      height: 32px;
+      outline: none;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    }
+    #searchInput {
+      background-color: #fff;
+      font-family: Roboto;
+      font-size: 15px;
+      font-weight: 300;
+      margin-left: 12px;
+      padding: 0 11px 0 13px;
+      text-overflow: ellipsis;
+      width: 50%;
+    }
+    #searchInput:focus {
+      border-color: #4d90fe;
+    }
+</style>
 @endsection
