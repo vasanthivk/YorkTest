@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>AdvisrTech</title>
+    <meta http-equiv="Content-Security-Policyx" content="
+default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsafe-inline' http://connect.facebook.net; style-src 'self' data: 'unsafe-inline'; img-src *; font-src * data:; connect-src * 'self' https://api.foodadvisr.com; frame-src 'self' https://staticxx.facebook.com http://staticxx.facebook.com;"/>
+<meta name="viewport" content="initial-scale=1, maximum-scale=1,width=device-width,">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+      <link rel="stylesheet" type="text/css" href="css/ratchet.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/ratchet-theme-ios.min.css" />
+    <link rel="stylesheet" type="text/css" href="css/swiper.css" />
+    <link rel="stylesheet" type="text/css" href="css/slide.css" />
+    <link rel="stylesheet" type="text/css" href="css/index.css" />
+    <link rel="stylesheet" type="text/css" href="css/skin1.css" />
+    <link rel="stylesheet" type="text/css" href="css/skin2.css" />
+    <link rel="stylesheet" type="text/css" href="css/intro.css" />
+    <link rel="stylesheet" type="text/css" href="css/retail.css" />
+    <link rel="stylesheet" type="text/css" href="css/share.css" />
+    <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+
+    <script type="text/javascript" src="cordova.js"></script>
+    <script type="text/javascript" src="js/settings.js"></script>
+    <script type="text/javascript" src="js/api.js"></script>
+
+    <script type="text/javascript" src="jslibs/jquery311.js"></script>
+    <script type="text/javascript" src="jslibs/timeago.js"></script>
+    <script type="text/javascript" src="jslibs/fastclick.js"></script>
+    <script type="text/javascript" src="jslibs/swiper.js"></script>
+    <script type="text/javascript" src="jslibs/swipe.js"></script>
+    <script type="text/javascript" src="jslibs/tinysort.js"></script>
+    <script type="text/javascript" src="jslibs/md5.js"></script>
+    <script type="text/javascript" src="js/progress.js"></script>
+    <script type="text/javascript" src="js/data.js"></script>
+    <script type="text/javascript" src="js/barcode.js"></script>
+    <script type="text/javascript" src="js/sliders.js"></script>
+    <script type="text/javascript" src="js/engine.js"></script>
+    <script type="text/javascript" src="js/lib1.js"></script>
+    <script type="text/javascript" src="js/lib.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/start.js"></script>
+    <script type="text/javascript" src="js/menu.js"></script>
+    <script type="text/javascript" src="js/share.js"></script>
+    <script type="text/javascript" src="js/skin.js"></script>
+
+
+  </head>
+  <body>
+
+    <div class="mode-switch-wrap">
+      <p>You can select Shopping to scan products in shops or Eating to view and compare menus</p>
+      <div class="mode-switch-50 act-set-mode" data-mode="shopping">
+        <i class="fa fa-shopping-cart" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
+        <a href="#">Shopping</a>
+      </div>
+      <div class="mode-switch-50 act-set-mode" data-mode="eating">
+        <i class="fa fa-cutlery" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
+        <a href="#">Eating</a>
+      </div>
+    </div>
+
+    <div class="swiper-container hide">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <div class="swiper-slide-inner">
+                <h2>Welcome to <span class="targ-title-replace">ADVISRTECH!</span></h2>
+                <p>We help you to make safe food choices that you can trust that are right for your needs</p>
+                <img class="swiper-slide-inner-logo targ-logo-replace slide-logo-big" src="img/logofoodadvisr.svg" alt=""/>
+                <i class="fa fa-hand-pointer-o helping-hand" aria-hidden="true"></i>
+              </div>
+            </div><!--slide1-->
+
+            <div class="swiper-slide">
+                <div class="swiper-slide-inner">
+                  <div class="swiper-icon">
+                    <img src="img/sq-allergen.svg" alt="" style="width:24vw"/>
+                  </div>
+                  <h2>ALLERGIES</h2>
+                  <p>Simply toggle the allergen choices to set your food allergies which will be used on every scan you do. If you see the black A square, the food contains allergens that are not safe for you!</p>
+                  <a href="#" class="act-intro-restart swiper-slide-links cancel-clear">Start intro again</a>
+                  <img class="swiper-slide-bottom-logo targ-logo-replace slide-logo-small" src="img/foodadvisrwide.svg" alt=""/>
+                </div>
+            </div><!--slide3-->
+
+            <div class="swiper-slide">
+                <div class="swiper-slide-inner">
+                  <div class="swiper-icon">
+                    <img src="img/sq-may.svg" alt="" style="width:24vw"/>
+                  </div>
+                  <h2>‘MAY CONTAIN’ ALLERGIES</h2>
+                  <p>If you see the ‘May Contain’ sign, it means that there is a possibility that the food scanned or browsed could contain allergens that you have selected as a problem for you.  We’d recommend that you avoid eating these foods.
+</p>
+                  <a href="#" class="act-intro-restart swiper-slide-links cancel-clear">Start intro again</a>
+                  <img class="swiper-slide-bottom-logo targ-logo-replace slide-logo-small" src="img/foodadvisrwide.svg" alt=""/>
+                </div>
+            </div><!--slide3-->
+
+
+            <div class="swiper-slide">
+              <div class="swiper-slide-inner">
+                <div class="swiper-icon">
+                  <img src="img/sq-intol.svg" alt="" style="width:24vw"/>
+                </div>
+                <h2>Intolerances and dislikes</h2>
+                <p>If you see the exclamation mark it means that the food you selected contains something you toggled in the ‘Intolerances’ list.  You may want to avoid eating this food.  </p>
+                <a href="#" class="act-intro-restart swiper-slide-links cancel-clear">Start intro again</a>
+                <img class="swiper-slide-bottom-logo targ-logo-replace slide-logo-small" src="img/foodadvisrwide.svg" alt=""/>
+              </div>
+            </div><!--slide4-->
+
+            <div class="swiper-slide">
+              <div class="swiper-slide-inner">
+                <div class="swiper-icon">
+                  <i class="fa fa-bar-chart" aria-hidden="true" style="color:#808080;font-size:25vw;"></i>
+                </div>
+                <h2>Profiles List</h2>
+                <p>
+                  FoodAdvisr not only lets you set up your allergies and intolerances, but also allows you to select pre-built health profiles, which have certain ingredients automatically selected for exclusion, in line with current advice on food that may affect that condition.  These profiles are built by our highly qualified and experienced nutritionists, but you should still check that the profile you select is right for you.
+                  Note:  your allergy settings are MERGED with the pre-built profiles, so you can be sure that your are eating safely.
+                </p>
+                <a href="#" class="act-intro-restart swiper-slide-links cancel-clear">Start intro again</a>
+                <img class="swiper-slide-bottom-logo targ-logo-replace slide-logo-small" src="img/foodadvisrwide.svg" alt=""/>
+              </div>
+            </div>
+
+
+              <div class="swiper-slide">
+                <div class="swiper-slide-inner">
+                  <div class="swiper-icon">
+                    <i class="fa fa-users" aria-hidden="true" style="color:#808080;font-size:25vw;"></i>
+                  </div>
+                  <h2>Communities</h2>
+                  <p>
+Many of our users have specific needs, and may be members of groups that reflect their lifestyle – this could be health issues such as Diabetes or Heart, or fitness such as your sport or activity hobby.
+You can select membership of a range of communities to belong to, which allows you to share your good news stories about your food scans, and also see the findings and recommendations of others in your chosen Communities.
+
+                  </p>
+                  <a href="#" class="act-intro-restart swiper-slide-links cancel-clear">Start intro again</a>
+                  <img class="swiper-slide-bottom-logo targ-logo-replace slide-logo-small" src="img/foodadvisrwide.svg" alt=""/>
+                </div>
+              </div>
+
+
+            <div class="swiper-slide">
+                <div class="swiper-slide-inner">
+                  <img class="swiper-slide-inner-logo targ-logo-replace slide-logo-med" src="img/foodadvisrwide.svg" alt=""/>
+                  <h3>Start checking the food you eat now!</h3>
+                  <h3  class="act-intro-go">Click here to use <span class="targ-title-replace">AdvisrTech</span></h3>
+                  <a href="#" class="act-intro-go  cancel-clear">
+                    <svg class="intro-logo" accesskey=""id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 313.88 499.64">
+                      <g>
+                        <path id="thumby" class="advisr-thumb" d="M31.92,408.24H96.85a120,120,0,0,0,0-240.08H31.92a31.49,31.49,0,0,0,0,63H96.85a57.07,57.07,0,1,1,0,114.13H31.92a31.49,31.49,0,0,0,0,63Z" transform="translate(-0.43 -0.36)"/>
+                        <path class="advisr-thumb" d="M31.92,319.68H98.83a31.48,31.48,0,0,0,0-63H31.92a31.48,31.48,0,1,0,0,63Z" transform="translate(-0.43 -0.36)"/>
+                        <path class="advisr-thumb" d="M33.77,500H102.5c116.79,0,211.81-95,211.81-211.8S219.3,76.39,102.5,76.39c-10.06,0-21.64,0-35.41.08h-.68V33a32.65,32.65,0,0,0-65.3,0v76.32A32.75,32.75,0,0,0,33.42,142H34c26.08-.18,49.13-.26,68.51-.26,80.78,0,145.15,65.72,145.15,146.51S183.29,434.69,102.5,434.69H33.77a32.65,32.65,0,0,0,0,65.31Z" transform="translate(-0.43 -0.36)"/>
+                      </g>
+                    </svg>
+
+                </a>
+                </div>
+            </div><!--slide6-->
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+
+    <div class="reloader">
+      <i class="fa fa-refresh  fa-3x fa-fw"></i>
+    </div>
+    <div class="preview overlay-hide">
+    </div>
+    <div class="startupwhite">
+      <div class="signup-welcome-inner">
+        <!--
+        <img src="img/logofoodadvisr.svg"/>
+        <h5>Welcome to <b>FoodAdvisr</b></h5>
+        <h6>Quicr | Informed | Choices</h6>
+      -->
+      </div>
+
+    </div>
+    <div class="qsr-basket"><span>2 Items selected </span><a href="#scanner" class="qsr-comp act-menu">Compare</a></a></div>
+
+    <div class="signup-panel signup-signin">
+      <div class="signup-welcome-outer">
+        <div class="signup-welcome-inner">
+          <h5>Welcome to</h5>
+          <img class="login-logo targ-logo-replace" src="img/foodadvisrwide.svg"/>
+          <div class="loginpanel form-login ">
+            <h3>Waiting for network</h3>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="signup-panel signup-signinx">
+      <div class="signup-welcome-outer">
+        <div class="signup-welcome-inner">
+          <h5>Welcome to</h5>
+          <img class="login-logo targ-logo-replace" src="img/foodadvisrwide.svg"/>
+          <div class="loginpanel form-login ">
+            <h3>Sign in</h3>
+            <form>
+              <input class="targ-login-email act-login-field" type="text" placeholder="Email Address" id="email" value="">
+              <input class="act-login-field" type="password" placeholder="Password" id="password" value="">
+              <button class="btn btn-block btn-orange act-login-login">Login</button>
+
+
+              <p class="option">Or</p>
+              <a href="#signup" class="btn btn-block btn-orange act-login-item">Sign Up</a>
+              <a href="#reset" class="act-login-item link">Forgotten Password?</a>
+            </form>
+          </div>
+          <div class="loginpanel form-reset hide">
+            <h3>Password reset</h3>
+            <input class="act-login-field" type="text" placeholder="Email Address" id="email" value="">
+            <button class="btn btn-block btn-orange act-login-reset">Reset Password</button>
+            <a href="#signin" class="act-login-item link">Cancel</a>
+          </div>
+          <div class="loginpanel form-signup hide">
+            <h3>Sign Up</h3>
+            <input class="act-login-field" type="text" placeholder="Email Address" id="email" value="">
+            <input class="act-login-field" type="password" placeholder="Password" id="password" value="">
+            <input class="act-login-field" type="password" placeholder="Password" id="passwordconf" value="">
+            <button class="btn btn-block btn-orange act-login-signup">Sign Up</button>
+            <a href="#signin" class="act-login-item link">Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <a href="#scanner" class="recalc-ball act-menu recalc-ball-fade"><span class="icon icon-refresh"></span></a>
+    <div class="signup-panel signup-welcome">
+      <div class="signup-welcome-outer">
+        <div class="signup-welcome-inner welcome">
+          <h5>Welcome to</h5>
+          <div id="signup-welcome"></div>
+          <img src="img/foodadvisrwide.svg" alt="" class="act-click-hide splash-img targ-logo-replace"/>
+          <div class="signup-welcome-buttons">
+          <a href="#" class="act-hide-welcome">
+            <span class="icon icon-right-nav"></span>
+            <p>Read our User terms to start <br/>informing your choices</p></a>
+        </div>
+      </div>
+    </div>
+      </div>
+    </div>
+
+    <div class="terms-panel signup-terms hide">
+      <div class="scrollme">
+      <h5>Our terms and conditions</h5>
+      <h4 class="targ-terms-pre terms-pre-h4"></h4>
+      <div id="signup-terms"></div>
+    </div>
+        <div class="panel-next act-accept-terms">I Accept these terms <span class="icon icon-right-nav"></span>
+        </div>
+    </div>
+
+
+    <div class="signup-panel signup-allergens">
+      <div class="scrollme">
+        <h5>Please tell us about any allergies you may have.</h5>
+        <div id="signup-allergens"></div>
+      </div>
+      <div class="panel-next act-next-allergens">Next <span class="icon icon-right-nav"></span>
+      </div>
+    </div>
+
+
+    <div class="error-count">0</div>
+    <div class="error-list"></div>
+    <div class="message"></div>
+    <div class="detailpop"><div class="closer act-hide-parent">X</div><div class="detail-targ"></div></div>
+    <div class="accountpop">
+      <div class="accountpop-top">
+      <label>My Account</label>
+      <div class="account-email">user@foodadvisr.com</div>
+        <div class="account-handle"></div>
+
+      </div>
+      <div class="main-menu-items">
+      <!--
+      <a href="#" class="act-change-password"><span class="icon icon-person"></span> Change password</a>
+    -->
+      <a href="#" class="no-border act-del-profile"><span class="icon icon-trash icon-red"></span> Delete account</a>
+      <!--
+      <h6></h6>
+      <a href="#" class="act-log-off"><span class="icon icon-person"></span> Log Off</a>
+      <h6></h6>
+    -->
+      <a href="#myshares" class="act-menu"><span class="icon icon-edit"></span>My Posts</a>
+      <a href="#communities" class="act-menu"><span class="icon icon-edit"></span>My Communities</a>
+      <a href="#feedback" class="act-menu"><span class="icon icon-edit"></span>Feedback</a>
+      <a href="#" data-url="http://www.foodadvisr.com/faqs" class="navLink"><span class="icon icon-edit"></span>FAQs</a>
+      <a href="#" data-url="http://www.foodadvisr.com" class="navLink"><span class="icon icon-edit"></span>Website</a>
+      <a href="#newterms" class="act-menu"><span class="icon icon-edit"></span>Terms</a>
+      <a href="#newterms" class="act-intro-show"><span class="icon icon-edit"></span>Show Tutorial</a>
+      <a href="#" class="act-help"><span class="icon icon-edit"></span>Help</a>
+
+
+
+
+
+
+    </div>
+
+
+
+
+
+<h6></h6>
+<div class="version ">Version <span class="show-version"></span></div>
+<div class="act-toggle-barcodes" style="width:100%;height:30px;">&nbsp;</div>
+<div class="hide-barcodes">
+      <a href="#" data-barcode="50184385" class="act-barcode-list"><i class="fa fa-barcode famenu" aria-hidden="true"></i>Marmite</a>
+      <a href="#" data-barcode="5026489488981" class="act-barcode-list"><i class="fa fa-barcode famenu" aria-hidden="true"></i>May contain</a>
+      <a href="#" data-barcode="5012174010414" class="act-barcode-list"><i class="fa fa-barcode famenu" aria-hidden="true"></i>May contain</a>
+      <a href="#" data-barcode="0246133004432" class="act-barcode-list"><i class="fa fa-barcode famenu" aria-hidden="true"></i>Catch weight</a>
+      <a href="#" data-barcode="0077544000308" class="act-barcode-list"><i class="fa fa-barcode famenu" aria-hidden="true"></i>Peanut</a>
+      <a href="#" data-barcode="5000169120231" class="act-barcode-list"><i class="fa fa-barcode famenu" aria-hidden="true"></i>Coconut Milk</a>
+
+
+
+</div>
+    </div>
+    <div class="overlay"></div>
+    <div class="help-overlay"><div class="help-inner"></div></div>
+
+    <div class="midpop overlay-hide"></div>
+
+    <a href="#" class="scan-btn act-start-scan loggedin scan-btn-startpos">SCAN</a>
+
+    <a href="#allergensx" class="act-menu intro-button intro-button-right">Settings</a>
+    <a href="#" class="act-intro-show intro-button intro-button-left">Tutorial</a>
+
+
+
+    <nav class="bar bar-tab bottom-menu loggedin">
+      <a class="tab-item act-menu " href="#allergensx">
+      <span class="icon">
+        A
+    </span>
+
+
+
+        <span class="tab-label">Allergies</span>
+      </a>
+
+      <a class="tab-item act-menu" href="#intolerances">
+        <span class="icon">
+          <i class="fa fa-list-ul" aria-hidden="true" style="color:white;font-size:1.5rem;"></i>
+      </span>
+
+
+        <span class="tab-label">Ingredients</span>
+      </a>
+      <a class="tab-item act-menu" href="#share">
+        <span class="tab-label">&nbsp;</span>
+      </a>
+      <a class="tab-item act-menu hide targ-testing" href="#testing">
+        <span class="icon icon-gear"></span>
+        <span class="tab-label">Testing</span>
+      </a>
+      <a class="tab-item act-menu targ-bay4" href="#retail" data-extra="shopping"><!--was #myxyz-->
+        <span class="icon">
+          <i class="fa fa-shopping-cart" aria-hidden="true"  style="color:white;font-size:1.5rem;"></i>
+      </span>
+        <span class="tab-label">Retail</span>
+      </a>
+      <a class="tab-item act-menu" data-extra="list" href="#profile">
+        <span class="icon">
+          <i class="fa fa-universal-access" aria-hidden="true"   style="color:white;font-size:1.5rem;"></i>
+      </span>
+        <span class="tab-label">Profiles</span>
+      </a>
+    </nav>
+
+
+
+
+
+
+
+    <header class="bar bar-nav quicr-blue loggedin">
+      <button href="#newscan" class="xxoption-scan btn btn-link btn-nav pull-left act-start-new hide">
+          <span class="icon icon-info"></span>
+          New Scan
+        </button>
+        <button href="#myaccount" class="small-nav btn btn-link btn-nav pull-left act-my-account xoption-account">
+            <span class="icon icon-person"></span>
+            Account
+          </button>
+          <a href="#scanner" class="act-menu">
+              <h1 class="title act-switch-modes" id="targ-title">
+                <span class="targ-title-change">AdvisrTech</span>
+                <span class="icon icon-caret hide targ-mode-option pulse-icon pulse"></span>
+              </h1>
+          </a>
+      <button href="#help" class="option-scan-results btn btn-link btn-nav pull-right act-scan-results">
+          Results
+          <span class="icon icon-refresh"></span>
+        </button>
+
+        <button href="#help" class="option-clear-scan btn btn-link btn-nav pull-right act-start-new hide">
+            New Scan
+            <span class="icon icon-play"></span>
+          </button>
+
+
+        <!--
+                  icon icon-play
+                -->
+
+
+    </header>
+
+
+
+    <div class="content"><!--start of main content-->
+      <!--
+        <a href="#scanner" class="scan-results-button act-menu hide">Scan Results</a>
+      -->
+        <div class="active-bar">
+          <div class="active-profile act-view-profile active-profile-btn">...</div>
+          <div class="active-profile-sel act-select-profile">
+            Profile List
+          </div>
+        </div>
+
+
+        <div class="ctpanel loggedin helpable" id="ct-scanner">
+          <div class="help-text" data-href="10">10 Help for scanner page</div>
+<!--
+          <div class="scan-buttons">
+              <a href="#" class="btn-half act-re-quicr">Re-calculate</a>
+             <a href="#" class="btn-half act-start-scan no-puff">Add Item</a>
+         </div>
+  -->
+          <br/>
+          <div class="card noborder newscan listisempty" id="list">
+
+          </div>
+          <div class="emptylister">
+              <h4>No Scanned Items</h4>
+              <p>Click the barcode button below to scan an item.</p>
+
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide" id="ct-settings">
+          <h3>My Settings</h3>
+          <div class="tabs act-settings-tabs">
+              <!--
+              <a href="#subtab-details" class="selected">Account</a>
+            -->
+              <a href="#subtab-allergens" class="stab-allergens selected">Allergens</a>
+              <a href="#subtab-intolerances">Intolerances</a>
+              <a href="#subtab-downloads" class="presets">Preset Profiles</a>
+              <a href="#subtab-terms">Terms</a>
+          </div>
+          <div class="subtabs settings">
+            <div class="subtab helpable" id="subtab-allergens">
+              <div class="help-text" data-href="02">02 Help for my allergens sub panel</div>
+              <div id="allergenlist"></div>
+            </div>
+
+            <div class="subtab  hide helpable" id="subtab-intolerances">
+              <div class="help-text" data-href="03">03 Help for my allergens sub panel</div>
+              <div id="intolerancelist"></div>
+            </div>
+
+
+            <div class="subtab hide helpable" id="subtab-terms">
+              <div class="help-text" data-href="04">04 Help for my terms sub panel</div>
+              <div id="targ-terms"></div>
+
+            </div>
+
+            <div class="subtab hide helpable" id="subtab-downloads">
+              <div class="help-text"  data-href="05">05 Help for my profiles sub panel</div>
+              <h5>Profile Downloads</h5>
+              <ul class="table-view targ-download-list" id="targ-download-list">
+              </ul>
+
+            </div>
+        </div>
+
+        </div>
+
+        <div class="ctpanel hide passchange" id="ct-userreg">
+          <div class="logosvgx"></div>
+          <h5><b><span class="targ-title-replace">AdvisrTech</span></b></h5>
+
+          <h6>Quicr | Informed | Choices</h6>
+          <br/>
+
+          <div class="loginpanel form-change hide">
+            <h3>Change password</h3>
+            <input type="password" placeholder="Existing password" id="oldpassword" value="">
+            <input type="password" placeholder="New password" id="newpassword" value="">
+            <input type="password" placeholder="New password to confirm" id="newpasswordconf" value="">
+
+            <div class="">
+                <a href="" class="act-login-change btn-create-new">Change Password</a>
+            </div>
+            <div class="targ-pass-change"></div>
+          </div>
+        </div>
+
+
+        <div class="ctpanel loggedin hide" id="ct-downloads">
+          <h3>Downloads</h3>
+          <div class="box noborder">
+            If you would like <span class="targ-title-replace">AdvisrTech</span> to recommend specific branded products to you that meet your profile, please move the switch below to ‘Yes’
+            <br/><br/>
+            <ul class="table-view">
+              <li class="table-view-cell">
+                Branded product recommendation
+                <div class="toggle">
+                  <div class="toggle-handle"></div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="box noborder">
+          <div id="download-settings" class="settings"></div>
+        </div>
+        </div>
+        <div class="ctpanel loggedin hide helpable" id="ct-myxyz">
+            <div class="help-text" data-href="12">12 Help for QSR Menu</div>
+
+            <div class="ct-menu-target"></div>
+
+            <br/>
+            <br/>
+
+
+
+
+        </div>
+
+
+        <div class="ctpanel loggedin hide" id="ct-myaccount">
+          <div id="myaccountdetail">
+            <h5>My Account</h5>
+            <form>
+              <label>My Email address</label>
+              <input type="text" placeholder="Email Address" id="email" value="">
+              <label>My Password</label>
+              <input type="password" placeholder="Password" id="password" value="">
+              <div class="bbar">
+                  <a href="" class="act-login-change">Change Password</a>
+                  <a href="" class="act-login-logoff">Log Off</a>
+              </div>
+              <div class="bbar">
+                <a href="" class="act-start-facebook">Facebook start</a>
+                <a href="" class="act-debug-cleardb">Clear Phone data</a>
+              </div>
+              <div class="bbar">
+                <a href="" class="act-barcode-test1">Barcode dl</a>
+                <a href="" class="act-barcode-test">Barcode bb</a>
+              </div>
+              <div class="test2">...</div>
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide helpable" id="ct-allergensx">
+          <div class="help-text" data-href="16">16</div>
+          <h3>Allergens</h3>
+          <div class="allergens-innerx inner-frame">
+
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide helpable" id="ct-intolerances">
+          <div class="help-text" data-href="17">17</div>
+          <h3>Intolerances</h3>
+          <div class="intolerances-innerx inner-frame">
+
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide helpable" id="ct-newterms">
+          <div class="help-text" data-href="20">20</div>
+          <h3>Terms</h3>
+          <div class="terms-innerx inner-frame">
+          </div>
+        </div>
+
+
+
+        <div class="ctpanel loggedin hide" id="ct-retail">
+
+          <div id="retail-space">Retail space</div>
+        </div>
+
+
+        <div class="ctpanel loggedin hide" id="ct-item">
+          <h3>Retailers</h3>
+          <div id="itemdetail"></div>
+        </div>
+
+
+        <div class="ctpanel loggedin hide helpable" id="ct-feedback">
+          <div class="help-text" data-href="15">15</div>
+          <div class="feedback-inner">
+            <h3>Your Feedback</h3>
+            <p>Please tell us about how the app is working for you</p>
+            <textarea id="feedback-text" placeholder="Please enter your feedback here"></textarea>
+            <a href="#" class="btn-create-new act-send-feedback">Send Feedback</a>
+            <div class="feedback-list">
+            </div>
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide helpable" id="ct-myshares">
+          <div class="help-text" data-href="26">26</div>
+          <div class="share-inner">
+            <h3>My Posts</h3>
+            <div class="share-list">
+            </div>
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide helpable" id="ct-communities">
+          <div class="help-text" data-href="22">22</div>
+          <div class="share-inner">
+            <h3>Communities</h3>
+            <div class="targ-comm-list">
+              clist
+            </div>
+          </div>
+        </div>
+
+        <div class="ctpanel loggedin hide helpable" id="ct-profile">
+        <div class="targ-myprofiles">
+        </div>
+      </div>
+    </div><!--content-->
+
+<div class="maycontain-data hide">
+    <svg class="maycontain" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+    	 viewBox="0 0 283.5 283.5" style="enable-background:new 0 0 283.5 283.5;" xml:space="preserve">
+    <style type="text/css">
+    	.may2{fill:#FFFFFF;}
+    </style>
+    <circle class="may0" cx="142.2" cy="141.6" r="123.8"/>
+    <line class="may1" x1="220.4" y1="62.9" x2="63" y2="220.3"/>
+    <g>
+    	<path class="may2" d="M66.2,203.2l2.1,2.1c-0.7-2.5,0-4.7,1.9-6.7c1-1,2.2-1.7,3.5-2c1.3-0.3,2.6-0.2,4,0.3
+    		c-0.4-1.4-0.5-2.7-0.1-4.1c0.3-1.3,1-2.5,2.1-3.6c1.5-1.5,3.2-2.2,5.2-2.2c1.9,0,3.8,0.9,5.6,2.7l7.8,7.8l-2.2,2.2l-7.5-7.5
+    		c-1.3-1.3-2.7-2-4-2.1c-1.3,0-2.6,0.5-3.7,1.6c-1.1,1.1-1.7,2.4-1.6,3.7c0,1.3,0.7,2.7,2.1,4l7.5,7.5l-2.2,2.2l-7.5-7.5
+    		c-1.3-1.3-2.7-2-4-2.1c-1.3,0-2.6,0.5-3.7,1.6c-1.1,1.1-1.7,2.4-1.6,3.7c0,1.3,0.7,2.7,2.1,4l7.5,7.5l-2.2,2.2L64,205.4L66.2,203.2
+    		z"/>
+    	<path class="may2" d="M100.5,191.9c-2.5-0.1-4.7-1.1-6.8-3.1s-3-4.2-3.1-6.7c0-2.4,0.8-4.6,2.6-6.4c1.1-1.1,2.4-1.8,3.7-2.2
+    		c1.4-0.3,2.7-0.3,4,0.2l-2.6-2.6l2.2-2.2l13.2,13.2l-2.2,2.2l-2.7-2.7c0.4,1.3,0.5,2.6,0.2,4c-0.3,1.4-1,2.6-2.1,3.8
+    		C105.1,191.1,103,192,100.5,191.9z M107.3,182.5c0-1.8-0.8-3.4-2.3-4.9c-1.5-1.5-3.1-2.2-4.9-2.3c-1.8,0-3.3,0.6-4.5,1.8
+    		c-1.2,1.2-1.8,2.7-1.9,4.4c0,1.7,0.7,3.4,2.2,4.8c1.5,1.5,3.1,2.3,5,2.3c1.8,0,3.3-0.5,4.5-1.8
+    		C106.7,185.8,107.3,184.3,107.3,182.5z"/>
+    	<path class="may2" d="M120.4,175l-18.2-7.8l2.4-2.4l14.7,6.6l-6.6-14.8l2.3-2.3l11.4,27.3l-2.3,2.3L120.4,175z"/>
+    	<path class="may2" d="M135.8,156.7c-2.4-0.1-4.7-1.1-6.7-3.2c-2-2-3.1-4.3-3.2-6.7s0.8-4.6,2.7-6.5c1.6-1.6,3.2-2.5,5-2.8
+    		c1.7-0.3,3.5,0.1,5.3,1l-2.4,2.4c-1-0.5-2.1-0.7-3.1-0.5c-1.1,0.2-2,0.7-3,1.7c-1.3,1.3-1.8,2.7-1.7,4.3c0.1,1.6,1,3.2,2.6,4.8
+    		c1.6,1.6,3.2,2.4,4.8,2.6c1.6,0.1,3.1-0.5,4.3-1.7c1.9-1.9,2.3-3.9,1.2-6.1l2.4-2.4c0.9,1.7,1.2,3.4,1,5.2c-0.2,1.8-1.1,3.5-2.7,5
+    		C140.4,155.8,138.2,156.8,135.8,156.7z"/>
+    	<path class="may2" d="M149.8,142.7c-2.5,0-4.7-1.1-6.7-3.1c-2-2-3.1-4.3-3-6.8c0-2.5,1-4.7,2.9-6.6c1.9-1.9,4.1-2.9,6.6-2.9
+    		c2.5,0,4.8,1,6.8,3c2,2,3,4.3,2.9,6.9c-0.1,2.6-1.1,4.8-3,6.7C154.4,141.8,152.2,142.7,149.8,142.7z M154.5,138.1
+    		c1.2-1.2,1.9-2.7,1.9-4.5c0-1.8-0.8-3.5-2.3-5c-1.6-1.6-3.2-2.4-5-2.4s-3.2,0.6-4.5,1.8c-1.2,1.2-1.8,2.7-1.8,4.4s0.9,3.4,2.4,4.9
+    		c1.6,1.6,3.2,2.4,4.9,2.5C151.8,139.9,153.3,139.3,154.5,138.1z"/>
+    	<path class="may2" d="M154.2,115.2l2.1,2.1c-0.7-2.5,0-4.7,1.9-6.7c1.5-1.5,3.2-2.2,5.1-2.2c1.9,0,3.8,0.9,5.6,2.7l7.8,7.8l-2.2,2.2
+    		l-7.5-7.5c-1.3-1.3-2.7-2-4-2.1c-1.3,0-2.6,0.5-3.7,1.6c-1.1,1.1-1.7,2.4-1.6,3.7c0,1.3,0.7,2.7,2.1,4l7.5,7.5l-2.2,2.2L152,117.4
+    		L154.2,115.2z"/>
+    	<path class="may2" d="M182.4,109.9l1.8-1.8l1.8,1.8l-2.2,2.2c-2.3,2.3-4.6,2.3-6.8,0l-8-8l-1.7,1.7l-1.8-1.8l1.7-1.7l-3.3-3.3
+    		l2.2-2.2l3.3,3.3l3.4-3.4l1.8,1.8l-3.4,3.4l8,8c0.6,0.6,1.1,0.9,1.6,0.9C181.2,110.8,181.8,110.5,182.4,109.9z"/>
+    	<path class="may2" d="M187.1,105.3c-2.5-0.1-4.7-1.1-6.8-3.1c-2-2-3-4.2-3.1-6.7c0-2.4,0.8-4.6,2.6-6.4c1.1-1.1,2.4-1.8,3.7-2.2
+    		c1.4-0.3,2.7-0.3,4,0.2l-2.6-2.6l2.2-2.2l13.2,13.2l-2.2,2.2l-2.7-2.7c0.4,1.3,0.5,2.6,0.2,4c-0.3,1.4-1,2.6-2.1,3.8
+    		C191.7,104.5,189.6,105.4,187.1,105.3z M193.8,95.9c0-1.8-0.8-3.4-2.3-4.9c-1.5-1.5-3.1-2.2-4.9-2.3c-1.8,0-3.3,0.6-4.5,1.8
+    		c-1.2,1.2-1.8,2.7-1.9,4.4c0,1.7,0.7,3.4,2.2,4.8c1.5,1.5,3.1,2.3,5,2.3c1.8,0,3.3-0.5,4.5-1.8C193.3,99.2,193.9,97.7,193.8,95.9z"
+    		/>
+    	<path class="may2" d="M189.9,74.4c0,0.6-0.2,1.1-0.6,1.5c-0.4,0.4-0.9,0.6-1.5,0.6s-1.1-0.2-1.5-0.6c-0.4-0.4-0.6-0.9-0.6-1.5
+    		c0-0.6,0.2-1.1,0.6-1.5s0.9-0.6,1.5-0.6c0.6,0,1.1,0.2,1.5,0.6C189.7,73.3,189.9,73.8,189.9,74.4z M203.5,92.3l-13.2-13.2l2.2-2.2
+    		l13.2,13.2L203.5,92.3z"/>
+    	<path class="may2" d="M197.8,71.6l2.1,2.1c-0.7-2.5,0-4.7,1.9-6.7c1.5-1.5,3.2-2.2,5.1-2.2c1.9,0,3.8,0.9,5.6,2.7l7.8,7.8l-2.2,2.2
+    		l-7.5-7.5c-1.3-1.3-2.7-2-4-2.1c-1.3,0-2.6,0.5-3.7,1.6c-1.1,1.1-1.7,2.4-1.6,3.7c0,1.3,0.7,2.7,2.1,4l7.5,7.5l-2.2,2.2l-13.2-13.2
+    		L197.8,71.6z"/>
+    </g>
+    </svg>
+
+
+
+
+
+  </body>
+</html>
