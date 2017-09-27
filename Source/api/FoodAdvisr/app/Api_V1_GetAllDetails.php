@@ -3,14 +3,7 @@ use App\Defaults;
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
 
-	function gethoteldetailsbyid($fhrs_id)
-	{
-		 $sql  = "select * from establishment where FHRSID=" . $fhrs_id ." ";
-    	$result = DB::select( DB::raw($sql));
-    	return $result;
-	}
-
-	function gethotels($latitude,$longitude)
+	function v1_gethotels($latitude,$longitude)
 	{
 		 $defaults = Defaults::all();    
          $search_radius = $defaults[0]->search_radius;
@@ -32,10 +25,26 @@ ini_set('max_execution_time', 5000);
     		   ->get();    	
     	return $hotels;
 	}
-	function gettop10hotels($latitude,$longitude)
+
+    function v1_gethoteldetailsbyid($fhrs_id)
+    {
+         $sql  = "select * from establishment where FHRSID=" . $fhrs_id ." ";
+        $result = DB::select( DB::raw($sql));
+        return $result;
+    }
+
+	function v1_gettop10hotels($latitude,$longitude)
 	{
 		$sql  = "select * from establishment LIMIT 10";
 		$result = DB::select( DB::raw($sql));
 		return $result;
-	}	
+	}
+
+    function v1_getcategories()
+    {
+        $states =  DB::table('category')
+                    ->select(DB::raw('category.category_id as id,category.category_name'))
+                    ->get();
+        return $states;
+    }	
 ?>

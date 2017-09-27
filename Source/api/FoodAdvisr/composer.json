@@ -23,7 +23,7 @@
             "App\\": "app/"
         },
          "files": [
-            "app/ApiGetAllDetails.php","app/helpers.php"
+            "app/Api_V1_GetAllDetails.php","app/helpers.php"
         ]
     },
     "autoload-dev": {

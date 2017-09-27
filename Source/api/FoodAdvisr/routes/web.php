@@ -10,11 +10,6 @@
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::post('api/gethoteldetailsbyid', array('as' => 'gethoteldetailsbyid', 'uses' => 'RestApiGeneralController@GetHotelDetailsById'));
-Route::post('api/gethotels', array('as' => 'gethotels', 'uses' => 'RestApiGeneralController@GetHotels'));
-Route::post('api/gettop10hotels', array('as' => 'gettop10hotels', 'uses' => 'RestApiGeneralController@GetTop10Hotels'));
-
 Route::get('/', function () {
     return view('login.login');
 });
@@ -42,3 +37,12 @@ Route::resource('privilegesmatrix', 'PrivilegesController@privilegesmatrix');
 Route::resource('privileges', 'PrivilegesController');
 Route::resource('logs', 'LogsController');
 Route::resource('configuration', 'ConfigurationController');
+
+//Start-----------------------Api Version 1------------------------Start//
+
+Route::post('api/v1_gethotels', array('as' => 'v1_gethotels', 'uses' => 'RestApi_V1_GeneralController@V1_GetHotels'));
+Route::post('api/v1_gethoteldetailsbyid', array('as' => 'v1_gethoteldetailsbyid', 'uses' => 'RestApi_V1_GeneralController@V1_GetHotelDetailsById'));
+Route::post('api/v1_gettop10hotels', array('as' => 'v1_gettop10hotels', 'uses' => 'RestApi_V1_GeneralController@V1_GetTop10Hotels'));
+Route::get('api/v1_getcategories','RestApi_V1_GeneralController@V1_GetCategories');
+
+//End------------------------Api Version 1-------------------------End//

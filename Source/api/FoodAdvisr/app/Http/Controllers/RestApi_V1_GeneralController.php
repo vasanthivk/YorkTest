@@ -9,7 +9,7 @@ use App\Http\Requests;
 use App\Http\Responses;
 use App\Http\Controllers\Controller;
 
-class RestApiGeneralController extends Controller
+class RestApi_V1_GeneralController extends Controller
 {
     public  function appendHeaders($object)
     {
@@ -21,16 +21,16 @@ class RestApiGeneralController extends Controller
         return response()->json($object,200,$headers);
     }
 
-
-    public function GetHotelDetailsById(Request $request)
+    public function V1_GetHotels(Request $request)
     {
     	 $postdata = file_get_contents("php://input");
         if (isset($postdata)) 
         {
 		 	$request = json_decode($postdata);
-            $fhrs_id = $request->{'fhrs_id'};
-	        $gethoteldetailsbyid = gethoteldetailsbyid($fhrs_id);
-	        $data = array('status' => 0,'message' => 'Success','result' => $gethoteldetailsbyid);
+		 	$latitude = $request->{'latitude'};
+            $longitude = $request->{'longitude'};            
+	        $v1_gethotels = v1_gethotels($latitude,$longitude);
+	        $data = array('status' => 0,'message' => 'Success','result' => $v1_gethotels);
 	        return $this->appendHeaders($data);
      	}
      	else
@@ -40,7 +40,26 @@ class RestApiGeneralController extends Controller
         }
     }
 
-    public function GetHotels(Request $request)
+    public function V1_GetHotelDetailsById(Request $request)
+    {
+         $postdata = file_get_contents("php://input");
+        if (isset($postdata)) 
+        {
+            $request = json_decode($postdata);
+            $fhrs_id = $request->{'fhrs_id'};
+            $v1_gethoteldetailsbyid = v1_gethoteldetailsbyid($fhrs_id);
+            return $v1_gethoteldetailsbyid;
+            $data = array('status' => 0,'message' => 'Success','result' => $v1_gethoteldetailsbyid);
+            return $this->appendHeaders($data);
+        }
+        else
+        {
+            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
+            return $this->appendHeaders($data);
+        }
+    }
+
+    public function V1_GetTop10Hotels(Request $request)
     {
     	 $postdata = file_get_contents("php://input");
         if (isset($postdata)) 
@@ -48,8 +67,8 @@ class RestApiGeneralController extends Controller
 		 	$request = json_decode($postdata);
 		 	$latitude = $request->{'latitude'};
             $longitude = $request->{'longitude'};            
-	        $gethotels = gethotels($latitude,$longitude);
-	        $data = array('status' => 0,'message' => 'Success','result' => $gethotels);
+	        $v1_gettop10hotels = v1_gettop10hotels($latitude,$longitude);
+	        $data = array('status' => 0,'message' => 'Success','result' => $v1_gettop10hotels);
 	        return $this->appendHeaders($data);
      	}
      	else
@@ -57,24 +76,11 @@ class RestApiGeneralController extends Controller
             $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
             return $this->appendHeaders($data);
         }
-    }  
-    public function GetTop10Hotels(Request $request)
+    }
+
+     public function V1_GetCategories(Request $request)
     {
-    	 $postdata = file_get_contents("php://input");
-        if (isset($postdata)) 
-        {
-		 	$request = json_decode($postdata);
-		 	$latitude = $request->{'latitude'};
-            $longitude = $request->{'longitude'};            
-	        $gethotels = gettop10hotels($latitude,$longitude);
-	        $data = array('status' => 0,'message' => 'Success','result' => $gethotels);
-	        return $this->appendHeaders($data);
-     	}
-     	else
-        {
-            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
-            return $this->appendHeaders($data);
-        }
-    }  
+        return $this->appendHeaders(v1_getcategories());
+    }   
     
 }
