@@ -1,6 +1,6 @@
 
 function myMap() {
-	alert("From map");
+	//alert("From map");
 var mapOptions = {
     center: new google.maps.LatLng(51.5, -0.12),
     zoom: 10,
