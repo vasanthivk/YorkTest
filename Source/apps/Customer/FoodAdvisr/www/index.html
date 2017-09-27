@@ -24,6 +24,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/api.js"></script>
 
+    
     <script type="text/javascript" src="jslibs/jquery311.js"></script>
     <script type="text/javascript" src="jslibs/timeago.js"></script>
     <script type="text/javascript" src="jslibs/fastclick.js"></script>
@@ -43,6 +44,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/share.js"></script>
     <script type="text/javascript" src="js/skin.js"></script>
+    <script type="text/javascript" src="js/map.js"></script>
 
 
   </head>
@@ -588,6 +590,7 @@ You can select membership of a range of communities to belong to, which allows y
           <div class="help-text" data-href="20">20</div>
           <h3>Map</h3>
           <div class="terms-innerx inner-frame">
+            <div id="map" style="width:325px;height:400px;background:yellow"></div>
           </div>
         </div>
 
@@ -704,6 +707,6 @@ You can select membership of a range of communities to belong to, which allows y
 
 
 
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv8Ltq_TguFLK2O0HbcA42tadBhud_ZSA&callback=myMap"></script>
   </body>
 </html>
