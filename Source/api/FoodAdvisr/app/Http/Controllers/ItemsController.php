@@ -41,6 +41,7 @@ class ItemsController extends Controller
         $hotel_id = $request['hotel_id'];
         $items = DB::table('items')
         ->select(DB::raw('*,items.item_id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
+        ->where('items.FHRSID','=',$hotel_id)
         ->get();        
          return View('items.index', compact('items'))         
         ->with('privileges',$privileges)
