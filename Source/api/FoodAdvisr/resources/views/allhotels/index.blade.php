@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Hotels
+FoodAdvisr-Eateries
 @endsection
 @section('module')
-Hotels
+Eateries
 @endsection
 
 @section('content')
@@ -52,7 +52,7 @@ Hotels
                                 <div class="panel-heading">
                                 @if($privileges['Add']=='true')           
                                     <div class="btn-group pull-left">                      
-                                        <a href="{{URL::to('allhotels/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Hotel</a>
+                                        <a href="{{URL::to('allhotels/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Eateries</a>
                                     </div>
                                     @endif
                                 </div>
