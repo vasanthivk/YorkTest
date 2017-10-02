@@ -1,6 +1,6 @@
 Eateries Table Insert
 
-INSERT INTO enteries (FHRSID,LocalAuthorityBusinessID,BusinessName,BusinessTypeID,WebSite,EmailId,Longitude,Latitude,LocationId)
+INSERT INTO eateries (FHRSID,LocalAuthorityBusinessID,BusinessName,BusinessTypeID,WebSite,EmailId,Longitude,Latitude,LocationId)
 SELECT FHRSID,LocalAuthorityBusinessID,BusinessName,BusinessTypeID,LocalAuthorityWebSite,LocalAuthorityEmailAddress,Longitude,Latitude,LocalAuthorityCode FROM establishment
 where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premises",
 "Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises",
@@ -8,11 +8,11 @@ where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premi
 
 BusinessType Table INSERT
 
-INSERT INTO business_type (Description,BusinessTypeID)
+INSERT INTO businesstype (Description,BusinessTypeID)
 SELECT BusinessType,BusinessTypeID FROM establishment
 where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premises",
 "Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises","Retailers - other","Retailers - supermarkets/hypermarkets")
-group by BusinessType;
+group by BusinessType,BusinessTypeID;
 
 Locations Table Insert 
 
@@ -20,7 +20,7 @@ INSERT INTO locations (LocationID,Description)
 SELECT LocalAuthorityCode,LocalAuthorityName FROM establishment
 where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premises",
 "Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises","Retailers - other","Retailers - supermarkets/hypermarkets")
-group by LocalAuthorityCode;
+group by LocalAuthorityCode,LocalAuthorityName;
 
 
 function ChooseContact(data) {

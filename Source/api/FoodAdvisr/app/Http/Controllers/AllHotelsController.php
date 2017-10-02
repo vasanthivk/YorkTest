@@ -47,7 +47,9 @@ class AllHotelsController extends Controller
                     ->select(DB::raw('DISTINCT establishment.LocalAuthorityName as location_name,establishment.LocalAuthorityCode as id'))
                     ->orderby('location_name','asc')
                     ->get();
-                    
+        $BusinessType = array("Hotel/bed & breakfast/guest house","Other catering premises",
+"Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises","Retailers - other","Retailers - supermarkets/hypermarkets");   
+
         if($location_id=='')
         {
             $all_hotels = DB::table('establishment')
@@ -59,9 +61,10 @@ class AllHotelsController extends Controller
         $all_hotels = DB::table('establishment')
             ->select(DB::raw('establishment.BusinessName,establishment.BusinessType,establishment.RatingValue,establishment.FHRSID as id'))
             ->where('establishment.LocalAuthorityCode','=',$location_id)
+            ->wherein('establishment.BusinessType',$BusinessType)
             ->get();
         }
-
+        
         return view('allhotels.index')
         ->with('all_hotels',$all_hotels)
         ->with('locations',$locations)
@@ -80,9 +83,14 @@ class AllHotelsController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         if($privileges['Add'] !='true')    
-            return Redirect::to('/');    
+            return Redirect::to('/');
+        $businesstypes = 'select BusinessType from establishment where BusinessType in("Hotel/bed & breakfast/guest house","Other catering premises","Restaurant/Cafe/Canteen","Pub/bar/nightclub",
+            "Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises","Retailers - other","Retailers - supermarkets/hypermarkets") group by BusinessType;';
+        $result = DB::select( DB::raw($businesstypes));
+
         return view('allhotels.create')
-        ->with('privileges',$privileges);
+        ->with('privileges',$privileges)
+        ->with('result',$result[0]);
     }
 
     /**
@@ -94,7 +102,7 @@ class AllHotelsController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
-         $this->validate($request,['FHRSID'  => 'required|unique:establishment','LocalAuthorityBusinessID'  => 'required','BusinessName'  => 'required','BusinessType'  => 'required','BusinessTypeID'  => 'required|numeric','RatingValue' =>'required|numeric','RatingKey' => 'required','RatingDate' => 'required','LocalAuthorityCode' => 'required|numeric','LocalAuthorityName'=>'required','LocalAuthorityWebSite'=>'required','LocalAuthorityEmailAddress' =>'required|email','SchemeType'=>'required','Longitude'=>'required','Latitude'=>'required','Hygiene'=>'required|numeric','Structural' => 'required|numeric','ConfidenceInManagement' => 'required|numeric']);        
+         $this->validate($request,['FHRSID'  => 'required|unique:establishment','BusinessName'  => 'required','BusinessType'  => 'required','LocalAuthorityName'=>'required','LocalAuthorityWebSite'=>'required','LocalAuthorityEmailAddress' =>'required|email','Longitude'=>'required','Latitude'=>'required','address' => 'required','mobile_no' => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -109,36 +117,28 @@ class AllHotelsController extends Controller
         {    
             $establishment = new Establishment();
             $establishment->FHRSID = Input::get('FHRSID');
-            $establishment->LocalAuthorityBusinessID = Input::get('LocalAuthorityBusinessID');
             $establishment->BusinessName = Input::get('BusinessName');
             $establishment->BusinessType = Input::get('BusinessType');
             $establishment->BusinessTypeID = Input::get('BusinessTypeID');
-            $establishment->RatingValue = Input::get('RatingValue');
-            $establishment->RatingKey = Input::get('RatingKey');
-            $establishment->RatingDate = Input::get('RatingDate');
-            $establishment->LocalAuthorityCode = Input::get('LocalAuthorityCode');
             $establishment->LocalAuthorityName = Input::get('LocalAuthorityName');
             $establishment->LocalAuthorityWebSite = Input::get('LocalAuthorityWebSite');
             $establishment->LocalAuthorityEmailAddress = Input::get('LocalAuthorityEmailAddress');
-            $establishment->SchemeType = Input::get('SchemeType');
-            $establishment->NewRatingPending = Input::get('NewRatingPending');
             $establishment->Longitude = Input::get('Longitude');
             $establishment->Latitude = Input::get('Latitude');
-            $establishment->Hygiene = Input::get('Hygiene');
-            $establishment->Structural = Input::get('Structural');
-            $establishment->ConfidenceInManagement = Input::get('ConfidenceInManagement');
+            $establishment->address = Input::get('address');
+            $establishment->mobile_no = Input::get('mobile_no');
             $establishment->Save();
             
             $log = new Log();
             $log->module_id=2;
             $log->action='create';      
-            $log->description='Hotel ' . $establishment->BusinessName . ' is created';
+            $log->description='Eateries ' . $establishment->BusinessName . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('allhotels.index')->with('success','Hotel Created Successfully!');
+        return Redirect::route('allhotels.index')->with('success','Eateries Created Successfully!');
         
         }
     }
@@ -180,7 +180,7 @@ class AllHotelsController extends Controller
     public function update(Request $request, $id)
     {
        $input = Input::all();
-         $this->validate($request,['LocalAuthorityBusinessID'  => 'required','BusinessName'  => 'required','BusinessType'  => 'required','BusinessTypeID'  => 'required|numeric','RatingValue' =>'required|numeric','RatingKey' => 'required','RatingDate' => 'required','LocalAuthorityCode' => 'required|numeric','LocalAuthorityName'=>'required','LocalAuthorityWebSite'=>'required','LocalAuthorityEmailAddress' =>'required|email','SchemeType'=>'required','Longitude'=>'required','Latitude'=>'required','Hygiene'=>'required|numeric','Structural' => 'required|numeric','ConfidenceInManagement' => 'required|numeric']);        
+         $this->validate($request,['BusinessName'  => 'required','BusinessType'  => 'required','LocalAuthorityName'=>'required','LocalAuthorityWebSite'=>'required','LocalAuthorityEmailAddress' =>'required|email','Longitude'=>'required','Latitude'=>'required','address' => 'required','mobile_no' => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -194,36 +194,28 @@ class AllHotelsController extends Controller
         else
         {    
             Establishment::where('FHRSID','=',$id)
-            ->update(array('LocalAuthorityBusinessID'=> Input::get('LocalAuthorityBusinessID'),
+            ->update(array(
                 'BusinessName'=> Input::get('BusinessName'),
                 'BusinessType'=> Input::get('BusinessType'),
-                'BusinessTypeID'=> Input::get('BusinessTypeID'),
-                'RatingValue'=> Input::get('RatingValue'),
-                'RatingKey'=> Input::get('RatingKey'),
-                'RatingDate'=> Input::get('RatingDate'),
-                'LocalAuthorityCode'=> Input::get('LocalAuthorityCode'),
                 'LocalAuthorityName'=> Input::get('LocalAuthorityName'),
                 'LocalAuthorityWebSite'=> Input::get('LocalAuthorityWebSite'),
                 'LocalAuthorityEmailAddress'=> Input::get('LocalAuthorityEmailAddress'),
-                'SchemeType'=> Input::get('SchemeType'),
-                'NewRatingPending'=> Input::get('NewRatingPending'),
                 'Longitude'=> Input::get('Longitude'),
-                'Hygiene'=> Input::get('Hygiene'),
                 'Latitude'=> Input::get('Latitude'),
-                'Structural'=> Input::get('Structural'),
-                'ConfidenceInManagement'=> Input::get('ConfidenceInManagement')
+                'address'=> Input::get('address'),
+                'mobile_no'=> Input::get('mobile_no')
             ));
             
             $log = new Log();
             $log->module_id=2;
             $log->action='update';      
-            $log->description='Hotel ' . $input['BusinessName'] . ' is updated';
+            $log->description='Eateries ' . $input['BusinessName'] . ' is updated';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('allhotels.index')->with('success','Hotel Updated Successfully!');
+        return Redirect::route('allhotels.index')->with('success','Eateries Updated Successfully!');
         
         }
     }
@@ -239,7 +231,7 @@ class AllHotelsController extends Controller
         $hotel =  Establishment::where('FHRSID','=',$id)->get();
         if (is_null($hotel))
         {
-         return Redirect::back()->with('warning','Hotel Details Are Not Found!');
+         return Redirect::back()->with('warning','Eateries Details Are Not Found!');
         }
         else
         {
@@ -248,13 +240,13 @@ class AllHotelsController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='delete';      
-            $log->description='Hotel '. $hotel[0]->BusinessName . ' is Deleted';
+            $log->description='Eateries '. $hotel[0]->BusinessName . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','Hotel Deleted Successfully!');
+           return Redirect::back()->with('warning','Eateries Deleted Successfully!');
         }
     }
 }
