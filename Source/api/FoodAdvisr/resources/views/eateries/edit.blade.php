@@ -17,42 +17,71 @@ Eateries
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahReadonly', 'components.form.readonly', ['name', 'labeltext'=>null, 'value' => null])}}
 
-{{ Form::open(array('method' => 'PUT', 'route' => array('allhotels.update',$hotel->FHRSID),'files'=>true)) }}
+{{ Form::open(array('method' => 'PUT', 'route' => array('eateries.update',$eateries->id),'files'=>true)) }}
 <div class="form-group form-horizontal">
     <div class="panel panel-default">
     </br>
       <div class="col-md-6">
-            {{ Form::ahReadonly('FHRSID','FHRSID :',$hotel->FHRSID,array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
-            {{ Form::ahText('LocalAuthorityBusinessID','Local Authority BusinessID :',$hotel->LocalAuthorityBusinessID,array('maxlength' => '100'))  }}
-            {{ Form::ahText('BusinessName','Business Name :',$hotel->BusinessName,array("onchange"=>"getlatitudelongitude(this)",'maxlength' => '100'))  }}    
-            {{ Form::ahText('BusinessType','Business Type :',$hotel->BusinessType,array('maxlength' => '100'))  }}
-            {{ Form::ahNumber('BusinessTypeID','Business Type ID :',$hotel->BusinessTypeID,array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
-            {{ Form::ahNumber('RatingValue','Rating Value :',$hotel->RatingValue,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-            {{ Form::ahText('RatingKey','Rating Key :',$hotel->RatingKey,array('maxlength' => '100'))  }}
-            {{ Form::ahDate('RatingDate','Rating Date :', $hotel->RatingDate) }}
-            {{ Form::ahNumber('LocalAuthorityCode','Local Authority Code :',$hotel->LocalAuthorityCode,array('min'=>'0','maxlength' => '5','max'=>'99999'))  }}
-            {{ Form::ahText('LocalAuthorityName','Local Authority Name :',$hotel->LocalAuthorityName,array('maxlength'=> '1000'))  }}
-            {{ Form::ahText('LocalAuthorityWebSite','Local Authority WebSite :',$hotel->LocalAuthorityWebSite,array('maxlength' => '100'))  }}
+            {{ Form::ahNumber('FHRSID','FHRSID :',$eateries->FHRSID,array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
+            {{ Form::ahText('LocalAuthorityBusinessID','Business ID :',$eateries->LocalAuthorityBusinessID,array('maxlength'=> '1000'))  }}
+            {{ Form::ahText('BusinessName','Business Name :',$eateries->BusinessName,array('maxlength'=> '1000'))  }}
+            {{ Form::ahSelect('BusinessTypeID','Business Type :',$eateries->BusinessTypeID,$businesstypes)  }}
+            {{ Form::ahTextarea('Address','Address :',$eateries->Address,array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
+             {{ Form::ahSelect('LocationID','Location :',$eateries->LocationID,$locations,array("onchange"=>"ChooseContact(this)"))  }}
+             {{ Form::ahNumber('ContactNumber','Contact Number :',$eateries->ContactNumber,array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
+            {{ Form::ahText('WebSite','WebSite :',$eateries->WebSite,array('maxlength' => '100'))  }}
+            {{ Form::ahText('EmailId','EmailId :',$eateries->EmailId,array('maxlength' => '100'))  }}    
+            {{ Form::ahText('Longitude','Longitude :',$eateries->Longitude,array("readonly"=>"true"))  }}
+            {{ Form::ahText('Latitude','Latitude :',$eateries->Latitude,array("readonly"=>"true"))  }} 
             </br>
         </div>
-         <div class="col-md-6">
-            {{ Form::ahText('LocalAuthorityEmailAddress','Local Authority EmailAddress :',$hotel->LocalAuthorityEmailAddress,array('maxlength' => '100'))  }}   
-            {{ Form::ahText('SchemeType','SchemeType :',$hotel->SchemeType,array('maxlength' => '100'))  }}
-            {{ Form::ahNumber('NewRatingPending','New Rating Pending :',$hotel->NewRatingPending,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-            {{ Form::ahText('Longitude','Longitude :',$hotel->Longitude,array("readonly"=>"true"))  }}
-            {{ Form::ahText('Latitude','Latitude :',$hotel->Latitude,array("readonly"=>"true"))  }}
-            {{ Form::ahNumber('Hygiene','Hygiene :',$hotel->Hygiene,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-            {{ Form::ahNumber('Structural','Structural :',$hotel->Structural,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-            {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :',$hotel->ConfidenceInManagement,array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-            </br>
-             <input id="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="width: 500px; height: 400px"></div>
+        <div class="col-md-6">                 
+            <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
+              <div id="map" style="width: 500px; height: 250px"></div>
+              </br>
+         <div class="module-wrapper col-lg-12 col-md-10 col-sm-12 col-xs-12">
+        <div class="row">
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">            
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <?php
+                      $logo_path = '';
+                     $no_image=env('NO_IMAGE');
+                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eateries->id .  '.' . $eateries->LogoExtension))
+                {
+                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eateries->id .  '.' . $eateries->LogoExtension ;
+                 ?>
+                            <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
+                            <a>
+                                <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 130px; height: 102px;">
+                                </a>
+                            </div>
+                            <?php } else { ?>
+                            <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
+                            <a>
+                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 111px;">
+                                </a>
+                            </div>
+                             <?php } ?>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 111px;"></div>
+                    <div>
+                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change Image</span>
+                        <input type="file" name="logo" id="logo">
+                        </span>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div> 
+          </div>
         </div>
       <div class="form-group">
         <div class="panel-footer">
             <div class="col-md-6 col-md-offset-3">
                 {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
-                {{ link_to_route('allhotels.index','Cancel',null, array('class' => 'btn btn-danger')) }}
+                {{ link_to_route('eateries.index','Cancel',null, array('class' => 'btn btn-danger')) }}
             </div>
         </div>
       </div>
@@ -62,7 +91,7 @@ Eateries
   <script>
 /* script */
 function initialize() {
-   var latlng = new google.maps.LatLng(<?php echo floatval($hotel->Latitude); ?>,<?php echo floatval($hotel->Longitude); ?>);
+   var latlng = new google.maps.LatLng(<?php echo floatval($eateries->Latitude); ?>,<?php echo floatval($eateries->Longitude); ?>);
     var map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,
       zoom: 16
@@ -118,7 +147,7 @@ function initialize() {
     });
 }
 function bindDataToForm(address,lat,lng){
-   document.getElementById('BusinessName').value = address;
+   document.getElementById('address').value = address;
    document.getElementById('Latitude').value = lat;
    document.getElementById('Longitude').value = lng;
 }

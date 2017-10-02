@@ -18,7 +18,7 @@ Dashboard
                 </div>                             
                 <div class="widget-data">
                     <div class="widget-int num-count">{{$establishment_count}}</div>
-                    <div class="widget-title">Hotels</div>
+                    <div class="widget-title">Eateries</div>
                     <div class="widget-subtitle"></div>
                 </div>      
                 

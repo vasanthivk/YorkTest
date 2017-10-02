@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-Food Advisr-Ingredients
+Food Advisr-Allergies
 @endsection
 @section('module')
-Ingredients
+Allergies
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Ingredients
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="{{URL::to('ingredients/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Ingredients</a>
+                                        <a href="{{URL::to('ingredients/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Allergies</a>
                                         @endif
                                     </div>
                                 </div>

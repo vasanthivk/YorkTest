@@ -1,0 +1,54 @@
+Eateries Table Insert
+
+INSERT INTO enteries (FHRSID,LocalAuthorityBusinessID,BusinessName,BusinessTypeID,WebSite,EmailId,Longitude,Latitude,LocationId)
+SELECT FHRSID,LocalAuthorityBusinessID,BusinessName,BusinessTypeID,LocalAuthorityWebSite,LocalAuthorityEmailAddress,Longitude,Latitude,LocalAuthorityCode FROM establishment
+where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premises",
+"Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises",
+"Retailers - other","Retailers - supermarkets/hypermarkets");
+
+BusinessType Table INSERT
+
+INSERT INTO business_type (Description,BusinessTypeID)
+SELECT BusinessType,BusinessTypeID FROM establishment
+where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premises",
+"Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises","Retailers - other","Retailers - supermarkets/hypermarkets")
+group by BusinessType;
+
+Locations Table Insert 
+
+INSERT INTO locations (LocationID,Description)
+SELECT LocalAuthorityCode,LocalAuthorityName FROM establishment
+where BusinessType in ("Hotel/bed & breakfast/guest house","Other catering premises",
+"Restaurant/Cafe/Canteen","Pub/bar/nightclub","Takeaway/sandwich shop","Mobile caterer","Hospitals/Childcare/Caring Premises","Retailers - other","Retailers - supermarkets/hypermarkets")
+group by LocalAuthorityCode;
+
+
+function ChooseContact(data) {
+
+var location = document.getElementById ("searchInput").value = data.value;
+var geocoder = new google.maps.Geocoder();
+var address = location;
+geocoder.geocode({'address': address}, function (results, status) {
+                if (status == google.maps.GeocoderStatus.OK) {
+                    $("#locationmessage").html('');
+                    var latitude = results[0].geometry.location.lat();
+                    var longitude = results[0].geometry.location.lng();
+                    localStorage.Latitude = document.getElementById("Latitude").value = latitude;
+                    localStorage.Longitude = document.getElementById("Longitude").value = longitude;
+                }
+                else {
+                    document.getElementById("Latitude").value = "";
+                    document.getElementById("Longitude").value = "";
+                    if($("#LocalAuthorityName").val().trim() != "") {
+                        $("#errorMessage").css("display", "block");
+                        $("#locationmessage").html('Invalid Location');
+                        $("#locationmessage").css('color', 'red');
+                    }
+                }
+            });
+
+}
+
+$(document).on("Change", "#LocationID", function(){
+    location.reload(true);
+});

@@ -16,44 +16,64 @@ Eateries
 {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 
-{{ Form::open(array('route' => 'allhotels.store','files'=>true)) }}
+{{ Form::open(array('route' => 'eateries.store','files'=>true)) }}
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
 		        {{ Form::ahNumber('FHRSID','FHRSID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
-		        {{ Form::ahText('LocalAuthorityBusinessID','Local Authority BusinessID :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahText('BusinessName','Business Name :','',array("onchange"=>"getlatitudelongitude(this)",'maxlength'=> '1000'))  }}		
-		        {{ Form::ahText('BusinessType','Business Type :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahNumber('BusinessTypeID','Business Type ID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
-		        {{ Form::ahNumber('RatingValue','Rating Value :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-		        {{ Form::ahText('RatingKey','Rating Key :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahDate('RatingDate','Rating Date :', \Carbon\Carbon::now()) }}
-		        {{ Form::ahNumber('LocalAuthorityCode','Local Authority Code :','',array('min'=>'0','maxlength' => '5','max'=>'99999'))  }}
-		        {{ Form::ahText('LocalAuthorityName','Local Authority Name :','',array('maxlength'=> '1000'))  }}
-		        {{ Form::ahText('LocalAuthorityWebSite','Local Authority WebSite :','',array('maxlength' => '100'))  }}
+            {{ Form::ahText('LocalAuthorityBusinessID','Business ID :','',array('maxlength'=> '1000'))  }}
+		        {{ Form::ahText('BusinessName','Business Name :','',array('maxlength'=> '1000'))  }}
+            {{ Form::ahSelect('BusinessTypeID','Business Type :','',$businesstypes)  }}
+            {{ Form::ahTextarea('Address','Address :','',array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
+             {{ Form::ahSelect('LocationID','Location :','',$locations,array("onchange"=>"ChooseContact(this)"))  }}
+             {{ Form::ahNumber('ContactNumber','Contact Number :','',array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
+		        {{ Form::ahText('WebSite','WebSite :','',array('maxlength' => '100'))  }}
+            {{ Form::ahText('EmailId','EmailId :','',array('maxlength' => '100'))  }}    
+            {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
+            {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}           
 		        </br>
             
 		    </div>
-		     <div class="col-md-6">
-		        {{ Form::ahText('LocalAuthorityEmailAddress','Local Authority EmailAddress :','',array('maxlength' => '100'))  }}		
-		        {{ Form::ahText('SchemeType','SchemeType :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahNumber('NewRatingPending','New Rating Pending :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-		        {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
-		        {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
-		        {{ Form::ahNumber('Hygiene','Hygiene :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-		        {{ Form::ahNumber('Structural','Structural :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-		        {{ Form::ahNumber('ConfidenceInManagement','Confidence In Management :','',array('min'=>'0','maxlength' => '3','max'=>'999'))  }}
-		     
-            <input id="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="width: 500px; height: 400px"></div>
+		     <div class="col-md-6">	       		     
+            <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
+              <div id="map" style="width: 500px; height: 250px"></div>
+              </br>
+         <div class="module-wrapper col-lg-12 col-md-10 col-sm-12 col-xs-12">
+        
+       
+         <div class="row">
+          <?php                
+                $no_image=env('NO_IMAGE');
+                ?>
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                    <div class="form-group">            
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                            <div class="fileinput-new thumbnail" style="width: 130px; height: 120px;">
+                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 120px;">
+                            </div>
+                             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 120px;"></div>
+                                <div>
+                                   <span class="btn btn-primary btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span>
+                                   <input type="file" name="logo" id="logo">
+                                    </span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                 </div>
+                        </div>
+                    </div>
+                </div>            
+        </div>
+          
+      
+        
+      </div>
 		        </br>
 		    </div>
 	    <div class="form-group">
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">
 		            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-		            {{ link_to_route('allhotels.index','Cancel',null, array('class' => 'btn btn-danger')) }}
+		            {{ link_to_route('eateries.index','Cancel',null, array('class' => 'btn btn-danger')) }}
 		        </div>
 		    </div>
 	    </div>
@@ -62,6 +82,10 @@ Eateries
  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&libraries=places"></script>
   <script>
 /* script */
+ function ChooseContact(data) {
+
+var location = document.getElementById ("searchInput").value = data.value;
+}
 function initialize() {
    var latlng = new google.maps.LatLng(51.509865,-0.118092);
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -119,7 +143,7 @@ function initialize() {
     });
 }
 function bindDataToForm(address,lat,lng){
-   document.getElementById('BusinessName').value = address;
+   document.getElementById('Address').value = address;
    document.getElementById('Latitude').value = lat;
    document.getElementById('Longitude').value = lng;
 }

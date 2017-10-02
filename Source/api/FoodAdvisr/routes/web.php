@@ -20,7 +20,7 @@ Route::resource('login', 'LoginController');
 Route::post('validateuser', array('as' => 'validateuser', 'uses' => 'LoginController@validateuser'));
 Route::post('forgot', array('as' => 'forgot', 'uses' => 'LoginController@forgot'));
 Route::resource('dashboard', 'DashboardController');
-Route::resource('allhotels', 'AllHotelsController');
+Route::resource('eateries', 'EateriesController');
 Route::resource('uploadhotel', 'FoodController');
 Route::resource('menu', 'MenuController');
 Route::resource('user', 'UserController');
@@ -44,5 +44,6 @@ Route::post('api/v1_gethotels', array('as' => 'v1_gethotels', 'uses' => 'RestApi
 Route::post('api/v1_gethoteldetailsbyid', array('as' => 'v1_gethoteldetailsbyid', 'uses' => 'RestApi_V1_GeneralController@V1_GetHotelDetailsById'));
 Route::post('api/v1_gettop10hotels', array('as' => 'v1_gettop10hotels', 'uses' => 'RestApi_V1_GeneralController@V1_GetTop10Hotels'));
 Route::get('api/v1_getcategories','RestApi_V1_GeneralController@V1_GetCategories');
+Route::post('api/v1_gethotelbyitemdetails', array('as' => 'v1_gethotelbyitemdetails', 'uses' => 'RestApi_V1_GeneralController@V1_GetHotelByItemDetails'));
 
 //End------------------------Api Version 1-------------------------End//

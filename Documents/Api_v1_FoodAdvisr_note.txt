@@ -9,5 +9,3 @@ http://foodadvisr.fire42.com/api/v1_gethoteldetailsbyid
 Get Top 10 Hotels
 http://foodadvisr.fire42.com/api/v1_gettop10hotels
 {"latitude": "52.79412300000000","longitude": "1.25172300000000"}
-
-
