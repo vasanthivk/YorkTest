@@ -90,6 +90,11 @@ Eateries
  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&libraries=places"></script>
   <script>
 /* script */
+ function ChooseContact(data) {
+
+var location = document.getElementById ("searchInput").value = data.value;
+}
+
 function initialize() {
    var latlng = new google.maps.LatLng(<?php echo floatval($eateries->Latitude); ?>,<?php echo floatval($eateries->Longitude); ?>);
     var map = new google.maps.Map(document.getElementById('map'), {
@@ -147,7 +152,7 @@ function initialize() {
     });
 }
 function bindDataToForm(address,lat,lng){
-   document.getElementById('address').value = address;
+   document.getElementById('Address').value = address;
    document.getElementById('Latitude').value = lat;
    document.getElementById('Longitude').value = lng;
 }
