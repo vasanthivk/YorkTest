@@ -48,7 +48,6 @@ class RestApi_V1_GeneralController extends Controller
             $request = json_decode($postdata);
             $fhrs_id = $request->{'fhrs_id'};
             $v1_gethoteldetailsbyid = v1_gethoteldetailsbyid($fhrs_id);
-            return $v1_gethoteldetailsbyid;
             $data = array('status' => 0,'message' => 'Success','result' => $v1_gethoteldetailsbyid);
             return $this->appendHeaders($data);
         }
@@ -77,10 +76,5 @@ class RestApi_V1_GeneralController extends Controller
             return $this->appendHeaders($data);
         }
     }
-
-     public function V1_GetCategories(Request $request)
-    {
-        return $this->appendHeaders(v1_getcategories());
-    }   
     
 }
