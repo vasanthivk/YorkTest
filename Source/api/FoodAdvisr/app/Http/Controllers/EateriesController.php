@@ -276,7 +276,7 @@ class EateriesController extends Controller
             $location_id = Locations::where('Description','=',$input['LocationID'])->get();
 
             $eateries = Eateries::find($id);
-            
+
             if($file <> null)
              {
             $success = File::delete($eateries->LogoPath);
@@ -338,19 +338,19 @@ class EateriesController extends Controller
      */
     public function destroy($id)
     {
-        $hotel =  Establishment::where('FHRSID','=',$id)->get();
-        if (is_null($hotel))
+        $eateries = Eateries::find($id);
+        if (is_null($eateries))
         {
          return Redirect::back()->with('warning','Eateries Details Are Not Found!');
         }
         else
         {
-           Establishment::where('FHRSID','=',$id)->delete();
+           Eateries::find($id)->delete();
 
             $log = new Log();
             $log->module_id=2;
             $log->action='delete';      
-            $log->description='Eateries '. $hotel[0]->BusinessName . ' is Deleted';
+            $log->description='Eateries '. $eateries->BusinessName . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
