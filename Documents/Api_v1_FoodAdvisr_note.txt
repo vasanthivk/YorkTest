@@ -19,6 +19,10 @@ http://foodadvisr.fire42.com/api/v1_addclickafterassociated
 { "fhrs_id": "552"}
 
 GetClicksAfterAssociated - returns the count of clicks
+http://foodadvisr.fire42.com/api/v1_getclicksbeforeassociated
+{ "fhrs_id": "552"}
+
+GetClicksAfterAssociated - returns the count of clicks
 http://foodadvisr.fire42.com/api/v1_getclicksafterassociated
 { "fhrs_id": "552"}
 
