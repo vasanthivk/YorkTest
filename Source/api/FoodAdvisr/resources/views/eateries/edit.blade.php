@@ -27,7 +27,7 @@ Eateries
             {{ Form::ahText('BusinessName','Business Name :',$eateries->BusinessName,array('maxlength'=> '1000'))  }}
             {{ Form::ahSelect('BusinessTypeID','Business Type :',$eateries->BusinessTypeID,$businesstypes)  }}
             {{ Form::ahTextarea('Address','Address :',$eateries->Address,array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
-             {{ Form::ahSelect('LocationID','Location :',$eateries->LocationID,$locations,array("onchange"=>"ChooseContact(this)"))  }}
+             {{ Form::ahSelect('LocationID','Location :',$eateries->LocationId,$locations,array("onchange"=>"ChooseContact(this)"))  }}
              {{ Form::ahNumber('ContactNumber','Contact Number :',$eateries->ContactNumber,array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
             {{ Form::ahText('WebSite','WebSite :',$eateries->WebSite,array('maxlength' => '100'))  }}
             {{ Form::ahText('EmailId','EmailId :',$eateries->EmailId,array('maxlength' => '100'))  }}    
@@ -90,10 +90,10 @@ Eateries
  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBSENSL4rJZQIi_r7QukqAtsL-nz8tAZYE&libraries=places"></script>
   <script>
 /* script */
- function ChooseContact(data) {
+//  function ChooseContact(data) {
 
-var location = document.getElementById ("searchInput").value = data.value;
-}
+// var location = document.getElementById ("searchInput").value = data.value;
+// }
 
 function initialize() {
    var latlng = new google.maps.LatLng(<?php echo floatval($eateries->Latitude); ?>,<?php echo floatval($eateries->Longitude); ?>);

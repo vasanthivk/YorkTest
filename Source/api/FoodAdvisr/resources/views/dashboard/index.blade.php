@@ -12,7 +12,7 @@ Dashboard
     <div class="row">
         <div class="col-md-3">
             <!-- START WIDGET MESSAGES -->
-            <div class="widget widget-default widget-item-icon" onclick="location.href='/allhotels';">
+            <div class="widget widget-default widget-item-icon" onclick="location.href='/eateries';">
                 <div class="widget-item-left">
                     <span class="fa fa-h-square"></span>
                 </div>                             

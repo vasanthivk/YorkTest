@@ -231,7 +231,7 @@ class EateriesController extends Controller
         $privileges = $this->getPrivileges();
         $eateries =  Eateries::find($id);
         $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
-        $locations = Locations::all()->pluck('Description','Description');
+        $locations = Locations::all()->pluck('Description','LocationID');
         return View('eateries.edit')
         ->with('privileges',$privileges)
         ->with('eateries',$eateries)
