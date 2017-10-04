@@ -24,6 +24,8 @@ Route::resource('eateries', 'EateriesController');
 Route::resource('uploadhotel', 'FoodController');
 Route::resource('menu', 'MenuController');
 Route::resource('user', 'UserController');
+Route::resource('groups', 'GroupsController');
+Route::resource('brands', 'BrandsController');
 Route::resource('company', 'CompanyController');
 Route::resource('category', 'CategoryController');
 Route::resource('ingredients', 'IngredientsController');
@@ -45,5 +47,11 @@ Route::post('api/v1_gethoteldetailsbyid', array('as' => 'v1_gethoteldetailsbyid'
 Route::post('api/v1_gettop10hotels', array('as' => 'v1_gettop10hotels', 'uses' => 'RestApi_V1_GeneralController@V1_GetTop10Hotels'));
 Route::get('api/v1_getcategories','RestApi_V1_GeneralController@V1_GetCategories');
 Route::post('api/v1_gethotelbyitemdetails', array('as' => 'v1_gethotelbyitemdetails', 'uses' => 'RestApi_V1_GeneralController@V1_GetHotelByItemDetails'));
+Route::post('api/v1_addclickbeforeassociated', array('as' => 'v1_addclickbeforeassociated', 'uses' => 'RestApi_V1_GeneralController@V1_AddClickBeforeAssociated'));
+Route::post('api/v1_addclickafterassociated', array('as' => 'v1_addclickafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_AddClickAfterAssociated'));
+Route::post('api/v1_getclicksbeforeassociated', array('as' => 'v1_getclicksbeforeassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksBeforeAssociated'));
+Route::post('api/v1_getclicksafterassociated', array('as' => 'v1_getclicksafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksAfterAssociated'));
+Route::get('api/v1_gettop5eateriesBeforeAssociated','RestApi_V1_GeneralController@v1_gettop5eateriesBeforeAssociated');
+Route::get('api/v1_gettop5eateriesAfterAssociated','RestApi_V1_GeneralController@V1_GetTop5EateriesAfterAssociated');
 
 //End------------------------Api Version 1-------------------------End//
