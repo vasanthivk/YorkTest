@@ -2371,6 +2371,20 @@ h3.header{
 
 	}
 
+  .eateryActive{
+    border: 5px;
+    height: 100px;
+    margin: 5px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    }
+  .eateryInActive{
+    border: 5px;
+    height: 100px;
+    margin: 5px;
+    background-color: lightgray;
+    border-radius: 10px;
+    }
 
 
 

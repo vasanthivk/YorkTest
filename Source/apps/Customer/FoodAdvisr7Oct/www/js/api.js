@@ -55,3 +55,12 @@ api.cacheBust=function(){
   return d;
 
 }
+api.getEateries=function(callBack)
+{
+    postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';
+    $.post('http://foodadvisr.fire42.com/api/v1_gettop10hotels',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}

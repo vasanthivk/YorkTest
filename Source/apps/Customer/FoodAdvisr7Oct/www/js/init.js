@@ -798,6 +798,35 @@ body.on('click','.act-clear-search',function(){
       return false;
     });
 
+    body.on('click','.act-start-search',function(){
+
+      api.getEateries(function(data){
+        var divItem = document.getElementById('loadeateries');
+        var op ='';
+        if(data.result.length > 0)
+        {
+          for(var i=0; i<data.result.length; i++)
+          {
+            if(data.result[i].IsAssociated == 1)
+              op += '<div class="eateryActive" >'+ data.result[i].BusinessName +'</div>';
+            else
+              op += '<div class="eateryInActive" >'+ data.result[i].BusinessName +'</div>';
+          }
+        }
+        divItem.innerHTML =op;
+      })
+      //msg.show('My message',3000);
+      //popup.show('Hello how are you?.','Yes|act-new-list,No');
+    });
+
+    body.on('click','.eateryActive',function(){
+      //alert('Hey you clicked active class');
+    });
+    body.on('click','.eateryInActive',function(){
+      //popup.show('Hello how are you?.','Yes|act-new-list,No');
+      //alert('Hey you clicked in active class');
+    });
+
     function addEditButtons(){
       $('.act-download-menu').each(function(){
         t=$(this);
