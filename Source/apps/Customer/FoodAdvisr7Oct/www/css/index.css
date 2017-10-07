@@ -70,9 +70,57 @@ html,body{
   font-size:1.2rem;
   border-radius:3px;
 }
+/*fire42 start*/
+  .eateryActive{
+    border: 5px;
+    height: 100px;
+    margin: 5px;
+    background-color: lightgreen;
+    border-radius: 10px;
+    }
+  .eateryInActive{
+    border: 5px;
+    height: 100px;
+    margin: 5px;
+    background-color: lightgray;
+    border-radius: 10px;
+    }
 
+.eatery-search-clear{
+  position:absolute;
+  width:26px;
+  height:26px;
+  line-height:26px;
+  text-align:center;
+  top:13px;
+  right:7px;
+  background:#c0c0c0;
+  color:white;
+  font-size:1.2rem;
+  border-radius:3px;
+}
+#eatery-search{
+  display:inline-block;
+  margin-bottom:2px !important;
+  border:1px solid #808080;
+  border-radius:4px;
+  color:#808080;
+  font-size:1.1rem;
+  text-align:center;
+  background:white;
+  width:99%;
+  margin-left:0.5%;
+  margin-top:2%;
+  text-indent:20px;
+  text-align:left;
+  background:url(../img/searchlight.svg) 5px 3px no-repeat;
+  background-size:25px 25px;
+}
 
-
+#eatery-search::placeholder{
+  color:#e0e0e0;
+}
+/*fire42 end*/
 .intol-tab-wrap{
   display:block;
   position:relative;
@@ -2370,22 +2418,6 @@ h3.header{
 		float:right;
 
 	}
-
-  .eateryActive{
-    border: 5px;
-    height: 100px;
-    margin: 5px;
-    background-color: lightgreen;
-    border-radius: 10px;
-    }
-  .eateryInActive{
-    border: 5px;
-    height: 100px;
-    margin: 5px;
-    background-color: lightgray;
-    border-radius: 10px;
-    }
-
 
 
 // Sliding handle
