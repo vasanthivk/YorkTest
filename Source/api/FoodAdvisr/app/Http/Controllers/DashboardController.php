@@ -46,12 +46,13 @@ class DashboardController extends Controller
                 ->whereNull('IsAssociated')
                 ->orWhere('IsAssociated', '=', 0)
                 ->Where('ClicksBeforeAssociated', '>', 0)
-                ->groupby('ClicksBeforeAssociated','BusinessName')
+                //->groupby('ClicksBeforeAssociated','BusinessName')
                 ->orderby('ClicksBeforeAssociated','DESC')
                 ->LIMIT(5)
                 ->get();
         
         $v1_gettop5eateriesAfterAssociated = v1_gettop5eateriesAfterAssociated();
+        
         return view('dashboard.index', compact('establishment_count'))
         ->with('v1_getclicksbeforeassociated',$v1_getclicksbeforeassociated)
         ->with('nonassociatedeateries',$nonassociatedeateries)
