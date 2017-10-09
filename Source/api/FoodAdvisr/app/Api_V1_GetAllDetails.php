@@ -101,8 +101,8 @@ use App\Eateries;
     {
         $result  = DB::table('eateries')
                 ->select(DB::raw('BusinessName,ClicksBeforeAssociated'))
-                ->whereNull('IsAssociated')
-                ->orWhere('IsAssociated', '=', 0)
+                ->orwhereNull('IsAssociated')
+                ->Where('IsAssociated', '=', 0)
                 ->Where('ClicksBeforeAssociated', '>', 0)
                 ->orderby('ClicksBeforeAssociated','DESC')
                 ->LIMIT(5)
