@@ -44,7 +44,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/share.js"></script>
     <script type="text/javascript" src="js/skin.js"></script>
-
+    <script type="text/javascript" src="js/map.js"></script>
 
   </head>
   <body>
@@ -601,7 +601,8 @@ You can select membership of a range of communities to belong to, which allows y
           <div class="intol-tab-underline"></div>
         </span>
           <div id="loadeateries" class="intolerances-list intol-frame inner-frame hide"></div>
-          <div class="intolerances-map intol-frame inner-frame search-target"></div>
+          <div id="map" class="intolerances-map intol-frame inner-frame hide" style="width:371px;height:400px;background:yellow"></div>
+          </div>
             
          
           <div id='loadeateries'></div>
@@ -662,7 +663,7 @@ You can select membership of a range of communities to belong to, which allows y
 
 
 
-
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv8Ltq_TguFLK2O0HbcA42tadBhud_ZSA&callback=myMap"></script>
 
   </body>
 </html>
