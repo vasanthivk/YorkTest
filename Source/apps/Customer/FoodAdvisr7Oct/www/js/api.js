@@ -55,6 +55,7 @@ api.cacheBust=function(){
   return d;
 
 }
+
 api.getEateries=function(callBack)
 {
     postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';
@@ -64,3 +65,24 @@ api.getEateries=function(callBack)
       msg.show('Network error.',1000,false,true);
     });
 }
+
+api.getAddClickBeforeAssociated=function(callBack)
+{
+    postData = '{"fhrs_id": "552"}';
+    $.post('http://foodadvisr.fire42.com/api/v1_addclickbeforeassociated',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+
+api.getAddClickAfterAssociated=function(callBack)
+{
+    postData = '{"fhrs_id": "552"}';
+    $.post('http://foodadvisr.fire42.com/api/v1_addclickafterassociated',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+

@@ -824,11 +824,19 @@ body.on('click','.act-clear-search',function(){
     }
 
     body.on('click','.eateryActive',function(){
-      //alert('Hey you clicked active class');
+      api.getAddClickBeforeAssociated(function(data){
+      
+      });
+    
     });
+    
     body.on('click','.eateryInActive',function(){
       //popup.show('Hello how are you?.','Yes|act-new-list,No');
       //alert('Hey you clicked in active class');
+          api.getAddClickAfterAssociated(function(data){
+            alert(data);
+      
+      });
     });
 
     body.on('keyup','#eatery-search',function(e){

@@ -72,18 +72,20 @@ html,body{
 }
 /*fire42 start*/
   .eateryActive{
-    border: 5px;
+    border: 3px solid #dddddd;
     height: 100px;
-    margin: 5px;
+    margin: 5px 10px 10px 10px;
     background-color: lightgreen;
-    border-radius: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
     }
   .eateryInActive{
-    border: 5px;
+    border: 3px solid #dddddd;
     height: 100px;
-    margin: 5px;
+    margin: 5px 10px 10px 10px;
     background-color: lightgray;
-    border-radius: 10px;
+    border-radius: 5px;
+    box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
     }
 
 .eatery-search-clear{
@@ -120,6 +122,7 @@ html,body{
 #eatery-search::placeholder{
   color:#e0e0e0;
 }
+
 /*fire42 end*/
 .intol-tab-wrap{
   display:block;
