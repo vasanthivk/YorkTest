@@ -2,6 +2,7 @@
 api=new Object();
 api.jwt='notset';
 api.root=appSettings.apiPath;
+api.eateiesroot=appSettings.apiEateriesPath;
 
 api.url=function(action,parms){
   url=api.root+'/api/'+action;
@@ -59,7 +60,7 @@ api.cacheBust=function(){
 api.getEateries=function(callBack)
 {
     postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';
-    $.post('http://foodadvisr.fire42.com/api/v1_gettop10hotels',postData,function(data){
+    $.post(api.eateiesroot+'gettop10hotels',postData,function(data){
       callBack(data);
     }).fail(function(error){
       msg.show('Network error.',1000,false,true);
@@ -69,7 +70,7 @@ api.getEateries=function(callBack)
 api.getAddClickBeforeAssociated=function(callBack)
 {
     postData = '{"fhrs_id": "552"}';
-    $.post('http://foodadvisr.fire42.com/api/v1_addclickbeforeassociated',postData,function(data){
+    $.post(api.eateiesroot+'addclickbeforeassociated',postData,function(data){
       callBack(data);
     }).fail(function(error){
       msg.show('Network error.',1000,false,true);
@@ -79,7 +80,7 @@ api.getAddClickBeforeAssociated=function(callBack)
 api.getAddClickAfterAssociated=function(callBack)
 {
     postData = '{"fhrs_id": "552"}';
-    $.post('http://foodadvisr.fire42.com/api/v1_addclickafterassociated',postData,function(data){
+    $.post(api.eateiesroot+'addclickafterassociated',postData,function(data){
       callBack(data);
     }).fail(function(error){
       msg.show('Network error.',1000,false,true);

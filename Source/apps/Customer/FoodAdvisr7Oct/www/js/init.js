@@ -805,12 +805,11 @@ body.on('click','.act-clear-search',function(){
         var op ='';
         if(data.result.length > 0)
         {
-          for(var i=0; i<data.result.length; i++)
-          {
-            if(data.result[i].IsAssociated == 1)
-              op += '<div class="eateryActive" >'+ data.result[i].BusinessName +'</div>';
+          for(idx in data.result){
+            if(data.result[idx].IsAssociated == 1)
+              op += '<div class="act-eatery" >'+ data.result[idx].BusinessName +'</div>';
             else
-              op += '<div class="eateryInActive" >'+ data.result[i].BusinessName +'</div>';
+              op += '<div class="in-act-eatery" >'+ data.result[idx].BusinessName +'</div>';
           }
         }
         divItem.innerHTML =op;
@@ -823,19 +822,18 @@ body.on('click','.act-clear-search',function(){
         divItem.innerHTML ='';
     }
 
-    body.on('click','.eateryActive',function(){
+    body.on('click','.act-eatery',function(){
+      alert(this.innerHTML);
       api.getAddClickBeforeAssociated(function(data){
       
       });
-    
     });
     
-    body.on('click','.eateryInActive',function(){
-      //popup.show('Hello how are you?.','Yes|act-new-list,No');
+    body.on('click','.in-act-eatery',function(){
       //alert('Hey you clicked in active class');
-          api.getAddClickAfterAssociated(function(data){
-            alert(data);
-      
+      popup.show('Hello how are you?.','Yes|act-new-list,No');
+      api.getAddClickAfterAssociated(function(data){
+
       });
     });
 

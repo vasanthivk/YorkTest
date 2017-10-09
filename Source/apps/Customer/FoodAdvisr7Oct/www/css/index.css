@@ -71,22 +71,22 @@ html,body{
   border-radius:3px;
 }
 /*fire42 start*/
-  .eateryActive{
-    border: 3px solid #dddddd;
-    height: 100px;
-    margin: 5px 10px 10px 10px;
+  .act-eatery{
+    border: 1px solid #dddddd;
+    min-height: 100px;
+    margin: 5px 5px 10px 5px;
     background-color: lightgreen;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-    }
-  .eateryInActive{
-    border: 3px solid #dddddd;
-    height: 100px;
-    margin: 5px 10px 10px 10px;
+  }
+  .in-act-eatery{
+    border: 1px solid #dddddd;
+    min-height: 100px;
+    margin: 5px 5px 10px 5px;
     background-color: lightgray;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
-    }
+  }
 
 .eatery-search-clear{
   position:absolute;
