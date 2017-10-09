@@ -10,7 +10,44 @@ Upload Hotels
 @include('components.message') 
 {{Form::component('ahText', 'components.form.text', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 
-{{ Form::open(array('route' => 'uploadhotel.store','files'=>true,'onClick'=> 'this.form.submit()')) }}
+{{ Form::open(array('method' => 'GET','route' => 'uploadhotel.index')) }}
+<div class="form-group form-horizontal">
+        <div class="panel panel-default">
+        </br>
+           <div class="col-md-6">                            
+               <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4">Location :</label>
+                    <div class="col-sm-8">
+                        <select class="form-control" id="location_id" name="location_id">
+                            <option  selected disabled>Please select location</option>
+                            @foreach($locations as $location)
+                            <option value="{{ $location->id }}"
+                               <?php 
+                                $val = $location_id;
+                                $res = $location->id;
+                               if($val == $res) 
+                                {
+                                  ?> selected="selected"
+                                  <?php 
+                                } ?>> 
+                              {{ $location->location_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                      
+               <br/>
+            </div>
+            <div class="col-md-4" style="padding-top: 5px;"> 
+                 {{ Form::submit('Show', array('class' => 'btn btn-primary')) }}
+                </br>
+            </div> 
+     </div>
+ </div>
+ {{ Form::close() }}
+
+
+<!-- {{ Form::open(array('route' => 'uploadhotel.store','files'=>true,'onClick'=> 'this.form.submit()')) }}
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>			
@@ -29,7 +66,7 @@ Upload Hotels
     Uploading Data...Please wait...<br />
     <br />
     <img src="loader.gif" alt="" />
-</div>
+</div> -->
  <style type="text/css">
     .modal
     {

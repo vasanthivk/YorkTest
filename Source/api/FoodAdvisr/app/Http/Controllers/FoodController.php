@@ -5,12 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Establishment;
+use App\Eateries;
 use Redirect;
 use Session;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
 use DB;
+ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
 
 class FoodController extends Controller
@@ -36,8 +38,40 @@ class FoodController extends Controller
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
+        $location_id = Input::get('location_id');       
+        $locations = DB::table('locations')
+                    ->select(DB::raw('locations.Description as location_name,locations.LocationID as id'))
+                    ->orderby('location_name','asc')
+                    ->get();
+        $all_eateries = DB::table('eateries')
+            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
+            ->select(DB::raw('eateries.FHRSID,eateries.Latitude,eateries.Longitude'))
+            ->where('eateries.LocationID','=',$location_id)
+            ->limit(1000)
+            ->get();
+          
+            // return $all_eateries;
+            foreach ($all_eateries as $key => $value) {
+
+                $lat = $value->Latitude; //latitude
+                $lng = $value->Longitude; //longitude
+                if($lat != null && $lng != null)                
+                {
+                $address = getaddress($lat,$lng);
+                if($address)
+                {
+                    Eateries::where('FHRSID','=',$value->FHRSID)
+                 ->update(array('Address'=> $address
+                ));
+                }
+            }
+               
+            }
+             
         return view('uploadhotel.index')
-        ->with('privileges',$privileges);
+        ->with('privileges',$privileges)
+        ->with('location_id',$location_id)
+        ->with('locations',$locations);
     }
 
     /**
@@ -139,6 +173,8 @@ class FoodController extends Controller
             createLog($log);
         return Redirect::back()->with('success','Hotels Uploaded Successfully!');
     }
+
+
 
     /**
      * Display the specified resource.
