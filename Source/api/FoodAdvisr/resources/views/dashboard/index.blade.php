@@ -14,7 +14,7 @@ Dashboard
             <!-- START WIDGET MESSAGES -->
             <div class="widget widget-default widget-item-icon" onclick="location.href='/eateries';">
                 <div class="widget-item-left">
-                    <span class="fa fa-h-square"></span>
+                    <span class="fa fa-etsy"></span>
                 </div>                             
                 <div class="widget-data">
                     <div class="widget-int num-count">{{$establishment_count}}</div>
@@ -28,7 +28,7 @@ Dashboard
         <div class="col-md-3">
            <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
                 <div class="widget-item-left">
-                    <span class="fa fa-h-square"></span>
+                    <span class="fa fa-thumbs-o-up"></span>
                 </div>                             
                 <div class="widget-data">
                     <div class="widget-int num-count">
@@ -52,7 +52,7 @@ Dashboard
         <div class="col-md-3">
             <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
                 <div class="widget-item-left">
-                    <span class="fa fa-h-square"></span>
+                    <span class="fa fa-thumbs-o-down"></span>
                 </div>                             
                 <div class="widget-data">
                     <div class="widget-int num-count">{{$nonassociatedeateries->ClicksBeforeAssociated}}</div>
