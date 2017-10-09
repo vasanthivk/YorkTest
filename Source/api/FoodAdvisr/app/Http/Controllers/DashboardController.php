@@ -18,10 +18,32 @@ class DashboardController extends Controller
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
-        $v1_getclicksbeforeassociated = v1_gettop5eateriesBeforeAssociated();
+        $nonassociatedeateries = DB::table('eateries')
+                ->select(DB::raw('sum(ClicksBeforeAssociated) as ClicksBeforeAssociated'))
+                ->whereNull('IsAssociated')
+                ->orWhere('IsAssociated', '=', 0)
+                ->Where('ClicksBeforeAssociated', '>', 0)              
+                ->get();
+
+        $associatedeateries = DB::table('eateries')
+                ->select(DB::raw('sum(ClicksAfterAssociated) as ClicksAfterAssociated'))
+                ->Where('IsAssociated', '=', 1)                              
+                ->get();
+        $v1_getclicksbeforeassociated = DB::table('eateries')
+                ->select(DB::raw('BusinessName,ClicksBeforeAssociated'))
+                ->whereNull('IsAssociated')
+                ->orWhere('IsAssociated', '=', 0)
+                ->Where('ClicksBeforeAssociated', '>', 0)
+                ->groupby('ClicksBeforeAssociated','BusinessName')
+                ->orderby('ClicksBeforeAssociated','DESC')
+                ->LIMIT(5)
+                ->get();
+        
         $v1_gettop5eateriesAfterAssociated = v1_gettop5eateriesAfterAssociated();
         return view('dashboard.index', compact('establishment_count'))
         ->with('v1_getclicksbeforeassociated',$v1_getclicksbeforeassociated)
+        ->with('nonassociatedeateries',$nonassociatedeateries[0])
+        ->with('associatedeateries',$associatedeateries[0])
         ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated);
     }
 

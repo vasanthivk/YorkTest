@@ -26,10 +26,41 @@ Dashboard
             <!-- END WIDGET MESSAGES -->
         </div>
         <div class="col-md-3">
-           
+           <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
+                <div class="widget-item-left">
+                    <span class="fa fa-h-square"></span>
+                </div>                             
+                <div class="widget-data">
+                    <div class="widget-int num-count">
+                       <?php $res = $associatedeateries->ClicksAfterAssociated;
+                       if($res == null)
+                       {
+                        echo 0;
+                       } else {
+                        
+                        echo $res;
+                        
+                    }
+                        ?>
+                    </div>
+                    <div class="widget-title">Associated Eateries</div>
+                    <div class="widget-subtitle"></div>
+                </div>      
+                
+            </div>
         </div>
         <div class="col-md-3">
-            
+            <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
+                <div class="widget-item-left">
+                    <span class="fa fa-h-square"></span>
+                </div>                             
+                <div class="widget-data">
+                    <div class="widget-int num-count">{{$nonassociatedeateries->ClicksBeforeAssociated}}</div>
+                    <div class="widget-title">None Associated Eateries</div>
+                    <div class="widget-subtitle"></div>
+                </div>      
+                
+            </div>
         </div>
         <div class="col-md-3">
                  
@@ -42,27 +73,7 @@ Dashboard
                                         <table class="table table-bordered table-striped">
                                             <thead>
                                                 <tr>
-                                                    <th width="50%">Clicks Before Associated</th>
-                                                    <th width="20%">No Of Clicks</th>                        
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                 @foreach($v1_getclicksbeforeassociated as $getclicksbeforeassociated)
-                                                <tr>                                                    
-                                                    <td><strong>{{$getclicksbeforeassociated->BusinessName}}</strong></td> 
-                                                    <td><strong>{{$getclicksbeforeassociated->ClicksBeforeAssociated}}</strong></td> 
-                                                </tr>
-                                                 @endforeach   
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div> 
-            <div class="col-md-6">
-            <div class="table-responsive">
-                                        <table class="table table-bordered table-striped">
-                                            <thead>
-                                                <tr>
-                                                    <th width="50%">Clicks After Associated</th>
+                                                    <th width="50%">Top 5 Associated Eateries</th>
                                                     <th width="20%">No Of Clicks</th>                        
                                                 </tr>
                                             </thead>
@@ -76,6 +87,28 @@ Dashboard
                                             </tbody>
                                         </table>
                                     </div>
+                                </div> 
+            <div class="col-md-6">
+
+                 <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50%">Top 5 None Associated Eateries</th>
+                                                    <th width="20%">No Of Clicks</th>                        
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 @foreach($v1_getclicksbeforeassociated as $getclicksbeforeassociated)
+                                                <tr>                                                    
+                                                    <td><strong>{{$getclicksbeforeassociated->BusinessName}}</strong></td> 
+                                                    <td><strong>{{$getclicksbeforeassociated->ClicksBeforeAssociated}}</strong></td> 
+                                                </tr>
+                                                 @endforeach   
+                                            </tbody>
+                                        </table>
+                                    </div>
+           
                                 </div> 
         </div>
     </div>
