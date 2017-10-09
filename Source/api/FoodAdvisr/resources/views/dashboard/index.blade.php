@@ -25,6 +25,59 @@ Dashboard
             </div>                            
             <!-- END WIDGET MESSAGES -->
         </div>
+        <div class="col-md-3">
+           
+        </div>
+        <div class="col-md-3">
+            
+        </div>
+        <div class="col-md-3">
+                 
+                
+            </div>                            
+            <!-- END WIDGET MESSAGES -->
+        </div>
+        <div class="col-md-6">
+            <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50%">Clicks Before Associated</th>
+                                                    <th width="20%">No Of Clicks</th>                        
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 @foreach($v1_getclicksbeforeassociated as $getclicksbeforeassociated)
+                                                <tr>                                                    
+                                                    <td><strong>{{$getclicksbeforeassociated->BusinessName}}</strong></td> 
+                                                    <td><strong>{{$getclicksbeforeassociated->ClicksBeforeAssociated}}</strong></td> 
+                                                </tr>
+                                                 @endforeach   
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+            <div class="col-md-6">
+            <div class="table-responsive">
+                                        <table class="table table-bordered table-striped">
+                                            <thead>
+                                                <tr>
+                                                    <th width="50%">Clicks After Associated</th>
+                                                    <th width="20%">No Of Clicks</th>                        
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                 @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
+                                                <tr>                                                    
+                                                    <td><strong>{{$gettop5eateriesAfterAssociated->BusinessName}}</strong></td> 
+                                                    <td><strong>{{$gettop5eateriesAfterAssociated->ClicksBeforeAssociated}}</strong></td> 
+                                                </tr>
+                                                 @endforeach   
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div> 
+        </div>
     </div>
           
 @endsection

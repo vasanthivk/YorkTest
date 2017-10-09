@@ -18,7 +18,11 @@ class DashboardController extends Controller
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
-        return view('dashboard.index', compact('establishment_count'));
+        $v1_getclicksbeforeassociated = v1_gettop5eateriesBeforeAssociated();
+        $v1_gettop5eateriesAfterAssociated = v1_gettop5eateriesAfterAssociated();
+        return view('dashboard.index', compact('establishment_count'))
+        ->with('v1_getclicksbeforeassociated',$v1_getclicksbeforeassociated)
+        ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated);
     }
 
     /**
