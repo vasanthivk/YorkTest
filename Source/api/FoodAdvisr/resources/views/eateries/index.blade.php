@@ -60,6 +60,7 @@ Eateries
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
+                                                <th></th>
                                                 <th>Business Name</th>
                                                 <th>Business Type</th>  
                                                 <th>Edit/Delete</th>              
@@ -68,6 +69,26 @@ Eateries
                                         <tbody>
                                               @foreach($all_eateries as $eatery)
                                     <tr>
+                                        <td>
+                                            
+                        <?php
+                      $logo_path = '';
+                     $no_image=env('NO_IMAGE');
+                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension))
+                {
+                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
+                 ?>
+                            
+                                <img src="../../<?php echo $logo_path ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
+                               
+                            <?php } else { ?>
+                           
+                                <img src="../../<?php echo $no_image ?>" alt="..." class="img-circle" style="width: 40px; height: 40px;">
+                              
+                             <?php } ?>
+
+                        </div>
+                                        </td>
                                         <td>
                                             {{$eatery->BusinessName}}
                                         </td> 

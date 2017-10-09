@@ -54,14 +54,14 @@ class EateriesController extends Controller
         {
             $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id'))
+            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
             ->where('eateries.LocationID','=','')
             ->get();
         }
         else{
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id'))
+            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
             ->where('eateries.LocationID','=',$location_id)
             ->get();
         }
@@ -260,7 +260,7 @@ class EateriesController extends Controller
         if($file <> null)
             $extension = $this->saveLogoInTempLocation($file);
 
-        $this->validate($request,['FHRSID'  => 'required|unique:establishment','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);         
+        $this->validate($request,['FHRSID'  => 'required','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);         
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -303,7 +303,7 @@ class EateriesController extends Controller
             $eateries->ContactNumber = Input::get('ContactNumber');
             $eateries->WebSite = Input::get('WebSite');
             $eateries->EmailId = Input::get('EmailId');
-            $eateries->LocationId = $location_id[0]['LocationID'];
+            $eateries->LocationId = Input::get('LocationID');
             $eateries->Longitude = Input::get('Longitude');
             $eateries->Latitude = Input::get('Latitude');
             $eateries->CreatedOn = Carbon::now(new DateTimeZone('Asia/Kolkata'));
