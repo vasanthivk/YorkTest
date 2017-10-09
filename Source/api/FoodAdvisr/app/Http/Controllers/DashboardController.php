@@ -19,16 +19,16 @@ class DashboardController extends Controller
             ->select(DB::raw('*'))
             ->count();
         $nonassociatedeateries = DB::table('eateries')
-                ->select(DB::raw('sum(ClicksBeforeAssociated) as ClicksBeforeAssociated'))
+                ->select(DB::raw('count(ClicksBeforeAssociated) as ClicksBeforeAssociated'))
                 ->whereNull('IsAssociated')
                 ->orWhere('IsAssociated', '=', 0)
-                ->Where('ClicksBeforeAssociated', '>', 0)              
                 ->get();
 
         $associatedeateries = DB::table('eateries')
-                ->select(DB::raw('sum(ClicksAfterAssociated) as ClicksAfterAssociated'))
+                ->select(DB::raw('count(ClicksAfterAssociated) as ClicksAfterAssociated'))
                 ->Where('IsAssociated', '=', 1)                              
                 ->get();
+                
         $v1_getclicksbeforeassociated = DB::table('eateries')
                 ->select(DB::raw('BusinessName,ClicksBeforeAssociated'))
                 ->whereNull('IsAssociated')
