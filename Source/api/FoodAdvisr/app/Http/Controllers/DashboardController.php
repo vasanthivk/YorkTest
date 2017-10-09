@@ -41,7 +41,6 @@ class DashboardController extends Controller
         
         $v1_gettop5eateriesAfterAssociated = DB::table('eateries')
                 ->select(DB::raw('BusinessName,ClicksAfterAssociated'))
-                ->whereNotNull('IsAssociated')
                 ->orWhere('IsAssociated', '=', 1)               
                 ->orderby('ClicksAfterAssociated','DESC')
                 ->LIMIT(5)
