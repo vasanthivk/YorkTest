@@ -18,17 +18,29 @@ class DashboardController extends Controller
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
+
         $nonassociatedeateries = DB::table('eateries')
-                ->select(DB::raw('count(ClicksBeforeAssociated) as ClicksBeforeAssociated'))
-                ->whereNull('IsAssociated')
-                ->orWhere('IsAssociated', '=', 0)
-                ->get();
+            ->select(DB::raw('*'))
+            ->whereNull('IsAssociated')
+            ->orWhere('IsAssociated', '=', 0)
+            ->count();
 
         $associatedeateries = DB::table('eateries')
-                ->select(DB::raw('count(ClicksAfterAssociated) as ClicksAfterAssociated'))
-                ->Where('IsAssociated', '=', 1)                              
-                ->get();
-                
+            ->select(DB::raw('*'))
+            ->Where('IsAssociated', '=', 1)                              
+            ->count();
+
+        // $nonassociatedeateries = DB::table('eateries')
+        //         ->select(DB::raw('count(*) as ClicksBeforeAssociated'))
+        //         ->whereNull('IsAssociated')
+        //         ->orWhere('IsAssociated', '=', 0)
+        //         ->get();
+
+        // $associatedeateries = DB::table('eateries')
+        //         ->select(DB::raw('count(*) as ClicksAfterAssociated'))
+        //         ->Where('IsAssociated', '=', 1)                              
+        //         ->get();
+
         $v1_getclicksbeforeassociated = DB::table('eateries')
                 ->select(DB::raw('BusinessName,ClicksBeforeAssociated'))
                 ->whereNull('IsAssociated')
@@ -42,8 +54,8 @@ class DashboardController extends Controller
         $v1_gettop5eateriesAfterAssociated = v1_gettop5eateriesAfterAssociated();
         return view('dashboard.index', compact('establishment_count'))
         ->with('v1_getclicksbeforeassociated',$v1_getclicksbeforeassociated)
-        ->with('nonassociatedeateries',$nonassociatedeateries[0])
-        ->with('associatedeateries',$associatedeateries[0])
+        ->with('nonassociatedeateries',$nonassociatedeateries)
+        ->with('associatedeateries',$associatedeateries)
         ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated);
     }
 

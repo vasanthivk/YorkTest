@@ -31,18 +31,7 @@ Dashboard
                     <span class="fa fa-thumbs-o-up"></span>
                 </div>                             
                 <div class="widget-data">
-                    <div class="widget-int num-count">
-                       <?php $res = $associatedeateries->ClicksAfterAssociated;
-                       if($res == null)
-                       {
-                        echo 0;
-                       } else {
-                        
-                        echo $res;
-                        
-                    }
-                        ?>
-                    </div>
+                    <div class="widget-int num-count">{{$associatedeateries}}</div>
                     <div class="widget-title">Associated Eateries</div>
                     <div class="widget-subtitle"></div>
                 </div>      
@@ -55,7 +44,7 @@ Dashboard
                     <span class="fa fa-thumbs-o-down"></span>
                 </div>                             
                 <div class="widget-data">
-                    <div class="widget-int num-count">{{$nonassociatedeateries->ClicksBeforeAssociated}}</div>
+                    <div class="widget-int num-count">{{$nonassociatedeateries}}</div>
                     <div class="widget-title">None Associated Eateries</div>
                     <div class="widget-subtitle"></div>
                 </div>      
