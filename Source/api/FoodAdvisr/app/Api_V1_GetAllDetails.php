@@ -99,15 +99,26 @@ use App\Eateries;
 
     function v1_gettop5eateriesBeforeAssociated()
     {
-        $sql  = "select BusinessName,ClicksBeforeAssociated from eateries where IsAssociated IS NULL or  IsAssociated = 0 group by ClicksBeforeAssociated,BusinessName order by ClicksBeforeAssociated DESC LIMIT 5";
-        $result = DB::select( DB::raw($sql));
+        $result  = DB::table('eateries')
+                ->select(DB::raw('BusinessName,ClicksBeforeAssociated'))
+                ->whereNotNull('IsAssociated')
+                ->orWhere('IsAssociated', '=', 0)
+                ->Where('ClicksBeforeAssociated', '>', 0)
+                ->orderby('ClicksBeforeAssociated','DESC')
+                ->LIMIT(5)
+                ->get();
         return $result;
     }
 
     function v1_gettop5eateriesAfterAssociated()
     {
-        $sql  = "select BusinessName,ClicksBeforeAssociated from eateries where IsAssociated = 1 group by ClicksBeforeAssociated,BusinessName order by ClicksBeforeAssociated DESC LIMIT 5";
-        $result = DB::select( DB::raw($sql));
+       $result  = DB::table('eateries')
+                ->select(DB::raw('BusinessName,ClicksAfterAssociated'))
+                ->whereNotNull('IsAssociated')
+                ->orWhere('IsAssociated', '=', 1)               
+                ->orderby('ClicksAfterAssociated','DESC')
+                ->LIMIT(5)
+                ->get();
         return $result;
     }
 ?>

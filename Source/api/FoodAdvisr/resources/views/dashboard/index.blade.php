@@ -70,7 +70,7 @@ Dashboard
                                                  @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
                                                 <tr>                                                    
                                                     <td><strong>{{$gettop5eateriesAfterAssociated->BusinessName}}</strong></td> 
-                                                    <td><strong>{{$gettop5eateriesAfterAssociated->ClicksBeforeAssociated}}</strong></td> 
+                                                    <td><strong>{{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}}</strong></td> 
                                                 </tr>
                                                  @endforeach   
                                             </tbody>
@@ -88,10 +88,10 @@ Dashboard
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                 @foreach($v1_getclicksbeforeassociated as $getclicksbeforeassociated)
+                                                 @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
                                                 <tr>                                                    
-                                                    <td><strong>{{$getclicksbeforeassociated->BusinessName}}</strong></td> 
-                                                    <td><strong>{{$getclicksbeforeassociated->ClicksBeforeAssociated}}</strong></td> 
+                                                    <td><strong>{{$gettop5eateriesBeforeAssociated->BusinessName}}</strong></td> 
+                                                    <td><strong>{{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}}</strong></td> 
                                                 </tr>
                                                  @endforeach   
                                             </tbody>

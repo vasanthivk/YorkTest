@@ -50,7 +50,6 @@ class FoodController extends Controller
             ->limit(2000)
             ->get();
           
-            // return $all_eateries;
             foreach ($all_eateries as $key => $value) {
 
                 $lat = $value->Latitude; //latitude
