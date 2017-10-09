@@ -47,7 +47,7 @@ class FoodController extends Controller
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
             ->select(DB::raw('eateries.FHRSID,eateries.Latitude,eateries.Longitude'))
             ->where('eateries.LocationID','=',$location_id)
-            ->limit(1000)
+            ->limit(2000)
             ->get();
           
             // return $all_eateries;
