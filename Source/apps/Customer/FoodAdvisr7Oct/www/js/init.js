@@ -807,9 +807,29 @@ body.on('click','.act-clear-search',function(){
         {
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
-              op += '<div class="act-eatery" ><input type=hidden id="eateryId" value="' + data.result[idx].id + '" /><img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img>'+ data.result[idx].BusinessName +'</div>';
+            {
+              op += '<div class="act-eatery">' +
+                      '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
+                      '<div class="eatery-columns">' +
+                        '<div class="act-eatery-logo" ><img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img></div>' +
+                        '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + (data.result[idx].Address==null?'':data.result[idx].Address) + '</div>' +
+                      '</div>' +
+                      '<div class="eatery-clear"></div>' +
+                    '</div>';
+            }
             else
-              op += '<div class="in-act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id + '" /><div id="eateryName">'+ data.result[idx].BusinessName +'</div></div>';
+            {
+              op += '<div class="in-act-eatery">' +
+                      '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
+                      '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' + 
+                      '<div class="eatery-columns">' +
+                        '<div class="in-act-eatery-logo" >&nbsp;</div>' + //<img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img>
+                        '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + (data.result[idx].Address==null?'':data.result[idx].Address) + '</div>' +
+                      '</div>' +
+                      '<div class="eatery-clear"></div>' +
+                    '</div>';
+            }
+              //op += '<div class="in-act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id + '" /><div id="eateryName">'+ data.result[idx].BusinessName +'</div></div>';
           }
         }
         divItem.innerHTML =op;
@@ -831,7 +851,7 @@ body.on('click','.act-clear-search',function(){
     
     body.on('click','.in-act-eatery',function(){
       var eateryId=$(this).find('#eateryId').val();
-      var eateryName=$(this).find('#eateryName').text();
+      var eateryName=$(this).find('#eateryName').val();
       var message = eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus.";
       popup.show(message,'Invite|in-act-eatery-invite,Cancel');
       api.getAddClickBeforeAssociated(eateryId,function(data){

@@ -71,19 +71,27 @@ html,body{
   border-radius:3px;
 }
 /*fire42 start*/
+  .eatery-columns       { margin: 0 auto;}
+  .eatery-columns div   { float: left; }
+  .eatery-clear         { clear: both; }
+
   .act-eatery{
     border: 1px solid #dddddd;
     min-height: 100px;
     margin: 5px 5px 10px 5px;
-    background-color: lightgreen;
+    background-color: #00B2A9;
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
+    color: white;
   }
-  .act-eatery span
+  .act-eatery-logo      { width: 25%;}
+  .act-eatery-name      { width: 75%; }
+  /*.act-eatery span
   {
     width: 100px;
     height: 100px;
-  }
+  }*/
+
   .in-act-eatery{
     border: 1px solid #dddddd;
     min-height: 100px;
@@ -92,6 +100,8 @@ html,body{
     border-radius: 5px;
     box-shadow: 0px 0px 5px rgba(0,0,0,0.5);
   }
+  .in-act-eatery-logo      { width: 25%;}
+  .in-act-eatery-name      { width: 75%; }
 
 .eatery-search-clear{
   position:absolute;
@@ -127,6 +137,7 @@ html,body{
 #eatery-search::placeholder{
   color:#e0e0e0;
 }
+
 
 /*fire42 end*/
 .intol-tab-wrap{
