@@ -43,59 +43,29 @@ use App\Eateries;
 		return $result;
 	}
 
-    function v1_addclickbeforeassociated($fhrs_id)
+    function v1_addclickbeforeassociated($id)
     {
-        $sql  = "select count(*) as before_associated_count from eateries where FHRSID=".$fhrs_id." and IsAssociated IS NULL or  IsAssociated = 0";
-        $result = DB::select( DB::raw($sql));
-
-         $sql1  = "select ClicksBeforeAssociated from eateries where FHRSID=".$fhrs_id." and IsAssociated IS NULL or  IsAssociated = 0";
-        $result1 = DB::select( DB::raw($sql1));
-
-        if($result[0]->before_associated_count == 1)
-        {
-            $i = $result1[0]->ClicksBeforeAssociated;
-            $i += 1;
-             Eateries::where('FHRSID','=',$fhrs_id)
-            ->update(array('ClicksBeforeAssociated'=> $i
-                 ));
-            return $i;
-        }
-        
+        DB::update('UPDATE eateries SET ClicksBeforeAssociated = IFNULL(ClicksBeforeAssociated,0) + 1 WHERE ID =  ?', [$id]);
     }
 
-    function v1_addclickafterassociated($fhrs_id)
+    function v1_addclickafterassociated($id)
     {
-        $sql  = "select count(*) as after_associated_count from eateries where FHRSID=".$fhrs_id." and IsAssociated = 1";
-        $result = DB::select( DB::raw($sql));
-        
-         $sql1  = "select ClicksAfterAssociated from eateries where FHRSID=".$fhrs_id." and IsAssociated = 1";
-        $result1 = DB::select( DB::raw($sql1));
-
-        if($result[0]->after_associated_count == 1)
-        {
-            $i = $result1[0]->ClicksAfterAssociated;
-            $i += 1;
-             Eateries::where('FHRSID','=',$fhrs_id)
-            ->update(array('ClicksAfterAssociated'=> $i
-                 ));
-            return $i;
-        }
-        
+        DB::update('UPDATE eateries SET ClicksAfterAssociated = IFNULL(ClicksAfterAssociated,0) + 1 WHERE ID =  ?', [$id]);
     }
 
-    function v1_getclicksbeforeassociated($fhrs_id)
-    {
-        $sql = "select ClicksBeforeAssociated from eateries where FHRSID=".$fhrs_id." and IsAssociated IS NULL or  IsAssociated = 0";
-        $result = DB::select( DB::raw($sql));
-        return $result;        
-    }
+    // function v1_getclicksbeforeassociated($id)
+    // {
+    //     $sql = "select ClicksBeforeAssociated from eateries where id=".$id." and IFNULL(IsAssociated,0) = 0";
+    //     $result = DB::select( DB::raw($sql));
+    //     return $result;        
+    // }
 
-    function v1_getclicksafterassociated($fhrs_id)
-    {
-        $sql  = "select ClicksAfterAssociated from eateries where FHRSID=".$fhrs_id." and IsAssociated = 1";
-        $result = DB::select( DB::raw($sql));
-        return $result;
-    }
+    // function v1_getclicksafterassociated($id)
+    // {
+    //     $sql  = "select ClicksAfterAssociated from eateries where id=".$id." and IFNULL(IsAssociated,0) = 1";
+    //     $result = DB::select( DB::raw($sql));
+    //     return $result;
+    // }
 
     function v1_gettop5eateriesBeforeAssociated()
     {
