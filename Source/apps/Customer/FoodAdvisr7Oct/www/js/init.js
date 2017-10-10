@@ -807,7 +807,7 @@ body.on('click','.act-clear-search',function(){
         {
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
-              op += '<div class="act-eatery" >'+ data.result[idx].BusinessName +'</div>';
+              op += '<div class="act-eatery" ><img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img>'+ data.result[idx].BusinessName +'</div>';
             else
               op += '<div class="in-act-eatery" >'+ data.result[idx].BusinessName +'</div>';
           }
