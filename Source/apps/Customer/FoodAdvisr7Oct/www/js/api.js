@@ -67,9 +67,9 @@ api.getEateries=function(callBack)
     });
 }
 
-api.getAddClickBeforeAssociated=function(callBack)
+api.getAddClickBeforeAssociated=function(eateryId,callBack)
 {
-    postData = '{"fhrs_id": "552"}';
+    postData = '{"id": ' + eateryId + '}';
     $.post(api.eateiesroot+'addclickbeforeassociated',postData,function(data){
       callBack(data);
     }).fail(function(error){
@@ -77,9 +77,9 @@ api.getAddClickBeforeAssociated=function(callBack)
     });
 }
 
-api.getAddClickAfterAssociated=function(callBack)
+api.getAddClickAfterAssociated=function(eateryId,callBack)
 {
-    postData = '{"fhrs_id": "552"}';
+    postData = '{"id": ' + eateryId + '}';
     $.post(api.eateiesroot+'addclickafterassociated',postData,function(data){
       callBack(data);
     }).fail(function(error){
