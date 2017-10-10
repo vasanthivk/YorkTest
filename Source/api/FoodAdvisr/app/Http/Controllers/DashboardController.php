@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Eateries;
 use DB;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -15,6 +16,19 @@ class DashboardController extends Controller
      */
     public function index()
     {
+        $weeks = [];
+        for ($ind = 7; $ind >= 0; $ind--)
+        {
+            $week = [];
+            $date  = Carbon::now()->addWeeks(-1 * $ind)->formatLocalized('%Y-%m-%d');
+            $week[] =  $date;
+            $week[] = DB::table('eateries')
+                ->select(DB::raw('*'))
+                ->where('AssociatedOn' ,'<=', $date)
+                ->count();
+            $weeks[] = $week ;
+        }
+
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
