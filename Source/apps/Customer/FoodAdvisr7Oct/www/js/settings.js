@@ -12,6 +12,7 @@ appSettings.logoPath='http://api.foodadvisr.com/logos/';
 appSettings.apiPath='https://api.foodadvisr.com/api_'+appSettings.api_version;
 appSettings.apiEateriesPath='http://foodadvisr.fire42.com/api/v1_';
 appSettings.mediaPath = "http://foodadvisr.fire42.com/";
+appSettings.orgName = "FoodAdvisr";
 
 appSettings.hash='.xfa8flP4K03LsT3jeya3O38FCMaE3p';
 appSettings.table='';

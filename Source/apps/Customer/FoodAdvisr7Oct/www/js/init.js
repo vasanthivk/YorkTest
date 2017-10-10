@@ -832,7 +832,7 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.in-act-eatery',function(){
       var eateryId=$(this).find('#eateryId').val();
       var eateryName=$(this).find('#eateryName').text();
-      var message = eateryName + " is not yet a member of the FoodAdvisr community. <br> When you tap 'invite' we will send a message to this business inviting them to join the FoodAdvisr community so that you can see their full and updated menus.";
+      var message = eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus.";
       popup.show(message,'Invite|in-act-eatery-invite,Cancel');
       api.getAddClickBeforeAssociated(eateryId,function(data){
       });
