@@ -62,69 +62,62 @@ Dashboard
                     <div class="widget-subtitle"></div>
                 </div> 
             </div>  
-        </div>                            
-            <!-- END WIDGET MESSAGES -->
-        </div>
-        <div class="col-md-6">
-                <div class="panel panel-default">                                
-                    <div class="panel-body panel-body-table">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Top 5 Clicks On Advisr OnBoarded</th>          
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
-                                    <tr>                                                    
-                                        <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
-                                    </tr>
-                                    @endforeach   
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>  
-            <div class="col-md-6">
-                <div class="panel panel-default">                                
-                    <div class="panel-body panel-body-table">
-                        <div class="table-responsive">
-                            <table class="table table-bordered table-striped">
-                                <thead>
-                                    <tr>
-                                        <th>Top 5 Clicks On Yet To Be OnBoarded</th>          
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
-                                    <tr>                                                    
-                                        <td style="font-size: 13px;">{{$gettop5eateriesBeforeAssociated->BusinessName}}</td> 
-                                    </tr>
-                                    @endforeach   
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+        </div> 
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">                                
+            <div class="panel-body panel-body-table">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Top 5 Clicks On Advisr OnBoarded</th>          
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
+                            <tr>                                                    
+                                <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
+                            </tr>
+                                @endforeach   
+                        </tbody>
+                    </table>
                 </div>
             </div>
-            <div class="col-md-12">
-                           
-                            <!-- START USERS ACTIVITY BLOCK -->
-                            <div class="panel panel-default">
-                                                              
-                                <div class="panel-body padding-0" style="margin-left: 36px;">
-                                     <br/><br/>
-                                    <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
-                                    <br/>
-                                </div>                                    
-                            </div>
-                            <!-- END USERS ACTIVITY BLOCK -->
-                            
-                        </div>
-        </div>        
+        </div>
+    </div>  
+    <div class="col-md-6">
+        <div class="panel panel-default">                                
+            <div class="panel-body panel-body-table">
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Top 5 Clicks On Yet To Be OnBoarded</th>          
+                            </tr>
+                        </thead>
+                        <tbody>
+                                @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
+                            <tr>                                                    
+                                <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
+                                </td> 
+                            </tr>
+                                 @endforeach   
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body padding-0" style="margin-left: 36px;">
+                <br/><br/>
+                <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
+                <br/>
+            </div>                                    
+        </div>
+    </div>        
           
 @endsection
 
