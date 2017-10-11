@@ -19,6 +19,7 @@ use Carbon\Carbon;
 use DateTimeZone;
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
+ini_set('upload_max_filesize', '5048M');
 
 class EateriesController extends Controller
 {
@@ -399,7 +400,7 @@ class EateriesController extends Controller
         $file = array_get($input,'imagefile3');
 
        $file_size = $_FILES['logo']['size'];
-        if($file_size > 2097152)
+        if($file_size > 5097152)
             {
                  return Redirect::back()->with('warning','File size must be less than 2 MB!');
             }
