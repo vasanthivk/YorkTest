@@ -3489,7 +3489,7 @@ td.dataTables_empty {
 .widget .widget-data-left .widget-int,
 .widget .widget-data .widget-big-int,
 .widget .widget-data-left .widget-big-int {
-  text-align: left;
+  /*text-align: left;*/
 }
 .widget .widget-controls a {
   position: absolute;

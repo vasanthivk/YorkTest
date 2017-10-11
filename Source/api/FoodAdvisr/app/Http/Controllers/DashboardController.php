@@ -26,9 +26,10 @@ class DashboardController extends Controller
                 ->select(DB::raw('*'))
                 ->where('AssociatedOn' ,'<=', $date)
                 ->count();
+                
             $weeks[] = $week ;
         }
-
+        
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
@@ -64,7 +65,8 @@ class DashboardController extends Controller
         ->with('v1_gettop5eateriesBeforeAssociated',$v1_gettop5eateriesBeforeAssociated)
         ->with('nonassociatedeateries',$nonassociatedeateries)
         ->with('associatedeateries',$associatedeateries)
-        ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated);
+        ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated)
+        ->with('weeks',$weeks);
     }
 
     /**
