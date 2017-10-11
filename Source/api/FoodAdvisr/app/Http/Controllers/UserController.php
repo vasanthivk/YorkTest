@@ -69,10 +69,9 @@ class UserController extends Controller
         if($privileges['Add'] !='true')    
             return Redirect::to('/');       
         $role = Role::all()->pluck('name','id');
-        $companies = Company::all()->pluck('company_name','id');
+       
         return View::make('user.create')
-        ->with('role',$role)
-        ->with('companies',$companies)             
+        ->with('role',$role)            
         ->with('privileges',$privileges);
     }
    
