@@ -45,7 +45,7 @@ class FoodController extends Controller
                     ->get();
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.LocationID,eateries.Latitude,eateries.Longitude'))
+            ->select(DB::raw('eateries.id,eateries.Latitude,eateries.Longitude'))
             ->where('eateries.LocationID','=',$location_id)
             ->limit(2000)
             ->get();
@@ -59,9 +59,7 @@ class FoodController extends Controller
                 $address = getaddress($lat,$lng);
                 if($address)
                 {
-                    Eateries::where('LocationID','=',$value->LocationID)
-                 ->update(array('Address'=> $address
-                ));
+                 DB::update('UPDATE eateries SET Address = "'.$address.'" WHERE id =  ?', [$value->id]);
                 }
             }
                
