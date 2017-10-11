@@ -64,7 +64,16 @@ Dashboard
             </div>  
         </div> 
     </div>
-    <div class="col-md-6">
+    <div class="col-md-12">
+        <div class="panel panel-default">
+            <div class="panel-body padding-0" style="margin-left: 36px;">
+                <br/><br/>
+                <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
+                <br/>
+            </div>                                    
+        </div>
+    </div>        
+     <div class="col-md-6">
         <div class="panel panel-default">                                
             <div class="panel-body panel-body-table">
                 <div class="table-responsive">
@@ -108,17 +117,7 @@ Dashboard
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-body padding-0" style="margin-left: 36px;">
-                <br/><br/>
-                <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
-                <br/>
-            </div>                                    
-        </div>
-    </div>        
-          
+    </div>     
 @endsection
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
