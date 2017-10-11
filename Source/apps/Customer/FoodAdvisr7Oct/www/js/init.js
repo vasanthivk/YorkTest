@@ -798,9 +798,9 @@ body.on('click','.act-clear-search',function(){
       return false;
     });
 //fire42 start
-    function eaterySearch(val)
+    function eaterySearch(searchval)
     {
-      api.getEateries(function(data){
+      api.getEateries(searchval,function(data){
         var divItem = document.getElementById('loadeateries');
         var op ='';
         if(data.result.length > 0)
@@ -847,7 +847,7 @@ body.on('click','.act-clear-search',function(){
       var eateryId=$(this).find('#eateryId').val();
       api.getAddClickAfterAssociated(eateryId,function(data){
       });
-
+      //page.route('eaterydetails');
     });
     
     body.on('click','.in-act-eatery',function(){

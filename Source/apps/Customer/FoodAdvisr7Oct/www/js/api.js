@@ -57,7 +57,7 @@ api.cacheBust=function(){
 
 }
 
-api.getEateries=function(callBack)
+api.getEateries=function(searchval, callBack)
 {
     postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';
     $.post(api.eateiesroot+'gettop10hotels',postData,function(data){
