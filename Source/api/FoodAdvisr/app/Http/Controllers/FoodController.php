@@ -45,11 +45,11 @@ class FoodController extends Controller
                     ->get();
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.FHRSID,eateries.Latitude,eateries.Longitude'))
+            ->select(DB::raw('eateries.LocationID,eateries.Latitude,eateries.Longitude'))
             ->where('eateries.LocationID','=',$location_id)
             ->limit(2000)
             ->get();
-          
+          // return $all_eateries;
             foreach ($all_eateries as $key => $value) {
 
                 $lat = $value->Latitude; //latitude
@@ -59,7 +59,7 @@ class FoodController extends Controller
                 $address = getaddress($lat,$lng);
                 if($address)
                 {
-                    Eateries::where('FHRSID','=',$value->FHRSID)
+                    Eateries::where('LocationID','=',$value->LocationID)
                  ->update(array('Address'=> $address
                 ));
                 }
