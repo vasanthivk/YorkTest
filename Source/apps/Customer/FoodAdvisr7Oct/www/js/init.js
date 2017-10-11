@@ -811,8 +811,8 @@ body.on('click','.act-clear-search',function(){
               op += '<div class="act-eatery">' +
                       '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
                       '<div class="eatery-columns">' +
-                        '<div class="act-eatery-logo" ><img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img></div>' +
-                        '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + (data.result[idx].Address==null?'':data.result[idx].Address) + '</div>' +
+                        '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img></div>' +
+                        '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div> <img src="img/foodadvisr-green.png" width=66px height=14px/></div>'+ '</div>' +
                       '</div>' +
                       '<div class="eatery-clear"></div>' +
                     '</div>';
@@ -835,6 +835,7 @@ body.on('click','.act-clear-search',function(){
         divItem.innerHTML =op;
       })
     }
+    
     function eaterySearchReset()
     {
         //$('#loadeateries').innerHTML = '';
