@@ -25,21 +25,31 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="index.css" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/www/css/index.css">
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.53287196" vertical-offset="1204" max-vertical-offset="45072">
-              <caret line="84" column="25" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
+            <state vertical-scroll-proportion="-6.732143" vertical-offset="3727" max-vertical-offset="12150">
+              <caret line="228" column="7" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="7" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="init.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="init.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/www/js/init.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-15.172414" vertical-offset="14428" max-vertical-offset="31482">
-              <caret line="826" column="345" selection-start-line="826" selection-start-column="345" selection-end-line="826" selection-end-column="345" />
+            <state vertical-scroll-proportion="0.1952862" vertical-offset="14536" max-vertical-offset="31482">
+              <caret line="814" column="220" selection-start-line="814" selection-start-column="220" selection-end-line="814" selection-end-column="220" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/css/index.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0" vertical-offset="1312" max-vertical-offset="45090">
+              <caret line="97" column="104" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="104" />
               <folding />
             </state>
           </provider>
@@ -71,8 +81,8 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/www/js/api.js" />
-        <option value="$PROJECT_DIR$/www/js/init.js" />
         <option value="$PROJECT_DIR$/www/css/index.css" />
+        <option value="$PROJECT_DIR$/www/js/init.js" />
       </list>
     </option>
   </component>
@@ -261,18 +271,26 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/init.js">
+    <entry file="file://$PROJECT_DIR$/www/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-15.172414" vertical-offset="14428" max-vertical-offset="31482">
-          <caret line="826" column="345" selection-start-line="826" selection-start-column="345" selection-end-line="826" selection-end-column="345" />
+        <state vertical-scroll-proportion="-6.732143" vertical-offset="3727" max-vertical-offset="12150">
+          <caret line="228" column="7" selection-start-line="228" selection-start-column="7" selection-end-line="228" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/www/css/index.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.53287196" vertical-offset="1204" max-vertical-offset="45072">
-          <caret line="84" column="25" selection-start-line="84" selection-start-column="25" selection-end-line="84" selection-end-column="25" />
+        <state vertical-scroll-proportion="0.0" vertical-offset="1312" max-vertical-offset="45090">
+          <caret line="97" column="104" selection-start-line="97" selection-start-column="4" selection-end-line="97" selection-end-column="104" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/init.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.1952862" vertical-offset="14536" max-vertical-offset="31482">
+          <caret line="814" column="220" selection-start-line="814" selection-start-column="220" selection-end-line="814" selection-end-column="220" />
           <folding />
         </state>
       </provider>

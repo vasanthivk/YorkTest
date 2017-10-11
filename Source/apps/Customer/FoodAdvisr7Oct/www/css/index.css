@@ -95,6 +95,7 @@ html,body{
     width: 66px;
     height: 14px;
     opacity: 0.5;
+    background: linear-gradient(to bottom, rgba(221, 221, 221, 0.3) 0%, rgba(146, 146, 146, 0.48) 100%);
 }
 .act-action-div{
     border-top: 0.05em solid rgba(128, 128, 128, 0.22);
