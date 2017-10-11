@@ -82,7 +82,7 @@ html,body{
   }
   .act-eatery-logo      { width: 25%;}
   .act-eatery-logopath {
-    width:65px; height:65px; /*border-radius:5px;*/
+    width:70px; height:70px;     border: 1px solid rgba(128, 128, 128, 0.21);
   }
   .act-eatery-name      { width: 75%;color: black;font-size: 12px; font-family: roboto; }
   .act-eatery-image{ width:66px;height:14px; }
@@ -90,6 +90,11 @@ html,body{
   .act-eatery-distance {
 
     padding-right: 10px;
+}
+.in-act-eatery-image {
+    width: 66px;
+    height: 14px;
+    opacity: 0.5;
 }
 .act-action-div{
     border-top: 0.05em solid rgba(128, 128, 128, 0.22);
