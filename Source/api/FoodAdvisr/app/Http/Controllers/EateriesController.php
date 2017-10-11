@@ -19,7 +19,7 @@ use Carbon\Carbon;
 use DateTimeZone;
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
-ini_set('upload_max_filesize', '5048M');
+
 
 class EateriesController extends Controller
 {
