@@ -15,6 +15,7 @@ Eateries
 {{Form::component('ahNumber', 'components.form.number', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+{{Form::component('ahCheckbox', 'components.form.checkbox', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
 {{ Form::open(array('route' => 'eateries.store','files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -31,7 +32,9 @@ Eateries
 		        {{ Form::ahText('WebSite','WebSite :','',array('maxlength' => '100'))  }}
             {{ Form::ahText('EmailId','EmailId :','',array('maxlength' => '100'))  }}    
             {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
-            {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}           
+            {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
+            {{ Form::ahCheckbox('IsAssociated','Is Associated :',null) }}     
+            {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}      
 		        </br>
             
 		    </div>
@@ -63,9 +66,10 @@ Eateries
                     </div>
                 </div>            
         </div>
-          
-      
-        
+           <br>
+            {{ Form::ahFile('imagefile1',' ', array("accept"=>"image/*")) }}
+            {{ Form::ahFile('imagefile2',' ', array("accept"=>"image/*")) }}
+            {{ Form::ahFile('imagefile3',' ', array("accept"=>"image/*")) }}
       </div>
 		        </br>
 		    </div>

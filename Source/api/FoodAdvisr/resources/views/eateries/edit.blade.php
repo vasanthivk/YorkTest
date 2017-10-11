@@ -16,6 +16,7 @@ Eateries
 {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahReadonly', 'components.form.readonly', ['name', 'labeltext'=>null, 'value' => null])}}
+{{Form::component('ahCheckbox', 'components.form.checkbox', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
 {{ Form::open(array('method' => 'PUT', 'route' => array('eateries.update',$eateries->id),'files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -32,7 +33,9 @@ Eateries
             {{ Form::ahText('WebSite','WebSite :',$eateries->WebSite,array('maxlength' => '100'))  }}
             {{ Form::ahText('EmailId','EmailId :',$eateries->EmailId,array('maxlength' => '100'))  }}    
             {{ Form::ahText('Longitude','Longitude :',$eateries->Longitude,array("readonly"=>"true"))  }}
-            {{ Form::ahText('Latitude','Latitude :',$eateries->Latitude,array("readonly"=>"true"))  }} 
+            {{ Form::ahText('Latitude','Latitude :',$eateries->Latitude,array("readonly"=>"true"))  }}
+            {{ Form::ahCheckbox('IsAssociated','Is Associated :',null,$eateries->IsAssociated) }}     
+            {{ Form::ahDate('AssociatedOn','Associated On :', $eateries->AssociatedOn) }} 
             </br>
         </div>
         <div class="col-md-6">                 
@@ -65,7 +68,7 @@ Eateries
                              <?php } ?>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 111px;"></div>
                     <div>
-                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change Image</span>
+                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Change Image</span><span class="fileinput-exists">Change Image</span>
                         <input type="file" name="logo" id="logo">
                         </span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
@@ -76,6 +79,30 @@ Eateries
                 </div>
             </div> 
           </div>
+          <?php
+                $session_id = Session::getId();
+                $path = env('CONTENT_EATERY_IMAGE_PATH') . '//'. $eateries->id;
+                ?>
+                @foreach($fileslist as $file )
+                    {{link_to_route('destroyeateryimageedit', '', array('keyword' => $file), array('class' => 'fa fa-times'))}}
+                    <?php
+                    $filename = $path . '/' . $file ;
+                    $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
+                    ?>                    
+                    {{ $file }} 
+                    @foreach($eateriesmedia as $media)
+                        @if($media->media_name == $file)                           
+                                <i class="fa fa-check" aria-hidden="true"></i>
+                                 <img src="../../<?php echo $filename ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
+                            @break
+                        @endif
+                    @endforeach
+                    <br>
+                @endforeach               
+                <br>
+                    {{ Form::ahFile('imagefile1',' ', array("accept"=>"image/*")) }}
+                    {{ Form::ahFile('imagefile2',' ', array("accept"=>"image/*")) }}
+                    {{ Form::ahFile('imagefile3',' ', array("accept"=>"image/*")) }}
         </div>
       <div class="form-group">
         <div class="panel-footer">

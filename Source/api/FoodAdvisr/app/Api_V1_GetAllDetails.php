@@ -9,13 +9,13 @@ use App\Eateries;
 		 $defaults = Defaults::all();    
          $search_radius = $defaults[0]->search_radius;
          $search_result_limit = $defaults[0]->search_result_limit;
-    	 $sql  = "select FHRSID
+    	 $sql  = "select id
             from eateries where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ";
         $result = DB::select( DB::raw($sql));
         $hotelsids = [];
          foreach($result as $result1)
     	{
-        	$hotelsids[] = $result1->FHRSID; 
+        	$hotelsids[] = $result1->id; 
     	}
     	
     	$hotels = DB::table('eateries')
@@ -28,12 +28,26 @@ use App\Eateries;
     	return $hotels;
 	}
 
-    function v1_gethoteldetailsbyid($fhrs_id)
+    function v1_gethoteldetailsbyid($id)
     {
-        $sql  = "select * from eateries where FHRSID=" . $fhrs_id ." ";
-        $result = DB::select( DB::raw($sql));
-        return  $result;
-        
+        $sql  = "select * from eateries where eateries.id=" . $id ." ";
+        $result['eatery'] = DB::select( DB::raw($sql));
+        $images = getImagesById($id);
+        $json_string = json_decode(json_encode($result + $images));
+        return  $json_string;        
+    }
+
+    function getImagesById($id)
+    {
+         $images_array = array();
+         $sql  = "select * from eateriesmedia where eateriesmedia.eatery_id=" . $id ." ";
+         $image_result = DB::select( DB::raw($sql));
+         $image_index = 0;
+         foreach ($image_result as $image) {
+            $images_array['images'][$image_index]['media_name'] = "$image->media_name";
+            $image_index++;
+         }
+         return $images_array;
     }
 
 	function v1_gettop10hotels($latitude,$longitude)
@@ -52,20 +66,6 @@ use App\Eateries;
     {
         DB::update('UPDATE eateries SET ClicksAfterAssociated = IFNULL(ClicksAfterAssociated,0) + 1 WHERE ID =  ?', [$id]);
     }
-
-    // function v1_getclicksbeforeassociated($id)
-    // {
-    //     $sql = "select ClicksBeforeAssociated from eateries where id=".$id." and IFNULL(IsAssociated,0) = 0";
-    //     $result = DB::select( DB::raw($sql));
-    //     return $result;        
-    // }
-
-    // function v1_getclicksafterassociated($id)
-    // {
-    //     $sql  = "select ClicksAfterAssociated from eateries where id=".$id." and IFNULL(IsAssociated,0) = 1";
-    //     $result = DB::select( DB::raw($sql));
-    //     return $result;
-    // }
 
     function v1_gettop5eateriesBeforeAssociated()
     {

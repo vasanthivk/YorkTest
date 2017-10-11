@@ -10,6 +10,7 @@ use Input;
 use App\Eateries;
 use App\BusinessType;
 use App\Locations;
+use App\EateriesMedia;
 use Session;
 use App\Log;
 use File;
@@ -87,11 +88,24 @@ class EateriesController extends Controller
             return Redirect::to('/');
         $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
         $locations = Locations::all()->pluck('Description','Description');
+
+        $session_id = Session::getId();
+        $tempdestinationPath = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id;
+        File::makeDirectory($tempdestinationPath, 0775, true, true);
+        $fileslist = [];
+        $filesInFolder = File::files($tempdestinationPath);
+        foreach($filesInFolder as $path)
+        {
+             $fileslist[] = pathinfo($path)['basename'];
+        }
+
         return view('eateries.create')
         ->with('privileges',$privileges)
         ->with('businesstypes',$businesstypes)
-        ->with('locations',$locations);
+        ->with('locations',$locations)
+        ->with('fileslist',$fileslist);
     }
+
 
     private function saveLogoInTempLocation($file)
      {
@@ -102,32 +116,76 @@ class EateriesController extends Controller
         $upload_success = $file->move($tempdestinationPath, $filename);
         return $extension;
      }
-    private function saveLogoInLogoPath($employeeid, $extension)
+    private function saveLogoInLogoPath($eateryid, $extension)
     {
         $session_id = Session::getId();
         $sourceDir = env('CONTENT_EATERY_LOGO_TEMP_PATH');
         $destinationDir = env('CONTENT_EATERY_LOGO_PATH');
-        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $employeeid . '.' .  $extension);        
+        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $eateryid . '.' .  $extension);        
         try {
             $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);     
         } catch (Exception $e) {
         }
         
-        createThumbnailImage($destinationDir,$employeeid,$extension);
+        createThumbnailImage($destinationDir,$eateryid,$extension);
     }
 
-    private function deleteLogo($employeeid, $extension)
+    private function deleteLogo($eateryid, $extension)
     {
         $sourceDir = env('CONTENT_EATERY_LOGO_PATH');
         try {
-            $success = File::delete($sourceDir . '//' . $employeeid . '.' .  $extension);        
+            $success = File::delete($sourceDir . '//' . $eateryid . '.' .  $extension);        
         } catch (Exception $e) {
         }
         try {
-            $success = File::delete($sourceDir . '//' . $employeeid . '_t.' .  $extension);        
+            $success = File::delete($sourceDir . '//' . $eateryid . '_t.' .  $extension);        
         } catch (Exception $e) {
         }
+    }   
+
+    public function destroyeatryimage($imagename)
+    {
+        $session_id = Session::getId();
+        $myfile = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id . '\\' . $imagename;
+        if (File::exists($myfile))
+        {
+            File::delete($myfile);
+        }
+        return Redirect::route('eateries.create')
+            ->withInput();
     }
+    public function destroyeateryimageedit($imagename)
+    {
+       $eatery = EateriesMedia::where('media_name',$imagename)->get();
+              
+       $session_id = Session::getId();
+       $myfile = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id . '\\' . $imagename;
+        if (File::exists($myfile))
+            {
+                File::delete($myfile);
+            }        
+        $sourceDir= env('CONTENT_EATERY_IMAGE_PATH') . '\\'. $eatery[0]->eatery_id . '\\' . $imagename;
+        if (File::exists($sourceDir))
+            {
+                File::delete($sourceDir);
+            }  
+        EateriesMedia::where('media_name',$imagename)->delete();
+        return Redirect::back();
+    }
+
+     private function saveImageInTempLocation($file)
+     {
+        $session_id = Session::getId();
+        $tempdestinationPath = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id;
+        File::makeDirectory($tempdestinationPath, 0775, true, true);
+        $extension = $file->getClientOriginalExtension();
+        $filename = uniqid('', true) . '.' . $extension;
+        while (true) {
+            $filename = uniqid('', true) . '.' . $extension;
+            if (!file_exists($tempdestinationPath . '\\' . $filename)) break;
+        }
+        $upload_success = $file->move($tempdestinationPath, $filename);
+     }
 
     /**
      * Store a newly created resource in storage.
@@ -138,6 +196,16 @@ class EateriesController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
+        $session_id = Session::getId();
+        $file = array_get($input,'imagefile1');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile2');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile3');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
 
         $file_size = $_FILES['logo']['size'];       
         if($file_size > 2097152)
@@ -151,13 +219,13 @@ class EateriesController extends Controller
         if($file <> null)
             $extension = $this->saveLogoInTempLocation($file);
 
-        $this->validate($request,['FHRSID'  => 'required|unique:establishment','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);        
+        $this->validate($request,['FHRSID'  => 'required|unique:eateries','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('allhotels.create')
+            return Redirect::route('eateries.create')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -179,10 +247,15 @@ class EateriesController extends Controller
             $eateries->Longitude = Input::get('Longitude');
             $eateries->Latitude = Input::get('Latitude');
             $eateries->CreatedOn = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            
+            $eateries->IsAssociated =  (Input::get('IsAssociated')== ''  ? '0' : '1');
+            $eateries->AssociatedOn = Input::get('AssociatedOn');
              if($file <> null)
                 $eateries->LogoExtension = $extension;        
             $eateries->save();
+
+            $this->saveEateryMedia($eateries->id);
+            $this->saveEateryMediaInDB($eateries->id);
+
             if(!empty($extension))
             {
              $destinationDir = env('CONTENT_EATERY_LOGO_PATH');            
@@ -206,6 +279,46 @@ class EateriesController extends Controller
         
         }
     }
+
+
+    private function saveEateryMedia($eateryid)
+    {
+        $session_id = Session::getId();
+        $sourceDir = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id;
+        $destinationDir= env('CONTENT_EATERY_IMAGE_PATH') . '\\'. $eateryid;
+        $success = File::deleteDirectory($destinationDir);        
+        $success = File::copyDirectory($sourceDir, $destinationDir);
+        $success = File::deleteDirectory($sourceDir);        
+    }
+     private function saveEateryMediaInDB($eateryid)
+     {
+        $session_id = Session::getId();
+        $mediaDir = env('CONTENT_EATERY_IMAGE_PATH') . '\\'. $eateryid;
+        $filesInFolder = File::files($mediaDir);
+        foreach($filesInFolder as $path)
+        {
+            $filename = pathinfo($path)['basename'];
+            $mediacount = DB::table('eateriesmedia')
+            ->where('media_name','=',$filename)
+            ->where('eatery_id','=',$eateryid)
+            ->count();
+            if($mediacount == 0)
+            {
+                $eateriesmedia = new EateriesMedia();
+                $eateriesmedia->eatery_id=$eateryid;
+                $extension = strtolower(pathinfo($path)['extension']);                
+                $eateriesmedia->media_name=pathinfo($path)['basename'];
+                $eateriesmedia->save();
+            }
+        }
+        $eateriesmedias = EateriesMedia::all()->where('eatery_id',$eateryid);
+        foreach ($eateriesmedias as $eateriesmedia) {
+            if(!file_exists($mediaDir . '\\' . $eateriesmedia->media_name)) {
+                    EateriesMedia::find($eateriesmedia->id)->delete();
+            }  
+        }
+
+     }
 
     /**
      * Display the specified resource.
@@ -232,11 +345,37 @@ class EateriesController extends Controller
         $eateries =  Eateries::find($id);
         $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
         $locations = Locations::all()->pluck('Description','LocationID');
+
+        $session_id = Session::getId();
+        $sourceDir = env('CONTENT_EATERY_IMAGE_PATH') . '\\'. $id;
+        $destinationDir = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id;
+        if(Session::get('isimagedelete') == '')
+        {
+            $success = File::deleteDirectory($destinationDir);        
+            $success = File::copyDirectory($sourceDir, $destinationDir);
+        }
+        else
+        {
+            Session::put('isimagedelete','');
+        }       
+        
+        $fileslist = [];
+        $filesInFolder = File::files($destinationDir);
+        foreach($filesInFolder as $path)
+        {
+             //$fileslist[] = pathinfo($path)['dirname'].'/'.pathinfo($path)['basename'];
+             $fileslist[] = pathinfo($path)['basename'];
+        }
+
+        $eateriesmedia = EateriesMedia::where('eatery_id',$id)->get();
+
         return View('eateries.edit')
         ->with('privileges',$privileges)
+        ->with('eateriesmedia',$eateriesmedia)
         ->with('eateries',$eateries)
         ->with('businesstypes',$businesstypes)
-        ->with('locations',$locations);
+        ->with('locations',$locations)
+        ->with('fileslist',$fileslist);
     }
 
     /**
@@ -249,6 +388,15 @@ class EateriesController extends Controller
     public function update(Request $request, $id)
     {
        $input = Input::all();
+
+       $session_id = Session::getId();
+        $file = array_get($input,'imagefile1');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile2');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile3');
 
        $file_size = $_FILES['logo']['size'];
         if($file_size > 2097152)
@@ -308,10 +456,15 @@ class EateriesController extends Controller
             $eateries->Latitude = Input::get('Latitude');
             $eateries->CreatedOn = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $eateries->LogoPath =  $LogoPath;
+            $eateries->IsAssociated =  (Input::get('IsAssociated')== ''  ? '0' : '1');
+            $eateries->AssociatedOn = Input::get('AssociatedOn');
             
             if($file <> null)
                 $eateries->LogoExtension = $extension;
             $eateries->update();
+
+            $this->saveEateryMedia($eateries->id);
+            $this->saveEateryMediaInDB($eateries->id);
 
             if($file <> null)
                 $this->saveLogoInLogoPath($eateries->id, $extension);
@@ -346,6 +499,15 @@ class EateriesController extends Controller
         else
         {
            Eateries::find($id)->delete();
+           EateriesMedia::where('eatery_id',$id)->delete();
+
+           try {
+                $sourceDir = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. Session::getId();
+                $success = File::deleteDirectory($sourceDir);        
+                $sourceDir= env('CONTENT_EATERY_IMAGE_PATH') . '\\'. $id;
+                $success = File::deleteDirectory($sourceDir);  
+            } catch (Exception $e) {
+            }
 
             $log = new Log();
             $log->module_id=2;

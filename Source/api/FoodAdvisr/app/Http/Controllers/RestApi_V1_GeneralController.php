@@ -46,8 +46,8 @@ class RestApi_V1_GeneralController extends Controller
         if (isset($postdata)) 
         {
             $request = json_decode($postdata);
-            $fhrs_id = $request->{'fhrs_id'};
-            $v1_gethoteldetailsbyid = v1_gethoteldetailsbyid($fhrs_id);
+            $id = $request->{'id'};
+            $v1_gethoteldetailsbyid = v1_gethoteldetailsbyid($id);
             $data = array('status' => 0,'message' => 'Success','result' => $v1_gethoteldetailsbyid);
             return $this->appendHeaders($data);
         }
@@ -110,42 +110,6 @@ class RestApi_V1_GeneralController extends Controller
             return $this->appendHeaders($data);
         } 
     }
-
-    // public function V1_GetClicksBeforeAssociated(Request $request)
-    // {
-    //     $postdata = file_get_contents("php://input");
-    //     if (isset($postdata)) 
-    //     {
-    //         $request = json_decode($postdata);
-    //         $id = $request->{'id'};
-    //         $v1_getclicksbeforeassociated = v1_getclicksbeforeassociated($id);
-    //         $data = array('status' => 0,'message' => 'Success','result' => $v1_getclicksbeforeassociated);
-    //         return $this->appendHeaders($data);
-    //     }
-    //     else
-    //     {
-    //         $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
-    //         return $this->appendHeaders($data);
-    //     } 
-    // }
-
-    // public function V1_GetClicksAfterAssociated(Request $request)
-    // {
-    //     $postdata = file_get_contents("php://input");
-    //     if (isset($postdata)) 
-    //     {
-    //         $request = json_decode($postdata);
-    //         $id = $request->{'id'};
-    //         $v1_getclicksafterassociated = v1_getclicksafterassociated($id);
-    //         $data = array('status' => 0,'message' => 'Success','result' => $v1_getclicksafterassociated);
-    //         return $this->appendHeaders($data);
-    //     }
-    //     else
-    //     {
-    //         $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
-    //         return $this->appendHeaders($data);
-    //     } 
-    // }
 
     public function V1_GetTop5EateriesBeforeAssociated(Request $request)
     {
