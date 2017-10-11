@@ -106,7 +106,7 @@ $sql = "select count(*) as cnt from agent where form_no_to between  '" . $formno
 
 function getaddress($lat,$lng)
 {
-$url = 'http://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&sensor=false';
+$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&key=AIzaSyAyD5F_aHW5hjzw-Cqt91YUcr8N8WCnnyQ';
 $json = @file_get_contents($url);
 $data=json_decode($json);
 $status = $data->status;
