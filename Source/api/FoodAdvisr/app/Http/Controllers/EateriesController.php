@@ -400,7 +400,7 @@ class EateriesController extends Controller
         $file = array_get($input,'imagefile3');
 
        $file_size = $_FILES['logo']['size'];
-        if($file_size > 2097152)
+        if($file_size > 5097152)
             {
                  return Redirect::back()->with('warning','File size must be less than 2 MB!');
             }
