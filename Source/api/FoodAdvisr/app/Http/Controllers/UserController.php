@@ -148,10 +148,9 @@ class UserController extends Controller
             return Redirect::to('/');        
         $user = User::find($id);
         $role = Role::all()->pluck('name','id');       
-        $companies = Company::all()->pluck('company_name','id');
+        
         return View::make('user.edit', compact('user'))
         ->with('role',$role)
-        ->with('companies',$companies)             
         ->with('privileges',$privileges);
     }
 

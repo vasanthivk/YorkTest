@@ -38,13 +38,10 @@ Eateries
             {{ Form::ahDate('AssociatedOn','Associated On :', $eateries->AssociatedOn) }} 
             </br>
         </div>
-        <div class="col-md-6">                 
-            <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="width: 500px; height: 250px"></div>
-              </br>
+        <div class="col-md-6">
          <div class="module-wrapper col-lg-12 col-md-10 col-sm-12 col-xs-12">
         <div class="row">
-            <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="col-md-4">
                     <div class="form-group">            
                         <div class="fileinput fileinput-new" data-provides="fileinput">
                         <?php
@@ -68,7 +65,7 @@ Eateries
                              <?php } ?>
                     <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 111px;"></div>
                     <div>
-                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Change Image</span><span class="fileinput-exists">Change Image</span>
+                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Change Logo</span><span class="fileinput-exists">Change Logo</span>
                         <input type="file" name="logo" id="logo">
                         </span>
                         <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
@@ -76,10 +73,15 @@ Eateries
 
                         </div>
                     </div>
+                </div>                 
+                 <div class="col-md-3">  
+                  <h4>Images</h4>
+                  {{ Form::ahFile('imagefile1',' ', array("accept"=>"image/*")) }}
+                  {{ Form::ahFile('imagefile2',' ', array("accept"=>"image/*")) }}
+                  {{ Form::ahFile('imagefile3',' ', array("accept"=>"image/*")) }}
                 </div>
-            </div> 
-          </div>
-          <?php
+                <div class="col-md-2" style="margin-left: 75px;margin-top: 19px;">
+                  <?php
                 $session_id = Session::getId();
                 $path = env('CONTENT_EATERY_IMAGE_PATH') . '//'. $eateries->id;
                 ?>
@@ -89,20 +91,22 @@ Eateries
                     $filename = $path . '/' . $file ;
                     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
                     ?>                    
-                    {{ $file }} 
+                     
                     @foreach($eateriesmedia as $media)
                         @if($media->media_name == $file)                           
-                                <i class="fa fa-check" aria-hidden="true"></i>
                                  <img src="../../<?php echo $filename ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
                             @break
                         @endif
                     @endforeach
                     <br>
                 @endforeach               
-                <br>
-                    {{ Form::ahFile('imagefile1',' ', array("accept"=>"image/*")) }}
-                    {{ Form::ahFile('imagefile2',' ', array("accept"=>"image/*")) }}
-                    {{ Form::ahFile('imagefile3',' ', array("accept"=>"image/*")) }}
+                <br>                    
+                </div>  
+            </div> 
+          </div>
+          <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
+              <div id="map" style="margin-left: 27px;width: 433px; height: 250px"></div>
+              </br>
         </div>
       <div class="form-group">
         <div class="panel-footer">
