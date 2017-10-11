@@ -808,11 +808,11 @@ body.on('click','.act-clear-search',function(){
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
             {
-              op += '<div class="act-eatery">' +
+             op += '<div class="act-eatery">' +
                       '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
                       '<div class="eatery-columns">' +
                         '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img></div>' +
-                        '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div> <img src="img/foodadvisr-green.png" width=66px height=14px/></div>'+ '</div>' +
+                        '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+ '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/></div></div>' +'</div>' +
                       '</div>' +
                       '<div class="eatery-clear"></div>' +
                     '</div>';
@@ -823,8 +823,8 @@ body.on('click','.act-clear-search',function(){
                       '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
                       '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' + 
                       '<div class="eatery-columns">' +
-                        '<div class="in-act-eatery-logo" >&nbsp;</div>' + //<img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img>
-                        '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + (data.result[idx].Address==null?'':data.result[idx].Address) + '</div>' +
+                        '<div class="in-act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img></div>' + //<img src="' + appSettings.mediaPath + data.result[idx].LogoPath + '" width=75 height=75 alt=""></img>
+                        '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' +/* (data.result[idx].Address==null?'':data.result[idx].Address)+*/'<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/></div></div>' +'</div>' + '</div>' +
                       '</div>' +
                       '<div class="eatery-clear"></div>' +
                     '</div>';
