@@ -64,13 +64,18 @@ class DashboardController extends Controller
                 ->orderby('ClicksAfterAssociated','DESC')
                 ->LIMIT(5)
                 ->get();
+
+        $sql = 'select CEILING(FoodAdvisrOverallRating) as FoodAdvisrOverallRating, count(*) as Total from eateries where ifnull(FoodAdvisrOverallRating,0)>0 group by CEILING(FoodAdvisrOverallRating)';
+        $foodadvisroverallratings = DB::select( DB::raw($sql));
         
+       
         return view('dashboard.index', compact('establishment_count'))
         ->with('v1_gettop5eateriesBeforeAssociated',$v1_gettop5eateriesBeforeAssociated)
         ->with('nonassociatedeateries',$nonassociatedeateries)
         ->with('associatedeateries',$associatedeateries)
         ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated)
         ->with('weeks',$weeks)
+        ->with('foodadvisroverallratings',$foodadvisroverallratings)
         ->with('registered_count',$registered_count);
     }
 

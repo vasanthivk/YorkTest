@@ -74,7 +74,23 @@ Dashboard
             </div>                                    
         </div>
     </div> 
-
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body padding-0">
+                <h3 style="margin-top: 24px;text-align: center;">FoodAdvisr Overall Rating</h3>
+                <div class="chart-holder" id="donutchart" style="height: 317px;"></div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="panel panel-default">
+            <div class="panel-body padding-0" style="margin-left: 10px;">
+                <h3 style="margin-top: 24px;text-align: center;">Registered Users</h3>
+                <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
+                <br/>
+            </div>
+        </div>
+    </div>
      <div class="col-md-6">
         <div class="panel panel-default">                                
             <div class="panel-body panel-body-table">
@@ -146,7 +162,7 @@ Dashboard
         var chartDiv = document.getElementById('chart_div');
 
         var data = google.visualization.arrayToDataTable([
-          ['Dates', 'Advisr OnBoarded'],
+          ['', 'Advisr OnBoarded'],
           @foreach($weeks as $week)
             ['{{$week[0]}}', {{$week[1]}}],
             @endforeach
@@ -159,9 +175,10 @@ Dashboard
             title: '',
             labelAngle: 45
           },
+          legend: {position: 'none'},
           series: {
             0: { axis: 'AdvisrOnBoarded' }, // Bind series 0 to an axis named 'distance'.
-            1: { axis: 'Dates' } // Bind series 1 to an axis named 'brightness'.
+            1: { axis: '' } // Bind series 1 to an axis named 'brightness'.
           },
           axes: {
             y: {
@@ -185,4 +202,110 @@ Dashboard
 
         drawMaterialChart();
     };
-    </script>   
+    </script>
+
+    <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['FoodAdvisr Overall Rating', 'Total'],
+          @foreach($foodadvisroverallratings as $foodadvisroverallrating)
+            ['{{$foodadvisroverallrating->FoodAdvisrOverallRating}}', {{$foodadvisroverallrating->Total}} ],
+            @endforeach
+        ]);
+
+        var options = {
+          title: '',
+          pieHole: 0.4,
+          legend: {position: 'none'}, //to hide
+           slices: {
+            0: { color: '#33414e' },
+            1: { color: '#fea223' },
+            2: { color: '#1caf9a' },
+            3: { color: '#483D8B' },
+            4: { color: '#2F4F4F' }
+          }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+        chart.draw(data, options);
+      }
+    </script>
+
+   <!--  <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Task', 'Hours per Day'],                  
+          ['Registered Users',    {{$registered_count}}]
+        ]);
+
+        var options = {
+          title: '',
+          pieHole: 0.7,
+           slices: {
+            0: { color: '#20B2AA' }
+          }
+        };
+
+        var chart = new google.visualization.PieChart(document.getElementById('donutchart1'));
+        chart.draw(data, options);
+      }
+    </script> -->
+
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart', 'bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+
+        // var button = document.getElementById('change-chart');
+        var chartDiv = document.getElementById('donutchart1');
+
+        var data = google.visualization.arrayToDataTable([
+          ['', 'Registered Users'],
+            ['2017-09-14', 0],         
+            ['2017-09-21', 0],
+            ['2017-10-05', 0],
+            ['2017-10-12', 1]
+            
+        ]);
+
+        var materialOptions = {
+          width: 500,
+          colors: ['#2F4F4F'],
+          chart: {
+            title: '',
+            labelAngle: 45
+          },
+          legend: {position: 'none'},
+          series: {
+            0: { axis: 'RegisteredUsers' }, // Bind series 0 to an axis named 'distance'.
+            1: { axis: 'Dates' } // Bind series 1 to an axis named 'brightness'.
+          },
+          axes: {
+            y: {
+              RegisteredUsers: {label: 'Registered Users'}, // Left y-axis.
+              Dates: {side: 'right', label: 'apparent magnitude'},
+              labelAngle: 45 // Right y-axis.
+            }
+          },
+           axisX:{
+   labelAngle: 50,
+ }
+          
+        };
+
+        function drawMaterialChart() {
+          var materialChart = new google.charts.Bar(chartDiv);
+          materialChart.draw(data, google.charts.Bar.convertOptions(materialOptions));
+          button.innerText = 'Change to Classic';
+          button.onclick = drawClassicChart;
+        }       
+
+        drawMaterialChart();
+    };
+    </script>
+   
