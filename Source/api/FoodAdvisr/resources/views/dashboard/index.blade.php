@@ -64,90 +64,96 @@ Dashboard
             </div>  
         </div> 
     </div>
-    <div class="col-md-12">
-        <div class="panel panel-default">
-            <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
-                <h3>Advisr OnBoarded Weekly Report</h3>
-                <br/>
-                <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
-                <br/>
-            </div>                                    
-        </div>
-    </div> 
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-body padding-0">
-                <h3 style="margin-top: 24px;text-align: center;">FoodAdvisr Overall Rating</h3>
-                <div class="chart-holder" id="donutchart" style="height: 317px;"></div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
+                    <h3>Advisr OnBoarded Weekly Report</h3>
+                    <br/>
+                    <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
+                    <br/>
+                </div>                                    
             </div>
-        </div>
+        </div> 
     </div>
-    <div class="col-md-6">
-        <div class="panel panel-default">
-            <div class="panel-body padding-0" style="margin-left: 10px;">
-                <h3 style="margin-top: 24px;text-align: center;">Registered Users Weekly Report</h3>
-                <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
-                <br/>
-            </div>
-        </div>
-    </div>
-     <div class="col-md-6">
-        <div class="panel panel-default">                                
-            <div class="panel-body panel-body-table">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th colspan="2" style="text-align: center;font-size: 16px;">Most Viewed Restaurants Advisr OnBoarded</th>          
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
-                            <tr>                                                    
-                                <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
-                                <td style="font-size: 13px;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
-                            </tr>
-                                @endforeach   
-                        </tbody>
-                         <thead>
-                            <tr>
-                                <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
-                            </tr>
-                        </thead>
-                    </table>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body padding-0">
+                    <h3 style="margin-top: 24px;text-align: center;">FoodAdvisr Overall Rating</h3>
+                    <div class="chart-holder" id="donutchart" style="height: 317px;"></div>
                 </div>
             </div>
         </div>
-    </div>  
-    <div class="col-md-6">
-        <div class="panel panel-default">                                
-            <div class="panel-body panel-body-table">
-                <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th colspan="2" style="text-align: center;font-size: 16px;">Most Clicked Restaurants Yet To Be OnBoarded</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                                @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
-                            <tr>                                                    
-                                <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
-                                </td>
-                                <td style="font-size: 13px;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
-                                </td> 
-                            </tr>
-                                 @endforeach   
-                        </tbody>
-                        <thead>
-                            <tr>
-                                <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
-                            </tr>
-                        </thead>
-                    </table>
+        <div class="col-md-6">
+            <div class="panel panel-default">
+                <div class="panel-body padding-0" style="margin-left: 10px;">
+                    <h3 style="margin-top: 24px;text-align: center;">Registered Users Weekly Report</h3>
+                    <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
+                    <br/>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">                                
+                <div class="panel-body panel-body-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;font-size: 16px;">Most Viewed Restaurants Advisr OnBoarded</th>          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
+                                    <td style="font-size: 13px;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
+                                </tr>
+                                    @endforeach   
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>  
+        <div class="col-md-6">
+            <div class="panel panel-default">                                
+                <div class="panel-body panel-body-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;font-size: 16px;">Most Clicked Restaurants Yet To Be OnBoarded</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                    @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
+                                    </td>
+                                    <td style="font-size: 13px;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
+                                    </td> 
+                                </tr>
+                                    @endforeach   
+                            </tbody>
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
+                                </tr>
+                            </thead>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>     
     </div>     
 @endsection
 
