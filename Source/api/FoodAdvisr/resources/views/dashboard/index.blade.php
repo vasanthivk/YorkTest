@@ -82,16 +82,22 @@ Dashboard
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Top 5 Clicks On Advisr OnBoarded</th>          
+                                <th colspan="2" style="text-align: center;font-size: 16px;">Most Viewed Restaurants Advisr OnBoarded</th>          
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
                             <tr>                                                    
                                 <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
+                                <td style="font-size: 13px;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
                             </tr>
                                 @endforeach   
                         </tbody>
+                         <thead>
+                            <tr>
+                                <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
             </div>
@@ -104,17 +110,24 @@ Dashboard
                     <table class="table table-bordered table-striped">
                         <thead>
                             <tr>
-                                <th>Top 5 Clicks On Yet To Be OnBoarded</th>          
+                                <th colspan="2" style="text-align: center;font-size: 16px;">Most Clicked Restaurants Yet To Be OnBoarded</th>
                             </tr>
                         </thead>
                         <tbody>
                                 @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
                             <tr>                                                    
                                 <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
+                                </td>
+                                <td style="font-size: 13px;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
                                 </td> 
                             </tr>
                                  @endforeach   
                         </tbody>
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
+                            </tr>
+                        </thead>
                     </table>
                 </div>
             </div>
