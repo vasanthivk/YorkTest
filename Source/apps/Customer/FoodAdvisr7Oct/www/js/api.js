@@ -60,7 +60,7 @@ api.cacheBust=function(){
 api.getEateries=function(searchval, callBack)
 {
     postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';
-    $.post(api.eateiesroot+'gettop10hotels',postData,function(data){
+    $.post(api.eateiesroot+'gettop10eateries',postData,function(data){
       callBack(data);
     }).fail(function(error){
       msg.show('Network error.',1000,false,true);
