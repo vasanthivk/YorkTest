@@ -4,7 +4,7 @@ use App\Eateries;
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
 
-	function v1_gethotels($latitude,$longitude)
+	function v1_geteateries($latitude,$longitude)
 	{
 		 $defaults = Defaults::all();    
          $search_radius = $defaults[0]->search_radius;
@@ -41,15 +41,16 @@ ini_set('max_execution_time', 5000);
          $images_array = array();
          $sql  = "select * from eateriesmedia where eateriesmedia.eatery_id=" . $id ." ";
          $image_result = DB::select( DB::raw($sql));
+         $mediaDir = env('CONTENT_EATERY_IMAGE_PATH') . '/'. $id . '/';
          $image_index = 0;
          foreach ($image_result as $image) {
-            $images_array['images'][$image_index]['media_name'] = "$image->media_name";
+            $images_array['images'][$image_index]['media_name'] = $mediaDir . $image->media_name ;
             $image_index++;
          }
          return $images_array;
     }
 
-	function v1_gettop10hotels($latitude,$longitude)
+	function v1_gettop10eateries($latitude,$longitude)
 	{
 		$sql  = 'select *,round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(("'.$latitude.'" - abs(latitude)) * pi()/180 / 2),2) +  COS("'.$latitude.'" * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(("'.$longitude.'" - longitude) * pi()/180 / 2), 2) ))),2) as distance from eateries LIMIT 10';
 		$result = DB::select( DB::raw($sql));

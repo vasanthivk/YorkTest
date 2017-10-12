@@ -74,38 +74,49 @@ Eateries
                         </div>
                     </div>
                 </div>                 
-                 <div class="col-md-3">  
+                 <div class="col-md-6">  
                   <h4>Images</h4>
                   {{ Form::ahFile('imagefile1',' ', array("accept"=>"image/*")) }}
                   {{ Form::ahFile('imagefile2',' ', array("accept"=>"image/*")) }}
                   {{ Form::ahFile('imagefile3',' ', array("accept"=>"image/*")) }}
                 </div>
-                <div class="col-md-2" style="margin-left: 75px;margin-top: 19px;">
+                <style type="text/css">
+                  #imagesMain{
+                      display: flex;
+                      justify-content: center;
+                    }
+                    #imagesMain img{
+                      height: 40px;
+                      width: 40px;
+                      margin: 0 10px;
+                    }
+                 </style>
+                <div class="col-md-6" style="margin-top: 69px;padding-right: 155px;">
+                  <div id="imagesMain">   
                   <?php
                 $session_id = Session::getId();
                 $path = env('CONTENT_EATERY_IMAGE_PATH') . '//'. $eateries->id;
                 ?>
                 @foreach($fileslist as $file )
-                    {{link_to_route('destroyeateryimageedit', '', array('keyword' => $file), array('class' => 'fa fa-times'))}}
                     <?php
                     $filename = $path . '/' . $file ;
                     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
-                    ?>                    
-                     
+                    ?>
                     @foreach($eateriesmedia as $media)
-                        @if($media->media_name == $file)                           
-                                 <img src="../../<?php echo $filename ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
+                        @if($media->media_name == $file)
+                         {{link_to_route('destroyeateryimageedit', '', array('keyword' => $file), array('class' => 'fa fa-times'))}}                           
+                                 <img src="../../<?php echo $filename ?>" class="img-circle" alt="...">
                             @break
                         @endif
                     @endforeach
                     <br>
-                @endforeach               
-                <br>                    
+                @endforeach      
                 </div>  
+              </div>  
             </div> 
           </div>
           <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="margin-left: 27px;width: 433px; height: 250px"></div>
+              <div id="map" style="margin-left: 27px;width: 433px; height: 250px;position: relative;top: 18px;"></div>
               </br>
         </div>
       <div class="form-group">

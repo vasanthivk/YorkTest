@@ -280,9 +280,9 @@ class EateriesController extends Controller
             if($mediacount == 0)
             {
                 $eateriesmedia = new EateriesMedia();
-                $eateriesmedia->eatery_id=$eateryid;
+                $eateriesmedia->eatery_id = $eateryid;
                 $extension = strtolower(pathinfo($path)['extension']);                
-                $eateriesmedia->media_name=pathinfo($path)['basename'];
+                $eateriesmedia->media_name = pathinfo($path)['basename'];
                 $eateriesmedia->save();
             }
         }

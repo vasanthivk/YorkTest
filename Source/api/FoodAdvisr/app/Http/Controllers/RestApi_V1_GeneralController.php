@@ -21,7 +21,7 @@ class RestApi_V1_GeneralController extends Controller
         return response()->json($object,200,$headers);
     }
 
-    public function V1_GetHotels(Request $request)
+    public function V1_GetEateries(Request $request)
     {
     	 $postdata = file_get_contents("php://input");
         if (isset($postdata)) 
@@ -29,8 +29,8 @@ class RestApi_V1_GeneralController extends Controller
 		 	$request = json_decode($postdata);
 		 	$latitude = $request->{'latitude'};
             $longitude = $request->{'longitude'};            
-	        $v1_gethotels = v1_gethotels($latitude,$longitude);
-	        $data = array('status' => 0,'message' => 'Success','result' => $v1_gethotels);
+	        $v1_geteateries = v1_geteateries($latitude,$longitude);
+	        $data = array('status' => 0,'message' => 'Success','result' => $v1_geteateries);
 	        return $this->appendHeaders($data);
      	}
      	else
@@ -66,8 +66,8 @@ class RestApi_V1_GeneralController extends Controller
 		 	$request = json_decode($postdata);
 		 	$latitude = $request->{'latitude'};
             $longitude = $request->{'longitude'};            
-	        $v1_gettop10hotels = v1_gettop10hotels($latitude,$longitude);
-	        $data = array('status' => 0,'message' => 'Success','result' => $v1_gettop10hotels);
+	        $v1_gettop10eateries = v1_gettop10eateries($latitude,$longitude);
+	        $data = array('status' => 0,'message' => 'Success','result' => $v1_gettop10eateries);
 	        return $this->appendHeaders($data);
      	}
      	else
