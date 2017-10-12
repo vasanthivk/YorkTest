@@ -197,6 +197,16 @@ class EateriesController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
+        $session_id = Session::getId();
+        $file = array_get($input,'imagefile1');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile2');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile3');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
 
         $file_size = $_FILES['logo']['size'];       
         if($file_size > 2097152)
@@ -223,18 +233,6 @@ class EateriesController extends Controller
         }
         else
         {   
-            $file = array_get($input,'imagefile1');
-            if($file <> null)
-                $this->saveImageInTempLocation($file);
-
-            $file = array_get($input,'imagefile2');
-            if($file <> null)
-                $this->saveImageInTempLocation($file);
-
-            $file = array_get($input,'imagefile3');
-            if($file <> null)
-                $this->saveImageInTempLocation($file);
-
             $location_id = Locations::where('Description','=',$input['LocationID'])->get();
              
             $eateries = new Eateries();
@@ -392,6 +390,16 @@ class EateriesController extends Controller
     {
        $input = Input::all();
 
+       $session_id = Session::getId();
+        $file = array_get($input,'imagefile1');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile2');
+        if($file <> null)
+            $this->saveImageInTempLocation($file);
+        $file = array_get($input,'imagefile3');
+            $this->saveImageInTempLocation($file);
+
        $file_size = $_FILES['logo']['size'];
         if($file_size > 5097152)
             {
@@ -415,18 +423,6 @@ class EateriesController extends Controller
         }
         else
         {    
-             $file = array_get($input,'imagefile1');
-            if($file <> null)
-                $this->saveImageInTempLocation($file);
-
-            $file = array_get($input,'imagefile2');
-            if($file <> null)
-                $this->saveImageInTempLocation($file);
-
-            $file = array_get($input,'imagefile3');
-            if($file <> null)
-                $this->saveImageInTempLocation($file);
-            
             $location_id = Locations::where('Description','=',$input['LocationID'])->get();
 
             $eateries = Eateries::find($id);
