@@ -66,8 +66,9 @@ Dashboard
     </div>
     <div class="col-md-12">
         <div class="panel panel-default">
-            <div class="panel-body padding-0" style="margin-left: 36px;">
-                <br/><br/>
+            <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
+                <h3>Advisr OnBoarded</h3>
+                <br/>
                 <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
                 <br/>
             </div>                                    
