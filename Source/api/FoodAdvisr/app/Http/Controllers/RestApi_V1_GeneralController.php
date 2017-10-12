@@ -40,15 +40,15 @@ class RestApi_V1_GeneralController extends Controller
         }
     }
 
-    public function V1_GetHotelDetailsById(Request $request)
+    public function V1_GetEateryDetailsById(Request $request)
     {
          $postdata = file_get_contents("php://input");
         if (isset($postdata)) 
         {
             $request = json_decode($postdata);
             $id = $request->{'id'};
-            $v1_gethoteldetailsbyid = v1_gethoteldetailsbyid($id);
-            $data = array('status' => 0,'message' => 'Success','result' => $v1_gethoteldetailsbyid);
+            $v1_geteaterydetailsbyid = v1_geteaterydetailsbyid($id);
+            $data = array('status' => 0,'message' => 'Success','result' => $v1_geteaterydetailsbyid);
             return $this->appendHeaders($data);
         }
         else

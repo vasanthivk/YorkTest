@@ -28,10 +28,10 @@ use App\Eateries;
     	return $hotels;
 	}
 
-    function v1_gethoteldetailsbyid($id)
+    function v1_geteaterydetailsbyid($id)
     {
         $sql  = "select * from eateries where eateries.id=" . $id ." ";
-        $result['eatery'] = DB::select( DB::raw($sql));
+        $result = DB::select( DB::raw($sql));
         $images = getImagesById($id);
         $json_string = json_decode(json_encode($result + $images));
         return  $json_string;        
