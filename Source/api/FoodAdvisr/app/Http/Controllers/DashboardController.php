@@ -33,7 +33,11 @@ class DashboardController extends Controller
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
-
+        
+        $registered_count = DB::table('user')
+            ->select(DB::raw('*'))
+            ->count();
+                
         $nonassociatedeateries = DB::table('eateries')
             ->select(DB::raw('*'))
             ->whereNull('IsAssociated')
@@ -66,7 +70,8 @@ class DashboardController extends Controller
         ->with('nonassociatedeateries',$nonassociatedeateries)
         ->with('associatedeateries',$associatedeateries)
         ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated)
-        ->with('weeks',$weeks);
+        ->with('weeks',$weeks)
+        ->with('registered_count',$registered_count);
     }
 
     /**
