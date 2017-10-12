@@ -57,7 +57,7 @@ Dashboard
                     <span class="fa fa-user"></span>
                 </div>                             
                 <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center;">
-                    <div class="widget-int num-count">0</div>
+                    <div class="widget-int num-count">{{$registered_count}}</div>
                     <div class="widget-title">Registered Users</div>
                     <div class="widget-subtitle"></div>
                 </div> 
