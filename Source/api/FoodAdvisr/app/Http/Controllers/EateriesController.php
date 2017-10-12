@@ -381,19 +381,7 @@ class EateriesController extends Controller
     public function update(Request $request, $id)
     {
        $input = Input::all();
-
-       $file_size = $_FILES['logo']['size'];
-        if($file_size > 5097152)
-            {
-                 return Redirect::back()->with('warning','File size must be less than 2 MB!');
-            }
-
-        $file = array_get($input,'logo');
-        $extension = '';
-        if($file <> null)
-            $extension = $this->saveLogoInTempLocation($file);
-
-         $file = array_get($input,'imagefile1');
+        $file = array_get($input,'imagefile1');
         if($file <> null)
             $this->saveImageInTempLocation($file);
 
@@ -404,6 +392,16 @@ class EateriesController extends Controller
         $file = array_get($input,'imagefile3');
         if($file <> null)
             $this->saveImageInTempLocation($file);
+       $file_size = $_FILES['logo']['size'];
+        if($file_size > 5097152)
+            {
+                 return Redirect::back()->with('warning','File size must be less than 2 MB!');
+            }
+
+        $file = array_get($input,'logo');
+        $extension = '';
+        if($file <> null)
+            $extension = $this->saveLogoInTempLocation($file);       
       
         $this->validate($request,['FHRSID'  => 'required','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);         
         
