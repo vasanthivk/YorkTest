@@ -847,7 +847,8 @@ body.on('click','.act-clear-search',function(){
       var eateryId=$(this).find('#eateryId').val();
       api.getAddClickAfterAssociated(eateryId,function(data){
       });
-      //page.route('eaterydetails');
+      page.route('eaterydetails');
+
     });
     
     body.on('click','.in-act-eatery',function(){
