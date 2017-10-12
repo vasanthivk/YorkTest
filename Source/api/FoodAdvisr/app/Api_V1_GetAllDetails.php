@@ -1,8 +1,8 @@
 <?php
 use App\Defaults;
+use App\Eateries;
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
-use App\Eateries;
 
 	function v1_gethotels($latitude,$longitude)
 	{
@@ -30,11 +30,10 @@ use App\Eateries;
 
     function v1_geteaterydetailsbyid($id)
     {
-        $sql  = "select * from eateries where eateries.id=" . $id ." ";
-        $result = DB::select( DB::raw($sql));
-        $images = getImagesById($id);
-        $json_string = json_decode(json_encode($result + $images));
-        return  $json_string;        
+        $result = Eateries::find($id);
+        if($result <> null)
+            $result->media = getImagesById($id);
+        return $result;     
     }
 
     function getImagesById($id)
