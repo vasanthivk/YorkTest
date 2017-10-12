@@ -851,6 +851,7 @@ body.on('click','.act-clear-search',function(){
         {
           $('#eaterylogo').attr("src",appSettings.mediaPath +data.result.LogoPath);
           $("#eaterybusinessname").text(data.result.BusinessName);
+          $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
           $("#eateryaddress").text(data.result.Address);
           page.route('eaterydetails');
         }
@@ -859,6 +860,26 @@ body.on('click','.act-clear-search',function(){
           msg.show('Invalid eatery details',2000,false,true);
         }
       });
+    });
+
+    body.on('click','.item-toggle',function(){
+        var x = $(this).closest('div').find("#toggled-items");
+
+        if(x.attr('style') == 'display:none')
+            x.removeAttr('style');
+        else
+            x.attr('style','display:none');
+    });
+    body.on('click','.toggle-menu',function(){
+        var x = document.getElementById("menu-categories");
+         if (x.style.display === "none") {
+         x.style.display = "block";
+         } else {
+         x.style.display = "none";
+         }
+    });
+    body.on('click','.menu-cat',function(){
+
     });
     
     body.on('click','.in-act-eatery',function(){
