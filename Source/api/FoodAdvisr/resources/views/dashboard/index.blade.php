@@ -85,7 +85,7 @@ Dashboard
     <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-body padding-0" style="margin-left: 10px;">
-                <h3 style="margin-top: 24px;text-align: center;">Registered Users</h3>
+                <h3 style="margin-top: 24px;text-align: center;">Registered Users Weekly Report</h3>
                 <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
                 <br/>
             </div>
