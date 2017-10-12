@@ -87,3 +87,12 @@ api.getAddClickAfterAssociated=function(eateryId,callBack)
     });
 }
 
+api.getEateryDetails=function(eateryid, callBack)
+{
+    postData = '{"id":"'+ eateryid+ '"}';
+    $.post(api.eateiesroot+'geteaterydetailsbyid',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}

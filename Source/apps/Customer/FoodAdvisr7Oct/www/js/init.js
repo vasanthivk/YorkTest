@@ -847,8 +847,18 @@ body.on('click','.act-clear-search',function(){
       var eateryId=$(this).find('#eateryId').val();
       api.getAddClickAfterAssociated(eateryId,function(data){
       });
-      page.route('eaterydetails');
-
+      api.getEateryDetails(eateryId,function(data){
+        if(data.result != null)
+        {
+          var divItem = document.getElementById('eateryaddress');
+          divItem.innerText = data.result.BusinessName;
+          page.route('eaterydetails');
+        }
+        else
+        {
+          msg.show('Invalid eatery details',2000,false,true);
+        }
+      });
     });
     
     body.on('click','.in-act-eatery',function(){
