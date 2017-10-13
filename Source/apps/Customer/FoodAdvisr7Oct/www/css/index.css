@@ -150,6 +150,10 @@ div#eateryaddress {
     font-size: .93rem;
     transform: translateY(7px);
 }
+#fixed-menu{
+    position: fixed;
+    bottom:10px;
+}
 #menu-categories{
     width: 200px;
     margin: auto;
@@ -158,12 +162,21 @@ div#eateryaddress {
     padding: 15px;
     transform: translate3d(0%,-201px,0) scale3d(1.05,1.05,1.05);
     opacity: 221;
+    border: 1px solid #e2dede;
 }
 .menu-cat{
-    padding:10px;
+    padding: 30px 10px;
     color:#000;
     font-size:14px;
 }
+div#toggled-items {
+    padding-bottom: 20px;
+}
+.w3-animate-right{
+    position:relative;
+    animation:animateright 0.4s
+}
+.mySlides {display:none;}
 .item-desc {
      margin-left: 20px;
      font-size: 13px;

@@ -867,6 +867,35 @@ body.on('click','.act-clear-search',function(){
           $("#eaterybusinessname").text(data.result.BusinessName);
           $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
           $("#eateryaddress").text(data.result.Address);
+
+            var media = data.result.media.images;
+            var mediaPath = [];
+            if(media.length >= 1) {
+                for (var i = 0; i < media.length; i++) {
+
+                    mediaPath += '<img class="mySlides w3-animate-right" src="' + appSettings.mediaPath + media[i].media_name + '" alt="' + media[i].media_name + '" width="100%" height="200px" />';
+                }
+
+                $("#eateryImgSlider").html(mediaPath);
+            }
+            else{
+                $("#eateryImgSlider").text('');
+            }
+
+            var myIndex = 0;
+            carousel();
+
+            function carousel() {
+                var i;
+                var x = document.getElementsByClassName("mySlides");
+                for (i = 0; i < x.length; i++) {
+                    x[i].style.display = "none";
+                }
+                myIndex++;
+                if (myIndex > x.length) {myIndex = 1}
+                x[myIndex-1].style.display = "block";
+                setTimeout(carousel, 2000);
+            }
           page.route('eaterydetails');
         }
         else
