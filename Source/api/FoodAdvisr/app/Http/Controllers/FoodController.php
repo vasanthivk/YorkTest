@@ -65,7 +65,7 @@ class FoodController extends Controller
                
             }
              
-        return view('uploadhotel.index')
+        return view('uploadeatery.index')
         ->with('privileges',$privileges)
         ->with('location_id',$location_id)
         ->with('locations',$locations);

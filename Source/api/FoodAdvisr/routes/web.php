@@ -24,8 +24,10 @@ Route::resource('eateries', 'EateriesController');
 Route::any('destroyeatryimage/{imagename}', array('as' => 'destroyeatryimage', 'uses' => 'EateriesController@destroyeatryimage'));
 Route::any('destroyeateryimageedit/{imagename}', array('as' => 'destroyeateryimageedit', 'uses' => 'EateriesController@destroyeateryimageedit'));
 
-Route::resource('uploadhotel', 'FoodController');
+Route::resource('uploadeatery', 'FoodController');
 Route::resource('menu', 'MenuController');
+Route::resource('uploadmenu', 'UploadMenuController');
+Route::get('generateExcel', 'UploadMenuController@generateExcel');
 Route::resource('user', 'UserController');
 Route::resource('groups', 'GroupsController');
 Route::resource('brands', 'BrandsController');
