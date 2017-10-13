@@ -798,6 +798,22 @@ body.on('click','.act-clear-search',function(){
       return false;
     });
 //fire42 start
+    body.on('click','.act-eatery-tab',function(){
+      $('.act-eatery-tab').removeClass('selected');
+      $(this).addClass('selected');
+      let mode=$(this).attr('href').substr(1);
+      $('.eatery-frame').addClass('hide').removeClass('search-target');
+	  
+      $('.eateries-'+mode).removeClass('hide').addClass('search-target');
+      /*if(mode=='likes'){
+          appdata.likeCount();
+      }else{
+        appdata.intoleranceCount();
+      }*/
+      appdata.setEateryUnderline();
+      return false;
+
+    });
     function eaterySearch(searchval)
     {
       api.getEateries(searchval,function(data){
@@ -837,9 +853,7 @@ body.on('click','.act-clear-search',function(){
     
     function eaterySearchReset()
     {
-        //$('#loadeateries').innerHTML = '';
-        var divItem = document.getElementById('loadeateries');
-        divItem.innerHTML ='';
+        $("#loadeateries").text("");
     }
 
     body.on('click','.act-eatery',function(){

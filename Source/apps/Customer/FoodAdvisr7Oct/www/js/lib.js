@@ -740,6 +740,9 @@ rules.check=function(ingredients,test){
       case 'rules':
         showRules();
         break;
+      case('search'):
+        appdata.setEateryUnderline();
+        break;
       case('profile'):
         $('.profile-top').removeClass('hide');
         $('.active-bar').stop().show('fast');

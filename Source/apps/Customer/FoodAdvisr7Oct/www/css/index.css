@@ -322,6 +322,43 @@ div#eateryaddress {
     width:100%;
     height: 100px;
 }
+
+
+
+.eatery-tab-wrap{
+  display:block;
+  position:relative;
+  text-align:center;
+  transition: all .4s ease-in-out;
+  margin-top:15px;
+  padding-bottom:3px;
+}
+
+
+.eatery-tab-wrap a{
+  font-size:1.2rem;
+  color:#808080;
+  margin-left:8px;
+  margin-right:8px;
+}
+
+.eatery-tab-wrap a.selected{
+  font-weight:bold;
+  font-size:1.4rem;
+  color:#606060;
+}
+.eatery-tab-underline{
+  position:absolute;
+  bottom:0px;
+  left:0px;
+  width:100%;
+  height:3px;
+  background:#F1AF2A;
+  transition: all .4s ease-in-out;
+
+
+}
+
 /*fire42 end*/
 .intol-tab-wrap{
   display:block;
