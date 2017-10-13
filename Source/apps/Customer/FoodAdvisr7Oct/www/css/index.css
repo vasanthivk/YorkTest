@@ -71,7 +71,7 @@ html,body{
   border-radius:3px;
 }
 /*fire42 start*/
-  .eatery-columns       { margin: 0 auto;}
+.eatery-columns       { margin: 0 auto;}
   .eatery-columns div   { float: left; }
   .eatery-clear         { clear: both; }
 
@@ -79,16 +79,24 @@ html,body{
     min-height: 70px;
     margin: 5px 5px 10px 5px;
     color: white;
+    margin-bottom: 40px;
   }
   .act-eatery-logo      { width: 25%;}
   .act-eatery-logopath {
     width:70px; height:70px;     border: 1px solid rgba(128, 128, 128, 0.21);
   }
-  .act-eatery-name      { width: 75%;color: black;font-size: 12px; font-family: roboto; }
+  .act-eatery-name      { width: 75%;
+    color: #3d4152;
+    font-size: 12px;
+    font-family: roboto;
+    font-size: 0.90rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap; }
   .act-eatery-image{ width:66px;height:14px; }
 
   .act-eatery-distance {
-
+     font-size: 0.8rem;
     padding-right: 10px;
 }
 .in-act-eatery-image {
@@ -97,21 +105,20 @@ html,body{
     opacity: 0.5;
     background: linear-gradient(to bottom, rgba(221, 221, 221, 0.3) 0%, rgba(146, 146, 146, 0.48) 100%);
 }
-
 img#eaterylogo {
     float: left;
 }
 div#eaterybusinessname {
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
     margin-left: 110px;
 }
 div#eateryaddress {
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 110px;
 }
 .eatery-rating {
-    font-size: 14px;
+    font-size: 12px;
     margin-left: 110px;
     border-top: 1px solid #e6e6e6;
 }
@@ -182,7 +189,10 @@ div#eateryaddress {
     color:gray;
 }
 .act-action-div{
-    border-top: 0.05em solid rgba(128, 128, 128, 0.22);
+    border-top: 1px solid #e9e9eb;
+    margin-top: 22px;
+    padding-top: 12px;
+    color: #686b78;
     width: 100%;
     padding: 5px 0px;
 }
@@ -199,6 +209,7 @@ div#eateryaddress {
     opacity: 0.5;
     font-size: 12px;
     font-family: roboto;
+    margin-bottom: 40px;
   }
   .in-act-eatery-logo      { width: 25%;}
   .in-act-eatery-name      { width: 75%; }
