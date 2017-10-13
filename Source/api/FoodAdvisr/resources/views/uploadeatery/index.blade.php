@@ -1,16 +1,16 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Upload Hotels
+FoodAdvisr-Upload Eatery
 @endsection
 @section('module')
-Upload Hotels
+Upload Eatery
 @endsection
 
 @section('content')
 @include('components.message') 
 {{Form::component('ahText', 'components.form.text', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 
-{{ Form::open(array('method' => 'GET','route' => 'uploadhotel.index')) }}
+{{ Form::open(array('method' => 'GET','route' => 'uploadeatery.index')) }}
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
@@ -47,7 +47,7 @@ Upload Hotels
  {{ Form::close() }}
 
 
-<!-- {{ Form::open(array('route' => 'uploadhotel.store','files'=>true,'onClick'=> 'this.form.submit()')) }}
+<!-- {{ Form::open(array('route' => 'uploadeatery.store','files'=>true,'onClick'=> 'this.form.submit()')) }}
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>			
