@@ -68,7 +68,7 @@ Dashboard
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
-                    <h3>Advisr OnBoarded Weekly Report</h3>
+                    <h3>OnBoarded Restaurants</h3>
                     <br/>
                     <div class="chart-holder" id="chart_div" style="height: 300px;"></div>
                     <br/>
@@ -80,7 +80,7 @@ Dashboard
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0">
-                    <h3 style="margin-top: 24px;text-align: center;">FoodAdvisr Overall Rating</h3>
+                    <h3 style="margin-top: 24px;text-align: center;">Restaurants Rating</h3>
                     <div class="chart-holder" id="donutchart" style="height: 317px;"></div>
                 </div>
             </div>
@@ -88,7 +88,7 @@ Dashboard
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0" style="margin-left: 10px;">
-                    <h3 style="margin-top: 24px;text-align: center;">Registered Users Weekly Report</h3>
+                    <h3 style="margin-top: 24px;text-align: center;">Registered Users Report</h3>
                     <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
                     <br/>
                 </div>
