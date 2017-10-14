@@ -814,10 +814,9 @@ body.on('click','.act-clear-search',function(){
       return false;
 
     });
-    function eaterySearch(searchval)
+    function eaterySearch(latitude, longitude,searchval)
     {
-      api.getEateries(searchval,function(data){
-        var divItem = document.getElementById('loadeateries');
+      api.getEateries(latitude, longitude, searchval,function(data){
         var op ='';
         if(data.result.length > 0)
         {
@@ -847,7 +846,7 @@ body.on('click','.act-clear-search',function(){
             }
           }
         }
-        divItem.innerHTML =op;
+        $("#loadeateries").html(op);
       })
     }
     
@@ -947,7 +946,19 @@ body.on('click','.act-clear-search',function(){
           $('.eatery-search-clear').addClass('hide');
       }
       if(keycode==13){
-          eaterySearch(t.val().toLowerCase());
+          var geocoder = new google.maps.Geocoder();
+          geocoder.geocode( { 'address': t.val().toLowerCase()}, function(results, status) {
+            if (status == google.maps.GeocoderStatus.OK) {
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                eaterySearch(latitude, longitude,t.val().toLowerCase());
+              }
+              else
+              {
+                $("#loadeateries").text("");
+                msg.show('unable to locate, please check the address',2000,false,true);
+              } 
+          });  
       }
       if(t.val()==''){
         $('.eatery-search-clear').addClass('hide');
