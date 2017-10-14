@@ -952,6 +952,7 @@ body.on('click','.act-clear-search',function(){
                 var latitude = results[0].geometry.location.lat();
                 var longitude = results[0].geometry.location.lng();
                 eaterySearch(latitude, longitude,t.val().toLowerCase());
+                myMap(latitude, longitude,t.val().toLowerCase());
               }
               else
               {
