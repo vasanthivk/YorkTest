@@ -28,6 +28,6 @@ var marker = new google.maps.Marker({
         } 
     }
  });
-
+$( map ).width()=$( window ).width();
 
 }
