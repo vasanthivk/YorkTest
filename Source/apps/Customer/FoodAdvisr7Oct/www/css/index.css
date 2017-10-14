@@ -112,15 +112,19 @@ div#eaterybusinessname {
     font-size: 12px;
     font-weight: bold;
     margin-left: 110px;
+    margin-top: -21px;
+    width: 16em; 
+    overflow: hidden;
+     text-overflow: ellipsis;
+      white-space: nowrap;
 }
 div#eateryaddress {
     font-size: 12px;
-    margin-left: 110px;
+    margin-left: 92px;
 }
 .eatery-rating {
     font-size: 12px;
-    margin-left: 110px;
-    border-top: 1px solid #e6e6e6;
+    
 }
 .res-item_div{
     width:100%;
@@ -280,7 +284,7 @@ div#toggled-items {
     background: #f0f0f0;
 }
 .res-details-div {
-    height: 120px !important;
+    height: 34px !important;
     background: #fff;
     padding: 10px;
 }
@@ -380,7 +384,37 @@ div#toggled-items {
 
 
 }
+.item-name-book {
+      padding-left: 55px;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      color: #00b2a9;
+      font-weight: bold;
+      font-family: roboto;
 
+  }
+  .item-name-call {
+      float: right;
+      padding-right: 55px;
+      font-size: 18px;
+      text-transform: uppercase;
+      letter-spacing: 0.9px;
+      color: #00b2a9;
+      font-weight: bold;
+      font-family: roboto;
+
+
+  }
+  .fa-heart-o{
+    float: right;
+    margin-top: -19px;
+    color: black;
+  }
+.fa-arrow-left{
+  color: black;
+  float: left;
+}
 /*fire42 end*/
 .intol-tab-wrap{
   display:block;
