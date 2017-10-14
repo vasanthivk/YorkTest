@@ -826,8 +826,8 @@ body.on('click','.act-clear-search',function(){
              op += '<div class="act-eatery">' +
                       '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
                       '<div class="eatery-columns">' +
-                        '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img></div>' +
-                        '<div class="act-eatery-name"><b>'+ data.result[idx].BusinessName + '</b><br/>'+ '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/></div></div>' +'</div>' +
+                        '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="../img/favorite.png"></img></div></div>' +'</div>' +
+                        '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                       '</div>' +
                       '<div class="eatery-clear"></div>' +
                     '</div>';
@@ -838,8 +838,8 @@ body.on('click','.act-clear-search',function(){
                       '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
                       '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' + 
                       '<div class="eatery-columns">' +
-                        '<div class="in-act-eatery-logo" ><img class="act-eatery-logopath" src="../img/thumb.svg"></img></div>' + 
-                        '<div class="in-act-eatery-name"><b>'+ data.result[idx].BusinessName + '</b><br/>' +/* (data.result[idx].Address==null?'':data.result[idx].Address)+*/'<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/></div></div>' +'</div>' + '</div>' +
+                        '<div class="in-act-eatery-logo" ><img class="in-act-eatery-logopath" src="../img/thumb.svg"></img></div>' + 
+                        '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' +/* (data.result[idx].Address==null?'':data.result[idx].Address)+*/'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/></div></div>' +'</div>'  +
                       '</div>' +
                       '<div class="eatery-clear"></div>' +
                     '</div>';

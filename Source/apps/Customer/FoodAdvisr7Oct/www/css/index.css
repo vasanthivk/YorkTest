@@ -76,25 +76,41 @@ html,body{
   .eatery-clear         { clear: both; }
 
   .act-eatery{
-    min-height: 70px;
-    margin: 5px 5px 10px 5px;
+ min-height: 100px;
     color: white;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #ffffff;
+    border: 1px solid #dce0e5;
+    border-radius: 15px;
+    box-shadow: 2px 2px 5px #888888;
   }
-  .act-eatery-logo      { width: 25%;}
+  .act-eatery-logo      { width: 24%;}
   .act-eatery-logopath {
-    width:70px; height:70px;     border: 1px solid rgba(128, 128, 128, 0.21);
+    width: 80px;
+    height: 80px;
+    border: 1px solid rgba(128, 128, 128, 0.21);
+    border-radius: 20px;
   }
-  .act-eatery-name      { width: 75%;
+.in-act-eatery-logopath{
+    width: 50px;
+    height: 50px;
+    border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.21);
+}
+  .act-eatery-name      {
+    width: 75%;
     color: #3d4152;
-    font-size: 12px;
+    font-size: 14px;
     font-family: roboto;
     font-size: 0.90rem;
     text-overflow: ellipsis;
     overflow: hidden;
-    white-space: nowrap; }
+    white-space: nowrap;
+    padding-right:5%;
+  }
   .act-eatery-image{ width:66px;height:14px; }
-
+  .act-eatery-favorite{ width:14px;height:14px; }
   .act-eatery-distance {
      font-size: 0.8rem;
     padding-right: 10px;
@@ -120,11 +136,12 @@ div#eaterybusinessname {
 }
 div#eateryaddress {
     font-size: 12px;
-    margin-left: 92px;
+    margin-left: 110px;
 }
 .eatery-rating {
     font-size: 12px;
-    
+    margin-left: 110px;
+    border-top: 1px solid #e6e6e6;    
 }
 .res-item_div{
     width:100%;
