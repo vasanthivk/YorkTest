@@ -653,13 +653,15 @@ rules.check=function(ingredients,test){
       case('index'):
         break;
       case('retail'):
-        if(extra=='eating'){
-            op=eating.space();
-        }else{
-          op=retail.space();
-        }
-        $('#retail-space').html(op);
+        appdata.setEateryUnderline();
         break;
+        // if(extra=='eating'){
+        //     op=eating.space();
+        // }else{
+        //   op=retail.space();
+        // }
+        // $('#retail-space').html(op);
+        // break;
       case('scanner'):
 
         $('.profile-top').removeClass('hide');

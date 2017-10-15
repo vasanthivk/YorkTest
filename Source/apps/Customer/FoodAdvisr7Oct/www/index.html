@@ -235,7 +235,7 @@ You can select membership of a range of communities to belong to, which allows y
       <a href="#newterms" class="act-menu"><span class="icon icon-edit"></span>Terms</a>
       <a href="#newterms" class="act-intro-show"><span class="icon icon-edit"></span>Show Tutorial</a>
       <a href="#" class="act-help"><span class="icon icon-edit"></span>Help</a>
-      <a href="#search" class="act-menu"><span class="icon icon-edit"></span>Search</a>
+      <!--<a href="#search" class="act-menu"><span class="icon icon-edit"></span>Search</a>-->
 
 
 
@@ -547,8 +547,18 @@ You can select membership of a range of communities to belong to, which allows y
 
 
         <div class="ctpanel loggedin hide" id="ct-retail">
-
-          <div id="retail-space">Retail space</div>
+          <div style="position:relative;">
+            <input type="search" id="eatery-search" value="" placeholder="Search"/>
+            <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
+          </div>
+            <span class="eatery-tab-wrap">
+                <a href="#list" class="act-eatery-tab selected">List</a>
+                <a href="#map" class="act-eatery-tab">Map</a>
+                <div class="eatery-tab-underline"></div>
+            </span>
+            <div id="map" class="eateries-map eatery-frame inner-frame hide" style="width:250;height:400px;background:yellow"></div>
+            <div id="loadeateries" class="eateries-list eatery-frame inner-frame hide"></div>             
+            <!--<div id="retail-space">Retail space</div>-->
         </div>
 
 
@@ -590,7 +600,7 @@ You can select membership of a range of communities to belong to, which allows y
         </div>
 
         <div class="ctpanel loggedin hide helpable" id="ct-search">
-          <div style="position:relative;">
+          <!--<div style="position:relative;">
             <input type="search" id="eatery-search" value="" placeholder="Search"/>
             <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
           </div>
@@ -601,13 +611,13 @@ You can select membership of a range of communities to belong to, which allows y
           <div class="eatery-tab-underline"></div>
         </span>
         <div id="map" class="eateries-map eatery-frame inner-frame hide" style="width:250;height:400px;background:yellow"></div>
-          <div id="loadeateries" class="eateries-list eatery-frame inner-frame hide"></div>    
+          <div id="loadeateries" class="eateries-list eatery-frame inner-frame hide"></div>-->    
           </div>
 
          <div class="ctpanel loggedin hide helpable menu-res-background" id="ct-eaterydetails">
             <div class="res-details-div">
               <!-- <img id='eaterylogo'src='' width="100px" height="100px" /> -->
-                <a href="#search" class="act-menu"><span class="fa fa-arrow-left"></span></a>
+                <a href="#retail" class="act-menu"><span class="fa fa-arrow-left"></span></a>
                <div class="eatery-rating"><img src="img/star.png" width="10px"/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
               <div id='eaterybusinessname'></div>
               <i class="fa fa-heart-o"></i>
