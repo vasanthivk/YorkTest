@@ -109,7 +109,7 @@ html,body{
     padding-right:5%;
   }
   .act-eatery-image{ width:66px;height:14px; }
-  .act-eatery-favorite{ width:14px;height:14px; }
+  .act-eatery-favorite{ width:14px;height:14px; position: relative;top: 4px;}
   .act-eatery-distance {
      font-size: 0.8rem;
     padding-right: 10px;
@@ -139,16 +139,16 @@ div#eateryaddress {
 }
 .eatery-rating {
     font-size: 12px;
-    margin-left: 31px;
+    margin-left: 0px;
     border-top: 1px solid #e6e6e6;    
 }
 .res-item_div{
     width:100%;
-    display: table-cell;
     padding: 8px;
     position: relative;
     padding-bottom: 0px;
     height:60px;
+	margin-top: 10px;				 
 }
 .hr{
     margin:10px;
@@ -172,22 +172,30 @@ div#eateryaddress {
 }
 #fixed-menu{
     position: fixed;
-    bottom:10px;
+    left: 50%;
+    margin-left: -54px;
+    bottom: 89px;
 }
 #menu-categories{
     width: 200px;
     margin: auto;
     z-index: 10000;
     background: white;
-    padding: 15px;
+    padding: 5px 15px;
     transform: translate3d(0%,-201px,0) scale3d(1.05,1.05,1.05);
     opacity: 221;
     border: 1px solid #e2dede;
+    position: fixed;
+    bottom: 91px;
+    margin-bottom: -164px;
+    left: 50%;
+    margin-left: -99px;
 }
 .menu-cat{
-    padding: 30px 10px;
+    padding: 5px 0px;
     color:#000;
     font-size:14px;
+    display: block;
 }
 div#toggled-items {
     padding-bottom: 20px;
@@ -251,7 +259,7 @@ div#toggled-items {
     opacity: 0.5;
     font-size: 12px;
     font-family: roboto;
-    margin-bottom: 40px;
+    margin-bottom: 0px;
   }
   .in-act-eatery-logo      { width: 25%;}
   .in-act-eatery-name      { width: 75%; }
@@ -306,14 +314,14 @@ div#toggled-items {
 }
 .rec-menu-background{
     background: #fff;
-    padding-bottom: 30px;
+    padding-bottom: 20px;
 }
 .menu-category{
     padding-top: 10px;
     font-size:14px;
     text-transform: uppercase;
     letter-spacing: 0.9px;
-    margin-bottom: 24px;
+    margin-bottom: 0px;
     font-weight: bold;
     padding-left: 10px;
 }
@@ -408,7 +416,8 @@ div#toggled-items {
       color: #00b2a9;
       font-weight: bold;
       font-family: roboto;
-
+      display:inline-block;
+      padding-top:10px;
   }
   .item-name-call {
       float: right;
@@ -419,8 +428,8 @@ div#toggled-items {
       color: #00b2a9;
       font-weight: bold;
       font-family: roboto;
-
-
+      display:inline-block;
+      padding-top:10px;
   }
   .fa-heart-o{
     float: right;
