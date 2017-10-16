@@ -826,7 +826,7 @@ body.on('click','.act-clear-search',function(){
                 op += '<div class="act-eatery">' +
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="../img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div> </div>' +
+                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div> </div>' +
                 '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
