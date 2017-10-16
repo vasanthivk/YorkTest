@@ -25,8 +25,7 @@ class DashboardController extends Controller
             $week[] = DB::table('eateries')
                 ->select(DB::raw('*'))
                 ->where('AssociatedOn' ,'<=', $date)
-                ->count();
-                
+                ->count();                
             $weeks[] = $week ;
         }
         
