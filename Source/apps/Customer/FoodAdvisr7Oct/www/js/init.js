@@ -902,7 +902,7 @@ body.on('click','.act-clear-search',function(){
           msg.show('Invalid eatery details',2000,false,true);
         }
       });
-      $('#fixed-menu').show();
+      // $('#fixed-menu').show();
     });
 
     body.on('click','.item-toggle',function(){

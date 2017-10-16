@@ -635,7 +635,7 @@ rules.check=function(ingredients,test){
     page.set(pageName);
     console.log(pageName);
     $('.scan-results-button').css({position:'relative'});
-
+    $('#fixed-menu').hide();
     switch(pageName){
       case('myshares'):
         console.log('My Share');
@@ -744,6 +744,9 @@ rules.check=function(ingredients,test){
         break;
       case('search'):
         appdata.setEateryUnderline();
+        break;
+      case('eaterydetails'):
+        $('#fixed-menu').show();
         break;
       case('profile'):
         $('.profile-top').removeClass('hide');
