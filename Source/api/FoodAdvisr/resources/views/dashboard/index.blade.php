@@ -217,7 +217,7 @@ Dashboard
         var data = google.visualization.arrayToDataTable([
           ['FoodAdvisr Overall Rating', 'Total'],
           @foreach($foodadvisroverallratings as $foodadvisroverallrating)
-            ['{{$foodadvisroverallrating->FoodAdvisrOverallRating}}', {{$foodadvisroverallrating->Total}} ],
+            ['{{$foodadvisroverallrating->FoodAdvisrOverallRating}} Star', {{$foodadvisroverallrating->Total}} ],
             @endforeach
         ]);
 
