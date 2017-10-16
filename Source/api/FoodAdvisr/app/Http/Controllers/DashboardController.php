@@ -28,7 +28,11 @@ class DashboardController extends Controller
                 ->count();                
             $weeks[] = $week ;
         }
+
         
+        $sql = 'select count(AssociatedOn) as Total,AssociatedOn  from eateries group by AssociatedOn';
+        $date_wise_onboard = DB::select( DB::raw($sql));
+
         $establishment_count = DB::table('eateries')
             ->select(DB::raw('*'))
             ->count();
@@ -75,7 +79,8 @@ class DashboardController extends Controller
         ->with('v1_gettop5eateriesAfterAssociated',$v1_gettop5eateriesAfterAssociated)
         ->with('weeks',$weeks)
         ->with('foodadvisroverallratings',$foodadvisroverallratings)
-        ->with('registered_count',$registered_count);
+        ->with('registered_count',$registered_count)
+        ->with('date_wise_onboard',$date_wise_onboard);
     }
 
     /**

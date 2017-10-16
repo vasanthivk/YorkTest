@@ -110,7 +110,7 @@ Dashboard
                                     @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
                                 <tr>                                                    
                                     <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
-                                    <td style="font-size: 13px;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
+                                    <td style="font-size: 13px;width: 20%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
                                 </tr>
                                     @endforeach   
                             </tbody>
@@ -139,7 +139,7 @@ Dashboard
                                 <tr>                                                    
                                     <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
                                     </td>
-                                    <td style="font-size: 13px;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
+                                    <td style="font-size: 13px;width: 20%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
                                     </td> 
                                 </tr>
                                     @endforeach   
@@ -169,8 +169,8 @@ Dashboard
 
         var data = google.visualization.arrayToDataTable([
           ['', 'Advisr OnBoarded'],
-          @foreach($weeks as $week)
-            ['{{$week[0]}}', {{$week[1]}}],
+          @foreach($date_wise_onboard as $onboard)
+            ['{{$onboard->AssociatedOn}}', {{$onboard->Total}}],
             @endforeach
         ]);
 
@@ -272,18 +272,16 @@ Dashboard
 
         var data = google.visualization.arrayToDataTable([
           ['', 'Registered Users'],
-            ['2017-09-11', 2],
-            ['2017-09-18', 5],
-            ['2017-09-25', 8],         
-            ['2017-10-02', 12],
-            ['2017-10-09', 20],
-            ['2017-10-16', 25]
+            ['2017-08-28', 6],
+            ['2017-09-15', 4],        
+            ['2017-10-15', 10],
+            ['2017-10-16', 5]
             
         ]);
 
         var materialOptions = {
           width: 500,
-          colors: ['#2F4F4F'],
+          colors: ['#FFD700'],
           chart: {
             title: '',
             labelAngle: 45
