@@ -30,6 +30,7 @@
     <preference name="UIWebViewBounce" value="true" />
     <engine name="android" spec="^6.2.3" />
     <engine name="browser" spec="~4.1.0" />
+    <engine name="ios" spec="^4.4.0" />
     <plugin name="cordova-plugin-device" spec="~1.1.5" />
     <plugin name="cordova-plugin-geolocation" spec="~2.4.3">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="We use your location to help improve our data accuracy" />

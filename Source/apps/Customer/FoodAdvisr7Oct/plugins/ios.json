@@ -1,0 +1,36 @@
+{
+    "prepare_queue": {
+        "installed": [],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        },
+        "cordova-plugin-geolocation": {
+            "GEOLOCATION_USAGE_DESCRIPTION": "We use your location to help improve our data accuracy",
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        },
+        "cordova-plugin-network-information": {
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        },
+        "cordova-plugin-statusbar": {
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        },
+        "phonegap-plugin-barcodescanner": {
+            "CAMERA_USAGE_DESCRIPTION": " ",
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        }
+    },
+    "dependent_plugins": {
+        "cordova-plugin-compat": {
+            "PACKAGE_NAME": "com.foodadvisr.main"
+        }
+    }
+}

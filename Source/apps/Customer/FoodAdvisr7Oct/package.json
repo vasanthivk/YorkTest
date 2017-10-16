@@ -5,7 +5,8 @@
     "cordova": {
         "platforms": [
             "android",
-            "browser"
+            "browser",
+            "ios"
         ],
         "plugins": {
             "cordova-plugin-device": {},
@@ -21,6 +22,7 @@
     "dependencies": {
         "cordova-android": "^6.2.3",
         "cordova-browser": "~4.1.0",
+        "cordova-ios": "^4.4.0",
         "cordova-plugin-device": "~1.1.5",
         "cordova-plugin-geolocation": "~2.4.3",
         "cordova-plugin-network-information": "1.3.3",
