@@ -922,7 +922,8 @@ body.on('click','.act-clear-search',function(){
          }
     });
     body.on('click','.menu-cat',function(){
-
+        var divMenu = document.getElementById("menu-categories");
+        divMenu.style.display = "none";
     });
     
     body.on('click','.in-act-eatery',function(){
