@@ -224,7 +224,7 @@ Dashboard
         var options = {
           title: '',
           pieHole: 0.4,
-          legend: {position: 'none'}, //to hide
+          // legend: {position: 'none'}, //to hide
            slices: {
             0: { color: '#33414e' },
             1: { color: '#fea223' },
