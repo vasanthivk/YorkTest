@@ -75,13 +75,12 @@ html,body{
   .eatery-columns div   { float: left; }
   .eatery-clear         { clear: both; }
 
-  .act-eatery{
- min-height: 100px;
+.act-eatery {
+    min-height: 100px;
     color: white;
-    margin-bottom: 20px;
-    padding: 20px;
+    margin-bottom: 10px;
+    padding: 10px;
     background: #ffffff;
-    border: 1px solid #dce0e5;
     border-radius: 15px;
     box-shadow: 2px 2px 5px #888888;
   }
