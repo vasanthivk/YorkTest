@@ -114,11 +114,11 @@ Dashboard
                                 </tr>
                                     @endforeach   
                             </tbody>
-                            <thead>
+                           <!--  <thead>
                                 <tr>
                                     <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
                                 </tr>
-                            </thead>
+                            </thead> -->
                         </table>
                     </div>
                 </div>
@@ -144,11 +144,11 @@ Dashboard
                                 </tr>
                                     @endforeach   
                             </tbody>
-                            <thead>
+                            <!-- <thead>
                                 <tr>
                                     <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
                                 </tr>
-                            </thead>
+                            </thead> -->
                         </table>
                     </div>
                 </div>
