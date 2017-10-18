@@ -9,21 +9,14 @@ ini_set('max_execution_time', 5000);
 		 $defaults = Defaults::all();    
          $search_radius = $defaults[0]->search_radius;
          $search_result_limit = $defaults[0]->search_result_limit;
-    	 $sql  = "select id
-            from eateries where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ";
-        $result = DB::select( DB::raw($sql));
-        $eateriesids = [];
-         foreach($result as $result1)
-    	{
-        	$eateriesids[] = $result1->id; 
-    	}
-    	
-    	$eateries = DB::table('eateries')
-    		    ->select(DB::raw('id, FHRSID, BusinessName, Address, LogoPath, IsAssociated, Longitude, Latitude, FoodAdvisrOverallRating, round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(("'.$latitude.'" - abs(latitude)) * pi()/180 / 2),2) +  COS("'.$latitude.'" * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(("'.$longitude.'" - longitude) * pi()/180 / 2), 2) ))),2) as distance'))
-    		   ->wherein('id',$eateriesids)
-               ->orderby('distance','asc')
-               ->limit($search_result_limit)
-    		   ->get();
+         $sql  = "select id, FHRSID, BusinessName, Address, LogoPath, IsAssociated, Longitude, Latitude, FoodAdvisrOverallRating, 
+                    round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) 
+                    +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) 
+                    * pi()/180 / 2), 2) ))),2) as distance
+                    from eateries where id  in (select id from eateries where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) )
+                    limit $search_result_limit";
+         $eateries = DB::select( DB::raw($sql));
+               
 
     	return $eateries;
 	}
