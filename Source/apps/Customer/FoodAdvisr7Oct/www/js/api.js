@@ -61,7 +61,7 @@ api.getEateries=function(latitude, longitude,searchval, callBack)
 {
     //postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';    gettop10eateries    geteateries
     postData = '{"latitude":"'+ latitude +'", "longitude": "' + longitude + '"}';
-    $.post(api.eateiesroot+'gettop10eateries',postData,function(data){
+    $.post(api.eateiesroot+'geteateries',postData,function(data){
       callBack(data);
     }).fail(function(error){
       msg.show('Network error.',1000,false,true);
