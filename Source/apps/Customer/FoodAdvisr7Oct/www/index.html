@@ -39,7 +39,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/engine.js"></script>
     <script type="text/javascript" src="js/lib1.js"></script>
     <script type="text/javascript" src="js/lib.js"></script>
-    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/init.js"></script><script type="text/javascript" src="js/booktable.js"></script>
     <script type="text/javascript" src="js/start.js"></script>
     <script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/share.js"></script>
@@ -57,7 +57,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
       </div>
       <div class="mode-switch-50 act-set-mode" data-mode="eating">
         <i class="fa fa-cutlery" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
-        <a href="#">Menu Match</a>
+        <a href="#">Meal Match</a>
       </div>
     </div>
 
@@ -268,7 +268,7 @@ You can select membership of a range of communities to belong to, which allows y
 
 </div>
     </div>
-    <div class="overlay"></div>
+    <!--<div class="overlay"></div>-->
     <div class="help-overlay"><div class="help-inner"></div></div>
 
     <div class="midpop overlay-hide"></div>
@@ -310,7 +310,7 @@ You can select membership of a range of communities to belong to, which allows y
         <span class="icon">
           <i class="fa fa-cutlery" aria-hidden="true"  style="color:white;font-size:1.5rem;"></i>
       </span>
-        <span class="tab-label">Menu Match</span>
+        <span class="tab-label">Meal Match</span>
       </a>
       <a class="tab-item act-menu" data-extra="list" href="#profile">
         <span class="icon">
@@ -633,25 +633,34 @@ You can select membership of a range of communities to belong to, which allows y
              </div>
 
               <div id='eateryaddress'></div>
+             <div class="midpopbook overlay-hide"></div>
 
-            <div class="eateryMenuDetails" id="menu-section-Recommendeds">
+             <div class="eateryMenuDetails" id="menu-section-Recommendeds">
                  <div class="rec-menu-background">
                      <div class="item-name-book-call" style="padding-top: 10px;">
-
-                         <span class="item_book_img">
-                             <img src=""/>
-                         </span>
-                         <span class="item-name-book" style="">BOOK</span>
-                         <span class="item_book_img">
-                             <img src="img/h"/>
-                         </span>
-                             <span class="item-name-call">CALL</span>
+                         <div class="item-bc-eatery">
+                             <div class="item-book" style="padding-left: 40px">
+                                 <div class="item-bc-img " style="top:17px;"><img class="" src="img/high_tea_icon.png" alt="" height="30px" width="30px"></div>
+                                 <div class="item-bc-details">
+                                     <span class="item-bc-name">Book</span>
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                     <div class="item-name-book-call">
+                         <div class="eatery-call">
+                             <div class="item-call" style="padding-left: 50px">
+                                 <div class="item-bc-img" style="top: 17px"><img class="" src="img/call.png" alt="" height="30px" width="30px"></div>
+                                 <div class="item-bc-details">
+                                     <span class="item-bc-name">Call</span>
+                                 </div>
+                             </div>
+                         </div>
                      </div>
                  </div>
              </div>
 
-            
-            <div class="eateryMenuDetails" id="menu-section-Recommended">
+             <div class="eateryMenuDetails" id="menu-section-Recommended">
                 <div class="rec-menu-background">
                     <div class="menu-category">Recommended</div>
                     <div class="menu-section-img">

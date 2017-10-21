@@ -92,10 +92,14 @@ html,body{
     border-radius: 20px;
   }
 .in-act-eatery-logopath{
-    width: 50px;
+    /*width: 50px;
     height: 50px;
     border-radius: 10px;
+    border: 1px solid rgba(128, 128, 128, 0.21);*/
+    width: 80px;
+    height: 80px;
     border: 1px solid rgba(128, 128, 128, 0.21);
+    border-radius: 20px;
 }
   .act-eatery-name      {
     width: 75%;
@@ -137,7 +141,7 @@ div#eaterybusinessname {
 }
 div#eateryaddress {
     font-size: 12px;
-    margin-left: 110px;
+    margin-left: 25px;
 }
 .eatery-rating {
     font-size: 18px;
@@ -149,7 +153,7 @@ div#eateryaddress {
     padding: 8px;
     position: relative;
     padding-bottom: 0px;
-    height:60px;
+    /*height:60px;*/
 	margin-top: 10px;				 
 }
 .hr{
@@ -255,16 +259,42 @@ div#toggled-items {
   }*/
 
   .in-act-eatery{
-    min-height: 70px;
+    /*min-height: 70px;
     margin: 5px 5px 10px 5px;
     padding-top: 8px;
     opacity: 0.5;
     font-size: 12px;
     font-family: roboto;
-    margin-bottom: 0px;
+    margin-bottom: 0px;*/
+      min-height: 100px;
+      color: white;
+      margin-bottom: 10px;
+      padding: 10px;
+      background: #efefef;
+      border-radius: 15px;
+      box-shadow: 2px 2px 5px #888888;
   }
   .in-act-eatery-logo      { width: 25%;}
-  .in-act-eatery-name      { width: 75%; }
+  .in-act-eatery-name      {
+  /*    width: 75%;*/
+      width: 75%;
+      color: #3d4152;
+      /* font-size: 14px; */
+      font-family: roboto;
+      font-size: 0.90rem;
+      text-overflow: ellipsis;
+      overflow: hidden;
+      white-space: nowrap;
+      padding-right: 5%;
+  }
+.in-act-action-div {
+    border-top: 1px solid #e9e9eb;
+    margin-top: 22px;
+    padding-top: 12px;
+    color: #686b78;
+    width: 100%;
+    padding: 5px 0px;
+}
 
 .eatery-search-clear{
   position:absolute;
@@ -319,7 +349,7 @@ div#toggled-items {
     padding-bottom: 20px;
 }
 .menu-category{
-    padding-top: 10px;
+    padding-top: 50px;
     font-size:14px;
     text-transform: uppercase;
     letter-spacing: 0.9px;
@@ -410,29 +440,47 @@ div#toggled-items {
 
 
 }
-.item-name-book {
-      padding-left: 55px;
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.9px;
-      color: #00b2a9;
-      font-weight: bold;
-      font-family: roboto;
-      display:inline-block;
-      padding-top:10px;
-  }
-  .item-name-call {
-      float: right;
-      padding-right: 55px;
-      font-size: 18px;
-      text-transform: uppercase;
-      letter-spacing: 0.9px;
-      color: #00b2a9;
-      font-weight: bold;
-      font-family: roboto;
-      display:inline-block;
-      padding-top:10px;
-  }
+
+.item-name-book-call {
+    display: table-cell;
+    width: 50%;
+    padding: 8px;
+    position: relative;
+}
+.item-bc-eatery{
+    min-height: 70px;
+    margin: 5px 5px 10px 5px;
+    padding-top: 8px;
+    opacity: 0.5;
+    font-size: 12px;
+    font-family: roboto;
+    margin-bottom: 0px;
+}
+
+.item-bc-img {
+    position: relative;
+    margin-bottom: 7px;
+    padding-left: 26px;
+}
+.item-bc-details {
+    padding: 10px;
+}
+
+.item-bc-name{
+    display: table-cell;
+    padding: 8px;
+    padding-bottom: 0px;
+    font-size: 22px;
+}
+.calender{
+    width: 25%;
+}
+
+.people-show {
+    position: relative;
+    left: -10px;
+    opacity: 0.01;
+}
   .fa-heart-o{
     float: right;
     margin-top: -19px;
@@ -1956,13 +2004,11 @@ margin-bottom:20px;
 }
 
 
-
-
 .noborder{
   border:none !important;
 }
 
-.midpop{
+.midpop,.midpopbook{
   display:none;
   position:absolute;
   top:60px;
@@ -1977,23 +2023,30 @@ margin-bottom:20px;
   font-size:1.2rem;
   color:#303030;
   transition: all .2s ease-in-out;
-  padding-bottom:60px;
+  padding-bottom:45px;
 }
 
-.midpop-buttons{
-  position:absolute;
-  bottom:15px;
-  left:10px;
-  width:92%;
-  text-align:right;
+.midpop-buttons,.midpopbook-buttons {
+    position: absolute;
+    bottom: 15px;
+    width: 70%;
+    text-align: right;
 }
-
 .midpop-buttons a{
   padding:7px 15px;
-  border:1px solid #303030;
-  color:#303030;
-  font-size:0.8rem;
+    color:#303030;
+  font-size:1.0rem;
   margin-right:5px;
+    background-color: #00B2A9;
+    color: white;
+}
+.midpopbook a{
+    padding: 8px 9px;
+    font-size: 1.2rem;
+    margin-right: 5px;
+    background-color: #00B2A9;
+    color: white;
+
 }
 
 .overlay{
@@ -2002,7 +2055,7 @@ margin-bottom:20px;
   width:100%;
   height:100%;
   background:rgba(0,0,0,0.5);
-  z-index:200;
+  z-index:1000;
   opacity:0;
   transition: all .5s ease-in-out;
 }
@@ -2014,7 +2067,7 @@ margin-bottom:20px;
 
 
 .settings h5{
-  padding-left:11px;
+  padding-left:15px;
   color:#0099C5;
   font-size:1.3rem;
 }
