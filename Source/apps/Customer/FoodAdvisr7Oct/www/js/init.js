@@ -976,6 +976,11 @@ body.on('click','.act-clear-search',function(){
       return false;
     });
 
+    body.on('click','.eatery-rating',function(){
+      alert('Hello');
+    });
+    
+
 //fire42 end
 
 
