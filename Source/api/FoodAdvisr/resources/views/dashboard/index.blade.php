@@ -177,7 +177,7 @@ Dashboard
                                     @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
                                 <tr>                                                    
                                     <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
-                                    <td style="font-size: 13px;width: 20%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
                                 </tr>
                                     @endforeach   
                             </tbody>
@@ -206,7 +206,7 @@ Dashboard
                                 <tr>                                                    
                                     <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
                                     </td>
-                                    <td style="font-size: 13px;width: 20%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
                                     </td> 
                                 </tr>
                                     @endforeach   
@@ -221,7 +221,51 @@ Dashboard
                 </div>
             </div>
         </div>     
-    </div>     
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">                                
+                <div class="panel-body panel-body-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;font-size: 16px;">Most Ordered Restaurants Advisr OnBoarded</th>          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Day To-Day Express (Pollokshields Mini Market)</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 100 orders</td> 
+                                </tr>
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 80 orders</td> 
+                                </tr> 
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 60 orders</td> 
+                                </tr> 
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 30 orders</td> 
+                                </tr> 
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 30 orders</td> 
+                                </tr> 
+                            </tbody>
+                           <!--  <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
+                                </tr>
+                            </thead> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>      
 @endsection
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -389,7 +433,7 @@ Dashboard
 
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
-          ['Dates', 'OnBoarded Restaurants'],
+          ['Dates', 'Upload Menu OnBoarded Restaurants'],
            ['2017-09-26', 1],
            ['2017-10-3', 5],        
            ['2017-10-10', 1],
