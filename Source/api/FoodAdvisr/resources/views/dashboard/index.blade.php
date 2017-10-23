@@ -132,6 +132,18 @@ Dashboard
         </div> 
     </div>
     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
+                    <h3>Upload Menu OnBoarded Restaurants</h3>
+                    <br/>
+                    <div class="chart-holder" id="chart_div1" style="height: 300px;margin-left: -35px;"></div>
+                    <br/>
+                </div>                                    
+            </div>
+        </div> 
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0">
@@ -213,6 +225,8 @@ Dashboard
 @endsection
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
  <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart', 'bar']});
       google.charts.setOnLoadCallback(drawStuff);
@@ -369,4 +383,29 @@ Dashboard
         drawMaterialChart();
     };
     </script>
-   
+   <script>
+           google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dates', 'OnBoarded Restaurants'],
+           ['2017-08-28', 0],
+           ['2017-09-15', 5],        
+           ['2017-10-15', 2],
+           ['2017-10-16', 3],
+           ['2017-10-23', 2]
+        ]);
+
+        var options = {
+          title: '',
+          width: 1100,
+          hAxis: {title: 'Dates',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0},
+         legend: {position: 'none'}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+      }
+   </script>

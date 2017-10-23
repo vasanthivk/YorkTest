@@ -29,7 +29,6 @@ class DashboardController extends Controller
             $weeks[] = $week ;
         }
 
-        
         $sql = 'select count(AssociatedOn) as Total,AssociatedOn  from eateries where AssociatedOn>0 and IsAssociated=1 group by AssociatedOn';
         $date_wise_onboard = DB::select( DB::raw($sql));
 
