@@ -89,7 +89,7 @@ class LoginController extends Controller
                     Session::put("user_id",$logindetails[0]->id);
                     Session::put("role_id",$logindetails[0]->role_id);
                     Session::put("name",$logindetails[0]->name);
-                    Session::put("company_id",$logindetails[0]->company_id);
+                    Session::put("eatery_id",$logindetails[0]->eatery_id);
                     Session::put("mobile_no",$logindetails[0]->mobile_no);                   
                 
                     return Redirect::route('dashboard.index');

@@ -1,13 +1,3 @@
-@extends('layouts.master')
-@section('title')
-FoodAdvisr-Dashboard
-@endsection
-@section('module')
-Dashboard
-@endsection
-
-@section('content')
-
 <!-- START WIDGETS -->                    
     <div class="row">
         <div class="col-md-3">
@@ -137,17 +127,16 @@ Dashboard
 
         </div>
         </div>
-        {{--<div class="col-md-6">
+       <!--  <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0" style="margin-left: 10px;">
                     <h3 style="margin-top: 24px;text-align: center;">Registered Users Report</h3>
-                    <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
+                    <div class="chart-holder" id="donutchart2" style="height: 300px;"></div>
                     <br/>
                 </div>
             </div>
-        </div>--}}
+        </div> -->
     </div>
-@endsection
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script type="text/javascript">
@@ -251,7 +240,7 @@ Dashboard
 
         var options = {
           title: '',
-          pieHole: 0.7,
+          pieHole: 0.4,
            slices: {
              0: { color: '#20B2AA' },
                1: { color: '#DA70D6' },
@@ -278,7 +267,7 @@ Dashboard
       function drawStuff() {
 
         // var button = document.getElementById('change-chart');
-        var chartDiv = document.getElementById('donutchart1');
+        var chartDiv = document.getElementById('donutchart2');
 
         var data = google.visualization.arrayToDataTable([
           ['', 'Registered Users'],
