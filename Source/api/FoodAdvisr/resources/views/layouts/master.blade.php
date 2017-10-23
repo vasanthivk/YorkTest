@@ -179,6 +179,8 @@ window.location.href="/";
         <script src="../js/bootstrap-imageupload.js"></script>
         <script type="text/javascript" src="../../js/jasny-bootstrap.js"></script>
         <script type="text/javascript" src="../../js/plugins/datatables/jquery.dataTables.min.js"></script>
+        <script type="text/javascript" src="../../js/plugins/smartwizard/jquery.smartWizard-2.0.min.js"></script>
+        <script type="text/javascript" src="../../js/plugins/jquery-validation/jquery.validate.js"></script>
         <script>
             var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
                 lineNumbers: true,

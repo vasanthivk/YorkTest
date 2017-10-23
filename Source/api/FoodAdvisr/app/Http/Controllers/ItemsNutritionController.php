@@ -17,7 +17,7 @@ use App\Nutrition;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
-class ItesmNutritionController extends Controller
+class ItemsNutritionController extends Controller
 {
     /**
      * Display a listing of the resource.

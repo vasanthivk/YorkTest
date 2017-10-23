@@ -35,17 +35,18 @@ class ItemsController extends Controller
 
     public function index(Request $request)
     {
+
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $hotel_id = $request['hotel_id'];
+        $eatery_id = $request['eatery_id'];
         $items = DB::table('items')
         ->select(DB::raw('*,items.item_id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
-        ->where('items.FHRSID','=',$hotel_id)
+        ->where('items.eatery_id','=',$eatery_id)
         ->get();        
          return View('items.index', compact('items'))         
         ->with('privileges',$privileges)
-        ->with('hotel_id',$hotel_id);
+        ->with('eatery_id',$eatery_id);
     }
 
     /**
@@ -58,13 +59,23 @@ class ItemsController extends Controller
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $hotel_id = $request['hotel_id'];
+        $itemgroups = DB::table('item_groups')
+            ->select(DB::raw('group_id,group_name'))
+            ->get();
+        $itemcategories = DB::table('item_categories')
+            ->select(DB::raw('category_id,category_name'))
+            ->get();
+        return View('items.create')
+            ->with('privileges',$privileges)
+            ->with('itemcategories',$itemcategories)
+            ->with('itemgroups',$itemgroups);
+        $eatery_id = $request['eatery_id'];
         $category = Category::all()->pluck('category_name','category_id');
 
         return View('items.create')          
         ->with('privileges',$privileges)
         ->with('category',$category)
-        ->with('hotel_id',$hotel_id);
+        ->with('eatery_id',$eatery_id);
     }
 
     /**
@@ -83,8 +94,8 @@ class ItemsController extends Controller
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            $hotel_id = $request['hotel_id'];
-            return Redirect::route('items.create',array('hotel_id' => $hotel_id))
+            $eatery_id = $request['eatery_id'];
+            return Redirect::route('items.create',array('eatery_id' => $eatery_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -94,7 +105,7 @@ class ItemsController extends Controller
             $items = new Items();
             $items->title =  Input::get('title');
             $items->description =  Input::get('description');
-            $items->FHRSID =  $request['hotel_id'];
+            $items->FHRSID =  $request['eatery_id'];
             $items->category_id =  Input::get('category_id');
             $items->is_visible =  Input::get('is_visible');
             $items->display_order =  Input::get('display_order');
@@ -109,7 +120,7 @@ class ItemsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('items.index',array('hotel_id' => $items->FHRSID))->with('success','Item Created Successfully!');
+        return Redirect::route('items.index',array('eatery_id' => $items->FHRSID))->with('success','Item Created Successfully!');
         
         }
     }
@@ -138,12 +149,12 @@ class ItemsController extends Controller
         $privileges = $this->getPrivileges();
         if($privileges['Edit'] !='true')
             return Redirect::to('/');
-        $hotel_id = $request['hotel_id'];
+        $eatery_id = $request['eatery_id'];
         $category = Category::all()->pluck('category_name','category_id');        
         $items = Items::where('items.item_id',$id)->get();
         return View('items.edit')
         ->with('items',$items[0])
-        ->with('hotel_id',$hotel_id)
+        ->with('eatery_id',$eatery_id)
         ->with('category',$category)
         ->with('privileges',$privileges);
     }
@@ -166,8 +177,8 @@ class ItemsController extends Controller
         
         if ($validator->fails()) 
         {
-            $hotel_id = $request['hotel_id'];
-            return Redirect::route('items.edit',$id,array('hotel_id' => $hotel_id))
+            $eatery_id = $request['eatery_id'];
+            return Redirect::route('items.edit',$id,array('eatery_id' => $eatery_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('warning', 'There were validation errors');
@@ -175,7 +186,7 @@ class ItemsController extends Controller
         else
         {   
             Items::where('item_id','=',$id)
-             ->update(array('title'=> Input::get('title'),'description'=> Input::get('description'),'is_visible'=> Input::get('is_visible'),'FHRSID'=> $request['hotel_id'],'category_id'=>Input::get('category_id'),'display_order' => Input::get('display_order')
+             ->update(array('title'=> Input::get('title'),'description'=> Input::get('description'),'is_visible'=> Input::get('is_visible'),'FHRSID'=> $request['eatery_id'],'category_id'=>Input::get('category_id'),'display_order' => Input::get('display_order')
                  ));
 
             $log = new Log();
@@ -187,7 +198,7 @@ class ItemsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('items.index',array('hotel_id' => $request['hotel_id']))->with('success','Item Updated Successfully!');
+        return Redirect::route('items.index',array('eatery_id' => $request['eatery_id']))->with('success','Item Updated Successfully!');
         
         }
     }
