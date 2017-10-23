@@ -30,7 +30,7 @@ class DashboardController extends Controller
         }
 
         
-        $sql = 'select count(AssociatedOn) as Total,AssociatedOn  from eateries where AssociatedOn>0 and IsAssociated=1 group by  AssociatedOn order by AssociatedOn LIMIT 10';
+        $sql = 'select count(AssociatedOn) as Total,AssociatedOn  from eateries where AssociatedOn>0 and IsAssociated=1 group by AssociatedOn';
         $date_wise_onboard = DB::select( DB::raw($sql));
 
         $establishment_count = DB::table('eateries')
