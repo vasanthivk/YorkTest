@@ -243,15 +243,15 @@ Dashboard
                                     <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 80 orders</td> 
                                 </tr> 
                                 <tr>                                                    
-                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;">Carmyle Bowling Club</td> 
                                     <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 60 orders</td> 
                                 </tr> 
                                 <tr>                                                    
-                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;">HWasabi</td> 
                                     <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 30 orders</td> 
                                 </tr> 
                                 <tr>                                                    
-                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;">Tesco</td> 
                                     <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 30 orders</td> 
                                 </tr> 
                             </tbody>
