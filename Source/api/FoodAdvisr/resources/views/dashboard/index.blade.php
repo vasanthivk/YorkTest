@@ -132,6 +132,18 @@ Dashboard
         </div> 
     </div>
     <div class="row">
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
+                    <h3>Upload Menu OnBoarded Restaurants</h3>
+                    <br/>
+                    <div class="chart-holder" id="chart_div1" style="height: 300px;margin-left: -35px;"></div>
+                    <br/>
+                </div>                                    
+            </div>
+        </div> 
+    </div>
+    <div class="row">
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0">
@@ -165,7 +177,7 @@ Dashboard
                                     @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
                                 <tr>                                                    
                                     <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
-                                    <td style="font-size: 13px;width: 20%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
                                 </tr>
                                     @endforeach   
                             </tbody>
@@ -194,7 +206,7 @@ Dashboard
                                 <tr>                                                    
                                     <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
                                     </td>
-                                    <td style="font-size: 13px;width: 20%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
                                     </td> 
                                 </tr>
                                     @endforeach   
@@ -209,10 +221,56 @@ Dashboard
                 </div>
             </div>
         </div>     
-    </div>     
+    </div>
+    <div class="row">
+        <div class="col-md-6">
+            <div class="panel panel-default">                                
+                <div class="panel-body panel-body-table">
+                    <div class="table-responsive">
+                        <table class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: center;font-size: 16px;">Most Ordered Restaurants Advisr OnBoarded</th>          
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Day To-Day Express (Pollokshields Mini Market)</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 100 orders</td> 
+                                </tr>
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Hullbridge Sports Association</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 80 orders</td> 
+                                </tr> 
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Carmyle Bowling Club</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 60 orders</td> 
+                                </tr> 
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">HWasabi</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 30 orders</td> 
+                                </tr> 
+                                <tr>                                                    
+                                    <td style="font-size: 13px;">Tesco</td> 
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-shopping-cart" style="color: #1caf9a"></span> 30 orders</td> 
+                                </tr> 
+                            </tbody>
+                           <!--  <thead>
+                                <tr>
+                                    <th colspan="2" style="text-align: right;font-size: 14px;"><a href="#">More..</a></th>
+                                </tr>
+                            </thead> -->
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>      
 @endsection
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/modules/exporting.js"></script>
  <script type="text/javascript">
       google.charts.load('current', {'packages':['corechart', 'bar']});
       google.charts.setOnLoadCallback(drawStuff);
@@ -369,4 +427,29 @@ Dashboard
         drawMaterialChart();
     };
     </script>
-   
+   <script>
+           google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+        var data = google.visualization.arrayToDataTable([
+          ['Dates', 'Upload Menu OnBoarded Restaurants'],
+           ['2017-09-26', 1],
+           ['2017-10-3', 5],        
+           ['2017-10-10', 1],
+           ['2017-10-17', 3],
+           ['2017-10-24', 2]
+        ]);
+
+        var options = {
+          title: '',
+          width: 1100,
+          hAxis: {title: 'Dates',  titleTextStyle: {color: '#333'}},
+          vAxis: {minValue: 0},
+         legend: {position: 'none'}
+        };
+
+        var chart = new google.visualization.AreaChart(document.getElementById('chart_div1'));
+        chart.draw(data, options);
+      }
+   </script>
