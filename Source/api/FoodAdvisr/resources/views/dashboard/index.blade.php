@@ -390,11 +390,11 @@ Dashboard
       function drawChart() {
         var data = google.visualization.arrayToDataTable([
           ['Dates', 'OnBoarded Restaurants'],
-           ['2017-08-28', 0],
-           ['2017-09-15', 5],        
-           ['2017-10-15', 2],
-           ['2017-10-16', 3],
-           ['2017-10-23', 2]
+           ['2017-09-26', 0],
+           ['2017-10-3', 5],        
+           ['2017-10-10', 2],
+           ['2017-10-17', 3],
+           ['2017-10-24', 2]
         ]);
 
         var options = {
