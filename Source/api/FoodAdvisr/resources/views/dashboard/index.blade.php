@@ -226,7 +226,7 @@ Dashboard
           pieHole: 0.4,
           // legend: {position: 'none'}, //to hide
            slices: {
-            0: { color: '#33414e' },
+            0: { color: '#DA70D6' },
             1: { color: '#fea223' },
             2: { color: '#1caf9a' },
             3: { color: '#483D8B' },

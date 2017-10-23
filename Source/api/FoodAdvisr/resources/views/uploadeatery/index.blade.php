@@ -39,7 +39,7 @@ Upload Eatery
                <br/>
             </div>
             <div class="col-md-4" style="padding-top: 5px;"> 
-                 {{ Form::submit('Show', array('class' => 'btn btn-primary')) }}
+                 {{ Form::submit('Upload', array('class' => 'btn btn-primary')) }}
                 </br>
             </div> 
      </div>

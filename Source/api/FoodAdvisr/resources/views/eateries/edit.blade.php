@@ -86,37 +86,42 @@ Eateries
                       justify-content: center;
                     }
                     #imagesMain img{
-                      height: 40px;
-                      width: 40px;
+                      height: 100px;
+                      width: 456px;
                       margin: 0 10px;
                     }
                  </style>
-                <div class="col-md-6" style="margin-top: 69px;padding-right: 155px;">
-                  <div id="imagesMain">   
+                <div class="col-md-6">                    
                   <?php
                 $session_id = Session::getId();
                 $path = env('CONTENT_EATERY_IMAGE_PATH') . '//'. $eateries->id;
                 ?>
-                @foreach($fileslist as $file )
+              </div>
+              <div class="widget widget-default widget-carousel">             
+                <div class="owl-carousel" id="owl-example">
+                    @foreach($fileslist as $file )
                     <?php
                     $filename = $path . '/' . $file ;
                     $ext = strtolower(pathinfo($filename, PATHINFO_EXTENSION));
                     ?>
-                    @foreach($eateriesmedia as $media)
-                        @if($media->media_name == $file)
-                         {{link_to_route('destroyeateryimageedit', '', array('keyword' => $file), array('class' => 'fa fa-times'))}}                           
-                                 <img src="../../<?php echo $filename ?>" class="img-circle" alt="...">
-                            @break
+                  <div id="imagesMain">                                                      
+                    <div class="widget-title">
+                      @foreach($eateriesmedia as $media)
+                        @if($media->media_name == $file)                          
+                         <a href="../../destroyeateryimageedit/{{$file}}" class="fa fa-times" style="float: right;"></a> 
+                     <img src="../../<?php echo $filename ?>" alt="...">
+                      @break
                         @endif
                     @endforeach
-                    <br>
-                @endforeach      
-                </div>  
-              </div>  
-            </div> 
+                   </div>
+                </div> 
+                 @endforeach               
+                </div>                        
+                </div>   
+            </div>
           </div>
           <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="margin-left: 27px;width: 433px; height: 250px;position: relative;top: 18px;"></div>
+              <div id="map" style="margin-left: 27px;width: 433px; height: 250px;"></div>
               </br>
         </div>
       <div class="form-group">
