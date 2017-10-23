@@ -2,13 +2,13 @@
     <div class="row">
         <div class="col-md-3">
             <!-- START WIDGET MESSAGES -->
-            <div class="widget widget-default widget-item-icon">
+            <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
                 <div class="widget-item-left">
                     <span class="fa fa-user"></span>
                 </div>                             
                 <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center!important;">
                     <div class="widget-int num-count">42</div>
-                    <div class="widget-title"># of New Customers</div>
+                    <div class="widget-title">New Customers</div>
                     <div class="widget-subtitle"></div>
                 </div>      
                 
