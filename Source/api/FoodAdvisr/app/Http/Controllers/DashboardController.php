@@ -70,7 +70,9 @@ class DashboardController extends Controller
 
         $sql = 'select CEILING(FoodAdvisrOverallRating) as FoodAdvisrOverallRating, count(*) as Total from eateries where ifnull(FoodAdvisrOverallRating,0)>0 group by CEILING(FoodAdvisrOverallRating)';
         $foodadvisroverallratings = DB::select( DB::raw($sql));
-        
+
+        $sql = 'select sum(ClicksAfterAssociated) as ClicksAfterAssociated from eateries';
+        $totalviews = DB::select( DB::raw($sql));
        
         return view('dashboard.index', compact('establishment_count'))
         ->with('v1_gettop5eateriesBeforeAssociated',$v1_gettop5eateriesBeforeAssociated)
@@ -80,7 +82,8 @@ class DashboardController extends Controller
         ->with('weeks',$weeks)
         ->with('foodadvisroverallratings',$foodadvisroverallratings)
         ->with('registered_count',$registered_count)
-        ->with('date_wise_onboard',$date_wise_onboard);
+        ->with('date_wise_onboard',$date_wise_onboard)
+        ->with('totalviews',$totalviews);
     }
 
     /**

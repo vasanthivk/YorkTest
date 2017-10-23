@@ -65,6 +65,61 @@ Dashboard
         </div> 
     </div>
     <div class="row">
+        <div class="col-md-3">
+            <!-- START WIDGET MESSAGES -->
+            <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
+                <div class="widget-item-left">
+                    <span class="fa fa-cutlery"></span>
+                </div>                             
+                <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center!important;">
+                    <div class="widget-int num-count">15</div>
+                    <div class="widget-title">Upload Menu OnBoarded</div>
+                    <div class="widget-subtitle"></div>
+                </div>      
+                
+            </div>                            
+            <!-- END WIDGET MESSAGES -->
+        </div>
+        <div class="col-md-3">
+           <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
+                <div class="widget-item-left">
+                    <span class="fa fa-arrow-circle-o-down"></span>
+                </div>                             
+                <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center;">
+                    <div class="widget-int num-count">5</div>
+                    <div class="widget-title">Weekly Updates</div>
+                    <div class="widget-subtitle"></div>
+                </div>      
+                
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
+                <div class="widget-item-left">
+                    <span class="fa fa-shopping-cart"></span>
+                </div>                             
+                <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center;">
+                    <div class="widget-int num-count">300</div>
+                    <div class="widget-title">Orders</div>
+                    <div class="widget-subtitle"></div>
+                </div>      
+                
+            </div>
+        </div>
+        <div class="col-md-3">
+              <div class="widget widget-default widget-item-icon" onclick="location.href='/user';">
+                <div class="widget-item-left">
+                    <span class="fa fa-eye"></span>
+                </div>                             
+                <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center;">
+                    <div class="widget-int num-count">{{$totalviews[0]->ClicksAfterAssociated}}</div>
+                    <div class="widget-title">Total Views</div>
+                    <div class="widget-subtitle"></div>
+                </div> 
+            </div>  
+        </div> 
+    </div>
+    <div class="row">
         <div class="col-md-12">
             <div class="panel panel-default">
                 <div class="panel-body padding-0" style="margin-left: 36px;margin-top: 22px;">
