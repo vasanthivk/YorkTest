@@ -1,24 +1,14 @@
-@extends('layouts.master')
-@section('title')
-FoodAdvisr-Dashboard
-@endsection
-@section('module')
-Dashboard
-@endsection
-
-@section('content')
-
 <!-- START WIDGETS -->                    
     <div class="row">
         <div class="col-md-3">
             <!-- START WIDGET MESSAGES -->
-            <div class="widget widget-default widget-item-icon">
+            <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
                 <div class="widget-item-left">
                     <span class="fa fa-user"></span>
                 </div>                             
                 <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center!important;">
                     <div class="widget-int num-count">42</div>
-                    <div class="widget-title"># of New Customers</div>
+                    <div class="widget-title">New Customers</div>
                     <div class="widget-subtitle"></div>
                 </div>      
                 
@@ -68,7 +58,7 @@ Dashboard
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0">
-                    <h3 style="margin-top: 24px;text-align: center;">Restaurants Rating</h3>
+                    <h3 style="margin-top: 24px;text-align: center;">Item Wise Orders</h3>
                     <div class="chart-holder" id="most_popular_items" style="height: 350px;"></div>
                 </div>
             </div>
@@ -137,17 +127,16 @@ Dashboard
 
         </div>
         </div>
-        {{--<div class="col-md-6">
+       <!--  <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0" style="margin-left: 10px;">
                     <h3 style="margin-top: 24px;text-align: center;">Registered Users Report</h3>
-                    <div class="chart-holder" id="donutchart1" style="height: 300px;"></div>
+                    <div class="chart-holder" id="donutchart2" style="height: 300px;"></div>
                     <br/>
                 </div>
             </div>
-        </div>--}}
+        </div> -->
     </div>
-@endsection
 
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
  <script type="text/javascript">
@@ -251,7 +240,7 @@ Dashboard
 
         var options = {
           title: '',
-          pieHole: 0.7,
+          pieHole: 0.4,
            slices: {
              0: { color: '#20B2AA' },
                1: { color: '#DA70D6' },
@@ -278,7 +267,7 @@ Dashboard
       function drawStuff() {
 
         // var button = document.getElementById('change-chart');
-        var chartDiv = document.getElementById('donutchart1');
+        var chartDiv = document.getElementById('donutchart2');
 
         var data = google.visualization.arrayToDataTable([
           ['', 'Registered Users'],

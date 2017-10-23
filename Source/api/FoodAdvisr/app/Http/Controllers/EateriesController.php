@@ -51,7 +51,16 @@ class EateriesController extends Controller
                     ->select(DB::raw('locations.Description as location_name,locations.LocationID as id'))
                     ->orderby('location_name','asc')
                     ->get();
-
+        if(in_array(Session::get("role_id"),array(2)))
+        {
+          $eatery_id = Session::get("eatery_id");
+          $all_eateries = DB::table('eateries')
+            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
+            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
+            ->where('eateries.id','=',$eatery_id)
+            ->get();
+        } 
+        else{            
         if($location_id=='')
         {
             $all_eateries = DB::table('eateries')
@@ -66,6 +75,7 @@ class EateriesController extends Controller
             ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
             ->where('eateries.LocationID','=',$location_id)
             ->get();
+        }
         }
         
         return view('eateries.index')

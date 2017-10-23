@@ -17,7 +17,10 @@
                     <li class="{{ Request::segment(1) === 'brands' ? 'active' : null }}"><a href="{{action('BrandsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Brands</span></a>     
                     </li> -->
                      <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
-                    </li> 
+                    </li>
+     <?php
+if(!in_array(Session::get("role_id"),array(2)))
+{ ?>                 
                     <li class="{{ Request::segment(1) === 'uploadeatery' ? 'active' : null }}"><a href="{{action('FoodController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Eateries</span></a>     
                     </li> 
                     <!--  <li class="{{ Request::segment(1) === 'uploadmenu' ? 'active' : null }}"><a href="{{action('UploadMenuController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Menu</span></a>     
@@ -28,7 +31,8 @@
                     </li>
                      <li class="{{ Request::segment(1) === 'logs' ? 'active' : null }}"><a href="{{action('LogsController@index')}}"><span class="fa fa-database"></span> <span class="xn-text">Logs</span></a>     
                     </li>
-                     <li class="{{ Request::segment(1) === 'configuration' ? 'active' : null }}"><a href="{{action('ConfigurationController@index')}}"><span class="fa fa-database"></span> <span class="xn-text">Configuration</span></a>     
+                     <li class="{{ Request::segment(1) === 'configuration' ? 'active' : null }}"><a href="{{action('ConfigurationController@index')}}"><span class="fa fa-database"></span> <span class="xn-text">Configuration</span></a>
                     </li>
+<?php } ?>
                 </ul>
             </div>
