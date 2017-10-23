@@ -109,9 +109,9 @@ Eateries
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                                <!-- <div class="btn-group pull-left">                      
+                                                <div class="btn-group pull-left">
                                                     <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
-                                                </div> -->
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>

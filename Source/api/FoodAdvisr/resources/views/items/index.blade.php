@@ -14,7 +14,7 @@ Items
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="items/create?hotel_id={{$hotel_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item</a>
+                                        <a href="items/create?eatery_id={{$eatery_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item</a>
                                         @endif
                                     </div>
                                 </div>
@@ -31,10 +31,10 @@ Items
                                         <tbody>                                                    @foreach($items as $item)
                                     <tr>
                                         <td>
-                                            {{$item->title}}
+                                            {{$item->item_name}}
                                         </td> 
                                         <td width="40%">
-                                            {{$item->description}}
+                                            {{$item->item_description}}
                                         </td> 
                                         <td>
                                             {{$item->is_visible}}
@@ -43,7 +43,7 @@ Items
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('items.edit','Edit',array($item->id,'hotel_id' => $item->FHRSID), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('items.edit','Edit',array($item->id,'eatery_id' => $item->id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">

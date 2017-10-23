@@ -14,6 +14,7 @@ Items
 <div class="row">
     <div class="col-md-12">
         {{Form::open(array('route' => 'items.store','files'=>true, 'role'=>'form', 'class'=>'form-horizontal', 'id'=>'wizard-validation'))}}
+        <input type="hidden" name="eatery_id" value="{{$eatery_id}}">
         <div class="panel panel-default">
             <div class="block">
                 <div class="wizard show-submit wizard-validation">
@@ -51,7 +52,11 @@ Items
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">( Or ) Add a New Group</label>
+                            <label class="col-md-2 control-label">( Or )</label>
+                            <div class="col-md-4">
+                                    <input type="checkbox" id="new_group" name="new_group">
+                                     Add a New Group
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Group Name :</label>
@@ -64,7 +69,7 @@ Items
                     <div id="step-2">
                         <div class="form-group">
                             <label class="col-md-2 control-label">Select a Category</label>
-                            <div class="col-md-5">
+                            <div class="col-md-5 itemcategory_div">
                                 <select name="itemcategory"  class="form-control select">
                                     <option>Choose Item Category</option>
                                     @foreach($itemcategories as $categories)
@@ -74,7 +79,11 @@ Items
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-2 control-label">( Or ) Add a New Category</label>
+                            <label class="col-md-2 control-label">( Or )</label>
+                            <div class="col-md-4">
+                                <input type="checkbox" id="new_category" name="new_category">
+                                Add a New Category
+                            </div>
                         </div>
                         <div class="form-group">
                             <label class="col-md-2 control-label">Category Name :</label>
@@ -84,10 +93,160 @@ Items
                         </div>
                     </div>
                     <div id="step-3">
+                        <h4>Add an Item</h4>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Item Name</label>
+                            <div class="col-md-4">
+                                <input type="text" name="item_name" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Item Price</label>
+                            <div class="col-md-4">
+                                <input type="number" name="item_default_price" class="form-control" value="" min="0" step="0.01">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Item Description</label>
+                            <div class="col-md-4">
+                                <input type="text" name="item_description" class="form-control" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Upload Item Image</label>
+                            <div class="col-md-10">
+                                <input type="file" class="fileinput" name="filename1" id="filename1"/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Is Enabled</label>
+                            <div class="col-md-4">
+                                <label class="switch">
+                                    <input type="checkbox" name="is_visible" class="switch" value="1" checked/>
+                                    <span></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Date Range</label>
+                            <div class="col-md-4">
+                                <label class="col-md-1 control-label">From</label>
+                                <input type="text" name="item_valid_from" class="form-control datepicker" value="">
+                            </div>
+                            <div class="col-md-4">
+                                <label class="col-md-1 control-label">to</label>
+                                <input type="text" name="item_valid_till" class="form-control datepicker" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Item Days</label>
+                            <div class="col-md-5">
+                                <select multiple name="item_applicable_days" class="form-control select">
+                                    <option value="0">Sunday</option>
+                                    <option value="1">Monday</option>
+                                    <option value="2">Tuesday</option>
+                                    <option value="3">Wednesday</option>
+                                    <option value="4">Thursday</option>
+                                    <option value="5">Friday</option>
+                                    <option value="6">Saturday</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Meat Content</label>
+                            <div class="col-md-10">
+                                <div class="form-group col-md-3">
+                                    <input type="radio" name="meat_content_type" value="1" id="veg"/>
+                                    <label class="control-label" for="veg">No Meat/Veg</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="radio" name="meat_content_type" value="2" id="egg"/>
+                                    <label class="control-label" for="egg">Contains Egg</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="radio" name="meat_content_type" value="3" id="nonveg"/>
+                                    <label class="control-label" for="nonveg">Contains Meat</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Cuisine Type</label>
+                            <div class="col-md-5">
+                                <select multiple name="cuisine_id[]" class="form-control select">
+                                    @foreach($cuisinetypes as $cuisine)
+                                        <option value="{{$cuisine->cuisine_id}}">{{$cuisine->cuisine_name}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
 
                         <div class="form-group">
-                            <label class="col-md-2 control-label">Select a Category</label>
-
+                            <label class="control-label col-md-2">Ingrediants</label>
+                            <a class="btn btn-primary col-md-1" id="ingrediant_add">Add</a>
+                            <div class="col-md-3 ingrediants">
+                                <input type="text" name="item_ingredients[]" value="" class="form-control" /><br/>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Filters</label>
+                            <div class="col-md-10">
+                                <div class="form-group col-md-3">
+                                    <input type="checkbox" name="contains_nuts" value="1" id="contains_nuts"/>
+                                    <label class="control-label" for="contains_nuts">Contain Nuts</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="checkbox" name="dairy_free" value="1" id="dairy_free"/>
+                                    <label class="control-label" for="dairy_free">Dairy Free</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="checkbox" name="gluten_free" value="1" id="gluten_free"/>
+                                    <label class="control-label" for="gluten_free">Gluten Free</label>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="checkbox" name="vegan" value="1" id="vegan"/>
+                                    <label class="control-label" for="vegan">Vegan</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Allergents Contain</label>
+                            <div class="col-md-5">
+                                <select multiple name="allergents_contain[]" class="form-control select">
+                                    @foreach($allergenttypes as $allergent)
+                                        <option value="{{$allergent->allergent_id}}">{{$allergent->allergent_type}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Allergents May Contain</label>
+                            <div class="col-md-5">
+                                <select multiple name="allergents_may_contain[]" class="form-control select">
+                                    @foreach($allergenttypes as $allergent)
+                                        <option value="{{$allergent->allergent_id}}">{{$allergent->allergent_type}}</option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Nutrition Levels</label>
+                        </div>
+                        @foreach($nutritiontypes as $nutrition)
+                        <div class="form-group">
+                            <label class="control-label col-md-2">{{$nutrition->nutrition_type}}</label>
+                            <div class="col-md-2">
+                                <input type="number" name="nutrition_from[{{$nutrition->nutrition_id}}]" nutrition_id="{{$nutrition->nutrition_id}}" value="" class="form-control" min="0" max="100" step="1" />
+                            </div>
+                            <div class="col-md-2">
+                                <input type="number" name="nutrition_to[{{$nutrition->nutrition_id}}]" nutrition_id="{{$nutrition->nutrition_id}}" value="" class="form-control" min="0" max="100" step="1" />
+                            </div>
+                        </div>
+                        @endforeach
+                        <div class="form-group">
+                            <label class="col-md-2 control-label">Display Order</label>
+                            <div class="col-md-4">
+                                <input type="number" name="display_order" class="form-control" value="" min="1" step="1">
+                            </div>
                         </div>
 
                     </div>
@@ -100,37 +259,51 @@ Items
     </div>
 <script>
     $(document).ready(function(){
-        if($('select[name="itemgroup"]').val() != ''){
-            $('#itemGroupName').attr('disabled','disabled');
-        }
-        else if($('#itemGroupName').val() != ''){
-            $('select[name="itemgroup"]').attr('disabled','disabled');
-        }
+        $('#itemGroupName').attr('disabled','disabled');
+        $('#itemCategoryName').attr('disabled','disabled');
+        $('input[name="new_group"]').on('click',function(){
+           if($(this).is(':checked')){
+               $('#itemGroupName').removeAttr('disabled');
+               $('select[name="itemgroup"]').attr('disabled','disabled');
+               $('select[name="itemgroup"]').val();
+               $('input[name="new_category"]').attr('checked','checked');
+               $('#itemCategoryName').removeAttr('disabled');
+               $('select[name="itemcategory"]').attr('disabled','disabled');
+               $('.itemcategory_div').attr('style','display:none;');
+               $('select[name="itemcategory"]').val();
+               $('input[name="new_category"]').attr('style','display:none;');
+           }else{
+               $('#itemGroupName').attr('disabled','disabled');
+               $('#itemGroupName').val();
+               $('select[name="itemgroup"]').removeAttr('disabled');
+               $('#itemCategoryName').attr('disabled','disabled');
+               $('#itemCategoryName').val();
+               $('select[name="itemcategory"]').removeAttr('disabled');
+               $('.itemcategory_div').removeAttr('style');
+               $('input[name="new_category"]').removeAttr('style');
+               $('input[name="new_category"]').removeAttr('checked');
+           }
+        });
+
+        $('input[name="new_category"]').on('click',function(){
+            if($(this).is(':checked')){
+                $('#itemCategoryName').removeAttr('disabled');
+                $('select[name="itemcategory"]').attr('disabled','disabled');
+                $('select[name="itemcategory"]').val();
+            }else{
+                $('#itemCategoryName').attr('disabled','disabled');
+                $('#itemCategoryName').val();
+                $('select[name="itemcategory"]').removeAttr('disabled');
+            }
+        });
+        $('#ingrediant_add').on('click',function(){
+           $('.ingrediants').append('<input type="text" name="ingrediant_names[]" value="" class="form-control" /><!--<a class="btn btn-danger  col-md-1 del_remove">X</a>--><br/>');
+        });
+        $('.del_remove').on('click',function(){
+            alert();
+           $(this).remove();
+        });
     });
 </script>
-{{--{{ Form::open(array('route' => 'items.store','files'=>true)) }}
-<input type="hidden" id="hotel_id" name="hotel_id" value="{{$hotel_id}}"></input>
-<div class="form-group form-horizontal">
-		<div class="panel panel-default">
-		</br>
-			<div class="col-md-6">
-		        {{ Form::ahText('title','Title :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahTextarea('description','Description :','',array('maxlength' => '1000'))  }}
-		        {{ Form::ahSelect('category_id','Category :','',$category) }}
-		        {{ Form::ahSelect('is_visible','Is Visible :','1',array('1' => 'Active', '2' => 'Inactive')) }}
-		        {{ Form::ahSelect('display_order','Display Order :','1',array('1' => 'Active', '2' => 'Inactive')) }}
-		        </br>
-		    </div>
-		     
-	    <div class="form-group">
-		    <div class="panel-footer">
-		        <div class="col-md-6 col-md-offset-3">
-		            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-		            {{ link_to_route('items.index','Cancel',array('hotel_id'=>$hotel_id), array('class' => 'btn btn-danger')) }}
-		        </div>
-		    </div>
-	    </div>
-	 </div>
- </div>--}}
 
 @endsection

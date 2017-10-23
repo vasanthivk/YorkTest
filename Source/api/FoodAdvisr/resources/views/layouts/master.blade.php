@@ -181,7 +181,11 @@ window.location.href="/";
         <script type="text/javascript" src="../../js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../../js/plugins/smartwizard/jquery.smartWizard-2.0.min.js"></script>
         <script type="text/javascript" src="../../js/plugins/jquery-validation/jquery.validate.js"></script>
-        <script>
+        <script type='text/javascript' src='../../js/plugins/icheck/icheck.min.js'></script>
+        <script type="text/javascript" src="../../js/plugins/mcustomscrollbar/jquery.mCustomScrollbar.min.js"></script>
+        <script type="text/javascript" src="../../js/plugins/rangeslider/jQAllRangeSliders-min.js"></script>
+        <script type="text/javascript" src="../../js/plugins/knob/jquery.knob.min.js"></script>
+    <script>
             var editor = CodeMirror.fromTextArea(document.getElementById("codeEditor"), {
                 lineNumbers: true,
                 matchBrackets: true,
