@@ -68,7 +68,7 @@ class DashboardController extends Controller
                 ->LIMIT(5)
                 ->get();
 
-        $sql = 'select CEILING(FoodAdvisrOverallRating) as FoodAdvisrOverallRating, count(*) as Total from eateries where ifnull(FoodAdvisrOverallRating,0)>0 group by CEILING(FoodAdvisrOverallRating)';
+        $sql = 'select CEILING(FoodAdvisrOverallRating) as FoodAdvisrOverallRating, count(*) as Total from eateries where ifnull(FoodAdvisrOverallRating,0)>0 and IsAssociated=1 group by CEILING(FoodAdvisrOverallRating)';
         $foodadvisroverallratings = DB::select( DB::raw($sql));
 
         $sql = 'select sum(ClicksAfterAssociated) as ClicksAfterAssociated from eateries';
