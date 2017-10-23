@@ -803,7 +803,7 @@ body.on('click','.act-clear-search',function(){
       $(this).addClass('selected');
       let mode=$(this).attr('href').substr(1);
       $('.eatery-frame').addClass('hide').removeClass('search-target');
-	  
+
       $('.eateries-'+mode).removeClass('hide').addClass('search-target');
       /*if(mode=='likes'){
           appdata.likeCount();
@@ -826,7 +826,7 @@ body.on('click','.act-clear-search',function(){
                 op += '<div class="act-eatery">' +
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div> </div>' +
+                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div> </div>' +
                 '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
@@ -834,22 +834,22 @@ body.on('click','.act-clear-search',function(){
             }
             else
             {
-              op += '<div class="in-act-eatery">' +
-                      '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' + 
-                      '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' + 
-                      '<div class="eatery-columns">' +
-                        '<div class="in-act-eatery-logo" ><img class="in-act-eatery-logopath" src="../img/thumb.svg"></img></div>' + 
-                        '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' +/* (data.result[idx].Address==null?'':data.result[idx].Address)+*/'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/></div></div>' +'</div>'  +
-                      '</div>' +
-                      '<div class="eatery-clear"></div>' +
-                    '</div>';
+                op += '<div class="in-act-eatery">' +
+                '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
+                '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
+                '<div class="eatery-columns">' +
+                '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div></div>' +
+                '<div class="in-act-eatery-logo" ><img class="in-act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
+                '</div>' +
+                '<div class="eatery-clear"></div>' +
+                '</div>';
             }
           }
         }
         $("#loadeateries").html(op);
       })
     }
-    
+
     function eaterySearchReset()
     {
         $("#loadeateries").text("");
@@ -895,6 +895,14 @@ body.on('click','.act-clear-search',function(){
                 x[myIndex-1].style.display = "block";
                 setTimeout(carousel, 5000);
             }
+
+            body.on('click','.eatery-call',function(){
+                var message =data.result.ContactNumber;
+                popupcall.show(message,'Call|eatery-call,Cancel');
+                api.getAddClickBeforeAssociated(eateryId,function(data){
+                });
+            });
+
           page.route('eaterydetails');
         }
         else
@@ -925,7 +933,7 @@ body.on('click','.act-clear-search',function(){
         var divMenu = document.getElementById("menu-categories");
         divMenu.style.display = "none";
     });
-    
+
     body.on('click','.in-act-eatery',function(){
       var eateryId=$(this).find('#eateryId').val();
       var eateryName=$(this).find('#eateryName').val();
@@ -936,8 +944,123 @@ body.on('click','.act-clear-search',function(){
     });
 
     body.on('click','.in-act-eatery-invite',function(){
-      
+
     });
+
+    body.on('click','.item-bc-eatery',function(){
+        var message = "Book a Table" ;
+        var html_fields = "<div>Date : <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none;'/></div>" +
+            "<br/><div><label for='appt-time'>Time:<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;' /></div><br/>" +
+            "<div>How many people?<br>" +
+            "<div style='float: left;padding-bottom: 13px;padding-top: 11px;color: #00B2A9;'>" +
+            "<label for='people1' class='people1'>1</label><input id='people1' class='people-show' type='radio' name='people' value='1'/></div>" +
+            "<div  style='float: left;padding-bottom: 13px;padding-top: 11px;color: #00B2A9;'>" +
+            "<label for='#people2' class='people2'>2</label><input id='people2' class='people-show' type='radio' name='people' value='2'/>" +
+            "<label for='#people3' class='people3'>3</label><input id='people3' class='people-show' type='radio' name='people' value='3'/>" +
+            "<label for='#people4' class='people4'>4</label><input id='people4' class='people-show' type='radio' name='people' value='4'/>" +
+            "<label for='#people5' class='people5'>5</label><input id='people5' class='people-show' type='radio' name='people' value='5'/>" +
+            "<label for='#people6' class='people6'>6</label><input id='people6' class='people-show' type='radio' name='people' value='6'/>" +
+            "<label for='#people7' class='people7'>7+</label><input id='people7' class='people-show' type='radio' name='people' value='7'/>" +
+            "</div>" +
+            "<textarea rows='4' cols='50' style='padding-bottom: 0px;'></textarea></div>" ;
+        vartext = message+'<br/>'+html_fields;
+        popupbook.show(vartext,'Cancel|item-bc-eatery,Book');
+        api.getAddClickBeforeAssociated(eateryId,function(data){
+        });
+    });
+    body.on('click','.fa-calendar',function() {
+        $('#bookdate').toggle();
+    });
+    body.on('click','.fa-clock-o',function() {
+        $('#booktime').toggle();
+    });
+
+    body.on('click','#people1',function()
+    {
+        if(document.getElementById("people1").checked == true){
+            $(".people1").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 0px 5px;border-radius:50%;');
+            $(".people2").removeAttr('style');
+            $(".people3").removeAttr('style');
+            $(".people4").removeAttr('style');
+            $(".people5").removeAttr('style');
+            $(".people6").removeAttr('style');
+            $(".people7").removeAttr('style');
+        }
+    });
+    body.on('click','#people2',function()
+    {
+        if(document.getElementById("people2").checked == true){
+            $(".people1").removeAttr('style');
+            $(".people2").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 0px 5px;border-radius:50%;');
+            $(".people3").removeAttr('style');
+            $(".people4").removeAttr('style');
+            $(".people5").removeAttr('style');
+            $(".people6").removeAttr('style');
+            $(".people7").removeAttr('style');
+        }
+    });
+    body.on('click','#people3',function()
+    {
+        if(document.getElementById("people3").checked == true){
+            $(".people1").removeAttr('style');
+            $(".people2").removeAttr('style');
+            $(".people3").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 0px 5px;border-radius:50%;');
+            $(".people4").removeAttr('style');
+            $(".people5").removeAttr('style');
+            $(".people6").removeAttr('style');
+            $(".people7").removeAttr('style');
+        }
+    });
+    body.on('click','#people4',function()
+    {
+        if(document.getElementById("people4").checked == true){
+            $(".people1").removeAttr('style');
+            $(".people2").removeAttr('style');
+            $(".people3").removeAttr('style');
+            $(".people4").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 0px 5px;border-radius:50%;');
+            $(".people5").removeAttr('style');
+            $(".people6").removeAttr('style');
+            $(".people7").removeAttr('style');
+        }
+    });
+    body.on('click','#people5',function()
+    {
+        if(document.getElementById("people5").checked == true){
+            $(".people1").removeAttr('style');
+            $(".people2").removeAttr('style');
+            $(".people3").removeAttr('style');
+            $(".people4").removeAttr('style');
+            $(".people5").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 0px 5px;border-radius:50%;');
+            $(".people6").removeAttr('style');
+            $(".people7").removeAttr('style');
+        }
+    });
+    body.on('click','#people6',function()
+    {
+        if(document.getElementById("people6").checked == true){
+            $(".people1").removeAttr('style');
+            $(".people2").removeAttr('style');
+            $(".people3").removeAttr('style');
+            $(".people4").removeAttr('style');
+            $(".people5").removeAttr('style');
+            $(".people6").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 0px 5px;border-radius:50%;');
+            $(".people7").removeAttr('style');
+        }
+    });
+    body.on('click','#people7',function()
+    {
+        if(document.getElementById("people7").checked == true){
+            $(".people1").removeAttr('style');
+            $(".people2").removeAttr('style');
+            $(".people3").removeAttr('style');
+            $(".people4").removeAttr('style');
+            $(".people5").removeAttr('style');
+            $(".people6").removeAttr('style');
+            $(".people7").attr('style','background-color:#00B2A9;color:#fff;font-size: 20px;padding: 2px 3px;border-radius:50%;');
+        }
+    });
+
+
 
     body.on('keyup','#eatery-search',function(e){
       var keycode = event.keyCode || event.which;
@@ -960,8 +1083,8 @@ body.on('click','.act-clear-search',function(){
               {
                 $("#loadeateries").text("");
                 msg.show('unable to locate, please check the address',2000,false,true);
-              } 
-          });  
+              }
+          });
       }
       if(t.val()==''){
         $('.eatery-search-clear').addClass('hide');
@@ -975,6 +1098,11 @@ body.on('click','.act-clear-search',function(){
       eaterySearchReset();
       return false;
     });
+
+    body.on('click','.eatery-rating',function(){
+      alert('Hello');
+    });
+
 
 //fire42 end
 
