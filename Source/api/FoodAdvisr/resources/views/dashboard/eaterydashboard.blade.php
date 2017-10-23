@@ -58,7 +58,7 @@
         <div class="col-md-6">
             <div class="panel panel-default">
                 <div class="panel-body padding-0">
-                    <h3 style="margin-top: 24px;text-align: center;">Item Wise orders</h3>
+                    <h3 style="margin-top: 24px;text-align: center;">Item Wise Orders</h3>
                     <div class="chart-holder" id="most_popular_items" style="height: 350px;"></div>
                 </div>
             </div>
