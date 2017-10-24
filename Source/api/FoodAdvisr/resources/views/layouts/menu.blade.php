@@ -19,7 +19,7 @@
                      <li class="{{ Request::segment(1) === 'eateries' || Request::segment(1) === 'items' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
                     </li>
                     <li class="xn-openable {{ Request::segment(1) === 'itemgroups' || Request::segment(1) === 'itemcategory' ? 'active' : null }}">
-                         <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Items</span></a>
+                         <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Manage Items</span></a>
                         <ul>
                             <li><a href="{{action('ItemGroupsController@index')}}"><span class="fa fa-image"></span> Item Groups</a></li>
                             <li><a href="{{action('ItemCategoriesController@index')}}"><span class="fa fa-user"></span> Item Categories</a></li>
