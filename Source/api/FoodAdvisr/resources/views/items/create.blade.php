@@ -15,6 +15,7 @@ Items
  <input type="hidden" name="eatery_id" value="{{$eatery_id}}">
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
+            <br/>
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="block">
@@ -177,6 +178,17 @@ Items
                                 </div>
                                 <hr/>
                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Cuisines</label>
+                                    <div class="col-md-5">
+                                        <select multiple name="cuisine_id[]" class="form-control select">
+                                            @foreach($cuisinetypes as $cuisine)
+                                            <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label">Meat Content</label>
                                     <div class="col-md-10">
                                         <div class="form-group col-md-3">
@@ -273,9 +285,6 @@ Items
             </div>
         </div>
 </div>
-
-@endsection
-
 <script>
     $(document).ready(function(){
         $('#itemGroupName').attr('disabled','disabled');
@@ -324,3 +333,4 @@ Items
         });
     });
 </script>
+@endsection
