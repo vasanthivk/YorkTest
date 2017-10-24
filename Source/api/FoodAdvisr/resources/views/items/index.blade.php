@@ -70,7 +70,7 @@ Items
                             </div>
                             <div class="panel-heading">
         <div class="btn-group pull-left">
-            <a href="{{URL::to('allhotels')}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Hotels</a>
+            <a href="{{URL::to('eateries')}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Eateries</a>
         </div>
     </div>
                         </div>
