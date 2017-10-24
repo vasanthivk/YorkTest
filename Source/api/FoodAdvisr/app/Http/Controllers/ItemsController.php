@@ -108,7 +108,7 @@ class ItemsController extends Controller
     {
        $input = Input::all();
         $this->validate($request, [
-            'eatery_id'  => 'required']);
+            'item_name'  => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -314,7 +314,7 @@ class ItemsController extends Controller
             $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
             $items->meat_content_type = Input::get('meat_content_type');
             $items->Update();
-            
+
             $log = new Log();
             $log->module_id=8;
             $log->action='update';      
