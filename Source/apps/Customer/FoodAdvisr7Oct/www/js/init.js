@@ -816,6 +816,7 @@ body.on('click','.act-clear-search',function(){
     });
     function eaterySearch(latitude, longitude,searchval)
     {
+      openLoading();
       api.getEateries(latitude, longitude, searchval,function(data){
         var op ='';
         if(data.result.length > 0)
@@ -853,6 +854,7 @@ body.on('click','.act-clear-search',function(){
             }
           }
         }
+        closeLoading();
         $("#loadeateries").html(op);
       })
     }
