@@ -99,7 +99,7 @@ Items
                         <div class="col-sm-8">
                              <select multiple name="cuisine_id[]" class="form-control select">
                                     @foreach($cuisinetypes as $cuisine)
-                                        <option value="{{$cuisine->cuisine_id}}">{{$cuisine->cuisine_name}}</option>
+                                        <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
                                     @endforeach
                                 </select>
                         </div>
