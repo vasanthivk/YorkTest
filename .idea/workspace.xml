@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3f39e34-1e26-4d97-9471-9714e92341c4" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
     </list>
     <ignored path="FoodAdvisr.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ItemsController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ItemsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-11.115385" vertical-offset="4760" max-vertical-offset="5950">
-              <caret line="297" column="26" selection-start-line="297" selection-start-column="26" selection-end-line="297" selection-end-column="26" />
+            <state vertical-scroll-proportion="0.7183099" vertical-offset="3230" max-vertical-offset="5950">
+              <caret line="214" column="81" selection-start-line="214" selection-start-column="81" selection-end-line="214" selection-end-column="81" />
               <folding>
                 <element signature="e#40#63#0#PHP" expanded="true" />
               </folding>
@@ -42,7 +42,7 @@
       <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="5.230769" vertical-offset="4216" max-vertical-offset="5338">
+            <state vertical-scroll-proportion="-6.5384617" vertical-offset="3910" max-vertical-offset="5338">
               <caret line="240" column="121" selection-start-line="240" selection-start-column="121" selection-end-line="240" selection-end-column="121" />
               <folding />
             </state>
@@ -69,10 +69,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.49119717" vertical-offset="843" max-vertical-offset="1411">
+            <state vertical-scroll-proportion="-10.730769" vertical-offset="843" max-vertical-offset="1411">
               <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
               <folding />
             </state>
@@ -127,9 +127,9 @@
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/eateries/index.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php" />
-        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php" />
+        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
       </list>
     </option>
   </component>
@@ -966,24 +966,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-11.115385" vertical-offset="4760" max-vertical-offset="5950">
-          <caret line="297" column="26" selection-start-line="297" selection-start-column="26" selection-end-line="297" selection-end-column="26" />
-          <folding>
-            <element signature="e#40#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="5.230769" vertical-offset="4216" max-vertical-offset="5338">
-          <caret line="240" column="121" selection-start-line="240" selection-start-column="121" selection-end-line="240" selection-end-column="121" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-23.153847" vertical-offset="78" max-vertical-offset="1105">
@@ -994,9 +976,27 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.49119717" vertical-offset="843" max-vertical-offset="1411">
+        <state vertical-scroll-proportion="-10.730769" vertical-offset="843" max-vertical-offset="1411">
           <caret line="66" column="44" selection-start-line="66" selection-start-column="44" selection-end-line="66" selection-end-column="44" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-6.5384617" vertical-offset="3910" max-vertical-offset="5338">
+          <caret line="240" column="121" selection-start-line="240" selection-start-column="121" selection-end-line="240" selection-end-column="121" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7183099" vertical-offset="3230" max-vertical-offset="5950">
+          <caret line="214" column="81" selection-start-line="214" selection-start-column="81" selection-end-line="214" selection-end-column="81" />
+          <folding>
+            <element signature="e#40#63#0#PHP" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -43,7 +43,7 @@ class ItemsController extends Controller
         $privileges = $this->getPrivileges();
         $eatery_id = $request['eatery_id'];
         $items = DB::table('items')
-        ->select(DB::raw('*,items.item_id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
+        ->select(DB::raw('*,items.id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
         ->where('items.eatery_id','=',$eatery_id)
         ->get();        
          return View('items.index', compact('items'))         
@@ -212,7 +212,7 @@ class ItemsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('items.index',array('eatery_id' => $items->FHRSID))->with('success','Item Created Successfully!');
+        return Redirect::route('items.index',array('eatery_id' => $items->eatery_id))->with('success','Item Created Successfully!');
         
         }
     }
