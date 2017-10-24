@@ -178,6 +178,17 @@ Items
                                 </div>
                                 <hr/>
                                 <div class="form-group">
+                                    <label class="col-md-2 control-label">Cuisines</label>
+                                    <div class="col-md-5">
+                                        <select multiple name="cuisine_id[]" class="form-control select">
+                                            @foreach($cuisinetypes as $cuisine)
+                                            <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <hr/>
+                                <div class="form-group">
                                     <label class="col-md-2 control-label">Meat Content</label>
                                     <div class="col-md-10">
                                         <div class="form-group col-md-3">
