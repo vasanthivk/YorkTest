@@ -43,11 +43,16 @@ class ItemsController extends Controller
         $privileges = $this->getPrivileges();
         $eatery_id = $request['eatery_id'];
         $items = DB::table('items')
-        ->select(DB::raw('*,items.item_id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
+        ->select(DB::raw('*,items.id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
         ->where('items.eatery_id','=',$eatery_id)
-        ->get();        
+        ->get();
+        $eatery_details = DB::table('eateries')
+        ->select(DB::raw('*'))
+        ->where('id','=',$eatery_id)
+        ->get();
          return View('items.index', compact('items'))         
         ->with('privileges',$privileges)
+        ->with('eatery_details',$eatery_details)
         ->with('eatery_id',$eatery_id);
     }
 
@@ -63,23 +68,23 @@ class ItemsController extends Controller
         $eatery_id = $request['eatery_id'];
         $privileges = $this->getPrivileges();
         $itemgroups = DB::table('item_groups')
-            ->select(DB::raw('group_id,group_name'))
+            ->select(DB::raw('id,group_name'))
             ->where('is_visible','=',1)
             ->get();
         $itemcategories = DB::table('item_categories')
-            ->select(DB::raw('category_id,category_name'))
+            ->select(DB::raw('id,category_name'))
             ->where('is_visible','=',1)
             ->get();
         $cuisinetypes = DB::table('cuisines')
-            ->select(DB::raw('cuisine_id,cuisine_name'))
+            ->select(DB::raw('id,cuisine_name'))
             ->where('is_enabled','=',1)
             ->get();
         $nutritiontypes = DB::table('nutrition_types')
-            ->select(DB::raw('nutrition_id,nutrition_type'))
+            ->select(DB::raw('id,nutrition_type'))
             ->where('is_enabled','=',1)
             ->get();
         $allergenttypes = DB::table('allergent_types')
-            ->select(DB::raw('allergent_id,allergent_type'))
+            ->select(DB::raw('id,allergent_type'))
             ->where('is_enabled','=',1)
             ->get();
 
@@ -91,13 +96,6 @@ class ItemsController extends Controller
             ->with('nutritiontypes',$nutritiontypes)
             ->with('allergenttypes',$allergenttypes)
             ->with('cuisinetypes',$cuisinetypes);
-
-        $category = Category::all()->pluck('category_name','category_id');
-
-        return View('items.create')          
-        ->with('privileges',$privileges)
-        ->with('category',$category)
-        ->with('eatery_id',$eatery_id);
     }
 
     /**
@@ -110,7 +108,7 @@ class ItemsController extends Controller
     {
        $input = Input::all();
         $this->validate($request, [
-            'eatery_id'  => 'required']);
+            'item_name'  => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -127,42 +125,44 @@ class ItemsController extends Controller
         }
         else
         {
-            if(isset($input['itemgroup']) && !empty($input['itemgroup'])) {
-                $itemgroup_id = $input['itemgroup'];
-            }
-            if(isset($input['itemcategory']) && !empty($input['itemcategory'])) {
-                $itemcategory_id = $input['itemcategory'];
-            }
+
+
             if(isset($input['itemGroupName']) && !empty($input['itemGroupName'])){
                 $itemgroups = new ItemGroups();
-                $itemgroups -> group_name = Input::get('itemGroupName');
-                $itemgroups -> is_visible = 1;
-                $itemgroups -> added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-                $itemgroups -> added_by = Session::get('user_id');
-                $itemgroups -> modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-                $itemgroups -> modified_by = Session::get('user_id');
-                $itemgroups -> save();
-                $itemgroup_id = $itemgroups -> group_id;
+                $itemgroups->group_name = Input::get('itemGroupName');
+                $itemgroups->is_visible = 1;
+                $itemgroups->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemgroups->added_by = Session::get('user_id');
+                $itemgroups->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemgroups->modified_by = Session::get('user_id');
+                $itemgroups->save();
+                $itemgroup_id = $itemgroups->id;
+            }
+            else if(isset($input['itemgroup']) && !empty($input['itemgroup'])) {
+                $itemgroup_id = $input['itemgroup'];
             }
             if(isset($input['itemCategoryName']) && !empty($input['itemCategoryName'])){
                 $itemcategories = new ItemCategories();
-                $itemcategories -> category_name = Input::get('itemCategoryName');
-                $itemcategories -> group_id = $itemgroup_id;
-                $itemcategories -> is_visible = 1;
-                $itemcategories -> added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-                $itemcategories -> added_by = Session::get('user_id');
-                $itemcategories -> modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-                $itemcategories -> modified_by = Session::get('user_id');
-                $itemcategories -> save();
-                $itemcategory_id = $itemcategories -> category_id;
+                $itemcategories->category_name = Input::get('itemCategoryName');
+                $itemcategories->group_id = $itemgroup_id;
+                $itemcategories->is_visible = 1;
+                $itemcategories->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemcategories->added_by = Session::get('user_id');
+                $itemcategories->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemcategories->modified_by = Session::get('user_id');
+                $itemcategories->save();
+                $itemcategory_id = $itemcategories->id;
+            }
+            else if(isset($input['itemcategory']) && !empty($input['itemcategory'])) {
+                $itemcategory_id = $input['itemcategory'];
             }
             $items = new Items();
             $items->eatery_id = Input::get('eatery_id');
             $items->item_name = Input::get('item_name');
             $items->item_default_price = Input::get('item_default_price');
             $items->item_description = Input::get('item_description');
-            $items->item_valid_from = Input::get('item_valid_from');
-            $items->item_valid_till = Input::get('item_valid_till');
+            $items->item_valid_from = date('Y-m-d',strtotime(Input::get('item_valid_from')));
+            $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
             $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
             $items->cuisine_id = serialize(Input::get('cuisine_id'));
             $items->item_ingredients = serialize(Input::get('ingrediant_names'));
@@ -202,10 +202,10 @@ class ItemsController extends Controller
                 $items->is_visible = 0;
             }
             $items->display_order =  Input::get('display_order');
-            $items -> added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $items -> added_by = Session::get('user_id');
-            $items -> modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $items -> modified_by = Session::get('user_id');
+            $items->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->added_by = Session::get('user_id');
+            $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->modified_by = Session::get('user_id');
             $items->save();            
 
             $log = new Log();
@@ -217,7 +217,7 @@ class ItemsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('items.index',array('eatery_id' => $items->FHRSID))->with('success','Item Created Successfully!');
+        return Redirect::route('items.index',array('eatery_id' => $items->eatery_id))->with('success','Item Created Successfully!');
         
         }
     }
@@ -247,12 +247,30 @@ class ItemsController extends Controller
         if($privileges['Edit'] !='true')
             return Redirect::to('/');
         $eatery_id = $request['eatery_id'];
-        $category = Category::all()->pluck('category_name','category_id');        
-        $items = Items::where('items.item_id',$id)->get();
+        $category = DB::table('item_categories')
+            ->select(DB::raw('id,category_name'))
+            ->where('is_visible','=',1)
+            ->get();
+        $cuisinetypes = DB::table('cuisines')
+            ->select(DB::raw('id,cuisine_name'))
+            ->where('is_enabled','=',1)
+            ->get();
+        $nutritiontypes = DB::table('nutrition_types')
+            ->select(DB::raw('id,nutrition_type'))
+            ->where('is_enabled','=',1)
+            ->get();
+        $allergenttypes = DB::table('allergent_types')
+            ->select(DB::raw('id,allergent_type'))
+            ->where('is_enabled','=',1)
+            ->get();
+        $items = Items::find($id);
         return View('items.edit')
-        ->with('items',$items[0])
+        ->with('items',$items)
         ->with('eatery_id',$eatery_id)
         ->with('category',$category)
+        ->with('cuisinetypes',$cuisinetypes)
+        ->with('nutritiontypes',$nutritiontypes)
+        ->with('allergenttypes',$allergenttypes)
         ->with('privileges',$privileges);
     }
 
@@ -268,7 +286,7 @@ class ItemsController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-            'title'  => 'required']);
+            'item_name'  => 'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
@@ -282,14 +300,25 @@ class ItemsController extends Controller
         }
         else
         {   
-            Items::where('item_id','=',$id)
-             ->update(array('title'=> Input::get('title'),'description'=> Input::get('description'),'is_visible'=> Input::get('is_visible'),'FHRSID'=> $request['eatery_id'],'category_id'=>Input::get('category_id'),'display_order' => Input::get('display_order')
-                 ));
+            $items = Items::find($id);
+            $items->eatery_id = Input::get('eatery_id');
+            $items->item_name = Input::get('item_name');
+            $items->item_default_price = Input::get('item_default_price');
+            $items->item_description = Input::get('item_description');
+            $items->item_valid_from = date('Y-m-d',strtotime(Input::get('item_valid_from')));
+            $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
+            $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
+            $items->cuisine_id = serialize(Input::get('cuisine_id'));
+            $items->item_ingredients = serialize(Input::get('ingrediant_names'));
+            $items->allergents_contain = serialize(Input::get('allergents_contain'));
+            $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
+            $items->meat_content_type = Input::get('meat_content_type');
+            $items->Update();
 
             $log = new Log();
             $log->module_id=8;
             $log->action='update';      
-            $log->description='items ' . Input::get('title') . ' is updated';
+            $log->description='items ' . $items->item_name . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    

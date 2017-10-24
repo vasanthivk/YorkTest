@@ -1,20 +1,20 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Items
+FoodAdvisr-Item Categories
 @endsection
 @section('module')
-    {{$eatery_details[0]->BusinessName}} - Menu Items
+Item Categories
 @endsection
 
 @section('content')
-@include('components.message')  
+@include('components.message')	
 <div class="row">
     <div class="col-md-12">
-        <div class="panel panel-default">
+		<div class="panel panel-default">
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="items/create?eatery_id={{$eatery_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item</a>
+                                        <a href="{{URL::to('itemcategory/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item Categories</a>
                                         @endif
                                     </div>
                                 </div>
@@ -22,43 +22,29 @@ FoodAdvisr-Items
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th>Title</th>
-                                                <th>Description</th>   
-                                                <th>Is Visible</th>                                  
+                                                <th>Category Name</th>            
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
-                                        <tbody>                                                    @foreach($items as $item)
+                                        <tbody>                                                    @foreach($itemcategories as $category)
                                     <tr>
                                         <td>
-                                            {{$item->item_name}}
-                                        </td> 
-                                        <td width="40%">
-                                            {{$item->item_description}}
-                                        </td> 
-                                        <td>
-                                            {{$item->is_visible}}
+                                            {{$category->category_name}}
                                         </td>       
                                         <td width="30%">
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('items.edit','Edit',array($item->id,'eatery_id' => $eatery_id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('itemcategory.edit','Edit',array($category->id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
                                                    @if($privileges['Delete']=='true')
-                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('items.destroy', $item->id))) }}
+                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('itemcategory.destroy', $category->id))) }}
                                                     <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                               <!--  <div style="float:left;padding-right:10px;">
-                                                    <a href="../../recipe?eatery_id={{$eatery_id}}" class="btn btn-success">Recipe</a>
-                                                </div> -->
-                                              <!--  <div style="float:left;padding-right:10px;">
-                                                    <a href="../../itemnutritions?eatery_id={{$eatery_id}}" class="btn btn-primary">Nutritions</a>
-                                                </div> -->
                                             </div>
                                         </td>
                                          </tr>
@@ -68,11 +54,6 @@ FoodAdvisr-Items
                                     
                                 </div>
                             </div>
-                            <div class="panel-heading">
-        <div class="btn-group pull-left">
-            <a href="{{URL::to('eateries')}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Eateries</a>
-        </div>
-    </div>
-                        </div>
-                    </div>        
+    					</div>
+    				</div>        
 @endsection
