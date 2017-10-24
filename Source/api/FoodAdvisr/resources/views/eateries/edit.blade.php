@@ -1,10 +1,19 @@
 @extends('layouts.master')
+@if(Session::get("role_id")==1)
 @section('title')
 FoodAdvisr-Eateries
 @endsection
 @section('module')
 Eateries
 @endsection
+@elseif(Session::get("role_id")==2) 
+@section('title')
+FoodAdvisr-My Settings
+@endsection
+@section('module')
+My Settings
+@endsection
+@endif 
 
 @section('content')
 @include('components.message')

@@ -19,6 +19,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <link rel="stylesheet" type="text/css" href="css/retail.css" />
     <link rel="stylesheet" type="text/css" href="css/share.css" />
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+    <link rel="stylesheet" type="text/css" href="css/loadingOverlay.css" />
       <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>-->
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -47,6 +48,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/share.js"></script>
     <script type="text/javascript" src="js/skin.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
+    <script type="text/javascript" src="js/loadingOverlay.js"></script>
       <!--<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>-->
       <!--<script type="text/javascript" src="js/bootstrap.min.js" ></script>-->
 
@@ -554,7 +556,7 @@ You can select membership of a range of communities to belong to, which allows y
 
         <div class="ctpanel loggedin hide" id="ct-retail">
           <div style="position:relative;">
-            <input type="search" id="eatery-search" value="london" placeholder="Search"/>
+            <input type="search" id="eatery-search" value="" placeholder="Search"/>
             <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
           </div>
             <span class="eatery-tab-wrap">
@@ -1015,7 +1017,11 @@ You can select membership of a range of communities to belong to, which allows y
         <div><a href="#menu-section-Specials" class="menu-cat">Specials</a></div>
         <div><a href="#menu-section-Combos" class="menu-cat">Combos</a></div>
     </div>
-
+ <div id="myNav" class="fire42overlay">
+    <div class="fire42overlay-content">
+        <div class="loader"></div>
+    </div>
+</div>
 <div class="maycontain-data hide">
     <svg class="maycontain" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
     	 viewBox="0 0 283.5 283.5" style="enable-background:new 0 0 283.5 283.5;" xml:space="preserve">

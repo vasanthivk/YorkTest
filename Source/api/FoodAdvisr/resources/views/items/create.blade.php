@@ -15,6 +15,7 @@ Items
  <input type="hidden" name="eatery_id" value="{{$eatery_id}}">
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
+            <br/>
             <div class="col-md-12">
                 <div class="panel panel-default">
                     <div class="block">
@@ -334,3 +335,4 @@ Items
         });
     });
 </script>
+@endsection

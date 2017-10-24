@@ -1,0 +1,70 @@
+.loader {
+   border: 6px solid #000000;
+  border-radius: 50%;
+  border-top: 6px solid #00B2A9;
+  width: 25px;
+  height: 25px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+
+.fire42overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #dddddd;
+    opacity: .4;    
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.fire42overlay-content {
+    position: relative;
+    top: 50%;
+    left: 50%;
+    width: 100%;
+    text-align: center;
+}
+
+.fire42overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: block;
+    transition: 0.3s;
+}
+
+.fire42overlay a:hover, .fire42overlay a:focus {
+    color: #f1f1f1;
+}
+
+.fire42overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+@media screen and (max-height: 450px) {
+  .fire42overlay a {font-size: 20px}
+  .fire42overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}

@@ -816,6 +816,7 @@ body.on('click','.act-clear-search',function(){
     });
     function eaterySearch(latitude, longitude,searchval)
     {
+      openLoading();
       api.getEateries(latitude, longitude, searchval,function(data){
         var op ='';
         if(data.result.length > 0)
@@ -824,7 +825,8 @@ body.on('click','.act-clear-search',function(){
             if(data.result[idx].IsAssociated == 1)
             {
                 var rating= data.result[idx].FoodAdvisrOverallRating;
-                if(rating.length >= 1 && rating != null){
+                //rating.length >= 1 &&
+                if( rating != null){
                     rating_feed = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating;
                 }
                 else{
@@ -853,6 +855,7 @@ body.on('click','.act-clear-search',function(){
             }
           }
         }
+        closeLoading();
         $("#loadeateries").html(op);
       })
     }

@@ -1,10 +1,19 @@
 @extends('layouts.master')
+@if(Session::get("role_id")==1)
 @section('title')
 FoodAdvisr-Eateries
 @endsection
 @section('module')
 Eateries
 @endsection
+@elseif(Session::get("role_id")==2) 
+@section('title')
+FoodAdvisr-My Settings
+@endsection
+@section('module')
+My Settings
+@endsection
+@endif 
 
 @section('content')
 @include('components.message')
@@ -58,13 +67,80 @@ Eateries
                                     @endif
                                 </div>
                                 <div class="panel-body">
+                                    @if(Session::get("role_id")==1)
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
                                                 <th></th>
                                                 <th>Business Name</th>
                                                 <th>Business Type</th>  
-                                                <th>Edit/Delete</th>              
+                                                <th>Edit/Delete</th>
+                                                <th></th>              
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                              @foreach($all_eateries as $eatery)
+                                    <tr>
+                                        <td>
+                                            
+                        <?php
+                      $logo_path = '';
+                     $no_image=env('NO_IMAGE');
+                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension))
+                {
+                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
+                 ?>
+                            
+                                <img src="../../<?php echo $logo_path ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
+                               
+                            <?php } else { ?>
+                           
+                                <img src="../../<?php echo $no_image ?>" alt="..." class="img-circle" style="width: 40px; height: 40px;">
+                              
+                             <?php } ?>
+
+                        </div>
+                                        </td>
+                                        <td>
+                                            {{$eatery->BusinessName}}
+                                        </td> 
+                                        <td>
+                                            {{$eatery->BusinessType}}
+                                        </td>                                        
+                                         <td width="20%">
+                                            <div>
+                                                <div style="float:left;padding-right:10px;">
+                                                 @if($privileges['Edit']=='true')
+                                                {{ link_to_route('eateries.edit','Edit',array($eatery->id), array('class' => 'btn btn-info')) }}
+                                                @endif 
+                                                </div>
+                                                <div style="float:left;padding-right:10px;">
+                                                   @if($privileges['Delete']=='true')
+                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('eateries.destroy', $eatery->id))) }}
+                                                    <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
+                                                    {{ Form::close() }}
+                                                   @endif
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group pull-left">
+                                                    <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
+                                                </div>
+                                        </td>
+                                    </tr>
+                                    @endforeach      
+                                        </tbody>
+                                    </table>                                    
+                                    @elseif(Session::get("role_id")==2) 
+                                    <table class="table table-bordered table-striped">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>Business Name</th>
+                                                <th>Business Type</th>  
+                                                <th>Edit/Delete</th>
+                                               <!--  <th></th>   -->            
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -110,16 +186,18 @@ Eateries
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                                <div class="btn-group pull-left">
-                                                    <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
-                                                </div>
                                             </div>
                                         </td>
+                                       <!--  <td>
+                                            <div class="btn-group pull-left">
+                                                    <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
+                                                </div>
+                                        </td> -->
                                     </tr>
                                     @endforeach      
                                         </tbody>
-                                    </table>                                    
-                                    
+                                    </table> 
+                                    @endif
                                 </div>
                             </div>
     					</div>
