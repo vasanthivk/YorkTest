@@ -96,14 +96,14 @@ Items
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Item Name</label>
                                     <div class="col-md-4">
-                                        <input type="text" name="item_name" class="form-control" value="">
+                                        <input type="text" required="required" name="item_name" class="form-control" value="">
                                     </div>
                                 </div>
                                 <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Item Price</label>
                                     <div class="col-md-4">
-                                        <input type="number" name="item_default_price" class="form-control" value="" min="0" step="0.01">
+                                        <input type="number" required="required" name="item_default_price" class="form-control" value="" min="0" step="0.01">
                                     </div>
                                 </div>
                                 <hr/>
@@ -164,7 +164,7 @@ Items
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Item Days</label>
                                     <div class="col-md-5">
-                                        <select multiple name="item_applicable_days" class="form-control select">
+                                        <select multiple name="item_applicable_days[]" class="form-control select">
                                             <option value="0">Sunday</option>
                                             <option value="1">Monday</option>
                                             <option value="2">Tuesday</option>
@@ -179,7 +179,7 @@ Items
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Cuisines</label>
                                     <div class="col-md-5">
-                                        <select multiple name="cuisine_id[]" class="form-control select">
+                                        <select multiple name="cuisine_id[]"  required="required" class="form-control select">
                                             @foreach($cuisinetypes as $cuisine)
                                             <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
                                             @endforeach
@@ -270,7 +270,7 @@ Items
                                         <input type="number" name="nutrition_to[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
                                     </div>
                                 </div>
-                              @endforeach
+                                @endforeach
                                 <hr/>
                                <div class="form-group">
                                 <label class="col-md-2 control-label">Display Order</label>
@@ -286,7 +286,7 @@ Items
 </div>
 
 @endsection
-
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script>
     $(document).ready(function(){
         $('#itemGroupName').attr('disabled','disabled');
@@ -327,10 +327,9 @@ Items
             }
         });
         $('#ingrediant_add').on('click',function(){
-           $('.ingrediants').append('<input type="text" name="ingrediant_names[]" value="" class="form-control" /><!--<a class="btn btn-danger  col-md-1 del_remove">X</a>--><br/>');
+           $('.ingrediants').append('<input type="text" name="item_ingredients[]" value="" class="form-control" /><!--<a class="btn btn-danger  col-md-1 del_remove">X</a>--><br/>');
         });
         $('.del_remove').on('click',function(){
-            alert();
            $(this).remove();
         });
     });
