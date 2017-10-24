@@ -46,7 +46,7 @@ Items
                                 <select name="itemgroup"  class="form-control select">
                                     <option>Choose Item Group</option>
                                     @foreach($itemgroups as $group)
-                                        <option value="{{$group->group_id}}">{{$group->group_name}}</option>
+                                        <option value="{{$group->id}}">{{$group->group_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -73,7 +73,7 @@ Items
                                 <select name="itemcategory"  class="form-control select">
                                     <option>Choose Item Category</option>
                                     @foreach($itemcategories as $categories)
-                                        <option value="{{$categories->category_id}}">{{$categories->category_name}}</option>
+                                        <option value="{{$categories->id}}">{{$categories->category_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -174,7 +174,7 @@ Items
                             <div class="col-md-5">
                                 <select multiple name="cuisine_id[]" class="form-control select">
                                     @foreach($cuisinetypes as $cuisine)
-                                        <option value="{{$cuisine->cuisine_id}}">{{$cuisine->cuisine_name}}</option>
+                                        <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -213,7 +213,7 @@ Items
                             <div class="col-md-5">
                                 <select multiple name="allergents_contain[]" class="form-control select">
                                     @foreach($allergenttypes as $allergent)
-                                        <option value="{{$allergent->allergent_id}}">{{$allergent->allergent_type}}</option>
+                                        <option value="{{$allergent->id}}">{{$allergent->allergent_type}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -223,7 +223,7 @@ Items
                             <div class="col-md-5">
                                 <select multiple name="allergents_may_contain[]" class="form-control select">
                                     @foreach($allergenttypes as $allergent)
-                                        <option value="{{$allergent->allergent_id}}">{{$allergent->allergent_type}}</option>
+                                        <option value="{{$allergent->id}}">{{$allergent->allergent_type}}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -235,10 +235,10 @@ Items
                         <div class="form-group">
                             <label class="control-label col-md-2">{{$nutrition->nutrition_type}}</label>
                             <div class="col-md-2">
-                                <input type="number" name="nutrition_from[{{$nutrition->nutrition_id}}]" nutrition_id="{{$nutrition->nutrition_id}}" value="" class="form-control" min="0" max="100" step="1" />
+                                <input type="number" name="nutrition_from[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
                             </div>
                             <div class="col-md-2">
-                                <input type="number" name="nutrition_to[{{$nutrition->nutrition_id}}]" nutrition_id="{{$nutrition->nutrition_id}}" value="" class="form-control" min="0" max="100" step="1" />
+                                <input type="number" name="nutrition_to[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
                             </div>
                         </div>
                         @endforeach
