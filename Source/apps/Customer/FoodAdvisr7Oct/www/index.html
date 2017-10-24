@@ -19,10 +19,12 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <link rel="stylesheet" type="text/css" href="css/retail.css" />
     <link rel="stylesheet" type="text/css" href="css/share.css" />
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
+      <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>-->
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/api.js"></script>
+
 
     <script type="text/javascript" src="jslibs/jquery311.js"></script>
     <script type="text/javascript" src="jslibs/timeago.js"></script>
@@ -45,21 +47,23 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/share.js"></script>
     <script type="text/javascript" src="js/skin.js"></script>
     <script type="text/javascript" src="js/map.js"></script>
+      <!--<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>-->
+      <!--<script type="text/javascript" src="js/bootstrap.min.js" ></script>-->
 
   </head>
   <body>
 
-    <div class="mode-switch-wrap">
+  <div class="mode-switch-wrap">
       <p>You can select Shopping to scan products in shops or Eating to view and compare menus</p>
       <div class="mode-switch-50 act-set-mode" data-mode="shopping">
-        <i class="fa fa-shopping-cart" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
-        <a href="#">Shopping</a>
+          <i class="fa fa-shopping-cart" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
+          <a href="#">Shopping</a>
       </div>
       <div class="mode-switch-50 act-set-mode" data-mode="eating">
-        <i class="fa fa-cutlery" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
-        <a href="#">Meal Match</a>
+          <i class="fa fa-cutlery" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
+          <a href="#">Meal Match</a>
       </div>
-    </div>
+  </div>
 
     <div class="swiper-container hide">
         <div class="swiper-wrapper">
@@ -272,6 +276,7 @@ You can select membership of a range of communities to belong to, which allows y
     <div class="help-overlay"><div class="help-inner"></div></div>
 
     <div class="midpop overlay-hide"></div>
+    <div class="midpopbook overlay-hide"></div>
 
     <a href="#" class="scan-btn act-start-scan loggedin scan-btn-startpos">SCAN</a>
 
@@ -306,7 +311,7 @@ You can select membership of a range of communities to belong to, which allows y
         <span class="icon icon-gear"></span>
         <span class="tab-label">Testing</span>
       </a>
-      <a class="tab-item act-menu " href="#retail" data-extra="shopping"><!--was #myxyz-->
+      <a class="tab-item act-menu meal_match" href="#retail" data-extra="shopping"><!--was #myxyz-->
         <span class="icon">
           <i class="fa fa-cutlery" aria-hidden="true"  style="color:white;font-size:1.5rem;"></i>
       </span>
@@ -549,7 +554,7 @@ You can select membership of a range of communities to belong to, which allows y
 
         <div class="ctpanel loggedin hide" id="ct-retail">
           <div style="position:relative;">
-            <input type="search" id="eatery-search" value="" placeholder="Search"/>
+            <input type="search" id="eatery-search" value="london" placeholder="Search"/>
             <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
           </div>
             <span class="eatery-tab-wrap">
@@ -621,12 +626,10 @@ You can select membership of a range of communities to belong to, which allows y
           
            <div class="res-details-div">
               <!-- <img id='eaterylogo'src='' width="100px" height="100px" /> -->
-                <a href="#retail" class="act-menu"><span class="fa fa-arrow-left"></span></a>
-               <div class="eatery-rating"><img src="img/star.png"  width="15px;" height="17px";/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
-              <div id='eaterybusinessname'></div>
-              <i class="fa fa-heart-o"></i>
-             
-              <div class="eatery-distance"><span id='eaterydistance'></span></div>
+                <a href="#retail" class="act-menu"><span class="fa fa-arrow-left"></span></a><div class="eatery-rating"><img src="img/star.png"  width="15px;" height="17px";/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
+                <div id='eaterybusinessname'></div>
+                <i class="fa fa-heart-o"></i>
+                <div class="eatery-distance"><span id='eaterydistance'></span></div>
             </div>
           
           
@@ -638,16 +641,14 @@ You can select membership of a range of communities to belong to, which allows y
              </div>
 
               <div id='eateryaddress' class="center"></div>
-             <div class="midpopbook overlay-hide"></div>
+
 
              <div class="eateryMenuDetails" id="menu-section-Recommendeds">
                  <div class="rec-menu-background res-tiles">
                      <div class="item-name-book-call">
                          <div class="item-bc-eatery">
                              <div class="item-book">
-                                 <div class="res-img">
-                                     <img class="res-img-book" src="img/bookatable.png" alt="">
-                                 </div>
+                                 <img class="res-img-book" src="img/bookatable.png" alt="">
                                  <div class="res-details">
                                      <span class="item-bc-name">Book</span>
                                  </div>
@@ -657,9 +658,7 @@ You can select membership of a range of communities to belong to, which allows y
                      <div class="item-name-book-call">
                          <div class="eatery-call">
                              <div class="item-call">
-                                 <div class="res-img">
-                                     <img class="res-img-book" src="img/call.png" alt="">
-                                 </div>
+                                 <img class="res-img-book" src="img/call.png" alt="">
                                  <div class="res-details">
                                      <span class="item-bc-name">Call</span>
                                  </div>
@@ -668,6 +667,9 @@ You can select membership of a range of communities to belong to, which allows y
                      </div>
                  </div>
              </div>
+
+
+
 
              <div class="eateryMenuDetails" id="menu-section-Recommended">
                 <div class="rec-menu-background">

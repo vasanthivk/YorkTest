@@ -823,10 +823,17 @@ body.on('click','.act-clear-search',function(){
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
             {
+                var rating= data.result[idx].FoodAdvisrOverallRating;
+                if(rating.length >= 1 && rating != null){
+                    rating_feed = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating;
+                }
+                else{
+                    rating_feed = '';
+                }
                 op += '<div class="act-eatery">' +
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div> </div>' +
+                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+rating_feed+'</div> </div>' +
                 '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
@@ -838,8 +845,8 @@ body.on('click','.act-clear-search',function(){
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</img> </div>'+ '&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp<img class="act-eatery-favorite" src="img/star.png"/>'+data.result[idx].FoodAdvisrOverallRating + '</div></div>' +
-                '<div class="in-act-eatery-logo" ><img class="in-act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
+                '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp'+'</div>'+/*'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</img> </div> */'</div></div>' +
+                '<div class="in-act-eatery-logo" ><img class="in-act-eatery-image" src="img/thumb.svg"/></div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
                 '</div>';
