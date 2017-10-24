@@ -247,12 +247,30 @@ class ItemsController extends Controller
         if($privileges['Edit'] !='true')
             return Redirect::to('/');
         $eatery_id = $request['eatery_id'];
-        $category = Category::all()->pluck('category_name','category_id');        
-        $items = Items::where('items.item_id',$id)->get();
+        $category = DB::table('item_categories')
+            ->select(DB::raw('category_id,category_name'))
+            ->where('is_visible','=',1)
+            ->get();
+        $cuisinetypes = DB::table('cuisines')
+            ->select(DB::raw('cuisine_id,cuisine_name'))
+            ->where('is_enabled','=',1)
+            ->get();
+        $nutritiontypes = DB::table('nutrition_types')
+            ->select(DB::raw('nutrition_id,nutrition_type'))
+            ->where('is_enabled','=',1)
+            ->get();
+        $allergenttypes = DB::table('allergent_types')
+            ->select(DB::raw('allergent_id,allergent_type'))
+            ->where('is_enabled','=',1)
+            ->get();
+        $items = Items::where('item_id','=',$id)->get();
         return View('items.edit')
         ->with('items',$items[0])
         ->with('eatery_id',$eatery_id)
         ->with('category',$category)
+        ->with('cuisinetypes',$cuisinetypes)
+        ->with('nutritiontypes',$nutritiontypes)
+        ->with('allergenttypes',$allergenttypes)
         ->with('privileges',$privileges);
     }
 

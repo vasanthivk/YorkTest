@@ -43,7 +43,7 @@ Items
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('items.edit','Edit',array($item->id,'eatery_id' => $item->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('items.edit','Edit',array($item->id,'item_id' => $item->id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
