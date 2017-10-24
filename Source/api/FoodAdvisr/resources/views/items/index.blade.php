@@ -43,7 +43,7 @@ Items
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('items.edit','Edit',array($item->id,'item_id' => $item->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('items.edit','Edit',array($item->id,'id' => $item->id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
@@ -54,10 +54,10 @@ Items
                                                    @endif
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
-                                                    <a href="../../recipe?item_id={{$item->id}}" class="btn btn-success">Recipe</a>
+                                                    <a href="../../recipe?id={{$item->id}}" class="btn btn-success">Recipe</a>
                                                 </div>
                                                <div style="float:left;padding-right:10px;">
-                                                    <a href="../../itemnutritions?item_id={{$item->id}}" class="btn btn-primary">Nutritions</a>
+                                                    <a href="../../itemnutritions?id={{$item->id}}" class="btn btn-primary">Nutritions</a>
                                                 </div>
                                             </div>
                                         </td>
