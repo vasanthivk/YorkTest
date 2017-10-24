@@ -68,11 +68,13 @@ FoodAdvisr-Items
                                     
                                 </div>
                             </div>
+                            @if(Session::get("role_id")==1)
                             <div class="panel-heading">
         <div class="btn-group pull-left">
             <a href="{{URL::to('eateries')}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Eateries</a>
         </div>
-    </div>
+    </div>   
+    @endif 
                         </div>
                     </div>        
 @endsection
