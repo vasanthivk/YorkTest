@@ -81,15 +81,15 @@ html,body{
     margin-bottom: 10px;
     padding: 10px;
     background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 2px 2px 5px #888888;
-  }
+    border-radius: 6px;
+    box-shadow: 0px 0px 1px 1px #ccc;
+}
   .act-eatery-logo      { width: 24%;}
   .act-eatery-logopath {
     width: 80px;
     height: 80px;
     border: 1px solid rgba(128, 128, 128, 0.21);
-    border-radius: 20px;
+    border-radius: 4px;
   }
 .in-act-eatery-logopath{
     /*width: 50px;
@@ -99,7 +99,7 @@ html,body{
     width: 80px;
     height: 80px;
     border: 1px solid rgba(128, 128, 128, 0.21);
-    border-radius: 20px;
+    border-radius: 4px;
 }
   .act-eatery-name      {
     width: 75%;
@@ -121,9 +121,11 @@ html,body{
     padding-right: 10px;
 }
 .in-act-eatery-image {
-    width: 66px;
-    height: 14px;
-    background: linear-gradient(to bottom, rgba(221, 221, 221, 0.3) 0%, rgba(146, 146, 146, 0.48) 100%);
+    /*width: 66px;*/
+    /*height: 14px;*/
+    /*background: linear-gradient(to bottom, rgba(221, 221, 221, 0.3) 0%, rgba(146, 146, 146, 0.48) 100%);*/
+    width: 100px;
+    height: 80px;
 }
 img#eaterylogo {
     float: left;
@@ -131,12 +133,13 @@ img#eaterylogo {
 div#eaterybusinessname {
     font-size: 1.1rem;
     font-weight: bold;
-    margin-left: 110px;
+    text-align: center;
     margin-top: -21px;
     width: 11em;
     overflow: hidden;
      text-overflow: ellipsis;
       white-space: nowrap;
+    margin-left: 70px;
 }
 div#eateryaddress {
     font-size: 12px;
@@ -180,8 +183,8 @@ div#eateryaddress {
     margin-left: -54px;
     bottom: 89px;
 }
-#menu-categories{
-    width: 200px;
+#menu-categories {
+    width: 98%;
     margin: auto;
     z-index: 10000;
     background: white;
@@ -190,16 +193,19 @@ div#eateryaddress {
     opacity: 221;
     border: 1px solid #e2dede;
     position: fixed;
-    bottom: 91px;
-    margin-bottom: -164px;
-    left: 50%;
-    margin-left: -99px;
+    bottom: -65px;
+    /* margin-bottom: -164px; */
+    /* left: 50%; */
+    /* margin-left: -99px; */
 }
-.menu-cat{
-    padding: 5px 0px;
-    color:#000;
-    font-size:14px;
+.menu-cat {
+    /* padding: 5px 0px; */
+    color: #000;
+    font-size: 14px;
     display: block;
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
 }
 div#toggled-items {
     padding-bottom: 20px;
@@ -257,34 +263,27 @@ div#toggled-items {
   }*/
 
   .in-act-eatery{
-    /*min-height: 70px;
-    margin: 5px 5px 10px 5px;
-    padding-top: 8px;
-    opacity: 0.5;
-    font-size: 12px;
-    font-family: roboto;
-    margin-bottom: 0px;*/
       min-height: 100px;
       color: white;
       margin-bottom: 10px;
       padding: 10px;
       background: #efefef;
-      border-radius: 15px;
-      box-shadow: 2px 2px 5px #888888;
+      border-radius: 5px;
+      box-shadow: 0px 0px 1px 1px #ccc;
   }
   .in-act-eatery-logo      { width: 25%;}
-  .in-act-eatery-name      {
-  /*    width: 75%;*/
-      width: 75%;
-      color: #3d4152;
-      /* font-size: 14px; */
-      font-family: roboto;
-      font-size: 0.90rem;
-      text-overflow: ellipsis;
-      overflow: hidden;
-      white-space: nowrap;
-      padding-right: 5%;
-  }
+.in-act-eatery-name {
+    /* width: 75%; */
+    width: 75%;
+    color: #00b2a9;
+    /* font-size: 14px; */
+    font-family: roboto;
+    font-size: 1.2rem;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 5%;
+}
 .in-act-action-div {
     border-top: 1px solid #e9e9eb;
     margin-top: 22px;
@@ -344,31 +343,30 @@ div#toggled-items {
 }
 .rec-menu-background{
     background: #fff;
-    padding-bottom: 20px;
+    /*padding-bottom: 20px;*/
 }
-.menu-category{
-    padding-top: 50px;
-    font-size:14px;
+.menu-category {
+    padding: 10px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.9px;
     margin-bottom: 0px;
-    font-weight: bold;
     padding-left: 10px;
+    background: #028079;
+    color: #fff;
 }
 .meat-icon{
     width: 18px;
-    padding-top: 5px
 }
 .item-name{
     font-size:15px;
     position: relative;
-    top: -5px;
 }
 .item-name-padding{
     padding-left:10px !important;
 }
 .eateryMenuDetails {
-    padding-top: 10px;
+    padding-top: 37px;
 }
 .rec-item-div{
     padding:6px;
@@ -381,7 +379,7 @@ div#toggled-items {
     display: table;
     width: 100%;
     table-layout: fixed;
-    padding-bottom: 40px;
+    padding-bottom: 7px;
 }
 .res-img_div,.item-name-book-call{
     display: table-cell;
@@ -448,13 +446,18 @@ div#toggled-items {
 }
 .item-bc-eatery{
     min-height: 70px;
-    margin: 5px 5px 10px 5px;
-    padding-top: 8px;
-    font-size: 12px;
+    /*margin: 5px 5px 10px 5px;*/
+    /*padding-top: 8px;*/
+    /*font-size: 12px;*/
     font-family: roboto;
     margin-bottom: 0px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
-
+.item-call {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
 .item-bc-img {
     position: relative;
     margin-bottom: 7px;
@@ -468,6 +471,12 @@ div#toggled-items {
     padding: 8px;
     padding-bottom: 0px;
     font-size: 22px;
+    /*color: #00B2A9;*/
+    font-weight: bold;
+}
+.item-book-call {
+    border: 1px solid #ccc;
+    border-radius: 8px;
 }
 .calender{
     width: 25%;
@@ -480,7 +489,7 @@ div#toggled-items {
 }
   .fa-heart-o{
     float: right;
-    margin-top: -19px;
+    margin-top: -21px;
     color: black;
   }
 .fa-arrow-left{
@@ -587,9 +596,16 @@ padding:2%;
 }
 
 .help-inner h4{
-  font-size:1.5rem;
-  font-weight:bold;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+    background: rgba(100, 149, 237, 0.13);
 
+ }
+.help-inner h5{
+    font-size:1.2rem;
+    font-weight:bold;
+    color:black;
 }
 .account-handle{
   color:#f0f0f0;
@@ -653,8 +669,8 @@ padding:2%;
     text-align: center;
 }
 .res-img-book{
-    height:80px;
-    width:80px;
+    height:40px;
+    width:40px;
 }
 
 .icon img{
@@ -995,7 +1011,7 @@ padding:2%;
   margin-top:0px;
 }
 
-#ct-scanner,#ct-settings,#ct-myxyz,#ct-profile,#ct-allergensx,#ct-intolerances{
+#ct-scanner,#ct-settings,#ct-myxyz,#ct-profile,#ct-allergensx,#ct-intolerances,#ct-retail{
   background:url(../img/thumbwater.svg) no-repeat center 120px;
   background-size:60%;
 }
@@ -2053,14 +2069,13 @@ margin-bottom:20px;
 }
 
 .overlay{
-  display:none;
-  position:fixed;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0.5);
-  z-index:1000;
-  opacity:0;
-  transition: all .5s ease-in-out;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    z-index: 200;
+    opacity: 0;
+    transition: all .5s ease-in-out;
 }
 
 .overlay.on{
@@ -2714,8 +2729,12 @@ h3.header{
 }
 
 .help-inner,.help-inner-small{
-  width:100%;
-  min-height:300px;
+    width: 100%;
+    min-height: 300px;
+    color: black;
+    background-color: white;
+    padding: 8px;
+    text-align: left;
 }
 
 .help-text{
