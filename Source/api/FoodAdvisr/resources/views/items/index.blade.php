@@ -3,7 +3,7 @@
 FoodAdvisr-Items
 @endsection
 @section('module')
-Items
+    {{$eatery_details[0]->BusinessName}} - Menu Items
 @endsection
 
 @section('content')

@@ -45,9 +45,14 @@ class ItemsController extends Controller
         $items = DB::table('items')
         ->select(DB::raw('*,items.id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
         ->where('items.eatery_id','=',$eatery_id)
-        ->get();        
+        ->get();
+        $eatery_details = DB::table('eateries')
+        ->select(DB::raw('*'))
+        ->where('id','=',$eatery_id)
+        ->get();
          return View('items.index', compact('items'))         
         ->with('privileges',$privileges)
+        ->with('eatery_details',$eatery_details)
         ->with('eatery_id',$eatery_id);
     }
 
