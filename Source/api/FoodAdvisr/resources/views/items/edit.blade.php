@@ -15,7 +15,6 @@ Items
 <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
-        </br>
             <div class="col-md-10">
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Category :</label>
@@ -30,18 +29,58 @@ Items
                 </div>
                 {{ Form::ahText('item_name','Item Name :',$items->item_name,array('maxlength' => '100'))  }}
                 <div class="form-group" style="margin:5px">
-                <label for="group_name" class="control-label col-sm-4">Item Price :</label>
-                        <div class="col-sm-8">
-                            <input type="number" name="item_default_price" class="form-control" value="{{$items->item_default_price}}" min="0"
-                                   step="0.01">
-                        </div>
+                    <label for="group_name" class="control-label col-sm-4">Item Price :</label>
+                    <div class="col-sm-8">
+                        <input type="number" name="item_default_price" class="form-control" value="{{$items->item_default_price}}" min="0"
+                               step="0.01">
+                    </div>
                 </div> 
                 <div class="form-group" style="margin:5px">
-                <label for="group_name" class="control-label col-sm-4">Item Description :</label>
-                        <div class="col-sm-8">
-                           <input type="text" name="item_description" class="form-control" value="{{$items->item_description}}">
+                    <label for="group_name" class="control-label col-sm-4">Item Description :</label>
+                    <div class="col-sm-8">
+                       <input type="text" name="item_description" class="form-control" value="{{$items->item_description}}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="group_name" class="control-label col-sm-4">Upload Item Image :</label>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <div class="fileinput fileinput-new" data-provides="fileinput">
+                                <?php
+                                $logo_path = '';
+                                $no_image = env('NO_IMAGE');
+                                if(File::exists(env('CONTENT_ITEM_PATH') . '/' . $items->id . '.' . $items->logo_extension))
+                                {
+                                $logo_path = env('CONTENT_ITEM_PATH') . '/' . $items->id . '.' . $items->logo_extension;
+                                ?>
+                                <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
+                                    <a>
+                                        <img src="../../<?php echo $logo_path ?>" alt="..."
+                                             style="width: 130px; height: 102px;">
+                                    </a>
+                                </div>
+                                <?php } else { ?>
+                                <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
+                                    <a>
+                                        <img src="../../<?php echo $no_image ?>" alt="..."
+                                             style="width: 130px; height: 111px;">
+                                    </a>
+                                </div>
+                                <?php } ?>
+                                <div class="fileinput-preview fileinput-exists thumbnail"
+                                     style="max-width: 130px; max-height: 111px;"></div>
+                                <div>
+                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Change Image</span><span
+                                    class="fileinput-exists">Change</span>
+                        <input type="file" name="logo" id="logo">
+                        </span>
+                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                </div>
+
+                            </div>
                         </div>
-                </div>              
+                    </div>
+                </div>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Is Enabled :</label>
                     <div class="col-sm-8">
@@ -52,17 +91,20 @@ Items
                     </div>
                 </div>
                 <div class="form-group" style="margin:5px">
-                <label for="group_name" class="control-label col-sm-4">From :</label>
-                        <div class="col-sm-8">                           
-                            <input type="text" name="item_valid_from" class="form-control datepicker" value="{{$items->item_valid_from}}">
-                        </div>
-                </div> 
+                    <label for="group_name" class="col-sm-4 control-label">Date Range</label>
+                </div>
                 <div class="form-group" style="margin:5px">
-                <label for="group_name" class="control-label col-sm-4">To :</label>
-                        <div class="col-sm-8">                           
-                            <input type="text" name="item_valid_till" class="form-control datepicker" value="{{$items->item_valid_till}}">
-                        </div>
-                </div> 
+                    <label for="group_name" class="control-label col-sm-4">From :</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="item_valid_from" class="form-control datepicker" value="{{$items->item_valid_from}}">
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">To :</label>
+                    <div class="col-sm-4">
+                        <input type="text" name="item_valid_till" class="form-control datepicker" value="{{$items->item_valid_till}}">
+                    </div>
+                </div>
                 <div class="form-group" style="margin:5px">
                 <label for="group_name" class="control-label col-sm-4">Item Days :</label>
                         <div class="col-sm-8">                           
@@ -99,7 +141,7 @@ Items
                         <div class="col-sm-8">
                              <select multiple name="cuisine_id[]" class="form-control select">
                                     @foreach($cuisinetypes as $cuisine)
-                                        <option value="{{$cuisine->cuisine_id}}">{{$cuisine->cuisine_name}}</option>
+                                        <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
                                     @endforeach
                                 </select>
                         </div>
@@ -137,7 +179,7 @@ Items
                         <div class="col-sm-8">
                               <select multiple name="allergents_contain[]" class="form-control select">
                                 @foreach($allergenttypes as $allergent)
-                                    <option value="{{$allergent->allergent_id}}">{{$allergent->allergent_type}}</option>
+                                    <option value="{{$allergent->id}}">{{$allergent->allergent_type}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -147,7 +189,7 @@ Items
                         <div class="col-sm-8">
                              <select multiple name="allergents_may_contain[]" class="form-control select">
                                 @foreach($allergenttypes as $allergent)
-                                    <option value="{{$allergent->allergent_id}}">{{$allergent->allergent_type}}</option>
+                                    <option value="{{$allergent->id}}">{{$allergent->allergent_type}}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -162,14 +204,14 @@ Items
                 </br>
             </div>
             
-        <div class="form-group">
-            <div class="panel-footer">
-                <div class="col-md-6 col-md-offset-3">
-                    {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
-                    {{ link_to_route('items.index','Cancel',array('eatery_id'=>$eatery_id), array('class' => 'btn btn-danger')) }}
+            <div class="form-group">
+                <div class="panel-footer">
+                    <div class="col-md-6 col-md-offset-3">
+                        {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+                        {{ link_to_route('items.index','Cancel',array('eatery_id'=>$eatery_id), array('class' => 'btn btn-danger')) }}
+                    </div>
                 </div>
             </div>
-        </div>
      </div>
  </div>
  

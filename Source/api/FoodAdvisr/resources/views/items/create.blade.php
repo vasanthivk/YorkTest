@@ -99,24 +99,46 @@ Items
                                         <input type="text" name="item_name" class="form-control" value="">
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Item Price</label>
                                     <div class="col-md-4">
                                         <input type="number" name="item_default_price" class="form-control" value="" min="0" step="0.01">
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Item Description</label>
                                     <div class="col-md-4">
                                         <input type="text" name="item_description" class="form-control" value="">
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
-                                    <label class="col-md-2 control-label">Upload Item Image</label>
-                                    <div class="col-md-10">
-                                        <input type="file" class="fileinput" name="filename1" id="filename1"/>
+                                    <div class="row">
+                                        <?php
+                                        $no_image=env('NO_IMAGE');
+                                        ?>
+                                            <label class="col-md-2 control-label">Upload Item Image</label>
+                                        <div class="col-md-4">
+                                            <div class="form-group">
+                                                <div class="fileinput fileinput-new" data-provides="fileinput">
+                                                    <div class="fileinput-new thumbnail" style="width: 130px; height: 120px;">
+                                                        <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 120px;">
+                                                    </div>
+                                                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 120px;"></div>
+                                                    <div>
+                                   <span class="btn btn-primary btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span>
+                                   <input type="file" name="logo" id="logo">
+                                    </span>
+                                                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Is Enabled</label>
                                     <div class="col-md-4">
@@ -126,6 +148,7 @@ Items
                                         </label>
                                     </div>
                                 </div>
+                                <hr/>
                                  <div class="form-group">
                                     <label class="col-md-2 control-label">Date Range</label>
                                     <div class="col-md-4">
@@ -137,6 +160,7 @@ Items
                                         <input type="text" name="item_valid_till" class="form-control datepicker" value="">
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Item Days</label>
                                     <div class="col-md-5">
@@ -151,6 +175,7 @@ Items
                                         </select>
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Meat Content</label>
                                     <div class="col-md-10">
@@ -168,6 +193,7 @@ Items
                                         </div>
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="control-label col-md-2">Ingrediants</label>
                                     <a class="btn btn-primary col-md-1" id="ingrediant_add">Add</a>
@@ -175,6 +201,7 @@ Items
                                         <input type="text" name="item_ingredients[]" value="" class="form-control" /><br/>
                                     </div>
                                 </div>
+                                <hr/>
                                  <div class="form-group">
                                     <label class="col-md-2 control-label">Filters</label>
                                     <div class="col-md-10">
@@ -196,6 +223,7 @@ Items
                                         </div>
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Allergents Contain</label>
                                     <div class="col-md-5">
@@ -206,6 +234,7 @@ Items
                                         </select>
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Allergents May Contain</label>
                                     <div class="col-md-5">
@@ -216,6 +245,7 @@ Items
                                         </select>
                                     </div>
                                 </div>
+                                <hr/>
                                 <div class="form-group">
                                     <label class="col-md-2 control-label">Nutrition Levels</label>
                                 </div>
@@ -230,9 +260,10 @@ Items
                                     </div>
                                 </div>
                               @endforeach
+                                <hr/>
                                <div class="form-group">
                                 <label class="col-md-2 control-label">Display Order</label>
-                                <div class="col-md-4">
+                                <div class="col-md-2">
                                     <input type="number" name="display_order" class="form-control" value="" min="1" step="1">
                                 </div>
                              </div>
