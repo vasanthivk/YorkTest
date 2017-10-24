@@ -23,7 +23,8 @@ Route::resource('dashboard', 'DashboardController');
 Route::resource('eateries', 'EateriesController');
 Route::any('destroyeatryimage/{imagename}', array('as' => 'destroyeatryimage', 'uses' => 'EateriesController@destroyeatryimage'));
 Route::any('destroyeateryimageedit/{imagename}', array('as' => 'destroyeateryimageedit', 'uses' => 'EateriesController@destroyeateryimageedit'));
-
+Route::resource('itemgroups', 'ItemGroupsController');
+Route::resource('itemcategory', 'ItemCategoriesController');
 Route::resource('uploadeatery', 'FoodController');
 Route::resource('menu', 'MenuController');
 Route::resource('uploadmenu', 'UploadMenuController');
