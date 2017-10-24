@@ -26,10 +26,10 @@ class ItemCategoriesController extends Controller
     private function getPrivileges()
      {
         $roleid = Session::get("role_id");
-        $privileges['View']  = ValidateUserPrivileges($roleid,6,1);  //role, module, privilege
-        $privileges['Add']  = ValidateUserPrivileges($roleid,6,2);
-        $privileges['Edit']  = ValidateUserPrivileges($roleid,6,3);
-        $privileges['Delete']  = ValidateUserPrivileges($roleid,6,4);
+        $privileges['View']  = ValidateUserPrivileges($roleid,7,1);  //role, module, privilege
+        $privileges['Add']  = ValidateUserPrivileges($roleid,7,2);
+        $privileges['Edit']  = ValidateUserPrivileges($roleid,7,3);
+        $privileges['Delete']  = ValidateUserPrivileges($roleid,7,4);
         // $privileges['Approve']  = ValidateUserPrivileges(1,7,3);
         // $privileges['Reject']  = ValidateUserPrivileges(1,7,3);
         
@@ -162,7 +162,7 @@ class ItemCategoriesController extends Controller
                 $this->saveLogoInLogoPath($itemcategory->id, $extension);
 
             $log = new Log();
-            $log->module_id=6;
+            $log->module_id=7;
             $log->action='create';      
             $log->description='Item Category ' . $itemcategory->category_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
@@ -283,7 +283,7 @@ class ItemCategoriesController extends Controller
                 $this->saveLogoInLogoPath($itemcategory->id, $extension);
 
             $log = new Log();
-            $log->module_id=6;
+            $log->module_id=7;
             $log->action='update';      
             $log->description='Item Category ' . $itemcategory->group_name . ' is updated';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
@@ -319,7 +319,7 @@ class ItemCategoriesController extends Controller
             }
 
             $log = new Log();
-            $log->module_id=6;
+            $log->module_id=7;
             $log->action='delete';      
             $log->description='Item Category '. $itemcategory->category_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));

@@ -202,10 +202,10 @@ class ItemsController extends Controller
                 $items->is_visible = 0;
             }
             $items->display_order =  Input::get('display_order');
-            $items -> added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $items -> added_by = Session::get('user_id');
-            $items -> modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $items -> modified_by = Session::get('user_id');
+            $items->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->added_by = Session::get('user_id');
+            $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->modified_by = Session::get('user_id');
             $items->save();            
 
             $log = new Log();
@@ -263,9 +263,9 @@ class ItemsController extends Controller
             ->select(DB::raw('id,allergent_type'))
             ->where('is_enabled','=',1)
             ->get();
-        $items = Items::where('id','=',$id)->get();
+        $items = Items::find($id);
         return View('items.edit')
-        ->with('items',$items[0])
+        ->with('items',$items)
         ->with('eatery_id',$eatery_id)
         ->with('category',$category)
         ->with('cuisinetypes',$cuisinetypes)
@@ -286,7 +286,7 @@ class ItemsController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-            'title'  => 'required']);
+            'item_name'  => 'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
@@ -300,14 +300,25 @@ class ItemsController extends Controller
         }
         else
         {   
-            Items::where('id','=',$id)
-             ->update(array('title'=> Input::get('title'),'description'=> Input::get('description'),'is_visible'=> Input::get('is_visible'),'FHRSID'=> $request['eatery_id'],'category_id'=>Input::get('category_id'),'display_order' => Input::get('display_order')
-                 ));
-
+            $items = Items::find($id);
+            $items->eatery_id = Input::get('eatery_id');
+            $items->item_name = Input::get('item_name');
+            $items->item_default_price = Input::get('item_default_price');
+            $items->item_description = Input::get('item_description');
+            $items->item_valid_from = date('Y-m-d',strtotime(Input::get('item_valid_from')));
+            $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
+            $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
+            $items->cuisine_id = serialize(Input::get('cuisine_id'));
+            $items->item_ingredients = serialize(Input::get('ingrediant_names'));
+            $items->allergents_contain = serialize(Input::get('allergents_contain'));
+            $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
+            $items->meat_content_type = Input::get('meat_content_type');
+            $items->Update();
+            
             $log = new Log();
             $log->module_id=8;
             $log->action='update';      
-            $log->description='items ' . Input::get('title') . ' is updated';
+            $log->description='items ' . $items->item_name . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    

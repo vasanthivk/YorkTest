@@ -43,7 +43,7 @@ FoodAdvisr-Items
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('items.edit','Edit',array($item->id,'id' => $item->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('items.edit','Edit',array($item->id,'eatery_id' => $eatery_id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
@@ -53,12 +53,12 @@ FoodAdvisr-Items
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                                <div style="float:left;padding-right:10px;">
-                                                    <a href="../../recipe?id={{$item->id}}" class="btn btn-success">Recipe</a>
-                                                </div>
-                                               <div style="float:left;padding-right:10px;">
-                                                    <a href="../../itemnutritions?id={{$item->id}}" class="btn btn-primary">Nutritions</a>
-                                                </div>
+                                               <!--  <div style="float:left;padding-right:10px;">
+                                                    <a href="../../recipe?eatery_id={{$eatery_id}}" class="btn btn-success">Recipe</a>
+                                                </div> -->
+                                              <!--  <div style="float:left;padding-right:10px;">
+                                                    <a href="../../itemnutritions?eatery_id={{$eatery_id}}" class="btn btn-primary">Nutritions</a>
+                                                </div> -->
                                             </div>
                                         </td>
                                          </tr>

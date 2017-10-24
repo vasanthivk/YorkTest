@@ -16,7 +16,7 @@
                     </li>
                     <li class="{{ Request::segment(1) === 'brands' ? 'active' : null }}"><a href="{{action('BrandsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Brands</span></a>     
                     </li> -->
-                     <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
+                     <li class="{{ Request::segment(1) === 'eateries' || Request::segment(1) === 'items' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
                     </li>
                     <li class="xn-openable {{ Request::segment(1) === 'itemgroups' || Request::segment(1) === 'itemcategory' ? 'active' : null }}">
                          <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Items</span></a>
