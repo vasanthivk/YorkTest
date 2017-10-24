@@ -103,14 +103,14 @@
   position:fixed;
   bottom:0px;
   left:50%;
-  margin-left:-40px;
-  width:80px;
-  height:80px;
+  margin-left:-30px;
+  width:50px;
+  height:50px;
   border-radius:50%;
   z-index:1000;
   background:#00B2A9 url(img/barcode.svg) no-repeat center 2px;
-  line-height:119px;
-  font-size:0.7rem;
+  line-height:77px;
+  font-size:0.6rem;
   color:white;
   text-align:center;
   transition: all .2s ease-in-out;
@@ -153,9 +153,9 @@
 
 .scan-btn-startpos{
     bottom:36vh !important;
-    animation: pulse 1.5s ease-out infinite;
-    transform:scale(1.2);
-    ;
+    animation: pulse 1.8s ease-out infinite;
+    transform:scale(1.5);
+ 
 }
 
 .add-pulse{
@@ -166,6 +166,7 @@
 
 .scan-btn-scan{
   background:#00B2A9 url(img/barcode.svg) no-repeat center 2px;
+  width:85px; height:85px;
 
 }
 .scan-btn-shop{

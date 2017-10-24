@@ -72,7 +72,7 @@ html,body{
 }
 /*fire42 start*/
 .eatery-columns       { margin: 0 auto;}
-  .eatery-columns div   { float: left; }
+  .eatery-columns div   { float: left; font-size: 16px; }
   .eatery-clear         { clear: both; }
 
 .act-eatery {
@@ -81,15 +81,15 @@ html,body{
     margin-bottom: 10px;
     padding: 10px;
     background: #ffffff;
-    border-radius: 15px;
-    box-shadow: 2px 2px 5px #888888;
-  }
+    border-radius: 6px;
+    box-shadow: 0px 0px 1px 1px #ccc;
+}
   .act-eatery-logo      { width: 24%;}
   .act-eatery-logopath {
     width: 80px;
     height: 80px;
-    border: 1px solid rgba(128, 128, 128, 0.21);
-    border-radius: 20px;
+    border: 1px solid rgba(128, 128, 128, 0.4);
+    border-radius: 5px;
   }
 .in-act-eatery-logopath{
     /*width: 50px;
@@ -99,14 +99,14 @@ html,body{
     width: 80px;
     height: 80px;
     border: 1px solid rgba(128, 128, 128, 0.21);
-    border-radius: 20px;
+    border-radius: 6px;
 }
   .act-eatery-name      {
     width: 75%;
     color: #3d4152;
     font-size: 14px;
     font-family: roboto;
-    font-size: 0.90rem;
+    font-size: 1.4rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -129,17 +129,17 @@ img#eaterylogo {
     float: left;
 }
 div#eaterybusinessname {
-    font-size: 1.1rem;
-    font-weight: bold;
-    margin-left: 110px;
+    font-size: 1.4rem;
+    font-weight: normal;
+    
     margin-top: -21px;
-    width: 11em;
+    text-align:center;
     overflow: hidden;
      text-overflow: ellipsis;
       white-space: nowrap;
 }
 div#eateryaddress {
-    font-size: 12px;
+    font-size: 16px;
 }
 .eatery-rating {
     font-size: 18px;
@@ -157,31 +157,32 @@ div#eateryaddress {
 .hr{
     margin:10px;
 }
+#fixed-menu {
+    position: fixed;
+    left: 50%;
+    margin-left: -54px;
+    top: 82px;
+}
+
 .fixed-menu {
-/*     position: fixed; */
+    /* position: fixed; */
     margin: auto;
     z-index: 10000;
     width: 108px;
     height: 40px;
-    border-radius: 30px;
+    border-radius: 4px;
     background: #fff;
     color: #5d8ed5;
     text-align: center;
-    box-shadow: 0 5px 10px 0 rgba(0,0,0,.3), 0 2px 1px 0 rgba(93,141,213,.2);
-    padding: 5px;
+    box-shadow: 0 1px 2px 0 rgba(0,0,0,.3), 0 2px 1px 0 rgba(93,141,213,.2);
+    padding: 2px;
     font-weight: 600;
     will-change: transform;
     font-size: .93rem;
     transform: translateY(7px);
 }
-#fixed-menu{
-    position: fixed;
-    left: 50%;
-    margin-left: -54px;
-    bottom: 89px;
-}
-#menu-categories{
-    width: 200px;
+#menu-categories {
+    width: 98%;
     margin: auto;
     z-index: 10000;
     background: white;
@@ -190,16 +191,19 @@ div#eateryaddress {
     opacity: 221;
     border: 1px solid #e2dede;
     position: fixed;
-    bottom: 91px;
-    margin-bottom: -164px;
-    left: 50%;
-    margin-left: -99px;
+    top: 336px;
+    /* margin-bottom: -164px; */
+    /* left: 50%; */
+    /* margin-left: -99px; */
 }
-.menu-cat{
-    padding: 5px 0px;
-    color:#000;
-    font-size:14px;
+.menu-cat {
+    /* padding: 5px 0px; */
+    color: #000;
+    font-size: 14px;
     display: block;
+    border: 1px solid #ccc;
+    margin: 5px;
+    padding: 5px;
 }
 div#toggled-items {
     padding-bottom: 20px;
@@ -269,17 +273,17 @@ div#toggled-items {
       margin-bottom: 10px;
       padding: 10px;
       background: #efefef;
-      border-radius: 15px;
-      box-shadow: 2px 2px 5px #888888;
+      border-radius: 5px;
+      box-shadow: 0px 0px 1px 1px #ccc;
   }
   .in-act-eatery-logo      { width: 25%;}
   .in-act-eatery-name      {
   /*    width: 75%;*/
       width: 75%;
-      color: #3d4152;
+      color: #00b2a9;
       /* font-size: 14px; */
       font-family: roboto;
-      font-size: 0.90rem;
+      font-size: 1.2rem;
       text-overflow: ellipsis;
       overflow: hidden;
       white-space: nowrap;
@@ -301,28 +305,29 @@ div#toggled-items {
   line-height:26px;
   text-align:center;
   top:13px;
-  right:7px;
-  background:#c0c0c0;
+  right:19px;
+  background:#666;
   color:white;
-  font-size:1.2rem;
+  font-size:15px;
   border-radius:3px;
 }
 #eatery-search{
   display:inline-block;
   margin-bottom:2px !important;
-  border:1px solid #808080;
-  border-radius:4px;
+  border:1px solid #ccc;
+  border-radius:2px;
   color:#808080;
   font-size:1.1rem;
   text-align:center;
   background:white;
-  width:99%;
-  margin-left:0.5%;
+  width:95%;
+  margin:1.5%;
   margin-top:2%;
   text-indent:20px;
   text-align:left;
-  background:url(../img/searchlight.svg) 5px 3px no-repeat;
-  background-size:25px 25px;
+  background:url(../img/searchlight.svg) 8px 7px no-repeat;
+  background-size:18px 18px;
+ box-shadow: 2px 2px 2px  #ccc;
 }
 
 #eatery-search::placeholder{
@@ -341,19 +346,27 @@ div#toggled-items {
     height: 50px !important;
     background: #fff;
     padding: 10px;
+    border-bottom: 1px solid #ccc;
+    box-shadow: 1px 0px 1px #888888;
+    position: fixed;
+    display: block;
+    z-index: 2;
+    width: 100%;
 }
 .rec-menu-background{
     background: #fff;
-    padding-bottom: 20px;
+   
 }
-.menu-category{
-    padding-top: 50px;
-    font-size:14px;
+.menu-category {
+    padding: 10px;
+    font-size: 16px;
     text-transform: uppercase;
     letter-spacing: 0.9px;
     margin-bottom: 0px;
-    font-weight: bold;
-    padding-left: 10px;
+    /* font-weight: bold; */
+    /* padding-left: 10px; */
+    background: #028079;
+    color: #fff;
 }
 .meat-icon{
     width: 18px;
@@ -381,7 +394,7 @@ div#toggled-items {
     display: table;
     width: 100%;
     table-layout: fixed;
-    padding-bottom: 40px;
+   
 }
 .res-img_div,.item-name-book-call{
     display: table-cell;
@@ -392,7 +405,7 @@ div#toggled-items {
 }
 .res-img{
     position: relative;
-    margin-bottom: 7px;
+    margin-bottom: -10px;
 }
 .res-details{
     position: relative;
@@ -405,15 +418,17 @@ div#toggled-items {
 
 
 
-.eatery-tab-wrap{
-  display:block;
-  position:relative;
-  text-align:center;
-  transition: all .4s ease-in-out;
-  margin-top:15px;
-  padding-bottom:3px;
+.eatery-tab-wrap {
+    display: block;
+    position: relative;
+    text-align: center;
+    transition: all .4s ease-in-out;
+    margin: 7px;
+    padding-bottom: 3px;
+    border: 1px solid #ccc;
+    padding: 5px;
+    background: #eae6e6;
 }
-
 
 .eatery-tab-wrap a{
   font-size:1.2rem;
@@ -426,8 +441,15 @@ div#toggled-items {
   font-weight:bold;
   font-size:1.04rem;
   color:#606060;
+  background:#666;
+  padding:5px;
+  color:#fff;
+  font-size:16px;
+  font-weight:normal;
+  border-radius:6px;
+ box-shadow: 2px 2px 2px  #ccc;
 }
-.eatery-tab-underline{
+.eatery-tab-underlinea{
   position:absolute;
   bottom:0px;
   left:0px;
@@ -438,9 +460,15 @@ div#toggled-items {
 
 
 }
+.item-call{
+	 border: 1px solid #ccc;
+    border-radius: 8px;
+	
+	}
 
 .item-name-book-call {
     text-align: center;
+	
     /*display: table-cell;
     width: 50%;
     padding: 8px;
@@ -448,8 +476,8 @@ div#toggled-items {
 }
 .item-bc-eatery{
     min-height: 70px;
-    margin: 5px 5px 10px 5px;
-    padding-top: 8px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
     font-size: 12px;
     font-family: roboto;
     margin-bottom: 0px;
@@ -653,8 +681,8 @@ padding:2%;
     text-align: center;
 }
 .res-img-book{
-    height:80px;
-    width:80px;
+    height:40px;
+    width:40px;
 }
 
 .icon img{
