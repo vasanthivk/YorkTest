@@ -107,7 +107,7 @@ My Settings
                 ?>
               </div>
                          
-                <div class="owl-carousel" id="owl-example" style="margin-left: -8px;">
+                <div class="owl-carousel" id="owl-example" style="margin-left: -14px;">
                     @foreach($fileslist as $file )
                     <?php
                     $filename = $path . '/' . $file ;
