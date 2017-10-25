@@ -107,7 +107,7 @@ My Settings
                 ?>
               </div>
                          
-                <div class="owl-carousel" id="owl-example">
+                <div class="owl-carousel" id="owl-example" style="margin-left: -8px;">
                     @foreach($fileslist as $file )
                     <?php
                     $filename = $path . '/' . $file ;
@@ -130,7 +130,7 @@ My Settings
             </div>
           </div>
           <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="margin-left: 27px;width: 488px;height: 197px;"></div>
+              <div id="map" style="margin-left: 27px;width: 464px;height: 197px;"></div>
               </br>
         </div>
       <div class="form-group">
