@@ -95,7 +95,7 @@ My Settings
                       justify-content: center;
                     }
                     #imagesMain img{
-                      height: 100px;
+                      height: 142px;
                       width: 456px;
                       margin: 0 10px;
                     }
