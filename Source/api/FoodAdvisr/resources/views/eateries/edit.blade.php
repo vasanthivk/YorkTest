@@ -8,10 +8,10 @@ Eateries
 @endsection
 @elseif(Session::get("role_id")==2) 
 @section('title')
-FoodAdvisr-My Settings
+FoodAdvisr-My Profile
 @endsection
 @section('module')
-My Settings
+My Profile
 @endsection
 @endif 
 
