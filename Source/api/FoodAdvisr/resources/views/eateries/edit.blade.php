@@ -98,7 +98,7 @@ My Settings
                       height: 142px;
                       width: 456px;
                       margin: 0 10px;
-                      margin-left: -12px;
+                      margin-left: 6px;
                     }
                  </style>
                 <div class="col-md-6">                    
