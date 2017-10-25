@@ -181,7 +181,7 @@ div#eateryaddress {
     position: fixed;
     left: 50%;
     margin-left: -54px;
-    bottom: 89px;
+    bottom: 59px;
 }
 #menu-categories {
     width: 98%;
@@ -193,7 +193,7 @@ div#eateryaddress {
     opacity: 221;
     border: 1px solid #e2dede;
     position: fixed;
-    bottom: -65px;
+    bottom: -100px;
     /* margin-bottom: -164px; */
     /* left: 50%; */
     /* margin-left: -99px; */

@@ -108,7 +108,7 @@
   height:50px;
   border-radius:50%;
   z-index:1000;
-  /*background:#00B2A9 url(img/barcode.svg) no-repeat center 2px;*/
+  background:#00B2A9 url(img/barcode.svg) no-repeat center 2px;
   line-height:77px;
   font-size:0.6rem;
   color:white;
