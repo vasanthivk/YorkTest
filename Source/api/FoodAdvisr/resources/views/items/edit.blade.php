@@ -185,7 +185,7 @@ Items
                     </div>
                 <hr/>
                     <div class="form-group" style="margin:5px">
-                        <label for="group_name" class="control-label col-sm-4">Allergents Contain :</label>
+                        <label for="group_name" class="control-label col-sm-4">Allergens Contain :</label>
                         <div class="col-sm-8">
                               <select multiple name="allergents_contain[]" class="form-control select">
                                 @foreach($allergenttypes as $allergent)
@@ -196,7 +196,7 @@ Items
                     </div>
                 <hr/>
                     <div class="form-group" style="margin:5px">
-                        <label for="group_name" class="control-label col-sm-4">Allergents May Contain :</label>
+                        <label for="group_name" class="control-label col-sm-4">Allergens May Contain :</label>
                         <div class="col-sm-8">
                              <select multiple name="allergents_may_contain[]" class="form-control select">
                                 @foreach($allergenttypes as $allergent)
