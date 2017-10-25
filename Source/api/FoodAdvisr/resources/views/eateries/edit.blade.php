@@ -130,7 +130,7 @@ My Settings
             </div>
           </div>
           <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
-              <div id="map" style="margin-left: 27px;width: 433px; height: 250px;"></div>
+              <div id="map" style="margin-left: 27px;width: 488px;height: 197px;"></div>
               </br>
         </div>
       <div class="form-group">
