@@ -192,7 +192,7 @@ Items
                                     <label class="col-md-2 control-label">Meat Content</label>
                                     <div class="col-md-10">
                                         <div class="form-group col-md-3">
-                                            <input type="radio" name="meat_content_type" value="1" id="veg"/>
+                                            <input type="radio" name="meat_content_type" value="1" checked id="veg"/>
                                             <label class="control-label" for="veg">No Meat/Veg</label>
                                         </div>
                                         <div class="form-group col-md-3">
@@ -274,9 +274,9 @@ Items
                                 @endforeach
                                 <hr/>
                                <div class="form-group">
-                                <label class="col-md-2 control-label">Display Order</label>
+                               <!--  <label class="col-md-2 control-label">Display Order</label> -->
                                 <div class="col-md-2">
-                                    <input type="number" name="display_order" class="form-control" value="" min="1" step="1">
+                                    <input type="hidden" name="display_order" class="form-control" value="1" min="1" step="1">
                                 </div>
                              </div>
                             </div>
