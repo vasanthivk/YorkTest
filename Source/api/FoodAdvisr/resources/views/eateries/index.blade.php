@@ -156,11 +156,11 @@ My Profile
                     $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
                  ?>
                             
-                                <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 40px; height: 40px;">
+                                <img src="../../<?php echo $logo_path ?>" alt="..." style="    width: 60px;height: 55px;">
                                
                             <?php } else { ?>
                            
-                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 40px; height: 40px;">
+                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 60px;height: 55px;">
                               
                              <?php } ?>
 
