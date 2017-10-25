@@ -166,13 +166,13 @@ Items
                                     <label class="col-md-2 control-label">Item Days</label>
                                     <div class="col-md-5">
                                         <select multiple name="item_applicable_days[]" class="form-control select">
-                                            <option value="0">Sunday</option>
-                                            <option value="1">Monday</option>
-                                            <option value="2">Tuesday</option>
-                                            <option value="3">Wednesday</option>
-                                            <option value="4">Thursday</option>
-                                            <option value="5">Friday</option>
-                                            <option value="6">Saturday</option>
+                                            <option value="0" selected="selected">Sunday</option>
+                                            <option value="1" selected="selected">Monday</option>
+                                            <option value="2" selected="selected">Tuesday</option>
+                                            <option value="3" selected="selected">Wednesday</option>
+                                            <option value="4" selected="selected">Thursday</option>
+                                            <option value="5" selected="selected">Friday</option>
+                                            <option value="6" selected="selected">Saturday</option>
                                         </select>
                                     </div>
                                 </div>
