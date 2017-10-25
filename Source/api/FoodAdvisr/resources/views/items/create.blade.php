@@ -264,9 +264,9 @@ Items
                                 @foreach($nutritiontypes as $nutrition)
                                 <div class="form-group">
                                     <label class="control-label col-md-2">{{$nutrition->nutrition_type}}</label>
-                                    <div class="col-md-2">
+                                    {{--<div class="col-md-2">
                                         <input type="number" name="nutrition_from[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
-                                    </div>
+                                    </div>--}}
                                     <div class="col-md-2">
                                         <input type="number" name="nutrition_to[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
                                     </div>

@@ -220,6 +220,7 @@ class ItemsController extends Controller
             $items->item_ingredients = serialize(Input::get('item_ingredients'));
             $items->allergents_contain = serialize(Input::get('allergents_contain'));
             $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
+            $items->nutrition_levels = serialize(Input::get('nutrition_to'));
             $items->meat_content_type = Input::get('meat_content_type');
             $items->category_id = $itemcategory_id;
             if(isset($input['contains_nuts']) && !empty($input['contains_nuts'])){
@@ -332,6 +333,7 @@ class ItemsController extends Controller
         $item_ingredients = unserialize($items->item_ingredients);
         $allergents_contain = unserialize($items->allergents_contain);
         $allergents_may_contain = unserialize($items->allergents_may_contain);
+        $nutrition_levels = unserialize($items->nutrition_levels);
 
         /*return $allergents_contain;*/
 
@@ -347,6 +349,7 @@ class ItemsController extends Controller
         ->with('item_ingredients',$item_ingredients)
         ->with('allergents_contain',$allergents_contain)
         ->with('allergents_may_contain',$allergents_may_contain)
+        ->with('nutrition_levels',$nutrition_levels)
         ->with('privileges',$privileges);
     }
 
@@ -420,6 +423,7 @@ class ItemsController extends Controller
             $items->item_ingredients = serialize(Input::get('item_ingredients'));
             $items->allergents_contain = serialize(Input::get('allergents_contain'));
             $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
+            $items->nutrition_levels = serialize(Input::get('nutrition_to'));
             $items->meat_content_type = Input::get('meat_content_type');
             $items->category_id = Input::get('category_id');
             if(isset($input['contains_nuts']) && !empty($input['contains_nuts'])){
