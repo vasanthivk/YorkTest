@@ -24,7 +24,7 @@ if(in_array(Session::get("role_id"),array(1)))
                      <?php } else {
                         $eateryid = Session::get("eatery_id");
                         ?>     
-                     <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-cog"></span> <span class="xn-text">My Settings</span></a>     
+                     <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-cog"></span> <span class="xn-text">My Profile</span></a>     
                     </li>
                     <li class="{{ Request::segment(1) === 'items'? 'active' : null }}"><a href="{{action('ItemsController@index')}}?eatery_id={{$eateryid}}"><span class="fa fa-cutlery"></span>My Items</a></li>
                       <?php }  ?>  
