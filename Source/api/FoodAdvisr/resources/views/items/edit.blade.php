@@ -207,13 +207,13 @@ Items
                     </div>
                 <hr/>
                     
-                <div class="form-group" style="margin:5px">
-                    <label for="group_name" class="control-label col-sm-4">Display Order :</label>
-                    <div class="col-sm-8">
-                         <input type="number" name="display_order" class="form-control" value="{{$items->display_order}}" min="1" step="1">
-                    </div>
-                </div>
-                <hr/>
+                <!-- <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Display Order :</label> -->
+                   <!--  <div class="col-sm-8"> -->
+                         <input type="hidden" name="display_order" class="form-control" value="1" min="1" step="1">
+                  <!--   </div>
+                </div> -->
+               <!--  <hr/> -->
                 <div class="form-group">
                     <label class="col-md-2 control-label">Nutrition Levels</label>
                 </div>
