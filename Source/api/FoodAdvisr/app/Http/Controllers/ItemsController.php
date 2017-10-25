@@ -11,10 +11,16 @@ use DB;
 use Session;
 use Input;
 use App\Items;
+use File;
+use Image;
 use App\Category;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
+
+ini_set('memory_limit', '5048M');
+ini_set('max_execution_time', 5000);
+
 class ItemsController extends Controller
 {
     /**
@@ -98,6 +104,48 @@ class ItemsController extends Controller
             ->with('cuisinetypes',$cuisinetypes);
     }
 
+    private function saveLogoInTempLocation($file)
+    {
+        $session_id = Session::getId();
+        $tempdestinationPath = env('CONTENT_ITEM_TEMP_PATH') . '\\'. $session_id;
+        File::makeDirectory($tempdestinationPath, 0775, true, true);
+        $extension = $file->getClientOriginalExtension();
+        $filename = uniqid('', true) . '.' . $extension;
+        while (true) {
+            $filename = uniqid('', true) . '.' . $extension;
+            if (!file_exists($tempdestinationPath . '\\' . $filename)) break;
+        }
+        $upload_success = $file->move($tempdestinationPath, $filename);
+        return $extension;
+    }
+
+    private function saveLogoInLogoPath($eateryid,$itemid, $extension)
+    {
+        $session_id = Session::getId();
+        $sourceDir = env('CONTENT_ITEM_TEMP_PATH');
+        $destinationDir = env('CONTENT_ITEM_PATH') . '\\'. $eateryid;
+        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemid . '.' .  $extension);
+        try {
+            $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);
+        } catch (Exception $e) {
+        }
+
+        createThumbnailImage($destinationDir,$itemid,$extension);
+    }
+
+    private function deleteLogo($img_url)
+    {
+        $sourceDir = env('CONTENT_ITEM_PATH');
+        try {
+            $success = File::delete($sourceDir . '//' . $img_url );
+        } catch (Exception $e) {
+        }
+        try {
+            $success = File::delete($sourceDir . '//' . $img_url);
+        } catch (Exception $e) {
+        }
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -107,14 +155,26 @@ class ItemsController extends Controller
     public function store(Request $request)
     {
        $input = Input::all();
+
+        $file_size = $_FILES['logo']['size'];
+        if($file_size > 2097152)
+        {
+            return Redirect::back()->with('warning','File size must be less than 2 MB!')
+                ->withInput();
+        }
+
+        $file = array_get($input,'logo');
+        $extension = '';
+        if($file <> null)
+            $extension = $this->saveLogoInTempLocation($file);
+
+
         $this->validate($request, [
-            'item_name'  => 'required']);
+            'item_name'  => 'required','item_default_price' => 'required','eatery_id' => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
-        /*echo '<pre>';
-        print_r($input);
-        echo '</pre>';*/
+
         if ($validator->fails())
         {
             $eatery_id = $request['eatery_id'];
@@ -125,8 +185,6 @@ class ItemsController extends Controller
         }
         else
         {
-
-
             if(isset($input['itemGroupName']) && !empty($input['itemGroupName'])){
                 $itemgroups = new ItemGroups();
                 $itemgroups->group_name = Input::get('itemGroupName');
@@ -165,7 +223,7 @@ class ItemsController extends Controller
             $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
             $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
             $items->cuisine_id = serialize(Input::get('cuisine_id'));
-            $items->item_ingredients = serialize(Input::get('ingrediant_names'));
+            $items->item_ingredients = serialize(Input::get('item_ingredients'));
             $items->allergents_contain = serialize(Input::get('allergents_contain'));
             $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
             $items->meat_content_type = Input::get('meat_content_type');
@@ -206,7 +264,19 @@ class ItemsController extends Controller
             $items->added_by = Session::get('user_id');
             $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $items->modified_by = Session::get('user_id');
-            $items->save();            
+            if($file <> null)
+                //$items->logo_extension = $extension;
+            $items->save();
+
+            if(!empty($extension))
+            {
+                $destinationDir = env('CONTENT_ITEM_PATH');
+                $LogoPath=$destinationDir.'/'. $items->eatery_id . '/' . $items->id . '.' .  $extension;
+                $items->img_url =  $LogoPath;
+                $items->update();
+            }
+            if($file <> null)
+                $this->saveLogoInLogoPath($items->eatery_id,$items->id, $extension);
 
             $log = new Log();
             $log->module_id=8;
@@ -264,6 +334,14 @@ class ItemsController extends Controller
             ->where('is_enabled','=',1)
             ->get();
         $items = Items::find($id);
+        $item_applicable_days = unserialize($items->item_applicable_days);
+        $cuisine_id = unserialize($items->cuisine_id);
+        $item_ingredients = unserialize($items->item_ingredients);
+        $allergents_contain = unserialize($items->allergents_contain);
+        $allergents_may_contain = unserialize($items->allergents_may_contain);
+
+        /*return $allergents_contain;*/
+
         return View('items.edit')
         ->with('items',$items)
         ->with('eatery_id',$eatery_id)
@@ -271,6 +349,11 @@ class ItemsController extends Controller
         ->with('cuisinetypes',$cuisinetypes)
         ->with('nutritiontypes',$nutritiontypes)
         ->with('allergenttypes',$allergenttypes)
+        ->with('item_applicable_days',$item_applicable_days)
+        ->with('cuisine_id',$cuisine_id)
+        ->with('item_ingredients',$item_ingredients)
+        ->with('allergents_contain',$allergents_contain)
+        ->with('allergents_may_contain',$allergents_may_contain)
         ->with('privileges',$privileges);
     }
 
@@ -284,6 +367,18 @@ class ItemsController extends Controller
     public function update(Request $request, $id)
     {
         $input = Input::all();
+
+        $file_size = $_FILES['logo']['size'];
+        if($file_size > 5097152)
+        {
+            return Redirect::back()->with('warning','File size must be less than 2 MB!');
+        }
+
+        $file = array_get($input,'logo');
+        $extension = '';
+        if($file <> null)
+            $extension = $this->saveLogoInTempLocation($file);
+
 
          $this->validate($request, [
             'item_name'  => 'required']);
@@ -301,6 +396,25 @@ class ItemsController extends Controller
         else
         {   
             $items = Items::find($id);
+
+            if($file <> null)
+            {
+                $success = File::delete($items->img_url);
+                $LogoPath = env('CONTENT_ITEM_PATH').'/'. $items->eatery_id . '/' . $items->id .  '_t.' . $extension ;
+                $delete=File::delete($LogoPath);
+            }
+
+            if(empty($extension))
+            {
+                $destinationDir = env('CONTENT_ITEM_PATH');
+                $LogoPath=$destinationDir.'/'. $items->eatery_id . '/' . $id . '.' .  $extension;
+            }
+            else
+            {
+                $destinationDir = env('CONTENT_ITEM_PATH');
+                $LogoPath=$destinationDir.'/'. $items->eatery_id . '/' . $id . '.' .  $extension;
+            }
+
             $items->eatery_id = Input::get('eatery_id');
             $items->item_name = Input::get('item_name');
             $items->item_default_price = Input::get('item_default_price');
@@ -309,11 +423,56 @@ class ItemsController extends Controller
             $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
             $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
             $items->cuisine_id = serialize(Input::get('cuisine_id'));
-            $items->item_ingredients = serialize(Input::get('ingrediant_names'));
+            $items->item_ingredients = serialize(Input::get('item_ingredients'));
             $items->allergents_contain = serialize(Input::get('allergents_contain'));
             $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
             $items->meat_content_type = Input::get('meat_content_type');
+            $items->category_id = Input::get('category_id');
+            if(isset($input['contains_nuts']) && !empty($input['contains_nuts'])){
+                $items->contains_nuts = 1;
+            }
+            else{
+                $items->contains_nuts = 0;
+            }
+
+            if(isset($input['dairy_free']) && !empty($input['dairy_free'])){
+                $items->dairy_free = 1;
+            }
+            else{
+                $items->dairy_free = 0;
+            }
+            if(isset($input['gluten_free']) && !empty($input['gluten_free'])){
+                $items->gluten_free = 1;
+            }
+            else{
+                $items->gluten_free = 0;
+            }
+            if(isset($input['vegan']) && !empty($input['vegan'])){
+                $items->vegan = 1;
+            }
+            else{
+                $items->vegan = 0;
+            }
+            if(isset($input['is_visible']) && !empty($input['is_visible'])){
+                $items->is_visible = 1;
+            }
+            else{
+                $items->is_visible = 0;
+            }
+            $items->display_order =  Input::get('display_order');
+
+            $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->modified_by = Session::get('user_id');
+
+            $items->img_url = $LogoPath;
             $items->Update();
+
+            if($file <> null)
+                //$items->logo_extension = $extension;
+            $items->update();
+
+            if($file <> null)
+                $this->saveLogoInLogoPath($items->eatery_id,$items->id, $extension);
 
             $log = new Log();
             $log->module_id=8;
@@ -337,18 +496,24 @@ class ItemsController extends Controller
      */
     public function destroy($id)
     {
-         $items = Items::where('item_id','=',$id)->get();
+         $items = Items::where('id','=',$id)->get();
         if (is_null($items))
         {
          return Redirect::back()->with('warning','Item Details Are Not Found!');
         }
         else
         {
-           Items::where('item_id','=',$id)->delete();
+           Items::where('id','=',$id)->delete();
+
+            try {
+                $this->deleteLogo($items->img_url);
+            } catch (Exception $e) {
+            }
+
             $log = new Log();
             $log->module_id=8;
             $log->action='delete';      
-            $log->description='Item '. $items->title . ' is Deleted';
+            $log->description='Item '. $items->item_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    

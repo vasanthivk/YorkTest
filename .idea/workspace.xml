@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3f39e34-1e26-4d97-9471-9714e92341c4" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FoodAdvisr.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -27,11 +30,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ItemsController.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ItemsController.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-12.423077" vertical-offset="1326" max-vertical-offset="6222">
-              <caret line="97" column="47" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="47" />
+            <state vertical-scroll-proportion="0.3320965" vertical-offset="7879" max-vertical-offset="9027">
+              <caret line="474" column="41" selection-start-line="474" selection-start-column="23" selection-end-line="474" selection-end-column="41" />
               <folding>
                 <element signature="e#40#63#0#PHP" expanded="true" />
               </folding>
@@ -39,16 +42,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="EateriesController.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/EateriesController.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-4.576923" vertical-offset="2193" max-vertical-offset="9095">
+              <caret line="136" column="36" selection-start-line="136" selection-start-column="20" selection-end-line="136" selection-end-column="36" />
+              <folding>
+                <element signature="e#39#80#0#PHP" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="create.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.46126762" vertical-offset="2917" max-vertical-offset="5814">
-              <caret line="187" column="38" selection-start-line="187" selection-start-column="38" selection-end-line="187" selection-end-column="38" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-              </folding>
+            <state vertical-scroll-proportion="-1.4" vertical-offset="2745" max-vertical-offset="5797">
+              <caret line="166" column="85" selection-start-line="166" selection-start-column="85" selection-end-line="166" selection-end-column="85" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -56,29 +67,16 @@
       <file leaf-file-name="edit.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-40.807693" vertical-offset="690" max-vertical-offset="3791">
-              <caret line="103" column="40" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
+            <state vertical-scroll-proportion="-23.036364" vertical-offset="790" max-vertical-offset="4335">
+              <caret line="121" column="87" selection-start-line="121" selection-start-column="87" selection-end-line="121" selection-end-column="87" />
               <folding>
-                <element signature="e#765#783#0#HTML" expanded="true" />
-                <element signature="e#1583#1601#0#HTML" expanded="true" />
-                <element signature="e#2016#2034#0#HTML" expanded="true" />
-                <element signature="e#3216#3252#0#HTML" expanded="true" />
-                <element signature="e#3431#3467#0#HTML" expanded="true" />
-                <element signature="e#3668#3704#0#HTML" expanded="true" />
-                <element signature="e#3882#3918#0#HTML" expanded="true" />
-                <element signature="e#4170#4214#0#HTML" expanded="true" />
-                <element signature="e#4870#4888#0#HTML" expanded="true" />
-                <element signature="e#5369#5387#0#HTML" expanded="true" />
-                <element signature="e#5546#5564#0#HTML" expanded="true" />
-                <element signature="e#5924#5942#0#HTML" expanded="true" />
-                <element signature="e#6300#6318#0#HTML" expanded="true" />
-                <element signature="e#7189#7207#0#HTML" expanded="true" />
-                <element signature="e#8544#8562#0#HTML" expanded="true" />
-                <element signature="e#9181#9199#0#HTML" expanded="true" />
-                <element signature="e#9598#9616#0#HTML" expanded="true" />
-                <element signature="e#11072#11090#0#HTML" expanded="true" />
-                <element signature="e#11718#11736#0#HTML" expanded="true" />
-                <element signature="e#12388#12406#0#HTML" expanded="true" />
+                <element signature="n#style#0;n#div#9;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#10;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#11;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#12;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#13;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#14;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#15;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -87,8 +85,8 @@
       <file leaf-file-name=".env" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/.env">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0" vertical-offset="277" max-vertical-offset="935">
-              <caret line="48" column="17" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="17" />
+            <state vertical-scroll-proportion="0.0" vertical-offset="328" max-vertical-offset="935">
+              <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="49" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -97,7 +95,7 @@
       <file leaf-file-name="index.blade.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-2.8846154" vertical-offset="10" max-vertical-offset="1411">
+            <state vertical-scroll-proportion="1.0384616" vertical-offset="112" max-vertical-offset="1411">
               <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
               <folding />
             </state>
@@ -107,7 +105,7 @@
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-23.153847" vertical-offset="112" max-vertical-offset="1122">
+            <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1122">
               <caret line="42" column="136" selection-start-line="41" selection-start-column="133" selection-end-line="41" selection-end-column="136" />
               <folding />
             </state>
@@ -138,14 +136,14 @@
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Item_categories.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemGroupController.php" />
         <option value="C:/wamp/www/Tiffin/TiffinWeb/profile.php" />
-        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/eateries/index.blade.php" />
-        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/itemgroups/edit.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/.env" />
-        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php" />
+        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/layouts/master.blade.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php" />
+        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php" />
+        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
       </list>
     </option>
   </component>
@@ -182,7 +180,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -581,11 +578,12 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="C:/wamp/www/Tiffin" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="FullScreen" value="false" />
   </component>
   <component name="RecentsManager">
@@ -610,6 +608,9 @@
       <BehatRunner />
       <method />
     </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
       <node-options />
       <gulpfile />
@@ -617,9 +618,6 @@
       <arguments />
       <pass-parent-envs>true</pass-parent-envs>
       <envs />
-      <method />
-    </configuration>
-    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
       <method />
     </configuration>
     <list size="0" />
@@ -653,13 +651,13 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985657" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32985657" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -683,13 +681,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/Source/apps/Customer/FoodAdvisr7Oct/www/js/api.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="153" max-vertical-offset="1785">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Source/apps/Customer/FoodAdvisr7Oct/www/js/init.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="16508" max-vertical-offset="31246">
@@ -914,13 +905,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemGroupsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="221" max-vertical-offset="1530">
-          <caret line="13" column="27" selection-start-line="13" selection-start-column="27" selection-end-line="13" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemCategoriesController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="817" max-vertical-offset="1530">
@@ -967,22 +951,13 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23407917" vertical-offset="901" max-vertical-offset="3638">
           <caret line="71" column="5" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-23.153847" vertical-offset="112" max-vertical-offset="1122">
+        <state vertical-scroll-proportion="0.0" vertical-offset="112" max-vertical-offset="1122">
           <caret line="42" column="136" selection-start-line="41" selection-start-column="133" selection-end-line="41" selection-end-column="136" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/layouts/master.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7552817" vertical-offset="2733" max-vertical-offset="3995">
-          <caret line="186" column="50" selection-start-line="186" selection-start-column="50" selection-end-line="186" selection-end-column="50" />
           <folding />
         </state>
       </provider>
@@ -991,15 +966,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.33450705" vertical-offset="1544" max-vertical-offset="2244">
           <caret line="102" column="74" selection-start-line="102" selection-start-column="66" selection-end-line="102" selection-end-column="74" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-2.8846154" vertical-offset="10" max-vertical-offset="1411">
-          <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1007,7 +973,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.23943663" vertical-offset="459" max-vertical-offset="1258">
           <caret line="35" column="18" selection-start-line="35" selection-start-column="18" selection-end-line="35" selection-end-column="18" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1015,65 +980,83 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="1.3169014" vertical-offset="561" max-vertical-offset="1615">
           <caret line="77" column="22" selection-start-line="41" selection-start-column="16" selection-end-line="77" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/index.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0384616" vertical-offset="112" max-vertical-offset="1411">
+          <caret line="5" column="42" selection-start-line="5" selection-start-column="42" selection-end-line="5" selection-end-column="42" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/.env">
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/layouts/master.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0" vertical-offset="277" max-vertical-offset="935">
-          <caret line="48" column="17" selection-start-line="48" selection-start-column="0" selection-end-line="48" selection-end-column="17" />
+        <state vertical-scroll-proportion="-14.0" vertical-offset="2798" max-vertical-offset="3995">
+          <caret line="186" column="95" selection-start-line="186" selection-start-column="95" selection-end-line="186" selection-end-column="95" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php">
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemGroupsController.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-40.807693" vertical-offset="690" max-vertical-offset="3791">
-          <caret line="103" column="40" selection-start-line="103" selection-start-column="40" selection-end-line="103" selection-end-column="40" />
+        <state vertical-scroll-proportion="-10.461538" vertical-offset="4947" max-vertical-offset="5576">
+          <caret line="307" column="13" selection-start-line="304" selection-start-column="12" selection-end-line="307" selection-end-column="13" />
           <folding>
-            <element signature="e#765#783#0#HTML" expanded="true" />
-            <element signature="e#1583#1601#0#HTML" expanded="true" />
-            <element signature="e#2016#2034#0#HTML" expanded="true" />
-            <element signature="e#3216#3252#0#HTML" expanded="true" />
-            <element signature="e#3431#3467#0#HTML" expanded="true" />
-            <element signature="e#3668#3704#0#HTML" expanded="true" />
-            <element signature="e#3882#3918#0#HTML" expanded="true" />
-            <element signature="e#4170#4214#0#HTML" expanded="true" />
-            <element signature="e#4870#4888#0#HTML" expanded="true" />
-            <element signature="e#5369#5387#0#HTML" expanded="true" />
-            <element signature="e#5546#5564#0#HTML" expanded="true" />
-            <element signature="e#5924#5942#0#HTML" expanded="true" />
-            <element signature="e#6300#6318#0#HTML" expanded="true" />
-            <element signature="e#7189#7207#0#HTML" expanded="true" />
-            <element signature="e#8544#8562#0#HTML" expanded="true" />
-            <element signature="e#9181#9199#0#HTML" expanded="true" />
-            <element signature="e#9598#9616#0#HTML" expanded="true" />
-            <element signature="e#11072#11090#0#HTML" expanded="true" />
-            <element signature="e#11718#11736#0#HTML" expanded="true" />
-            <element signature="e#12388#12406#0#HTML" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-12.423077" vertical-offset="1326" max-vertical-offset="6222">
-          <caret line="97" column="47" selection-start-line="97" selection-start-column="34" selection-end-line="97" selection-end-column="47" />
-          <folding>
-            <element signature="e#40#63#0#PHP" expanded="true" />
+            <element signature="e#40#68#0#PHP" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/create.blade.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.46126762" vertical-offset="2917" max-vertical-offset="5814">
-          <caret line="187" column="38" selection-start-line="187" selection-start-column="38" selection-end-line="187" selection-end-column="38" />
+        <state vertical-scroll-proportion="-1.4" vertical-offset="2745" max-vertical-offset="5797">
+          <caret line="166" column="85" selection-start-line="166" selection-start-column="85" selection-end-line="166" selection-end-column="85" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/resources/views/items/edit.blade.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-23.036364" vertical-offset="790" max-vertical-offset="4335">
+          <caret line="121" column="87" selection-start-line="121" selection-start-column="87" selection-end-line="121" selection-end-column="87" />
           <folding>
-            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#img#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
-            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#div#0;n#div#0;n#div#3;n#div#2;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#9;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#10;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#11;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#12;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#13;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#14;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#15;n#div#0;n#div#0;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/EateriesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-4.576923" vertical-offset="2193" max-vertical-offset="9095">
+          <caret line="136" column="36" selection-start-line="136" selection-start-column="20" selection-end-line="136" selection-end-column="36" />
+          <folding>
+            <element signature="e#39#80#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/.env">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="328" max-vertical-offset="935">
+          <caret line="47" column="0" selection-start-line="47" selection-start-column="0" selection-end-line="49" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3320965" vertical-offset="7879" max-vertical-offset="9027">
+          <caret line="474" column="41" selection-start-line="474" selection-start-column="23" selection-end-line="474" selection-end-column="41" />
+          <folding>
+            <element signature="e#40#63#0#PHP" expanded="true" />
           </folding>
         </state>
       </provider>

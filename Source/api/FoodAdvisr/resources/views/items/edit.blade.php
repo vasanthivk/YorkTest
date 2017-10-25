@@ -19,7 +19,7 @@ Items
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Category :</label>
                     <div class="col-sm-8">
-                        <select class="form-control" id="group_id" name="group_id">
+                        <select class="form-control" id="category_id" name="category_id">
                             <option>Choose Item Category</option>
                             @foreach($category as $categories)
                             <option value="{{$categories->id}}" @if($items->category_id == $categories->id) selected="selected" @endif>{{$categories->category_name}}</option>
@@ -27,20 +27,24 @@ Items
                         </select>
                     </div>
                 </div>
+                <hr/>
                 {{ Form::ahText('item_name','Item Name :',$items->item_name,array('maxlength' => '100'))  }}
+                <hr/>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Item Price :</label>
                     <div class="col-sm-8">
                         <input type="number" name="item_default_price" class="form-control" value="{{$items->item_default_price}}" min="0"
                                step="0.01">
                     </div>
-                </div> 
+                </div>
+                <hr/>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Item Description :</label>
                     <div class="col-sm-8">
                        <input type="text" name="item_description" class="form-control" value="{{$items->item_description}}">
                     </div>
                 </div>
+                <hr/>
                 <div class="form-group">
                     <label for="group_name" class="control-label col-sm-4">Upload Item Image :</label>
                     <div class="col-md-4">
@@ -49,9 +53,9 @@ Items
                                 <?php
                                 $logo_path = '';
                                 $no_image = env('NO_IMAGE');
-                                if(File::exists(env('CONTENT_ITEM_PATH') . '/' . $items->id . '.' . $items->logo_extension))
+                                if(File::exists(env('CONTENT_ITEM_PATH').'/'. $items->eatery_id . '/' . $items->id . '.' . $items->logo_extension))
                                 {
-                                $logo_path = env('CONTENT_ITEM_PATH') . '/' . $items->id . '.' . $items->logo_extension;
+                                $logo_path = env('CONTENT_ITEM_PATH').'/'. $items->eatery_id . '/' . $items->id . '.' . $items->logo_extension;
                                 ?>
                                 <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
                                     <a>
@@ -81,6 +85,7 @@ Items
                         </div>
                     </div>
                 </div>
+                <hr/>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Is Enabled :</label>
                     <div class="col-sm-8">
@@ -90,6 +95,7 @@ Items
                         </label>
                     </div>
                 </div>
+                <hr/>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="col-sm-4 control-label">Date Range</label>
                 </div>
@@ -105,20 +111,22 @@ Items
                         <input type="text" name="item_valid_till" class="form-control datepicker" value="{{$items->item_valid_till}}">
                     </div>
                 </div>
+                <hr/>
                 <div class="form-group" style="margin:5px">
                 <label for="group_name" class="control-label col-sm-4">Item Days :</label>
                         <div class="col-sm-8">                           
-                            <select multiple name="item_applicable_days" class="form-control select">
-                                <option value="0">Sunday</option>
-                                <option value="1">Monday</option>
-                                <option value="2">Tuesday</option>
-                                <option value="3">Wednesday</option>
-                                <option value="4">Thursday</option>
-                                <option value="5">Friday</option>
-                                <option value="6">Saturday</option>
+                            <select multiple name="item_applicable_days[]" class="form-control select">
+                                <option value="0" @if(in_array(0,$item_applicable_days)) selected="selected" @endif>Sunday</option>
+                                <option value="1" @if(in_array(1,$item_applicable_days)) selected="selected" @endif>Monday</option>
+                                <option value="2" @if(in_array(2,$item_applicable_days)) selected="selected" @endif>Tuesday</option>
+                                <option value="3" @if(in_array(3,$item_applicable_days)) selected="selected" @endif>Wednesday</option>
+                                <option value="4" @if(in_array(4,$item_applicable_days)) selected="selected" @endif>Thursday</option>
+                                <option value="5" @if(in_array(5,$item_applicable_days)) selected="selected" @endif>Friday</option>
+                                <option value="6" @if(in_array(6,$item_applicable_days)) selected="selected" @endif>Saturday</option>
                             </select>
                         </div>
                 </div>
+                <hr/>
                 <div class="form-group" style="margin:5px">
                          <label for="group_name" class="control-label col-sm-4">Meat Content :</label>
                       <div class="col-sm-8">      
@@ -135,65 +143,73 @@ Items
                                 <label class="control-label" for="nonveg">Contains Meat</label>
                             </div>                           
                         </div>
-                    </div> 
+                    </div>
+                <hr/>
                     <div class="form-group" style="margin:5px">
                         <label for="group_name" class="control-label col-sm-4">Cuisine Type :</label>
                         <div class="col-sm-8">
                              <select multiple name="cuisine_id[]" class="form-control select">
                                     @foreach($cuisinetypes as $cuisine)
-                                        <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
+                                        <option value="{{$cuisine->id}}" @if(in_array($cuisine->id,$cuisine_id)) selected="selected" @endif>{{$cuisine->cuisine_name}}</option>
                                     @endforeach
                                 </select>
                         </div>
                     </div>
+                <hr/>
                     <div class="form-group" style="margin:5px">
                         <label for="group_name" class="control-label col-sm-4">Ingrediants :</label>
                         
                         <div class="col-sm-8 ingrediants">
-                            <input type="text" name="item_ingredients[]" value="" class="form-control"/><br/>
+                            {{--@foreach($item_ingredients as $ingredient)--}}
+                            <input type="text" name="item_ingredients[]" value="{{--{{$ingredient}}--}}" class="form-control"/><br/>
+                            {{--@endforeach--}}
                         </div>
                     </div>
+                <hr/>
                     <div class="form-group" style="margin:5px">
                          <label for="group_name" class="control-label col-sm-4">Filters :</label>
                       <div class="col-sm-8">      
                             <div class="form-group col-md-4">
-                               <input type="checkbox" name="contains_nuts" value="1" id="contains_nuts"/>
+                               <input type="checkbox" name="contains_nuts" @if($items->contains_nuts == 1) checked @endif value="{{$items->contains_nuts}}" id="contains_nuts"/>
                                 <label class="control-label" for="contains_nuts">Contain Nuts</label>
                             </div> 
                             <div class="form-group col-md-4">
-                                <input type="checkbox" name="dairy_free" value="1" id="dairy_free"/>
+                                <input type="checkbox" name="dairy_free"  @if($items->dairy_free == 1) checked @endif value="{{$items->dairy_free}}" id="dairy_free"/>
                                 <label class="control-label" for="dairy_free">Dairy Free</label>
                             </div>
                             <div class="form-group col-md-4">
-                                <input type="checkbox" name="gluten_free" value="1" id="gluten_free"/>
+                                <input type="checkbox" name="gluten_free" @if($items->gluten_free == 1) checked @endif value="{{$items->gluten_free}}" id="gluten_free"/>
                                 <label class="control-label" for="gluten_free">Gluten Free</label>
                             </div>
                             <div class="form-group col-md-4">
-                                 <input type="checkbox" name="vegan" value="1" id="vegan"/>
+                                 <input type="checkbox" name="vegan" @if($items->vegan == 1) checked @endif value="{{$items->vegan}}" id="vegan"/>
                                 <label class="control-label" for="vegan">Vegan</label>
                             </div>                           
                         </div>
                     </div>
+                <hr/>
                     <div class="form-group" style="margin:5px">
                         <label for="group_name" class="control-label col-sm-4">Allergents Contain :</label>
                         <div class="col-sm-8">
                               <select multiple name="allergents_contain[]" class="form-control select">
                                 @foreach($allergenttypes as $allergent)
-                                    <option value="{{$allergent->id}}">{{$allergent->allergent_type}}</option>
+                                    <option value="{{$allergent->id}}" @if(in_array($allergent->id,$allergents_contain)) selected="selected" @endif>{{$allergent->allergent_type}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
+                <hr/>
                     <div class="form-group" style="margin:5px">
                         <label for="group_name" class="control-label col-sm-4">Allergents May Contain :</label>
                         <div class="col-sm-8">
                              <select multiple name="allergents_may_contain[]" class="form-control select">
                                 @foreach($allergenttypes as $allergent)
-                                    <option value="{{$allergent->id}}">{{$allergent->allergent_type}}</option>
+                                    <option value="{{$allergent->id}}" @if(in_array($allergent->id,$allergents_may_contain)) selected="selected" @endif>{{$allergent->allergent_type}}</option>
                                 @endforeach
                             </select>
                         </div>
                     </div>
+                <hr/>
                     
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Display Order :</label>
@@ -201,7 +217,22 @@ Items
                          <input type="number" name="display_order" class="form-control" value="{{$items->display_order}}" min="1" step="1">
                     </div>
                 </div>
-                </br>
+                <hr/>
+                <div class="form-group">
+                    <label class="col-md-2 control-label">Nutrition Levels</label>
+                </div>
+                @foreach($nutritiontypes as $nutrition)
+                    <div class="form-group">
+                        <label for="group_name"  class="control-label col-sm-4">{{$nutrition->nutrition_type}}</label>
+                        <div class="col-sm-4">
+                            <input type="number" name="nutrition_from[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
+                        </div>
+                        <div class="col-sm-4">
+                            <input type="number" name="nutrition_to[{{$nutrition->id}}]" nutrition_id="{{$nutrition->id}}" value="" class="form-control" min="0" max="100" step="1" />
+                        </div>
+                    </div>
+                @endforeach
+                <br/>
             </div>
             
             <div class="form-group">
@@ -216,3 +247,4 @@ Items
  </div>
  
 @endsection
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
