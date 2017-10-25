@@ -106,7 +106,7 @@ My Settings
                 $path = env('CONTENT_EATERY_IMAGE_PATH') . '//'. $eateries->id;
                 ?>
               </div>
-              <div class="widget widget-default widget-carousel">             
+                         
                 <div class="owl-carousel" id="owl-example">
                     @foreach($fileslist as $file )
                     <?php
@@ -126,7 +126,7 @@ My Settings
                 </div> 
                  @endforeach               
                 </div>                        
-                </div>   
+                  
             </div>
           </div>
           <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">
