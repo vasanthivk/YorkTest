@@ -48,42 +48,38 @@ Items
                 <div class="form-group">
                     <label for="group_name" class="control-label col-sm-4">Upload Item Image :</label>
                     <div class="col-md-4">
-                        <div class="form-group">
-                            <div class="fileinput fileinput-new" data-provides="fileinput">
-                                <?php
-                                $logo_path = '';
-                                $no_image = env('NO_IMAGE');
-                                if(File::exists(env('CONTENT_ITEM_PATH').'/'. $items->eatery_id . '/' . $items->id . '.' . $items->logo_extension))
-                                {
-                                $logo_path = env('CONTENT_ITEM_PATH').'/'. $items->eatery_id . '/' . $items->id . '.' . $items->logo_extension;
-                                ?>
-                                <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
-                                    <a>
-                                        <img src="../../<?php echo $logo_path ?>" alt="..."
-                                             style="width: 130px; height: 102px;">
-                                    </a>
-                                </div>
-                                <?php } else { ?>
-                                <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
-                                    <a>
-                                        <img src="../../<?php echo $no_image ?>" alt="..."
-                                             style="width: 130px; height: 111px;">
-                                    </a>
-                                </div>
-                                <?php } ?>
-                                <div class="fileinput-preview fileinput-exists thumbnail"
-                                     style="max-width: 130px; max-height: 111px;"></div>
-                                <div>
-                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Change Image</span><span
-                                    class="fileinput-exists">Change</span>
+                    <div class="form-group">            
+                        <div class="fileinput fileinput-new" data-provides="fileinput">
+                        <?php
+                      $logo_path = '';
+                     $no_image=env('NO_IMAGE');
+                if(File::exists(env('CONTENT_ITEM_PATH') . '/' . $items->id .  '.' . $items->logo_extension))
+                {
+                    $logo_path = env('CONTENT_ITEM_PATH') . '/' . $items->id .  '.' . $items->logo_extension;
+                 ?>
+                            <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
+                            <a>
+                                <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 130px; height: 102px;">
+                                </a>
+                            </div>
+                            <?php } else { ?>
+                            <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
+                            <a>
+                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 111px;">
+                                </a>
+                            </div>
+                             <?php } ?>
+                    <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 111px;"></div>
+                    <div>
+                        <span class="btn btn-primary btn-file"><span class="fileinput-new">Change Image</span><span class="fileinput-exists">Change</span>
                         <input type="file" name="logo" id="logo">
                         </span>
-                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                </div>
+                        <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
+                    </div>
 
-                            </div>
                         </div>
                     </div>
+                </div>  
                 </div>
                 <hr/>
                 <div class="form-group" style="margin:5px">

@@ -104,48 +104,42 @@ class ItemsController extends Controller
             ->with('cuisinetypes',$cuisinetypes);
     }
 
-    private function saveLogoInTempLocation($file)
-    {
+     private function saveLogoInTempLocation($file)
+     {
         $session_id = Session::getId();
-        $tempdestinationPath = env('CONTENT_ITEM_TEMP_PATH') . '\\'. $session_id;
-        File::makeDirectory($tempdestinationPath, 0775, true, true);
+        $tempdestinationPath = env('CONTENT_ITEM_TEMP_PATH');
         $extension = $file->getClientOriginalExtension();
-        $filename = uniqid('', true) . '.' . $extension;
-        while (true) {
-            $filename = uniqid('', true) . '.' . $extension;
-            if (!file_exists($tempdestinationPath . '\\' . $filename)) break;
-        }
+        $filename = $session_id . '.' . $extension;
         $upload_success = $file->move($tempdestinationPath, $filename);
         return $extension;
-    }
+     }
 
-    private function saveLogoInLogoPath($eateryid,$itemid, $extension)
+     private function saveLogoInLogoPath($itemid, $extension)
     {
         $session_id = Session::getId();
         $sourceDir = env('CONTENT_ITEM_TEMP_PATH');
-        $destinationDir = env('CONTENT_ITEM_PATH') . '\\'. $eateryid;
-        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemid . '.' .  $extension);
+        $destinationDir = env('CONTENT_ITEM_PATH');
+        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemid . '.' .  $extension);        
         try {
-            $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);
+            $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);     
         } catch (Exception $e) {
         }
-
+        
         createThumbnailImage($destinationDir,$itemid,$extension);
     }
 
-    private function deleteLogo($img_url)
+    private function deleteLogo($itemid, $extension)
     {
         $sourceDir = env('CONTENT_ITEM_PATH');
         try {
-            $success = File::delete($sourceDir . '//' . $img_url );
+            $success = File::delete($sourceDir . '//' . $itemid . '.' .  $extension);        
         } catch (Exception $e) {
         }
         try {
-            $success = File::delete($sourceDir . '//' . $img_url);
+            $success = File::delete($sourceDir . '//' . $itemidaq . '_t.' .  $extension);        
         } catch (Exception $e) {
         }
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -265,19 +259,18 @@ class ItemsController extends Controller
             $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $items->modified_by = Session::get('user_id');
             if($file <> null)
-                //$items->logo_extension = $extension;
+                $items->logo_extension = $extension;
             $items->save();
 
-            if(!empty($extension))
+           if(!empty($extension))
             {
-                $destinationDir = env('CONTENT_ITEM_PATH');
-                $LogoPath=$destinationDir.'/'. $items->eatery_id . '/' . $items->id . '.' .  $extension;
-                $items->img_url =  $LogoPath;
-                $items->update();
+             $destinationDir = env('CONTENT_ITEM_PATH');            
+             $LogoPath=$destinationDir . '/' . $items->id . '.' .  $items->logo_extension;
+             $items->img_url =  $LogoPath;
+             $items->update();
             }
-            if($file <> null)
-                $this->saveLogoInLogoPath($items->eatery_id,$items->id, $extension);
-
+             if($file <> null)
+                $this->saveLogoInLogoPath($items->id, $extension);
             $log = new Log();
             $log->module_id=8;
             $log->action='create';      
@@ -397,23 +390,24 @@ class ItemsController extends Controller
         {   
             $items = Items::find($id);
 
-            if($file <> null)
-            {
-                $success = File::delete($items->img_url);
-                $LogoPath = env('CONTENT_ITEM_PATH').'/'. $items->eatery_id . '/' . $items->id .  '_t.' . $extension ;
-                $delete=File::delete($LogoPath);
-            }
-
-            if(empty($extension))
+             if($file <> null)
+             {
+            $success = File::delete($items->img_url);
+            $LogoPath = env('CONTENT_ITEM_PATH') . '/' . $items->id .  '_t.' . $items->logo_extension ;
+            $delete=File::delete($LogoPath);
+            }             
+            
+              if(empty($extension))
             {
                 $destinationDir = env('CONTENT_ITEM_PATH');
-                $LogoPath=$destinationDir.'/'. $items->eatery_id . '/' . $id . '.' .  $extension;
+                $LogoPath=$destinationDir . '/' . $id . '.' .  $items->logo_extension; 
             }
             else
             {
                 $destinationDir = env('CONTENT_ITEM_PATH');
-                $LogoPath=$destinationDir.'/'. $items->eatery_id . '/' . $id . '.' .  $extension;
+                $LogoPath=$destinationDir . '/' . $id . '.' .  $extension;
             }
+
 
             $items->eatery_id = Input::get('eatery_id');
             $items->item_name = Input::get('item_name');
@@ -466,13 +460,13 @@ class ItemsController extends Controller
 
             $items->img_url = $LogoPath;
             $items->Update();
+         
+            if($file <> null)
+                $items->logo_extension = $extension;
+            $items->update();          
 
             if($file <> null)
-                //$items->logo_extension = $extension;
-            $items->update();
-
-            if($file <> null)
-                $this->saveLogoInLogoPath($items->eatery_id,$items->id, $extension);
+                $this->saveLogoInLogoPath($items->id, $extension);
 
             $log = new Log();
             $log->module_id=8;
