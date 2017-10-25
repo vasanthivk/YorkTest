@@ -8,10 +8,10 @@ Eateries
 @endsection
 @elseif(Session::get("role_id")==2) 
 @section('title')
-FoodAdvisr-My Settings
+FoodAdvisr-My Profile
 @endsection
 @section('module')
-My Settings
+My Profile
 @endsection
 @endif 
 
@@ -91,11 +91,11 @@ My Settings
                     $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
                  ?>
                             
-                                <img src="../../<?php echo $logo_path ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
+                                <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 40px; height: 40px;">
                                
                             <?php } else { ?>
                            
-                                <img src="../../<?php echo $no_image ?>" alt="..." class="img-circle" style="width: 40px; height: 40px;">
+                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 40px; height: 40px;">
                               
                              <?php } ?>
 
@@ -156,11 +156,11 @@ My Settings
                     $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
                  ?>
                             
-                                <img src="../../<?php echo $logo_path ?>" class="img-circle" alt="..." style="width: 40px; height: 40px;">
+                                <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 40px; height: 40px;">
                                
                             <?php } else { ?>
                            
-                                <img src="../../<?php echo $no_image ?>" alt="..." class="img-circle" style="width: 40px; height: 40px;">
+                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 40px; height: 40px;">
                               
                              <?php } ?>
 
