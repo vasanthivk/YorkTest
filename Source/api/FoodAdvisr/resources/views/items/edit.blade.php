@@ -152,15 +152,15 @@ Items
                         </div>
                     </div>
                 <hr/>
-                    <div class="form-group" style="margin:5px">
+                    <!-- <div class="form-group" style="margin:5px">
                         <label for="group_name" class="control-label col-sm-4">Ingrediants :</label>
                         
                         <div class="col-sm-8 ingrediants">
-                            {{--@foreach($item_ingredients as $ingredient)--}}
-                            <input type="text" name="item_ingredients[]" value="{{--{{$ingredient}}--}}" class="form-control"/><br/>
-                            {{--@endforeach--}}
+                            @foreach($item_ingredients as $ingredient)
+                            <input type="text" name="item_ingredients[]" value="{{$ingredient}}" class="form-control"/><br/>
+                            @endforeach
                         </div>
-                    </div>
+                    </div> -->
                 <hr/>
                     <div class="form-group" style="margin:5px">
                          <label for="group_name" class="control-label col-sm-4">Filters :</label>
