@@ -26,9 +26,5 @@
             "PACKAGE_NAME": "com.foodadvisr.main"
         }
     },
-    "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        }
-    }
+    "dependent_plugins": {}
 }
