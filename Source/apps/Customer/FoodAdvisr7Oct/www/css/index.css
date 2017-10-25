@@ -452,7 +452,13 @@ div#toggled-items {
     font-family: roboto;
     margin-bottom: 0px;
     border: 1px solid #ccc;
-    border-radius: 8px;
+    
+}
+.midpopbook.overlay-hide p {
+    font-size: 18px;
+    font-weight: bold;
+    text-align: center;
+    color: black;
 }
 .item-call {
     border: 1px solid #ccc;

@@ -974,7 +974,7 @@ body.on('click','.act-clear-search',function(){
             "</div>" +
             "<textarea rows='4' cols='50' style='padding-bottom: 0px;'></textarea></div>" ;
         vartext = message+'<br/>'+html_fields;
-        popupbook.show(vartext,'Cancel|item-bc-eatery,Book');
+        popupbook.show(vartext,'Book|item-bc-eatery,Cancel');
         api.getAddClickBeforeAssociated(eateryId,function(data){
         });
     });
