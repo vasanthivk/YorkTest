@@ -93,4 +93,18 @@ ini_set('max_execution_time', 5000);
                 ->get();
         return $result;
     }
+    
+    function v1_getcuisines()
+    {
+        $sql  = 'select * from cuisines';
+        $result = DB::select( DB::raw($sql));
+        return $result;
+    }
+
+    function v1_lifestylechoices()
+    {
+        $sql  = 'select * from lifestyle_choices';
+        $result = DB::select( DB::raw($sql));
+        return $result;
+    }
 ?>

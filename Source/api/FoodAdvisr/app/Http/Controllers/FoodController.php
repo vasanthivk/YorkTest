@@ -41,25 +41,36 @@ class FoodController extends Controller
         $location_id = Input::get('location_id');       
         $locations = DB::table('locations')
                     ->select(DB::raw('locations.Description as location_name,locations.LocationID as id'))
-                    ->orderby('location_name','asc')
+                    ->orderby('LocationID','asc')
                     ->get();
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
             ->select(DB::raw('eateries.id,eateries.Latitude,eateries.Longitude'))
             ->where('eateries.LocationID','=',$location_id)
             ->limit(2000)
-            ->get();
-          // return $all_eateries;
+            ->get();          
             foreach ($all_eateries as $key => $value) {
-
                 $lat = $value->Latitude; //latitude
                 $lng = $value->Longitude; //longitude
                 if($lat != null && $lng != null)                
                 {
-                $address = getaddress($lat,$lng);
+                $address = getaddress($lat,$lng);                 
                 if($address)
                 {
-                 DB::update('UPDATE eateries SET Address = "'.$address.'" WHERE id =  ?', [$value->id]);
+                  $address_values = $address[0]->address_components;
+                  $sql = 'UPDATE eateries  
+                          SET Address = "'.$address[0]->formatted_address.'",
+                              street_number = "'.$address_values[0]->long_name.'",
+                              route = "'.$address_values[1]->long_name.'",
+                              locality = "'.$address_values[2]->long_name.'",
+                              area_level_2 = "'.$address_values[4]->long_name.'",
+                              area_level_1 = "'.$address_values[5]->long_name.'"
+                              WHERE Id = "'.$value->id.'"';
+                  $eateries = DB::select( DB::raw($sql));
+                }
+                else
+                {
+                    return Redirect::back()->with('warning','Sorry!');
                 }
             }
                

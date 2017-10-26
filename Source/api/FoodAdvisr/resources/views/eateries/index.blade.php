@@ -24,39 +24,26 @@ My Profile
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
-           <div class="col-md-6">                            
+           <div class="col-md-8">                            
                <div class="form-group" style="margin:5px">
-                    <label for="location_id" class="control-label col-sm-4">Location :</label>
-                    <div class="col-sm-8">
-                        <select class="form-control" id="location_id" name="location_id">
-                            <option  selected disabled>Please select location</option>
-                            @foreach($locations as $location)
-                            <option value="{{ $location->id }}"
-                               <?php 
-                                $val = $location_id;
-                                $res = $location->id;
-                               if($val == $res) 
-                                {
-                                  ?> selected="selected"
-                                  <?php 
-                                } ?>> 
-                              {{ $location->location_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
+                    <label for="location_id" class="control-label col-sm-4"></label>
+                        <div class="input-group push-down-10">
+                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Keywords..." value="{{$searchvalue}}"/>
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary">Search</button>
+                            </div>
+                        </div>  
                 </div>
-                      
                <br/>
             </div>
             <div class="col-md-4" style="padding-top: 5px;"> 
-                 {{ Form::submit('Show', array('class' => 'btn btn-primary')) }}
+                
                 </br>
             </div> 
      </div>
  </div>
  {{ Form::close() }}
-
-
  @endif
 <div class="row">
     <div class="col-md-12">
@@ -77,7 +64,7 @@ My Profile
                                                 <th>Business Name</th>
                                                 <th>Business Type</th>  
                                                 <th>Edit/Delete</th>
-                                                <th></th>              
+                                               <!--  <th></th>       -->        
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -125,11 +112,11 @@ My Profile
                                                 </div>
                                             </div>
                                         </td>
-                                        <td>
+                                       <!--  <td>
                                             <div class="btn-group pull-left">
                                                     <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
                                                 </div>
-                                        </td>
+                                        </td> -->
                                     </tr>
                                     @endforeach      
                                         </tbody>
@@ -205,14 +192,4 @@ My Profile
     					</div>
     				</div> 
 
-                    <script type="text/javascript">
-                        $('searchname').autocomplete({
-                            source : '{!!URL::route('autocomplete')!!}',
-                            minlength : 1,
-                            autoFocus : true,
-                            select:function(e,ui){
-                                alert(ui);
-                            }
-                        })
-                    </script>
 @endsection

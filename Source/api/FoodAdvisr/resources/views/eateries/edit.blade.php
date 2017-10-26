@@ -107,6 +107,9 @@ My Profile
                 $path = env('CONTENT_EATERY_IMAGE_PATH') . '//'. $eateries->id;
                 ?>
               </div>
+              <?php $res = count($fileslist); 
+              if ($res != 0) {             
+              ?>
               <div class="widget widget-default widget-carousel">             
                 <div class="owl-carousel" id="owl-example">
                     @foreach($fileslist as $file )
@@ -127,7 +130,8 @@ My Profile
                 </div> 
                  @endforeach               
                 </div>                        
-                </div>   
+                </div> 
+                <?php } ?>  
             </div>
           </div>
           <input id="searchInput" name="searchInput" class="input-controls" type="text" placeholder="Enter a location">

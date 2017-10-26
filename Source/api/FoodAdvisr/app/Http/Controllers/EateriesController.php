@@ -41,16 +41,19 @@ class EateriesController extends Controller
         return $privileges;
      }
 
-    public function index()
+    public function index(Request $request)
     {
+         if($request['search'])
+            $searchvalue = $request['search'];
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $location_id = Input::get('location_id');       
-        $locations = DB::table('locations')
-                    ->select(DB::raw('locations.Description as location_name,locations.LocationID as id'))
-                    ->orderby('location_name','asc')
-                    ->get();
+        
         if(in_array(Session::get("role_id"),array(2)))
         {
           $eatery_id = Session::get("eatery_id");
@@ -61,7 +64,7 @@ class EateriesController extends Controller
             ->get();
         } 
         else{            
-        if($location_id=='')
+        if($searchvalue =='')
         {
             $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
@@ -70,17 +73,29 @@ class EateriesController extends Controller
             ->get();
         }
         else{
+            
         $all_eateries = DB::table('eateries')
-            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
+            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')     
+             ->leftjoin('cuisines', 'cuisines.id', '=', 'eateries.cuisines_ids')
+             ->leftjoin('brands', 'brands.id', '=', 'eateries.BrandId')   
+             ->leftjoin('groups', 'groups.id', '=', 'eateries.GroupId') 
+             ->leftjoin('locations', 'locations.LocationID', '=', 'eateries.LocationID')
+             ->where(function ($query) use ($search){
+                    $query->where('eateries.BusinessName', 'like', $search)
+                            ->orwhere('eateries.ContactNumber', 'like', $search)
+                            ->orwhere('eateries.locality', 'like', $search)
+                            ->orwhere('cuisine_name', 'like', $search)
+                            ->orwhere('groups.Description', 'like', $search)
+                            ->orwhere('locations.Description', 'like', $search);
+                })
             ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
-            ->where('eateries.LocationID','=',$location_id)
             ->get();
         }
         }
         
         return view('eateries.index')
         ->with('all_eateries',$all_eateries)
-        ->with('locations',$locations)
+        ->with('searchvalue',$searchvalue)
         ->with('location_id',$location_id)
          ->with('privileges',$privileges);
     }
@@ -382,7 +397,7 @@ class EateriesController extends Controller
              //$fileslist[] = pathinfo($path)['dirname'].'/'.pathinfo($path)['basename'];
              $fileslist[] = pathinfo($path)['basename'];
         }
-
+        
         $eateriesmedia = EateriesMedia::where('eatery_id',$id)->get();
 
         return View('eateries.edit')

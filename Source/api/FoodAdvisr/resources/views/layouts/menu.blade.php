@@ -26,15 +26,15 @@ if(in_array(Session::get("role_id"),array(1)))
                         ?>     
                      <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-cog"></span> <span class="xn-text">My Profile</span></a>     
                     </li>
-                    <li class="{{ Request::segment(1) === 'items'? 'active' : null }}"><a href="{{action('ItemsController@index')}}?eatery_id={{$eateryid}}"><span class="fa fa-cutlery"></span>My Items</a></li>
+                   <!--  <li class="{{ Request::segment(1) === 'items'? 'active' : null }}"><a href="{{action('ItemsController@index')}}?eatery_id={{$eateryid}}"><span class="fa fa-cutlery"></span>My Items</a></li> -->
                       <?php }  ?>  
-                    <li class="xn-openable {{ Request::segment(1) === 'itemgroups' || Request::segment(1) === 'itemcategory' ? 'active' : null }}">
+                    <!-- <li class="xn-openable {{ Request::segment(1) === 'itemgroups' || Request::segment(1) === 'itemcategory' ? 'active' : null }}">
                          <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Manage Items</span></a>
                         <ul>
                             <li class="{{ Request::segment(1) === 'itemgroups'? 'active' : null }}"><a href="{{action('ItemGroupsController@index')}}"><span class="fa fa-image"></span> Item Groups</a></li>
                             <li  class="{{ Request::segment(1) === 'itemcategory'? 'active' : null }}"><a href="{{action('ItemCategoriesController@index')}}"><span class="fa fa-user"></span> Item Categories</a></li>
                         </ul>
-                    </li>  
+                    </li>   -->
 
      <?php
 if(!in_array(Session::get("role_id"),array(2)))

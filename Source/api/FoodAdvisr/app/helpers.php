@@ -2,6 +2,7 @@
 use App\RoleModulePrivileges;
 use App\Defaults;
 use App\Log;
+use Carbon\Carbon;
 
 function ValidateUserPrivileges($role_id, $module_id, $privilege_id)
 {
@@ -106,12 +107,29 @@ $sql = "select count(*) as cnt from agent where form_no_to between  '" . $formno
 
 function getaddress($lat,$lng)
 {
-$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&key=AIzaSyDQRQHxDzP0SoX_WMbskBK3OOr5qT3QK08';
+$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&key=AIzaSyApmamnJubEjENg2b9jcNr_jAAvVbgGtTc';
 $json = @file_get_contents($url);
 $data=json_decode($json);
 $status = $data->status;
 if($status=="OK")
-return $data->results[0]->formatted_address;
+return $data->results;
 else
 return 0;
+}
+
+function getLastNDays($days, $format = 'Y-m-d'){
+    $m = date("m"); $de= date("d"); $y= date("Y");
+    $dateArray = array();
+    for($i=0; $i<=$days-1; $i++){
+        $dateArray[] = Carbon::now()->addDays(-1 * $i)->formatLocalized('%Y-%m-%d');; 
+    }
+    return array_reverse($dateArray);
+}
+
+function getEateryByLocation($location_id){
+    $eateries =  DB::table('eateries')
+                ->where('LocationID','=',$location_id)
+                ->select(DB::raw('eateries.id as eatery_id,eateries.BusinessName as eatery_name'))
+                ->get();
+    return $eateries;
 }

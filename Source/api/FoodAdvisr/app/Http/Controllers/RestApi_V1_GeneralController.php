@@ -124,5 +124,31 @@ class RestApi_V1_GeneralController extends Controller
         $data = array('status' => 0,'message' => 'Success','result' => $v1_gettop5eateriesAfterAssociated);
         return $this->appendHeaders($data);
     }
+
+    public function GetEateryByLocation(Request $request)
+    {
+        $location_id = $request['location_id'];
+
+        if($location_id==null || $location_id=='')
+        {
+            $data = array('status' => '201','message' => 'Invalid Location id');
+            return $this->appendHeaders($data);
+        }
+        return $this->appendHeaders(getEateryByLocation($location_id));
+    }
+
+    public function V1_GetCuisines(Request $request)
+    {
+        $v1_getcuisines = v1_getcuisines();
+        $data = array('status' => 0,'message' => 'Success','result' => $v1_getcuisines);
+        return $this->appendHeaders($data);
+    }
+
+    public function V1_LifeStyleChoices(Request $request)
+    {
+        $v1_lifestylechoices = v1_lifestylechoices();
+        $data = array('status' => 0,'message' => 'Success','result' => $v1_lifestylechoices);
+        return $this->appendHeaders($data);
+    }
     
 }
