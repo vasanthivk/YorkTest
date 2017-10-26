@@ -176,7 +176,7 @@ window.location.href="/";
         <script type="text/javascript" src="../../js/actions.js"></script>
         <script type="text/javascript" src="../../js/demo_tables.js"></script>    
         <script type="text/javascript" src="../../js/demo_dashboard.js"></script>
-        <script src="../js/bootstrap-imageupload.js"></script>
+        <script src="../../js/bootstrap-imageupload.js"></script>
         <script type="text/javascript" src="../../js/jasny-bootstrap.js"></script>
         <script type="text/javascript" src="../../js/plugins/datatables/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="../../js/plugins/smartwizard/jquery.smartWizard-2.0.min.js"></script>
