@@ -78,7 +78,7 @@ class EateriesController extends Controller
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
               ->where(function ($query) use ($search){
                     $query->where('eateries.BusinessName', 'like', $search)
-                            ->orwhere('eateries.locality', 'like', $search);
+                            ->orwhere('businesstype', 'like', $search);
                 })
             ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension,eateries.locality'))
             ->get();
