@@ -49,6 +49,19 @@ geocoder.geocode({'address': address}, function (results, status) {
 
 }
 
-$(document).on("Change", "#LocationID", function(){
-    location.reload(true);
-});
+SELECT 
+SUBSTRING_INDEX(Address, ',',-2) as address,
+SUBSTRING_INDEX(SUBSTRING_INDEX(Address, ',', -2), ',', 1) as pincode,
+SUBSTRING_INDEX(SUBSTRING_INDEX(Address, ' ', -3), ' ', 2) as pincode
+FROM eateries
+where LocationId=85
+
+
+INSERT INTO eateries (postal_code)
+SELECT SUBSTRING_INDEX(SUBSTRING_INDEX(Address, ' ', -3), ' ', 2) as pincode
+FROM eateries
+where LocationId=85
+
+SELECT Address,
+SUBSTRING_INDEX(SUBSTRING_INDEX(Address, ' ', -3), ' ', 2) as pincode
+FROM eateries

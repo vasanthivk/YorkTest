@@ -21,7 +21,6 @@ Route::post('validateuser', array('as' => 'validateuser', 'uses' => 'LoginContro
 Route::post('forgot', array('as' => 'forgot', 'uses' => 'LoginController@forgot'));
 Route::resource('dashboard', 'DashboardController');
 Route::resource('eateries', 'EateriesController');
-Route::get('/autocomplete',array('as' => 'autocomplete','uses'=>'EateriesController@autocomplete'));
 Route::any('destroyeatryimage/{imagename}', array('as' => 'destroyeatryimage', 'uses' => 'EateriesController@destroyeatryimage'));
 Route::any('destroyeateryimageedit/{imagename}', array('as' => 'destroyeateryimageedit', 'uses' => 'EateriesController@destroyeateryimageedit'));
 Route::resource('itemgroups', 'ItemGroupsController');
@@ -58,6 +57,11 @@ Route::post('api/v1/addclickbeforeassociated', array('as' => 'v1_addclickbeforea
 Route::post('api/v1/addclickafterassociated', array('as' => 'v1_addclickafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_AddClickAfterAssociated'));
 Route::post('api/v1/getclicksbeforeassociated', array('as' => 'v1_getclicksbeforeassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksBeforeAssociated'));
 Route::post('api/v1/getclicksafterassociated', array('as' => 'v1_getclicksafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksAfterAssociated'));
+
+Route::get('api/v1/getcuisines','RestApi_V1_GeneralController@V1_GetCuisines');
+Route::get('api/v1/lifestylechoices','RestApi_V1_GeneralController@V1_LifeStyleChoices');
+
 Route::get('api/geteaterybylocation','RestApi_V1_GeneralController@GetEateryByLocation');
+
 
 //End------------------------Api Version 1-------------------------End//
