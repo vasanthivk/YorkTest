@@ -56,7 +56,7 @@ My Profile
  </div>
  {{ Form::close() }}
 
- <input type="text" name="searchname" id="searchname" placeholder="search name">
+
  @endif
 <div class="row">
     <div class="col-md-12">
