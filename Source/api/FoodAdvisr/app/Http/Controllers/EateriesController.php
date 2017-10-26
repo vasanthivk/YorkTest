@@ -41,16 +41,20 @@ class EateriesController extends Controller
         return $privileges;
      }
 
-    public function index()
+    public function index(Request $request)
     {
+         if($request['search'])
+            $searchvalue = $request['search'];
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+
+           $location_id = Input::get('location_id');
+
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $location_id = Input::get('location_id');       
-        $locations = DB::table('locations')
-                    ->select(DB::raw('locations.Description as location_name,locations.LocationID as id'))
-                    ->orderby('location_name','asc')
-                    ->get();
+       
         if(in_array(Session::get("role_id"),array(2)))
         {
           $eatery_id = Session::get("eatery_id");
@@ -61,7 +65,7 @@ class EateriesController extends Controller
             ->get();
         } 
         else{            
-        if($location_id=='')
+        if($location_id == '')
         {
             $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
@@ -72,17 +76,34 @@ class EateriesController extends Controller
         else{
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
-            ->where('eateries.LocationID','=',$location_id)
+              ->where(function ($query) use ($search){
+                    $query->where('eateries.BusinessName', 'like', $search)
+                            ->orwhere('eateries.locality', 'like', $search);
+                })
+            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension,eateries.locality'))
             ->get();
         }
         }
         
+       
         return view('eateries.index')
         ->with('all_eateries',$all_eateries)
-        ->with('locations',$locations)
+        ->with('searchvalue',$searchvalue)
         ->with('location_id',$location_id)
          ->with('privileges',$privileges);
+    }
+
+    public function autocomplete(Request $request)
+    {
+        $eateries = $request->eateries;
+        $data = Eateries::where('BusinessName','LIKE','%'.$eateries.'%')
+        ->take(10)
+        ->get();
+        $result = array();
+        foreach ($data as $key => $value) {
+            $result[] = ['value' => $value->BusinessName];
+        }
+        return response()->json($result);
     }
 
     /**
