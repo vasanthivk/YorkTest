@@ -835,11 +835,13 @@ body.on('click','.act-clear-search',function(){
                 op += '<div class="act-eatery">' +
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+'<div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>'+rating_feed+'</div> </div>' +
+                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+ rating_feed+'</div> </div>' +
                 '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
                 '</div>';
+
+                // <div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>
             }
             else
             {
@@ -864,6 +866,22 @@ body.on('click','.act-clear-search',function(){
     {
         $("#loadeateries").text("");
     }
+    body.on('click','.filter',function(){
+      $('.cuisineypes').removeClass('hide');
+      var cuisinesdata=[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
+
+      var op = '';
+          for(idx in cuisinesdata){
+             op +=  "<input type='checkbox' value='" + cuisinesdata[idx].id + "'>" + cuisinesdata[idx].name +"</input>" ;
+          }
+      $(".cusineslist").html(op);
+    });
+    body.on('click','.filter-button',function(){
+      $('.cusineslist').find('input').each(function(){
+              alert($(this).is(":checked")); 
+        });
+    });
+    
 
     body.on('click','.act-eatery',function(){
       var eateryId=$(this).find('#eateryId').val();

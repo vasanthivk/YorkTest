@@ -12,7 +12,7 @@ function onSuccess(position) {
                 if (results[1]) {
                   //alert(results[1].formatted_address);
                  document.getElementById("eatery-search").value =  results[1].formatted_address; 
-                  eaterySearchReset();
+                  eaterySearch(); //Reset
                 }
             }
         });
@@ -22,8 +22,8 @@ function onSuccess(position) {
     // onError Callback receives a PositionError object
     //
     function onError(error) {
-        alert('code: '    + error.code    + '\n' +
-              'message: ' + error.message + '\n');
+        // alert('code: '    + error.code    + '\n' +
+        //       'message: ' + error.message + '\n');
     }
 
 
