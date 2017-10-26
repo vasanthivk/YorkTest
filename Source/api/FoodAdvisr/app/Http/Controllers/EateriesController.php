@@ -41,20 +41,16 @@ class EateriesController extends Controller
         return $privileges;
      }
 
-    public function index(Request $request)
+    public function index()
     {
-         if($request['search'])
-            $searchvalue = $request['search'];
-        else
-            $searchvalue='';
-        $search = '%' . $searchvalue . '%';
-
-           $location_id = Input::get('location_id');
-
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-       
+        $location_id = Input::get('location_id');       
+        $locations = DB::table('locations')
+                    ->select(DB::raw('locations.Description as location_name,locations.LocationID as id'))
+                    ->orderby('location_name','asc')
+                    ->get();
         if(in_array(Session::get("role_id"),array(2)))
         {
           $eatery_id = Session::get("eatery_id");
@@ -65,7 +61,7 @@ class EateriesController extends Controller
             ->get();
         } 
         else{            
-        if($location_id == '')
+        if($location_id=='')
         {
             $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
@@ -76,19 +72,15 @@ class EateriesController extends Controller
         else{
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-              ->where(function ($query) use ($search){
-                    $query->where('eateries.BusinessName', 'like', $search)
-                            ->orwhere('businesstype', 'like', $search);
-                })
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension,eateries.locality'))
+            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
+            ->where('eateries.LocationID','=',$location_id)
             ->get();
         }
         }
         
-       
         return view('eateries.index')
         ->with('all_eateries',$all_eateries)
-        ->with('searchvalue',$searchvalue)
+        ->with('locations',$locations)
         ->with('location_id',$location_id)
          ->with('privileges',$privileges);
     }
