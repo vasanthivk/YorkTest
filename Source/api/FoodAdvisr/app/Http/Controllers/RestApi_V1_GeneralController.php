@@ -144,10 +144,24 @@ class RestApi_V1_GeneralController extends Controller
         return $this->appendHeaders($data);
     }
 
-    public function V1_LifeStyleChoices(Request $request)
+    public function V1_GetLifeStyleChoices(Request $request)
     {
         $v1_lifestylechoices = v1_lifestylechoices();
         $data = array('status' => 0,'message' => 'Success','result' => $v1_lifestylechoices);
+        return $this->appendHeaders($data);
+    }
+
+    public function V1_GetNutritions(Request $request)
+    {
+        $v1_getnutritions = v1_getnutritions();
+        $data = array('status' => 0,'message' => 'Success','result' => $v1_getnutritions);
+        return $this->appendHeaders($data);
+    }
+
+    public function V1_GetAllergens(Request $request)
+    {
+        $v1_getallergens = v1_getallergens();
+        $data = array('status' => 0,'message' => 'Success','result' => $v1_getallergens);
         return $this->appendHeaders($data);
     }
     

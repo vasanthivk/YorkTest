@@ -59,7 +59,9 @@ Route::post('api/v1/getclicksbeforeassociated', array('as' => 'v1_getclicksbefor
 Route::post('api/v1/getclicksafterassociated', array('as' => 'v1_getclicksafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksAfterAssociated'));
 
 Route::get('api/v1/getcuisines','RestApi_V1_GeneralController@V1_GetCuisines');
-Route::get('api/v1/lifestylechoices','RestApi_V1_GeneralController@V1_LifeStyleChoices');
+Route::get('api/v1/getlifestylechoices','RestApi_V1_GeneralController@V1_GetLifeStyleChoices');
+Route::get('api/v1/getnutritions','RestApi_V1_GeneralController@V1_GetNutritions');
+Route::get('api/v1/getallergens','RestApi_V1_GeneralController@V1_GetAllergens');
 
 Route::get('api/geteaterybylocation','RestApi_V1_GeneralController@GetEateryByLocation');
 

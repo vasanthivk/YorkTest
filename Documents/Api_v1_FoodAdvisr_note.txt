@@ -18,40 +18,11 @@ AddClickAfterAssociated - Increase the count
 http://foodadvisr.fire42.com/api/v1/addclickafterassociated
 { "id": "1"}
 
-GetClicksBeforeAssociated - returns the count of clicks
-http://foodadvisr.fire42.com/api/v1/getclicksbeforeassociated
-{ "id": "1"}
+Get Cuisines
+http://foodadvisr.fire42.com/api/v1/getcuisines
 
-GetClicksAfterAssociated - returns the count of clicks
-http://foodadvisr.fire42.com/api/v1/getclicksafterassociated
-{ "id": "1"}
-				AIzaSyD-OGRnCy45Cg6NbUACGfsHUcLr7dMTgvQ-t
-				AIzaSyCjAbQegkQTw96SiwF3T12eprqaFpgE2w8-
-				AIzaSyApmamnJubEjENg2b9jcNr_jAAvVbgGtTc-
-				AIzaSyB86kT_4nyc7OvykmtEQLmFb6lbs95nav4-
-				AIzaSyAflJRAQVRchxd2m5ub4OG6tpx0j-hfshE-
-				AIzaSyAo-1vLBBuUJNBS7wOfJpnlsmtHpahSDz4-t
-				AIzaSyDcmQV2AqNp-RDXbUMRloWNkY6cEr3E820-
-				AIzaSyAX6cghCygM1YolvAxGM4tURDEaBbIQc04-
-				AIzaSyBcclcMCR_ggsbVweniLIBMrO6h1hgcpms-
-				AIzaSyBGCLtuR9HhkL04bNxXdn3MfGCUzJ2lXvc-
-				AIzaSyChrYPrswekWb94_NWvDxw9D7RN7TBDVZ8-
-				AIzaSyD55lqaQbMMpAI8m32O-k1HEBdDtb_ddAQ-
-				AIzaSyDUZUA9FeM1WV59iq04pToxG3mFSmQqu90-
-				AIzaSyDvA2bCERWbq1ZLhLZ6vA2AvNST8Mj2oyo-
-				63
-				
-				71A
-				Camborne Avenue
-				Aylesbury
-				Aylesbury
-				Buckinghamshire
-				England
-				United Kingdom
-				HP21 7UE
-				
-				71A Camborne Ave, Aylesbury HP21 7UE, UK
-				
-				
-				
-				https://laracasts.com/discuss/channels/laravel/how-to-write-an-ajax-search-function
+Get LifeStyleChoices
+http://foodadvisr.fire42.com/api/v1/getlifestylechoices			
+
+Get Allergens
+http://foodadvisr.fire42.com/api/v1/getallergens	

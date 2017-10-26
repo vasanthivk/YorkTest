@@ -93,7 +93,7 @@ ini_set('max_execution_time', 5000);
                 ->get();
         return $result;
     }
-    
+
     function v1_getcuisines()
     {
         $sql  = 'select * from cuisines';
@@ -104,6 +104,20 @@ ini_set('max_execution_time', 5000);
     function v1_lifestylechoices()
     {
         $sql  = 'select * from lifestyle_choices';
+        $result = DB::select( DB::raw($sql));
+        return $result;
+    }
+
+     function v1_getnutritions()
+    {
+        $sql  = 'select * from nutrition_types';
+        $result = DB::select( DB::raw($sql));
+        return $result;
+    }
+
+     function v1_getallergens()
+    {
+        $sql  = 'select * from allergen_types';
         $result = DB::select( DB::raw($sql));
         return $result;
     }
