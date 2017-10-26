@@ -4,9 +4,9 @@
   "displayName": "FoodAdvisr",
   "cordova": {
     "platforms": [
+      "ios",
       "android",
-      "browser",
-      "ios"
+      "browser"
     ],
     "plugins": {
       "cordova-plugin-device": {},
@@ -21,7 +21,7 @@
   },
   "dependencies": {
     "cordova-android": "^6.3.0",
-    "cordova-browser": "~4.1.0",
+    "cordova-browser": "^5.0.1",
     "cordova-ios": "^4.5.2",
     "cordova-plugin-device": "~1.1.5",
     "cordova-plugin-geolocation": "~2.4.3",
