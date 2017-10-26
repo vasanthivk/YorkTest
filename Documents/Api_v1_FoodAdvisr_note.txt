@@ -22,7 +22,10 @@ Get Cuisines
 http://foodadvisr.fire42.com/api/v1/getcuisines
 
 Get LifeStyleChoices
-http://foodadvisr.fire42.com/api/v1/getlifestylechoices			
+http://foodadvisr.fire42.com/api/v1/getlifestylechoices		
+
+Get Nutritions	
+http://foodadvisr.fire42.com/api/v1/getnutritions	
 
 Get Allergens
 http://foodadvisr.fire42.com/api/v1/getallergens	
