@@ -871,15 +871,27 @@ body.on('click','.act-clear-search',function(){
 
       api.getCuisines(function(data)
       {
-        console.log("get cuisines"+ JSON.stringify(data));
+        
           var op = '';
+          op += "<h2>cuisines</h2>"
           for(idx in data.result){
              op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].cuisine_name +"</input></br>" ;
           }
       $(".cusineslist").html(op);
-          //alert(data);
+         
       });//[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
 
+       api.getLifeStyleChoices(function(data)
+      {
+        
+          var op = '';
+          op += "<h2>Lifestylechoices</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].description +"</input></br>" ;
+          }
+      $(".lifestylelist").html(op);
+         
+      });
       
     });
     body.on('click','.filter-button',function(){
