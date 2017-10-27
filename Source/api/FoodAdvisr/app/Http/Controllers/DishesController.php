@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\ItemCategories;
-use App\ItemGroups;
+use App\MenuSubSection;
+use App\MenuSection;
+use App\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Input;
-use App\Items;
+use App\Dishes;
 use File;
 use Image;
 use App\Category;
@@ -21,7 +22,7 @@ use DateTimeZone;
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
 
-class ItemsController extends Controller
+class DishesController extends Controller
 {
     /**
      * Display a listing of the resource.
