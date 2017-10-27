@@ -60,6 +60,9 @@ myProfile.person.settings=1;
 	//	msg.show('error 002');
 	//}
 
+	//get current Location fire42
+	GetCurrentLocation();
+
 
 
 

@@ -25,12 +25,3 @@ function onSuccess(position) {
         // alert('code: '    + error.code    + '\n' +
         //       'message: ' + error.message + '\n');
     }
-
-
-//Event for device ready
- document.addEventListener("deviceready", onDeviceReady, false);
-
-function onDeviceReady() {
-    // Now safe to use the PhoneGap API
-    GetCurrentLocation();
-}
