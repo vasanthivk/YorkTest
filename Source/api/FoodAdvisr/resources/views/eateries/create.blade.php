@@ -16,6 +16,8 @@ Eateries
 {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahCheckbox', 'components.form.checkbox', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
+{{Form::component('ahSearchSelect', 'components.form.searchselect', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
+{{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
 {{ Form::open(array('route' => 'eateries.store','files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -27,16 +29,15 @@ Eateries
 		        {{ Form::ahText('BusinessName','Business Name :','',array('maxlength'=> '1000'))  }}
             {{ Form::ahSelect('BusinessTypeID','Business Type :','',$businesstypes)  }}
             {{ Form::ahTextarea('Address','Address :','',array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
-             {{ Form::ahSelect('LocationID','Location :','',$locations,array("onchange"=>"ChooseContact(this)"))  }}
+            {{ Form::ahSelect('LocationID','Location :',null,$locations,array("onchange"=>"ChooseContact(this)")) }}
              {{ Form::ahNumber('ContactNumber','Contact Number :','',array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
 		        {{ Form::ahText('WebSite','WebSite :','',array('maxlength' => '100'))  }}
             {{ Form::ahText('EmailId','EmailId :','',array('maxlength' => '100'))  }}    
             {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
-            {{ Form::ahCheckbox('IsAssociated','Is Associated :',null) }}     
+            {{ Form::ahSwitch('IsAssociated','Is Associated :',null) }}     
             {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}      
-		        </br>
-            
+		        </br>            
 		    </div>
 		     <div class="col-md-6">	       		     
             
@@ -91,6 +92,7 @@ Eateries
  function ChooseContact(data) {
 
 var location = document.getElementById ("searchInput").value = data.value;
+alert(location);
 }
 function initialize() {
    var latlng = new google.maps.LatLng(51.509865,-0.118092);
