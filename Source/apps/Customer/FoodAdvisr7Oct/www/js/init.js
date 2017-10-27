@@ -868,13 +868,19 @@ body.on('click','.act-clear-search',function(){
     }
     body.on('click','.filter',function(){
       $('.cuisineypes').removeClass('hide');
-      var cuisinesdata=[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
 
-      var op = '';
-          for(idx in cuisinesdata){
-             op +=  "<input type='checkbox' value='" + cuisinesdata[idx].id + "'>" + cuisinesdata[idx].name +"</input>" ;
+      api.getCuisines(function(data)
+      {
+        console.log("get cuisines"+ JSON.stringify(data));
+          var op = '';
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].cuisine_name +"</input></br>" ;
           }
       $(".cusineslist").html(op);
+          //alert(data);
+      });//[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
+
+      
     });
     body.on('click','.filter-button',function(){
       $('.cusineslist').find('input').each(function(){
