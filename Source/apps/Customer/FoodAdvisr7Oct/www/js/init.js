@@ -868,13 +868,31 @@ body.on('click','.act-clear-search',function(){
     }
     body.on('click','.filter',function(){
       $('.cuisineypes').removeClass('hide');
-      var cuisinesdata=[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
 
-      var op = '';
-          for(idx in cuisinesdata){
-             op +=  "<input type='checkbox' value='" + cuisinesdata[idx].id + "'>" + cuisinesdata[idx].name +"</input>" ;
+      api.getCuisines(function(data)
+      {
+        
+          var op = '';
+          op += "<h2>cuisines</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].cuisine_name +"</input></br>" ;
           }
       $(".cusineslist").html(op);
+         
+      });//[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
+
+       api.getLifeStyleChoices(function(data)
+      {
+        
+          var op = '';
+          op += "<h2>Lifestylechoices</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].description +"</input></br>" ;
+          }
+      $(".lifestylelist").html(op);
+         
+      });
+      
     });
     body.on('click','.filter-button',function(){
       $('.cusineslist').find('input').each(function(){

@@ -26,6 +26,7 @@ My Profile
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahReadonly', 'components.form.readonly', ['name', 'labeltext'=>null, 'value' => null])}}
 {{Form::component('ahCheckbox', 'components.form.checkbox', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
+{{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
 {{ Form::open(array('method' => 'PUT', 'route' => array('eateries.update',$eateries->id),'files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -43,7 +44,7 @@ My Profile
             {{ Form::ahText('EmailId','EmailId :',$eateries->EmailId,array('maxlength' => '100'))  }}    
             {{ Form::ahText('Longitude','Longitude :',$eateries->Longitude,array("readonly"=>"true"))  }}
             {{ Form::ahText('Latitude','Latitude :',$eateries->Latitude,array("readonly"=>"true"))  }}
-            {{ Form::ahCheckbox('IsAssociated','Is Associated :',null,$eateries->IsAssociated) }}     
+            {{ Form::ahSwitch('IsAssociated','Is Associated :',null,$eateries->IsAssociated) }}      
             {{ Form::ahDate('AssociatedOn','Associated On :', $eateries->AssociatedOn) }} 
             </br>
         </div>

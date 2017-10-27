@@ -78,10 +78,10 @@ html,body{
 .act-eatery {
     min-height: 100px;
     color: white;
-    margin-bottom: 10px;
+   /* margin-bottom: 10px;*/
     padding: 10px;
     background: #ffffff;
-    border-radius: 6px;
+    /*border-radius: 6px;*/
     box-shadow: 0px 0px 1px 1px #ccc;
 }
   .act-eatery-logo      { width: 24%;}
@@ -99,14 +99,14 @@ html,body{
     width: 80px;
     height: 80px;
     border: 1px solid rgba(128, 128, 128, 0.21);
-    border-radius: 4px;
+   /* border-radius: 4px;*/
 }
   .act-eatery-name      {
     width: 75%;
     color: #3d4152;
-    font-size: 14px;
+  
     font-family: roboto;
-    font-size: 0.90rem;
+    font-size: 1rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
@@ -121,11 +121,10 @@ html,body{
     padding-right: 10px;
 }
 .in-act-eatery-image {
-    /*width: 66px;*/
-    /*height: 14px;*/
-    /*background: linear-gradient(to bottom, rgba(221, 221, 221, 0.3) 0%, rgba(146, 146, 146, 0.48) 100%);*/
-    width: 100px;
+   
+    width: 80px;
     height: 80px;
+	border:1px solid #D4D4D4;
 }
 img#eaterylogo {
     float: left;
@@ -265,27 +264,27 @@ div#toggled-items {
   .in-act-eatery{
       min-height: 100px;
       color: white;
-      margin-bottom: 10px;
+      /*margin-bottom: 10px;*/
       padding: 10px;
       background: #efefef;
-      border-radius: 5px;
+     /* border-radius: 5px;*/
       box-shadow: 0px 0px 1px 1px #ccc;
   }
-  .in-act-eatery-logo      { width: 25%;}
+  .in-act-eatery-logo      { width: 24%;}
 .in-act-eatery-name {
     /* width: 75%; */
     width: 75%;
     color: #00b2a9;
     /* font-size: 14px; */
     font-family: roboto;
-    font-size: 1.2rem;
+    font-size: 1rem;
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
     padding-right: 5%;
 }
 .in-act-action-div {
-    border-top: 1px solid #e9e9eb;
+    border-top: 1px solid #e2d7d7;
     margin-top: 22px;
     padding-top: 12px;
     color: #686b78;
@@ -400,7 +399,7 @@ div#toggled-items {
     width:100%;
     height: 100px;
 }
-
+.eatery-filtershow{}
 
 
 .eatery-tab-wrap{
@@ -913,7 +912,7 @@ padding:2%;
 }
 
 .inner-frame{
-  padding:3%;
+ /* padding:3%;*/
 }
 
 

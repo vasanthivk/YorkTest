@@ -68,6 +68,30 @@ api.getEateries=function(latitude, longitude,searchval, callBack)
     });
 }
 
+api.getCuisines=function(callBack)
+{
+    
+    $.get(api.eateiesroot+'getcuisines',function(data){
+      
+      callBack(data);
+      
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+
+api.getLifeStyleChoices=function(callBack)
+{
+    
+    $.get(api.eateiesroot+'getlifestylechoices',function(data){
+      
+      callBack(data);
+      
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+
 api.getAddClickBeforeAssociated=function(eateryId,callBack)
 {
     postData = '{"id": ' + eateryId + '}';
