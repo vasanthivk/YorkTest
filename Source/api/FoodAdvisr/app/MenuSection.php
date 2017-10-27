@@ -4,8 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class ItemCategories extends Model
+class MenuSection extends Model
 {
     public $timestamps = false;
-    protected $table = 'item_categories';
+    protected $table = 'menu_section';
 }

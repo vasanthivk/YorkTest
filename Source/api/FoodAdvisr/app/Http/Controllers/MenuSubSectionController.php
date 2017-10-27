@@ -9,15 +9,16 @@ use DB;
 use Session;
 use Input;
 use App\Menu;
+use App\MenuSection;
+use App\MenuSubSection;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
 use File;
 use Image;
 
-class MenuController extends Controller
+class MenuSubSectionController extends Controller
 {
-
     /**
      * Display a listing of the resource.
      *

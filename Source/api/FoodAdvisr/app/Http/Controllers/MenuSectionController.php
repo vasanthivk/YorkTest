@@ -8,13 +8,15 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Input;
-use App\ItemGroups;
+use App\Menu;
+use App\MenuSection;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
 use File;
 use Image;
-class ItemGroupsController extends Controller
+
+class MenuSectionController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -24,10 +26,10 @@ class ItemGroupsController extends Controller
     private function getPrivileges()
      {
         $roleid = Session::get("role_id");
-        $privileges['View']  = ValidateUserPrivileges($roleid,6,1);  //role, module, privilege
-        $privileges['Add']  = ValidateUserPrivileges($roleid,6,2);
-        $privileges['Edit']  = ValidateUserPrivileges($roleid,6,3);
-        $privileges['Delete']  = ValidateUserPrivileges($roleid,6,4);
+        $privileges['View']  = ValidateUserPrivileges($roleid,7,1);  //role, module, privilege
+        $privileges['Add']  = ValidateUserPrivileges($roleid,7,2);
+        $privileges['Edit']  = ValidateUserPrivileges($roleid,7,3);
+        $privileges['Delete']  = ValidateUserPrivileges($roleid,7,4);
         // $privileges['Approve']  = ValidateUserPrivileges(1,7,3);
         // $privileges['Reject']  = ValidateUserPrivileges(1,7,3);
         
@@ -36,13 +38,13 @@ class ItemGroupsController extends Controller
 
     public function index()
     {
-       if ( !Session::has('user_id') || Session::get('user_id') == '' )
+         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $item_groups = DB::table('item_groups')
+        $itemcategories = DB::table('item_categories')
         ->select(DB::raw('*'))
         ->get();
-         return View('itemgroups.index', compact('item_groups'))         
+         return View('itemcategory.index', compact('itemcategories'))         
         ->with('privileges',$privileges);
     }
 
@@ -53,17 +55,19 @@ class ItemGroupsController extends Controller
      */
     public function create()
     {
-        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        return View('itemgroups.create')          
+        $itegroups = ItemGroups::all()->pluck('group_name','id');
+        return View('itemcategory.create')          
+        ->with('itegroups',$itegroups)
         ->with('privileges',$privileges);
     }
 
-    private function saveLogoInTempLocation($file)
+     private function saveLogoInTempLocation($file)
      {
         $session_id = Session::getId();
-        $tempdestinationPath = env('CONTENT_ITEM_GROUP_TEMP_PATH');
+        $tempdestinationPath = env('CONTENT_ITEM_CATEGORY_TEMP_PATH');
         $extension = $file->getClientOriginalExtension();
         $filename = $session_id . '.' . $extension;
         $upload_success = $file->move($tempdestinationPath, $filename);
@@ -73,8 +77,8 @@ class ItemGroupsController extends Controller
      private function saveLogoInLogoPath($itemgropuid, $extension)
     {
         $session_id = Session::getId();
-        $sourceDir = env('CONTENT_ITEM_GROUP_TEMP_PATH');
-        $destinationDir = env('CONTENT_ITEM_GROUP_PATH');
+        $sourceDir = env('CONTENT_ITEM_CATEGORY_TEMP_PATH');
+        $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');
         $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemgropuid . '.' .  $extension);        
         try {
             $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);     
@@ -86,7 +90,7 @@ class ItemGroupsController extends Controller
 
     private function deleteLogo($itemgropuid, $extension)
     {
-        $sourceDir = env('CONTENT_ITEM_GROUP_PATH');
+        $sourceDir = env('CONTENT_ITEM_CATEGORY_PATH');
         try {
             $success = File::delete($sourceDir . '//' . $itemgropuid . '.' .  $extension);        
         } catch (Exception $e) {
@@ -96,6 +100,7 @@ class ItemGroupsController extends Controller
         } catch (Exception $e) {
         }
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -119,51 +124,53 @@ class ItemGroupsController extends Controller
             $extension = $this->saveLogoInTempLocation($file); 
 
         $this->validate($request, [
-            'group_name'  => 'required']);        
+            'category_name'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('itemgroups.create')
+            return Redirect::route('itemcategory.create')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
         }
         else
         {    
-            $itemgroups = new ItemGroups();
-            $itemgroups->group_name = Input::get('group_name');
-            $itemgroups->is_visible = 1;
-            $itemgroups->display_order = Input::get('display_order');;
-            $itemgroups->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemgroups->added_by = Session::get('user_id');
-            $itemgroups->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemgroups->modified_by = Session::get('user_id');
+            $itemcategory = new ItemCategories();
+            $itemcategory->category_name = Input::get('category_name');
+            $itemcategory->description = Input::get('description');
+            $itemcategory->group_id = Input::get('group_id');
+            $itemcategory->is_visible = 1;
+            $itemcategory->display_order = Input::get('display_order');;
+            $itemcategory->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $itemcategory->added_by = Session::get('user_id');
+            $itemcategory->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $itemcategory->modified_by = Session::get('user_id');
              if($file <> null)
-                $itemgroups->logo_extension = $extension; 
-            $itemgroups->save();           
+                $itemcategory->logo_extension = $extension; 
+            $itemcategory->save();           
 
             if(!empty($extension))
             {
-             $destinationDir = env('CONTENT_ITEM_GROUP_PATH');            
-             $LogoPath=$destinationDir . '/' . $itemgroups->id . '.' .  $itemgroups->logo_extension;
-             $itemgroups->img_url =  $LogoPath;
-             $itemgroups->update();
+             $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');            
+             $LogoPath=$destinationDir . '/' . $itemcategory->id . '.' .  $itemcategory->logo_extension;
+             $itemcategory->img_url =  $LogoPath;
+             $itemcategory->update();
             }
              if($file <> null)
-                $this->saveLogoInLogoPath($itemgroups->id, $extension);
+                $this->saveLogoInLogoPath($itemcategory->id, $extension);
 
             $log = new Log();
-            $log->module_id=6;
+            $log->module_id=7;
             $log->action='create';      
-            $log->description='Item Groups ' . $itemgroups->group_name . ' is created';
+            $log->description='Item Category ' . $itemcategory->category_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('itemgroups.index')->with('success','Item Groups Created Successfully!');
+        return Redirect::route('itemcategory.index')->with('success','Item Category Created Successfully!');
         
         }
     }
@@ -187,14 +194,16 @@ class ItemGroupsController extends Controller
      */
     public function edit($id)
     {
-         if ( !Session::has('user_id') || Session::get('user_id') == '' )
+        if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         if($privileges['Edit'] !='true')
             return Redirect::to('/');        
-        $itemgroups = ItemGroups::find($id);
-        return View('itemgroups.edit')
-        ->with('itemgroups',$itemgroups)
+        $itemcategories = ItemCategories::find($id);
+        $itegroups = ItemGroups::all()->pluck('group_name','id');
+        return View('itemcategory.edit')          
+        ->with('itegroups',$itegroups)
+        ->with('itemcategories',$itemcategories)
         ->with('privileges',$privileges);
     }
 
@@ -221,66 +230,68 @@ class ItemGroupsController extends Controller
             $extension = $this->saveLogoInTempLocation($file);
 
         $this->validate($request, [
-            'group_name'  => 'required']);        
+            'category_name'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('itemgroups.edit')
+            return Redirect::route('itemcategory.edit')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
         }
         else
         {  
-            $itemgroups = ItemGroups::find($id);
+            $itemcategory = ItemCategories::find($id);
              if($file <> null)
              {
-            $success = File::delete($itemgroups->img_url);
-            $LogoPath = env('CONTENT_ITEM_GROUP_PATH') . '/' . $itemgroups->id .  '_t.' . $itemgroups->logo_extension ;
+            $success = File::delete($itemcategory->img_url);
+            $LogoPath = env('CONTENT_ITEM_CATEGORY_PATH') . '/' . $itemcategory->id .  '_t.' . $itemcategory->logo_extension ;
             $delete=File::delete($LogoPath);
             }             
             
               if(empty($extension))
             {
-                $destinationDir = env('CONTENT_ITEM_GROUP_PATH');
-                $LogoPath=$destinationDir . '/' . $id . '.' .  $itemgroups->logo_extension; 
+                $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');
+                $LogoPath=$destinationDir . '/' . $id . '.' .  $itemcategory->logo_extension; 
             }
             else
             {
-                $destinationDir = env('CONTENT_ITEM_GROUP_PATH');
+                $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');
                 $LogoPath=$destinationDir . '/' . $id . '.' .  $extension;
             }
 
            
-            $itemgroups->group_name = Input::get('group_name');
-            $itemgroups->is_visible = 1;
-            $itemgroups->display_order = Input::get('display_order');;
-            $itemgroups->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemgroups->added_by = Session::get('user_id');
-            $itemgroups->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemgroups->modified_by = Session::get('user_id');
-            $itemgroups->img_url = $LogoPath;
-            $itemgroups->Update();           
+            $itemcategory->category_name = Input::get('category_name');
+            $itemcategory->description = Input::get('description');
+            $itemcategory->group_id = Input::get('group_id');
+            $itemcategory->is_visible = 1;
+            $itemcategory->display_order = Input::get('display_order');;
+            $itemcategory->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $itemcategory->added_by = Session::get('user_id');
+            $itemcategory->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $itemcategory->modified_by = Session::get('user_id');
+            $itemcategory->img_url = $LogoPath;
+            $itemcategory->Update();           
 
             if($file <> null)
-                $itemgroups->logo_extension = $extension;
-            $itemgroups->update();          
+                $itemcategory->logo_extension = $extension;
+            $itemcategory->update();          
 
             if($file <> null)
-                $this->saveLogoInLogoPath($itemgroups->id, $extension);
+                $this->saveLogoInLogoPath($itemcategory->id, $extension);
 
             $log = new Log();
-            $log->module_id=6;
+            $log->module_id=7;
             $log->action='update';      
-            $log->description='Item Groups ' . $itemgroups->group_name . ' is updated';
+            $log->description='Item Category ' . $itemcategory->group_name . ' is updated';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('itemgroups.index')->with('success','Item Groups Updated Successfully!');
+        return Redirect::route('itemcategory.index')->with('success','Item Category Updated Successfully!');
         
         }
     }
@@ -293,24 +304,24 @@ class ItemGroupsController extends Controller
      */
     public function destroy($id)
     {
-        $itemgroups = ItemGroups::find($id);
-        if (is_null($itemgroups))
+        $itemcategory = ItemCategories::find($id);
+        if (is_null($itemcategory))
         {
-         return Redirect::back()->with('warning','Item Groups Details Are Not Found!');
+         return Redirect::back()->with('warning','Item Category Details Are Not Found!');
         }
         else
         {
-           ItemGroups::find($id)->delete();
-
-            try {
-                $this->deleteLogo($itemgroups->id, $itemgroups->logo_extension);
+           ItemCategories::find($id)->delete();
+          
+             try {
+                $this->deleteLogo($itemcategory->id, $itemcategory->logo_extension);
             } catch (Exception $e) {
             }
 
             $log = new Log();
-            $log->module_id=6;
+            $log->module_id=7;
             $log->action='delete';      
-            $log->description='Item Groups '. $itemgroups->group_name . ' is Deleted';
+            $log->description='Item Category '. $itemcategory->category_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
