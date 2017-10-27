@@ -936,7 +936,7 @@ body.on('click','.act-clear-search',function(){
           if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
           {
             var opCuisines = '';
-            var items = data.result.cuisines_ids.split(',').forEach(function(value){
+            data.result.cuisines_ids.split(',').forEach(function(value){
               for(idxc in cuisines.list)
               {
                 if(value == cuisines.list[idxc].id)
@@ -951,6 +951,16 @@ body.on('click','.act-clear-search',function(){
           if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
           {
             var opLifeStyles = '';
+            data.result.lifestyle_choices_ids.split(',').forEach(function(value){
+              for(idxc in lifestylechoices.list)
+              {
+                if(value == lifestylechoices.list[idxc].id)
+                {
+                   opLifeStyles += "<img width='25px' height='25px' src='"+ appSettings.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
+                   break;
+                }
+              }
+            })
             $("#eaterylifestylechoices").html(opLifeStyles);
           }
 
