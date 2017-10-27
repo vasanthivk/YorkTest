@@ -137,7 +137,8 @@ window.location.href="/";
         <script type="text/javascript" src="../../js/plugins/tableexport/html2canvas.js"></script>
         <script type="text/javascript" src="../../js/plugins/tableexport/jspdf/libs/sprintf.js"></script>
         <script type="text/javascript" src="../../js/plugins/tableexport/jspdf/jspdf.js"></script>
-        <script type="text/javascript" src="../../js/plugins/tableexport/jspdf/libs/base64.js"></script>    
+        <script type="text/javascript" src="../../js/plugins/tableexport/jspdf/libs/base64.js"></script>
+          
 
         <script type="text/javascript" src="../../js/plugins/morris/raphael-min.js"></script>
         <script type="text/javascript" src="../../js/plugins/morris/morris.min.js"></script>       

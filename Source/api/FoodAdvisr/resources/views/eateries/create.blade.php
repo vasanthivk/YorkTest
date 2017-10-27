@@ -20,6 +20,7 @@ Eateries
 {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
 {{ Form::open(array('route' => 'eateries.store','files'=>true)) }}
+
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>
@@ -36,8 +37,30 @@ Eateries
             {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahSwitch('IsAssociated','Is Associated :',null) }}     
-            {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}      
-		        </br>            
+            {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}
+             <div class="form-group" style="margin:5px">
+                  <label for="cuisine" class="control-label col-sm-4">Cuisines :</label>
+                  <div class="col-md-8">
+                      <select multiple name="cuisines_ids[]" data-live-search='true' class="form-control select">
+                      @foreach($cuisines as $cuisine)
+                      <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
+                      @endforeach
+                      </select>
+                  </div>
+            </div> 
+            <div class="form-group" style="margin:5px">
+                  <label for="lifestyle_choices" class="control-label col-sm-4">Lifestyle Choices :</label>
+                  <div class="col-md-8">
+                      <select multiple name="lifestyle_choices_ids[]" id="lifestyle_choices_ids[]" class="form-control select">
+                        <option value="0">Please </option>
+                      @foreach($lifestyle_choices as $lifestyle_choice)
+                      <option value="{{$lifestyle_choice->id}}">{{$lifestyle_choice->description}}</option>
+                      @endforeach
+                      </select>
+                  </div>
+            </div>      
+		        </br> 
+
 		    </div>
 		     <div class="col-md-6">	       		     
             
@@ -92,7 +115,6 @@ Eateries
  function ChooseContact(data) {
 
 var location = document.getElementById ("searchInput").value = data.value;
-alert(location);
 }
 function initialize() {
    var latlng = new google.maps.LatLng(51.509865,-0.118092);
