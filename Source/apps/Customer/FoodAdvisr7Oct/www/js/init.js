@@ -925,7 +925,37 @@ body.on('click','.act-clear-search',function(){
           $('#eaterylogo').attr("src",appSettings.mediaPath +data.result.LogoPath);
           $("#eaterybusinessname").text(data.result.BusinessName);
           $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
-          $("#eateryaddress").text(data.result.Address);
+          var eateryAddress = data.result.Address + "<br/>" + 
+                              (data.result.locality == null ? "" : data.result.locality + "<br/>") +
+                              (data.result.area_level_1 == null ? "" : data.result.area_level_1 + "<br/>") +
+                              (data.result.area_level_2 == null ? "" : data.result.area_level_2 + "<br/>") +
+                              (data.result.postal_town == null ? "" : data.result.postal_town + "<br/>") +
+                              (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
+          $("#eateryaddress").html(eateryAddress);
+
+          if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
+          {
+            var opCuisines = '';
+            var items = data.result.cuisines_ids.split(',').forEach(function(value){
+              for(idxc in cuisines.list)
+              {
+                if(value == cuisines.list[idxc].id)
+                {
+                   opCuisines += cuisines.list[idxc].cuisine_name + ',';
+                   break;
+                }
+              }
+            })
+            $("#eaterycuisines").html(opCuisines);
+          }
+          if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
+          {
+            var opLifeStyles = '';
+            $("#eaterylifestylechoices").html(opLifeStyles);
+          }
+
+
+          lifestylechoices.list
 
             var media = data.result.media.images;
             var mediaPath = [];

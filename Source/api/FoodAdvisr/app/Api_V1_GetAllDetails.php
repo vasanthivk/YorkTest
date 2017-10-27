@@ -28,8 +28,8 @@ ini_set('max_execution_time', 5000);
         if($result <> null)
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
-            $result->cuisines_ids = getCusinesById($result->cuisines_ids);
-            $result->lifestyle_choices_ids = getLifestyleChoicesById($result->lifestyle_choices_ids);
+            // $result->cuisines_ids = getCusinesById($result->cuisines_ids);
+            // $result->lifestyle_choices_ids = getLifestyleChoicesById($result->lifestyle_choices_ids);
         return $result;     
     }
 
