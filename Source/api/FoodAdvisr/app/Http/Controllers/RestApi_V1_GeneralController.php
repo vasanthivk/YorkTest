@@ -33,10 +33,11 @@ class RestApi_V1_GeneralController extends Controller
             if(empty($cuisines_ids))
             {
                 $cuisines_ids = 0;
+
             }
             else{
                  $cuisines_ids = $request->{'cuisines_ids'};
-            }
+            }            
             $lifestyle_choices_ids = $request->{'lifestyle_choices_ids'}; 
             if(empty($lifestyle_choices_ids))
             {
