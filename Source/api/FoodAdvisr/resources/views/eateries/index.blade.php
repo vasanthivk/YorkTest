@@ -28,8 +28,8 @@ My Profile
                <div class="form-group" style="margin:5px">
                     <label for="location_id" class="control-label col-sm-4"></label>
                         <div class="input-group push-down-10">
-                            <span class="input-group-addon"><span class="fa fa-search"></span></span>
-                            <input type="text" class="form-control" name="search" id="search" placeholder="Keywords..." value="{{$searchvalue}}"/>
+                            <span class="input-group-addon"><span class="fa fa-info-circle fa-1x" title='Eatery Names,Locations,Contact Numbers,Zip,Cuisines'></span></span>
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search...." value="{{$searchvalue}}"/>
                             <div class="input-group-btn">
                                 <button class="btn btn-primary">Search</button>
                             </div>

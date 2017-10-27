@@ -38,12 +38,19 @@ Eateries
             {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahSwitch('IsAssociated','Is Associated :',null) }}     
             {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}
+            <?php 
+            if(isset($cuisines) || isset($lifestyle_choices))
+            {           
+            $cuisines_ids = Session::get('cuisines');
+            $lifestyle_choices_ids = Session::get('lifestyle_choices');
+            }
+            ?>
              <div class="form-group" style="margin:5px">
                   <label for="cuisine" class="control-label col-sm-4">Cuisines :</label>
                   <div class="col-md-8">
                       <select multiple name="cuisines_ids[]" data-live-search='true' class="form-control select">
                       @foreach($cuisines as $cuisine)
-                      <option value="{{$cuisine->id}}">{{$cuisine->cuisine_name}}</option>
+                     <option value="{{$cuisine->id}}" @if(isset($cuisines_ids)) @if(in_array($cuisine->id,$cuisines_ids)) selected="selected" @endif @endif>{{$cuisine->cuisine_name}}</option>
                       @endforeach
                       </select>
                   </div>
@@ -53,7 +60,7 @@ Eateries
                   <div class="col-md-8">
                       <select multiple name="lifestyle_choices_ids[]" id="lifestyle_choices_ids[]" class="form-control select">
                       @foreach($lifestyle_choices as $lifestyle_choice)
-                      <option value="{{$lifestyle_choice->id}}">{{$lifestyle_choice->description}}</option>
+                       <option value="{{$lifestyle_choice->id}}" @if(isset($lifestyle_choices_ids)) @if(in_array($lifestyle_choice->id,$lifestyle_choices_ids)) selected="selected" @endif @endif>{{$lifestyle_choice->description}}</option>
                       @endforeach
                       </select>
                   </div>

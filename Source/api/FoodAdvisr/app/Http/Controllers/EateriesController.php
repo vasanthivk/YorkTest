@@ -209,7 +209,9 @@ class EateriesController extends Controller
     public function store(Request $request)
     {
         $input = Input::all(); 
-        $file_size = $_FILES['logo']['size'];       
+        Session::put('cuisines',Input::get('cuisines_ids'));
+        Session::put('lifestyle_choices',Input::get('lifestyle_choices_ids'));
+         $file_size = $_FILES['logo']['size'];       
         if($file_size > 2097152)
             {
                  return Redirect::back()->with('warning','File size must be less than 2 MB!')
