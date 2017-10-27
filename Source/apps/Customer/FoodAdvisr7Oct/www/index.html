@@ -214,7 +214,7 @@ You can select membership of a range of communities to belong to, which allows y
 
 
     <div class="error-count">0</div>
-    <div class="error-list"></div>
+    <div class="error-list" ></div>
     <div class="message"></div>
     <div class="detailpop"><div class="closer act-hide-parent">X</div><div class="detail-targ"></div></div>
     <div class="accountpop">
@@ -559,18 +559,19 @@ You can select membership of a range of communities to belong to, which allows y
           <div style="position:relative;">
             <input type="search" id="eatery-search" value="" placeholder="Search"/>
             <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
+            <div class="filter"><i class="fa fa-filter" aria-hidden="true"></i></div>
           </div>
          <span class="eatery-tab-wrap">
-                <a href="#list" class="act-eatery-tab selected">List</a>
-                <a href="#map" class="act-eatery-tab">Map</a>
-                <div class="eatery-tab-underline"></div>
+                <a href="#list" class="act-eatery-tab selected" style="display:none">List</a>
+                <a href="#map" class="act-eatery-tab" style="display:none">Map</a>
+                <div class="eatery-tab-underline" style="display:none"></div>
             </span>
             <div class="cuisineypes hide">
                 <div class="cusineslist"></div>
                 <div class="lifestylelist"></div>
-                <div class="filter-button" ></div>
+                <div class="filter-button" >submit</div>
             </div>
-            <div class="filter">Show Filter</div>
+            
             <div id="map" class="eateries-map eatery-frame inner-frame hide" style="width:250;height:400px;background:yellow"></div>
             <div id="loadeateries" class="eateries-list eatery-frame inner-frame "></div>             
             <!--<div id="retail-space">Retail space</div>-->
@@ -640,7 +641,7 @@ You can select membership of a range of communities to belong to, which allows y
          <div class="ctpanel loggedin hide helpable menu-res-background" id="ct-eaterydetails">
             <div class="res-details-div">
               <!-- <img id='eaterylogo'src='' width="100px" height="100px" /> -->
-                <a href="#retail" class="act-menu"><span class="fa fa-chevron-left"></span></a><div class="eatery-rating"><img src="img/star.png"  width="10px;" height="10px";/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
+                <a href="#retail" class="act-menu"><span class="fa fa-chevron-left"></span></a><div class="eatery-rating"><img src="img/star.png"  width="18px;" height="18px";/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
                 <div id='eaterybusinessname'></div>
                 <i class="fa fa-heart-o"></i>
                 <div class="eatery-distance"><span id='eaterydistance'></span></div>

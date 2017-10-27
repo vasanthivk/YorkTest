@@ -814,25 +814,10 @@ body.on('click','.act-clear-search',function(){
       return false;
 
     });
-    function eaterySearch()
+    function eaterySearch(latitude, longitude,searchval)
     {
-      //openLoading();
-
-       var cuisines_ids = [];
-      var lifestyle_choices_ids = [];
-      $('.cusineslist').find('input').each(function(){
-            if($(this).is(":checked"))
-            {
-              cuisines_ids.push($(this).val());
-            } 
-        });
-       $('.lifestylelist').find('input').each(function(){
-            if($(this).is(":checked"))
-            {
-              lifestyle_choices_ids.push($(this).val());
-            } 
-        });
-      api.getEateries(geocoords.latitude, geocoords.longitude, geocoords.locationfrom,cuisines_ids.toString(),lifestyle_choices_ids.toString(),function(data){
+      openLoading();
+      api.getEateries(latitude, longitude, searchval,"","",function(data){
         var op ='';
         if(data.result.length > 0)
         {
@@ -890,7 +875,7 @@ body.on('click','.act-clear-search',function(){
           var op = '';
           op += "<h2>cuisines</h2>"
           for(idx in data.result){
-             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' checked>" + data.result[idx].cuisine_name +"</input></br>" ;
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].cuisine_name +"</input></br>" ;
           }
       $(".cusineslist").html(op);
          
@@ -902,16 +887,19 @@ body.on('click','.act-clear-search',function(){
           var op = '';
           op += "<h2>Lifestylechoices</h2>"
           for(idx in data.result){
-             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' checked>" + data.result[idx].description +"</input></br>" ;
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].description +"</input></br>" ;
           }
       $(".lifestylelist").html(op);
-         
+        popupcuisine.show($(".cuisineypes").html(),'submit|filter-button,cancel');
+        api.getAddClickBeforeAssociated(eateryId,function(data){
+        }); 
       });
       
     });
     body.on('click','.filter-button',function(){
-      $('.cuisineypes').addClass('hide');
-      eaterySearch();
+      $('.cusineslist').find('input').each(function(){
+              alert($(this).is(":checked")); 
+        });
     });
     
 
@@ -1134,13 +1122,10 @@ body.on('click','.act-clear-search',function(){
           var geocoder = new google.maps.Geocoder();
           geocoder.geocode( { 'address': t.val().toLowerCase()}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                // var latitude = results[0].geometry.location.lat();
-                // var longitude = results[0].geometry.location.lng();
-                geocoords.latitude = results[0].geometry.location.lat();
-                geocoords.longitude = results[0].geometry.location.lng();
-                geocoords.locationfrom = t.val().toLowerCase();
-                eaterySearch();
-                //myMap(geocoords.latitude, geocoords.longitude,t.val().toLowerCase());
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                eaterySearch(latitude, longitude,t.val().toLowerCase());
+                myMap(latitude, longitude,t.val().toLowerCase());
               }
               else
               {

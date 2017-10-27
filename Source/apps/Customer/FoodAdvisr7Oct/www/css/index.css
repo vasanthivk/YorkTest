@@ -142,7 +142,7 @@ div#eaterybusinessname {
 	text-transform: uppercase;
 }
 div#eateryaddress {
-    font-size: 0.8rem;
+    font-size: 1rem;
 }
 .eatery-rating {
     font-size: 18px;
@@ -306,22 +306,24 @@ div#toggled-items {
   font-size:1.2rem;
   border-radius:3px;
 }
-#eatery-search{
-  display:inline-block;
-  margin-bottom:2px !important;
-  border:1px solid #808080;
-  border-radius:4px;
-  color:#808080;
-  font-size:1.1rem;
-  text-align:center;
-  background:white;
-  width:99%;
-  margin-left:0.5%;
-  margin-top:2%;
-  text-indent:20px;
-  text-align:left;
-  background:url(../img/searchlight.svg) 5px 3px no-repeat;
-  background-size:25px 25px;
+#eatery-search {
+    /* display: inline-block; */
+    margin-bottom: 2px !important;
+    /* border: 1px solid #808080; */
+    border-radius: 4px;
+    color: #808080;
+    font-size: 1.1rem;
+    text-align: center;
+    background: white;
+    width: 88%;
+    margin-left: 0.5%;
+    margin-top: 2%;
+    /* text-indent: 20px; */
+    text-align: left;
+    /* background: url(../img/searchlight.svg) no-repeat; */
+    /* background-size: 25px 25px; */
+    background-position: right;
+    background: #f1ecec;
 }
 
 #eatery-search::placeholder{
@@ -352,8 +354,8 @@ div#toggled-items {
     letter-spacing: 0.9px;
     margin-bottom: 0px;
     padding-left: 10px;
-    background: #028079;
-    color: #fff;
+   
+    color: #000;
 }
 .meat-icon{
     width: 18px;
@@ -454,6 +456,11 @@ div#toggled-items {
    /* border: 1px solid #ccc;*/
     
 }
+
+
+.midpopbook{height: 400px;
+    overflow: auto;
+}
 .midpopbook.overlay-hide p {
     font-size: 18px;
     font-weight: bold;
@@ -477,7 +484,7 @@ div#toggled-items {
     padding: 8px;
     padding-bottom: 0px;
     font-size: 22px;
-    /*color: #00B2A9;*/
+    color: #00B2A9;
     font-weight: bold;
 }
 .item-book-call {
@@ -2692,10 +2699,17 @@ h3.header{
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
-.cuisineypes{ max-height:400px; overflow:auto}
+.cuisineypes {
+    max-height: 300px;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 1px #ccc;
+    background: #fff;}
 
 .cusineslist{ border:1px solid #ccc;
-font-size: 1rem;
+font-size: 0.9rem;
     border: 1px solid #e8e4e4;
     padding: 8px;
     margin: 5px;
@@ -2714,7 +2728,10 @@ font-size: 1rem;
 .lifestylelist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
 .lifestylelist input{ margin:8px}
 .filter-button{ background:#00b2a9; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
-
+.filter{float: right;
+    margin: 10px;
+    
+	display:block}
 
 
 

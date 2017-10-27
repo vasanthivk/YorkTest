@@ -157,6 +157,54 @@
 
   }
 
+var popupcuisine = new Object();
+
+  popupcuisine.show=function(ptext,buttons){
+      midpop=$('.midpopbook');
+      midpop.css({top:-80});
+      overlay.show();
+      var op='<p>'+ptext+'</p>';
+      if(buttons!='' && buttons!=undefined){
+          op+='<div class="midpopbook-buttons">';
+          var b=buttons.split(',');
+          for(idx in b){
+              vv=b[idx].split('|');
+              ccl='';
+              if(vv[1]!=undefined){
+                  ccl=vv[1];
+              }
+              op+='<a href="#index.html" class="popupcuisine-act-button '+ccl+'">'+vv[0]+'</a>';
+          }
+          op+='</div>';
+      }
+      midpop.html(op);
+      midpop.show();
+      bh=$('body').height();
+      poph=midpop.height();
+      ttop=(bh/2)-(poph/2);
+      //midpop.css({top:ttop});
+      midpop.css({top:'50px'});
+
+      $('body').on('click','.popupcuisine-act-button',function(){
+          overlay.hide();
+          return false;
+      });
+
+  }
+
+
+
+  popupcuisine.hide=function(){
+      overlay.hide();
+      $('.midpopbook').hide();
+
+
+  }
+
+
+
+
+
   var overlay = new Object();
 
     overlay.show=function(addClass){
