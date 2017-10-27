@@ -28,6 +28,7 @@ ini_set('max_execution_time', 5000);
         if($result <> null)
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
+            $result->cuisines_ids = getCusinesById($result->cuisines_ids);
             $result->lifestyle_choices_ids = getLifestyleChoicesById($result->lifestyle_choices_ids);
         return $result;     
     }
@@ -56,9 +57,15 @@ ini_set('max_execution_time', 5000);
          return $images_array;
     }
 
+    function getCusinesById($ids)
+    {
+         $sql  = "select * from cuisines where id in(" . $ids ." )";
+         $cuisines_result = DB::select( DB::raw($sql));
+         return $cuisines_result;
+    }
+
     function getLifestyleChoicesById($ids)
     {
-         $lifestyle_choices_array = array();
          $sql  = "select * from lifestyle_choices where id in(" . $ids ." )";
          $lifestyle_choices_result = DB::select( DB::raw($sql));
          return $lifestyle_choices_result;
