@@ -52,7 +52,6 @@ Eateries
                   <label for="lifestyle_choices" class="control-label col-sm-4">Lifestyle Choices :</label>
                   <div class="col-md-8">
                       <select multiple name="lifestyle_choices_ids[]" id="lifestyle_choices_ids[]" class="form-control select">
-                        <option value="0">Please </option>
                       @foreach($lifestyle_choices as $lifestyle_choice)
                       <option value="{{$lifestyle_choice->id}}">{{$lifestyle_choice->description}}</option>
                       @endforeach
