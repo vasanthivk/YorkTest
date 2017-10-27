@@ -28,6 +28,7 @@ ini_set('max_execution_time', 5000);
         if($result <> null)
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
+            $result->lifestyle_choices_ids = getLifestyleChoicesById($result->lifestyle_choices_ids);
         return $result;     
     }
 
@@ -53,6 +54,15 @@ ini_set('max_execution_time', 5000);
             $image_index++;
          }
          return $images_array;
+    }
+
+    function getLifestyleChoicesById($ids)
+    {
+         $lifestyle_choices_array = array();
+         $sql  = "select * from lifestyle_choices where id in(" . $ids ." )";
+         $lifestyle_choices_result = DB::select( DB::raw($sql));
+         return $lifestyle_choices_result;
+         
     }
 
 	function v1_gettop10eateries($latitude,$longitude)
