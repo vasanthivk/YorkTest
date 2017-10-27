@@ -95,28 +95,28 @@ ini_set('max_execution_time', 5000);
 
     function v1_getcuisines()
     {
-        $sql  = 'select * from cuisines';
+        $sql  = 'select * from cuisines where ifnull(is_enabled,0) = 1';
         $result = DB::select( DB::raw($sql));
         return $result;
     }
 
     function v1_lifestylechoices()
     {
-        $sql  = 'select * from lifestyle_choices';
+        $sql  = 'select * from lifestyle_choices where ifnull(is_enabled,0) = 1';
         $result = DB::select( DB::raw($sql));
         return $result;
     }
 
      function v1_getnutritions()
     {
-        $sql  = 'select * from nutrition_types';
+        $sql  = 'select * from nutrition_types where ifnull(is_enabled,0) = 1';
         $result = DB::select( DB::raw($sql));
         return $result;
     }
 
      function v1_getallergens()
     {
-        $sql  = 'select * from allergen_types';
+        $sql  = 'select * from allergen_types where ifnull(is_enabled,0) = 1';
         $result = DB::select( DB::raw($sql));
         return $result;
     }
