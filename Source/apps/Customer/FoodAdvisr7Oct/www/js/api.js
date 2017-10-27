@@ -122,3 +122,13 @@ api.getEateryDetails=function(eateryid, callBack)
       msg.show('Network error.',1000,false,true);
     });
 }
+
+api.getFavouriteEateries=function(callBack)
+{
+    postData = '{"userid":"'+ userdata.userid + '"}';
+    $.post(api.eateiesroot+'getfavouriteeateries',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}

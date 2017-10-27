@@ -817,8 +817,12 @@ body.on('click','.act-clear-search',function(){
     function eaterySearch()
     {
       //openLoading();
+      var favouriteseateries = [];
+      api.getFavouriteEateries(function(data){
+        favouriteseateries = data.result;
+      });
 
-       var cuisines_ids = [];
+      var cuisines_ids = [];
       var lifestyle_choices_ids = [];
       $('.cusineslist').find('input').each(function(){
             if($(this).is(":checked"))
@@ -839,6 +843,14 @@ body.on('click','.act-clear-search',function(){
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
             {
+                var favouriticon = ''; //<i class="fa fa-heart-o"></i>'; 
+                // favouriteseateries.forEach(function(data){
+                //   if(data.eatery_id == data.result[idx].id)
+                //   {
+                //     favouriticon = '<i class="fa fa-heart"  style="color:red"></i>';
+                //   }
+                // })
+
                 var opCuisines = [];
                 if(!(data.result[idx].cuisines_ids == null || data.result[idx].cuisines_ids == ""))
                 {
@@ -864,7 +876,7 @@ body.on('click','.act-clear-search',function(){
                 op += '<div class="act-eatery">' +
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+ rating_feed+'</div> </div>' +
+                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>' + rating_feed + '</div> ' + favouriticon + '</div>' +
                 '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
@@ -947,21 +959,21 @@ body.on('click','.act-clear-search',function(){
                               (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
           $("#eateryaddress").html(eateryAddress);
 
-          if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
-          {
-            var opCuisines = [];
-            data.result.cuisines_ids.split(',').forEach(function(value){
-              for(idxc in cuisines.list)
-              {
-                if(value == cuisines.list[idxc].id)
-                {
-                  opCuisines.push(cuisines.list[idxc].cuisine_name);              
-                  break;
-                }
-              }
-            })
-            $("#eaterycuisines").html(opCuisines.toString());
-          }
+          // if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
+          // {
+          //   var opCuisines = [];
+          //   data.result.cuisines_ids.split(',').forEach(function(value){
+          //     for(idxc in cuisines.list)
+          //     {
+          //       if(value == cuisines.list[idxc].id)
+          //       {
+          //         opCuisines.push(cuisines.list[idxc].cuisine_name);              
+          //         break;
+          //       }
+          //     }
+          //   })
+          //   $("#eaterycuisines").html(opCuisines.toString());
+          // }
           if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
           {
             var opLifeStyles = '';
@@ -1217,7 +1229,7 @@ body.on('click','.act-clear-search',function(){
     });
 
     body.on('click','.eatery-rating',function(){
-      alert('Hello');
+      //alert('Hello');
     });
 
 
