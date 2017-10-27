@@ -12,7 +12,7 @@ ini_set('max_execution_time', 5000);
 		 $defaults = Defaults::all();    
          $search_radius = $defaults[0]->search_radius;
          $search_result_limit = $defaults[0]->search_result_limit;
-         $sql  = "select id, FHRSID, BusinessName, Address, LogoPath, IsAssociated, Longitude, Latitude, FoodAdvisrOverallRating,cuisines_ids,lifestyle_choices_ids, 
+         $sql  = "select id, FHRSID, BusinessName, Address, LogoPath, IsAssociated, Longitude, Latitude,ClicksAfterAssociated, FoodAdvisrOverallRating,cuisines_ids,lifestyle_choices_ids, 
                     round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) 
                     +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) 
                     * pi()/180 / 2), 2) ))),2) as distance
