@@ -64,7 +64,7 @@ myProfile.person.settings=1;
 	{
       api.getCuisines(function(data)
       {
-        
+        eateryCuisines.list = data.result;
           var op = '';
           op += "<h2>cuisines</h2>"
           for(idx in data.result){
@@ -76,6 +76,7 @@ myProfile.person.settings=1;
 
 	   api.getLifeStyleChoices(function(data)
       {
+      	eateryLifeStyleChoices.list = data.result;
           var op = '';
           op += "<h2>Lifestylechoices</h2>"
           for(idx in data.result){

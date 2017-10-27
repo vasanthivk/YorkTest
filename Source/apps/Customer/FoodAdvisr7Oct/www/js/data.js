@@ -26,6 +26,12 @@ geocoords.latitude = '';
 geocoords.longitude = '';
 geocoords.locationfrom = '';
 
+var eateryCuisines=new Object();
+eateryCuisines.list = [];
+
+var eateryLifeStyleChoices=new Object();
+eateryLifeStyleChoices.list = [];
+
 var feedbackCache=new Object();
 feedbackCache.list=[];
 
