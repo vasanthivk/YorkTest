@@ -82,7 +82,7 @@ html,body{
     padding: 4px 0 0 5px;
     background: #ffffff;
     /*border-radius: 6px;*/
-   /* box-shadow: 0px 0px 1px 1px #ccc;*/
+    box-shadow: 0px 0px 1px 1px #ccc;
 }
   .act-eatery-logo      { width: 24%;}
   .act-eatery-logopath {
@@ -117,14 +117,14 @@ html,body{
     padding-top: 2px;
 }
   .act-eatery-distance {
-     font-size: 0.8rem;
+   
     padding-right: 10px;
 }
 .in-act-eatery-image {
    
     width: 80px;
     height: 80px;
-	border:1px solid #D4D4D4;
+
 }
 img#eaterylogo {
     float: left;
@@ -138,11 +138,12 @@ div#eaterybusinessname {
     overflow: hidden;
      text-overflow: ellipsis;
       white-space: nowrap;
-    margin-left: 70px;
+    margin-left: 84px;
 	text-transform: uppercase;
 }
 div#eateryaddress {
     font-size: 1rem;
+	padding:8px;
 }
 .eatery-rating {
     font-size: 18px;
@@ -249,7 +250,7 @@ div#toggled-items {
     color:gray;
 }
 .act-action-div{
-    border-top: 1px solid #e9e9eb;
+   /* border-top: 1px solid #e9e9eb;*/
     margin-top: 22px;
     padding-top: 12px;
     color: #686b78;
@@ -269,7 +270,7 @@ div#toggled-items {
       padding: 5px;
       background: #efefef;
      /* border-radius: 5px;*/
-     /* box-shadow: 0px 0px 1px 1px #ccc;*/
+     box-shadow: 0px 0px 1px 1px #ccc;
   }
   .in-act-eatery-logo      { width: 24%;}
 .in-act-eatery-name {
@@ -285,7 +286,7 @@ div#toggled-items {
     padding-left: 5%;
 }
 .in-act-action-div {
-    border-top: 1px solid #e2d7d7;
+    
     margin-top: 22px;
     padding-top: 12px;
     color: #686b78;

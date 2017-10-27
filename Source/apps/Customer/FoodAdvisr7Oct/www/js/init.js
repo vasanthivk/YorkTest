@@ -882,6 +882,8 @@ body.on('click','.act-clear-search',function(){
                 '<div class="eatery-clear"></div>' +
                 '</div>';
 
+//                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance" style="font-size:15px; color:#000; margin:0 0 0 5px">'+ data.result[idx].distance+'miles'+'</div><i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].FoodAdvisrOverallRating+' <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</div> </div>' +
+
                 // <div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>
             }
             else
