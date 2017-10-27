@@ -60,10 +60,11 @@ api.cacheBust=function(){
 api.getEateries=function(latitude, longitude,searchval,cuisines_ids,lifestyle_choices_ids, callBack)
 {
     //postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';    gettop10eateries    geteateries
-    postData = '{"latitude":"'+ latitude +'", "longitude": "' + longitude + '","cuisines_ids":"1,2", "lifestyle_choices_ids": "1,2"}';
+    postData = '{"latitude":"'+ latitude +'", "longitude": "' + longitude + '","cuisines_ids":"'+cuisines_ids+'", "lifestyle_choices_ids":"'+lifestyle_choices_ids+'"}';
     $.post(api.eateiesroot+'geteateries',postData,function(data){
       callBack(data);
     }).fail(function(error){
+      closeLoading();
       msg.show('Network error.',1000,false,true);
     });
 }

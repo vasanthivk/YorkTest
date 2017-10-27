@@ -21,6 +21,11 @@ var userdata=new Object();
 userdata.email='';
 userdata.userid='';
 
+var geocoords=new Object();
+geocoords.latitude = '';
+geocoords.longitude = '';
+geocoords.locationfrom = '';
+
 var feedbackCache=new Object();
 feedbackCache.list=[];
 

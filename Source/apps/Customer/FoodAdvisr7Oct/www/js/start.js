@@ -60,9 +60,33 @@ myProfile.person.settings=1;
 	//	msg.show('error 002');
 	//}
 
+	function fillCuisinesAndLifeStyles()
+	{
+      api.getCuisines(function(data)
+      {
+        
+          var op = '';
+          op += "<h2>cuisines</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' checked>" + data.result[idx].cuisine_name +"</input></br>" ;
+          }
+	      $(".cusineslist").html(op);
+         
+      });
+
+	   api.getLifeStyleChoices(function(data)
+      {
+          var op = '';
+          op += "<h2>Lifestylechoices</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' checked>" + data.result[idx].description +"</input></br>" ;
+          }
+		  $(".lifestylelist").html(op);
+      });
+	}
+	fillCuisinesAndLifeStyles();
 	//get current Location fire42
 	GetCurrentLocation();
-
 
 
 
