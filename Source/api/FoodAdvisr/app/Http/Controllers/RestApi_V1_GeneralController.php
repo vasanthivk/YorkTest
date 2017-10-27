@@ -29,8 +29,22 @@ class RestApi_V1_GeneralController extends Controller
 		 	$request = json_decode($postdata);
 		 	$latitude = $request->{'latitude'};
             $longitude = $request->{'longitude'};
-            $cuisines_ids = $request->{'cuisines_ids'}; 
+            $cuisines_ids = $request->{'cuisines_ids'};
+            if(empty($cuisines_ids))
+            {
+                $cuisines_ids = 0;
+            }
+            else{
+                 $cuisines_ids = $request->{'cuisines_ids'};
+            }
             $lifestyle_choices_ids = $request->{'lifestyle_choices_ids'}; 
+            if(empty($lifestyle_choices_ids))
+            {
+                $lifestyle_choices_ids = 0;
+            }
+            else{
+                 $lifestyle_choices_ids = $request->{'lifestyle_choices_ids'};
+            }
 	        $v1_geteateries = v1_geteateries($latitude,$longitude,$cuisines_ids,$lifestyle_choices_ids);
 	        $data = array('status' => 0,'message' => 'Success','result' => $v1_geteateries);
 	        return $this->appendHeaders($data);
