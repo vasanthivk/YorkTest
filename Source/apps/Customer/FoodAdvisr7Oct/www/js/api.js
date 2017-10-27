@@ -70,12 +70,23 @@ api.getEateries=function(latitude, longitude,searchval, callBack)
 
 api.getCuisines=function(callBack)
 {
-    //postData = '{"latitude":"51.51634", "longitude": "-0.145576"}';    gettop10eateries    geteateries
+    
     $.get(api.eateiesroot+'getcuisines',function(data){
-      //console.log("get cuisines"+ JSON.stringify(data));
+      
       callBack(data);
-      //return data;
-      //console.log("get cuisines"+data);
+      
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+
+api.getLifeStyleChoices=function(callBack)
+{
+    
+    $.get(api.eateiesroot+'getlifestylechoices',function(data){
+      
+      callBack(data);
+      
     }).fail(function(error){
       msg.show('Network error.',1000,false,true);
     });
