@@ -18,7 +18,8 @@ var rulesByCode={};
 var selectedDB='brandbank';
 var dbatabaseText='';
 var errorCount=0;
-
+objInit=new Object();
+objInit.mediaPath=appSettings.mediaPath;
 
 //var root="https://code.clevertech.tv/cxx/workspace/quicr/content/";
 
@@ -878,7 +879,7 @@ body.on('click','.act-clear-search',function(){
                 '<div class="eatery-columns">' +
                 '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<div class="act-action-div"><div class="act-eatery-distance" style="font-size:15px; color:#000; margin:0 0 0 5px">'+ data.result[idx].distance+'miles'+'</div><i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].FoodAdvisrOverallRating+' <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</div> ' + favouriticon + ' </div>' +
                 // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>' + rating_feed + '</div> ' + favouriticon + '</div>' +
-                '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
+                '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + objInit.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
                 '</div>';
@@ -947,7 +948,7 @@ body.on('click','.act-clear-search',function(){
       api.getEateryDetails(eateryId,function(data){
         if(data.result != null)
         {
-          $('#eaterylogo').attr("src",appSettings.mediaPath +data.result.LogoPath);
+          $('#eaterylogo').attr("src",objInit.mediaPath +data.result.LogoPath);
           $("#eaterybusinessname").text(data.result.BusinessName);
           $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
           var eateryAddress = data.result.Address + "<br/>" + 
@@ -981,7 +982,7 @@ body.on('click','.act-clear-search',function(){
               {
                 if(value == lifestylechoices.list[idxc].id)
                 {
-                   opLifeStyles += "<img width='25px' height='25px' src='"+ appSettings.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
+                   opLifeStyles += "<img width='25px' height='25px' src='"+ objInit.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
                    break;
                 }
               }
@@ -997,7 +998,7 @@ body.on('click','.act-clear-search',function(){
             if(media.length >= 1) {
                 for (var i = 0; i < media.length; i++) {
 
-                    mediaPath += '<img class="mySlides w3-animate-right" src="' + appSettings.mediaPath + media[i].media_name + '" alt="' + media[i].media_name + '" width="100%" height="200px" />';
+                    mediaPath += '<img class="mySlides w3-animate-right" src="' + objInit.mediaPath + media[i].media_name + '" alt="' + media[i].media_name + '" width="100%" height="200px" />';
                 }
 
                 $("#eateryImgSlider").html(mediaPath);
@@ -1230,6 +1231,29 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.eatery-rating',function(){
       //alert('Hello');
     });
+    body.on('click','.eateryfav',function(){
+      // if($(this).hasClass( "fa-heart-o" ))
+      // {
+      //   api.addToFavouriteEatery(432369,function(data){
+      //     if(data.status == "0")
+      //     {
+      //       $(this).removeClass( "fa-heart-o" );
+      //       $(this).addClass( "fa-heart" );
+      //     }
+      //   });
+      // }
+      // else
+      // {
+      //   api.removeFromFavouriteEatery(432369,function(data){
+      //     if(data.status == "0")
+      //     {
+      //       $(this).removeClass( "fa-heart" );
+      //       $(this).addClass( "fa-heart-o" );
+      //     }
+      //   });
+      // }
+    });
+    
 
 
 //fire42 end
