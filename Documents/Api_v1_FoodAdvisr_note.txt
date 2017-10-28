@@ -55,3 +55,12 @@ http://foodadvisr.fire42.com/api/v1/getfavouriteeateries
 
 Success Result
 {"status":0,"message":"Success","result":[{"userid":"2K3F0D9AG1B33WX9AAW4B3HR6KZEAE","eatery_id":1},{"userid":"2K3F0D9AG1B33WX9AAW4B3HR6KZEAE","eatery_id":2}]}
+
+
+Add to Feedback
+http://foodadvisr.fire42.com/api/v1/addfeedbackeateries
+{ "userid": "1","eatery_id":"1","rating":"5","email":"test@g.com","message":"","msgdate":"","response":"","resptime":"","version":"","device":"","os":"","osversion":"","model":"","maker":""}
+
+
+Success Result
+{"status":0,"message":"Success","result":"Added Eatery Feedback Successfully"}
