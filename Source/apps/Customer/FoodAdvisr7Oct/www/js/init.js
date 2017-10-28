@@ -1251,23 +1251,25 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.eateryfav',function(){
       if($(this).hasClass( "fa-heart-o" ))
       {
+         $(this).css({"color": "red"}).removeClass('fa-heart-o').addClass('fa-heart');
         api.addToFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
            //alert(JSON.stringify(data));
           if(data.status == "0")
           {
-            $(this).removeClass( "fa-heart-o" );
-            $(this).addClass( "fa-heart" );
+            // $(this).removeClass( "fa-heart-o" );
+            // $(this).addClass( "fa-heart" );
           }
         });
       }
       else
       {
+        $(this).css({"color": "black"}).removeClass('fa-heart').addClass('fa-heart-o');
         api.removeFromFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
           //alert(JSON.stringify(data));
           if(data.status == "0")
           {
-            $(this).removeClass( "fa-heart" );
-            $(this).addClass( "fa-heart-o" );
+            // $(this).removeClass( "fa-heart" );
+            // $(this).addClass( "fa-heart-o" );
           }
         });
       }
