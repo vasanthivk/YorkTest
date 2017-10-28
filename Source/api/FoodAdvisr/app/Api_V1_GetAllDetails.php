@@ -300,11 +300,12 @@ function getmenusections($id)
         foreach ($sectionsids as $section_detail) {
             $section_group_result = DB::table('menu_section')
                 ->where('id', '=', $section_detail)
-                ->select(DB::raw('id,section_name'))
+                ->select(DB::raw('id,menu_id,section_name'))
                 ->get();
 
             foreach ($section_group_result as $result) {
                 $section_result[$i]['section_id'] = $result->id;
+                $section_result[$i]['menu_id'] = $result->menu_id;
                 $section_result[$i]['section_name'] = $result->section_name;
             }
             $i++;
@@ -335,11 +336,12 @@ function getmenusubsections($id)
         foreach ($subsectionsids as $subsection_detail) {
             $subsection_group_result = DB::table('menu_sub_section')
                 ->where('id', '=', $subsection_detail)
-                ->select(DB::raw('id,sub_section_name'))
+                ->select(DB::raw('id,section_id,sub_section_name'))
                 ->get();
 
             foreach ($subsection_group_result as $result) {
                 $subsection_result[$i]['subsection_id'] = $result->id;
+                $subsection_result[$i]['section_id'] = $result->section_id;
                 $subsection_result[$i]['subsection_name'] = $result->sub_section_name;
             }
             $i++;

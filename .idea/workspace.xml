@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a3f39e34-1e26-4d97-9471-9714e92341c4" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Feedback.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Documents/Api_v1_FoodAdvisr_note.txt" afterPath="$PROJECT_DIR$/Documents/Api_v1_FoodAdvisr_note.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/RestApi_V1_GeneralController.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/RestApi_V1_GeneralController.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php" afterPath="$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="FoodAdvisr.iws" />
@@ -44,79 +40,41 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Api_V1_GetAllDetails.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="8.884615" vertical-offset="3206" max-vertical-offset="4692">
-              <caret line="175" column="31" selection-start-line="175" selection-start-column="9" selection-end-line="175" selection-end-column="31" />
-              <folding>
-                <element signature="e#6#23#0#PHP" expanded="true" />
-                <element signature="n#getmenutypes#0;n#!!top" expanded="false" />
-                <element signature="n#getmenusections#0;n#!!top" expanded="false" />
-                <element signature="n#getmenusubsections#0;n#!!top" expanded="false" />
-                <element signature="n#geteaterymenu#0;n#!!top" expanded="false" />
-                <marker date="1509179182002" expanded="true" signature="516:1360" placeholder="select id, F..eateries..." />
-                <marker date="1509179182002" expanded="true" signature="1029:1289" placeholder="select id fr..eateries..." />
-                <marker date="1509179182002" expanded="true" signature="2789:2847" placeholder="select * fro..eateriesmedia..." />
-                <marker date="1509179182002" expanded="true" signature="3292:3340" placeholder="select * fro..cuisines..." />
-                <marker date="1509179182002" expanded="true" signature="3507:3564" placeholder="select * fro..lifestyle_choices..." />
-                <marker date="1509179182002" expanded="true" signature="4292:4387" placeholder="UPDATE eater..." />
-                <marker date="1509179182002" expanded="true" signature="4476:4569" placeholder="UPDATE eater..." />
-                <marker date="1509179182002" expanded="true" signature="5475:5528" placeholder="select * fro..cuisines..." />
-                <marker date="1509179182002" expanded="true" signature="5666:5728" placeholder="select * fro..lifestyle_choices..." />
-                <marker date="1509179182002" expanded="true" signature="5864:5924" placeholder="select * fro..nutrition_types..." />
-                <marker date="1509179182002" expanded="true" signature="6059:6118" placeholder="select * fro..allergen_types..." />
-                <marker date="1509179182002" expanded="true" signature="9063:9144" placeholder="delete from ..." />
-                <marker date="1509179182002" expanded="true" signature="9485:9550" placeholder="select * fro..user_favourite_eateries..." />
-                <marker date="1509179182002" expanded="true" signature="9671:9769" placeholder="select ifnul..dishes..." />
-                <marker date="1509179182002" expanded="true" signature="10703:10807" placeholder="select ifnul..dishes..." />
-                <marker date="1509179182002" expanded="true" signature="11851:11961" placeholder="select ifnul..dishes..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Api_v1_FoodAdvisr_note.txt" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/Documents/Api_v1_FoodAdvisr_note.txt">
-          <provider editor-type-id="com.intellij.database.editor.CsvTableFileEditorProvider">
-            <state />
-          </provider>
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.93971634" vertical-offset="575" max-vertical-offset="1207">
-              <caret line="65" column="78" selection-start-line="65" selection-start-column="78" selection-end-line="65" selection-end-column="78" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="RestApi_V1_GeneralController.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/RestApi_V1_GeneralController.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-24.307692" vertical-offset="4706" max-vertical-offset="5440">
-              <caret line="314" column="0" selection-start-line="314" selection-start-column="0" selection-end-line="314" selection-end-column="0" />
-              <folding>
-                <element signature="e#40#68#0#PHP" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserFavouriteEateries.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/UserFavouriteEateries.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="-5.8846154" vertical-offset="0" max-vertical-offset="289">
-              <caret line="9" column="47" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="47" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="web.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="-16.846153" vertical-offset="718" max-vertical-offset="1343">
               <caret line="68" column="39" selection-start-line="68" selection-start-column="20" selection-end-line="68" selection-end-column="39" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Api_V1_GetAllDetails.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.79049295" vertical-offset="4787" max-vertical-offset="5882">
+              <caret line="338" column="47" selection-start-line="338" selection-start-column="47" selection-end-line="338" selection-end-column="47" />
+              <folding>
+                <element signature="e#6#23#0#PHP" expanded="true" />
+                <element signature="n#getmenutypes#0;n#!!top" expanded="false" />
+                <element signature="n#geteaterymenu#0;n#!!top" expanded="false" />
+                <marker date="1509184305958" expanded="true" signature="516:1360" placeholder="select id, F..eateries..." />
+                <marker date="1509184305958" expanded="true" signature="1029:1289" placeholder="select id fr..eateries..." />
+                <marker date="1509184305958" expanded="true" signature="2789:2847" placeholder="select * fro..eateriesmedia..." />
+                <marker date="1509184305958" expanded="true" signature="3292:3340" placeholder="select * fro..cuisines..." />
+                <marker date="1509184305958" expanded="true" signature="3507:3564" placeholder="select * fro..lifestyle_choices..." />
+                <marker date="1509184305958" expanded="true" signature="4292:4387" placeholder="UPDATE eater..." />
+                <marker date="1509184305958" expanded="true" signature="4476:4569" placeholder="UPDATE eater..." />
+                <marker date="1509184305958" expanded="true" signature="5475:5528" placeholder="select * fro..cuisines..." />
+                <marker date="1509184305958" expanded="true" signature="5666:5728" placeholder="select * fro..lifestyle_choices..." />
+                <marker date="1509184305958" expanded="true" signature="5864:5924" placeholder="select * fro..nutrition_types..." />
+                <marker date="1509184305958" expanded="true" signature="6059:6118" placeholder="select * fro..allergen_types..." />
+                <marker date="1509184305958" expanded="true" signature="9485:9550" placeholder="select * fro..user_favourite_eateries..." />
+                <marker date="1509184305958" expanded="true" signature="9671:9769" placeholder="select ifnul..dishes..." />
+                <marker date="1509184305958" expanded="true" signature="10703:10807" placeholder="select ifnul..dishes..." />
+                <marker date="1509184305958" expanded="true" signature="11926:12036" placeholder="select ifnul..dishes..." />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -210,10 +168,10 @@
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Items.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/ItemsController.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Feedback.php" />
-        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/routes/web.php" />
         <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/RestApi_V1_GeneralController.php" />
         <option value="$PROJECT_DIR$/Documents/Api_v1_FoodAdvisr_note.txt" />
+        <option value="$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php" />
       </list>
     </option>
   </component>
@@ -553,7 +511,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -865,16 +823,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/DishesController.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-61.076923" vertical-offset="7320" max-vertical-offset="9010">
-          <caret line="524" column="0" selection-start-line="524" selection-start-column="0" selection-end-line="524" selection-end-column="0" />
-          <folding>
-            <element signature="e#40#63#0#PHP" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Dishes.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="136" max-vertical-offset="289">
@@ -956,36 +904,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="8.884615" vertical-offset="3206" max-vertical-offset="4692">
-          <caret line="175" column="31" selection-start-line="175" selection-start-column="9" selection-end-line="175" selection-end-column="31" />
-          <folding>
-            <element signature="e#6#23#0#PHP" expanded="true" />
-            <element signature="n#getmenutypes#0;n#!!top" expanded="false" />
-            <element signature="n#getmenusections#0;n#!!top" expanded="false" />
-            <element signature="n#getmenusubsections#0;n#!!top" expanded="false" />
-            <element signature="n#geteaterymenu#0;n#!!top" expanded="false" />
-            <marker date="1509179182002" expanded="true" signature="516:1360" placeholder="select id, F..eateries..." />
-            <marker date="1509179182002" expanded="true" signature="1029:1289" placeholder="select id fr..eateries..." />
-            <marker date="1509179182002" expanded="true" signature="2789:2847" placeholder="select * fro..eateriesmedia..." />
-            <marker date="1509179182002" expanded="true" signature="3292:3340" placeholder="select * fro..cuisines..." />
-            <marker date="1509179182002" expanded="true" signature="3507:3564" placeholder="select * fro..lifestyle_choices..." />
-            <marker date="1509179182002" expanded="true" signature="4292:4387" placeholder="UPDATE eater..." />
-            <marker date="1509179182002" expanded="true" signature="4476:4569" placeholder="UPDATE eater..." />
-            <marker date="1509179182002" expanded="true" signature="5475:5528" placeholder="select * fro..cuisines..." />
-            <marker date="1509179182002" expanded="true" signature="5666:5728" placeholder="select * fro..lifestyle_choices..." />
-            <marker date="1509179182002" expanded="true" signature="5864:5924" placeholder="select * fro..nutrition_types..." />
-            <marker date="1509179182002" expanded="true" signature="6059:6118" placeholder="select * fro..allergen_types..." />
-            <marker date="1509179182002" expanded="true" signature="9063:9144" placeholder="delete from ..." />
-            <marker date="1509179182002" expanded="true" signature="9485:9550" placeholder="select * fro..user_favourite_eateries..." />
-            <marker date="1509179182002" expanded="true" signature="9671:9769" placeholder="select ifnul..dishes..." />
-            <marker date="1509179182002" expanded="true" signature="10703:10807" placeholder="select ifnul..dishes..." />
-            <marker date="1509179182002" expanded="true" signature="11851:11961" placeholder="select ifnul..dishes..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/RestApi_V1_GeneralController.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-24.307692" vertical-offset="4706" max-vertical-offset="5440">
@@ -1004,6 +922,43 @@
         <state vertical-scroll-proportion="0.93971634" vertical-offset="575" max-vertical-offset="1207">
           <caret line="65" column="78" selection-start-line="65" selection-start-column="78" selection-end-line="65" selection-end-column="78" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Http/Controllers/DishesController.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-61.076923" vertical-offset="7320" max-vertical-offset="9010">
+          <caret line="524" column="0" selection-start-line="524" selection-start-column="0" selection-end-line="524" selection-end-column="0" />
+          <folding>
+            <element signature="e#40#63#0#PHP" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.79049295" vertical-offset="4787" max-vertical-offset="5882">
+          <caret line="338" column="47" selection-start-line="338" selection-start-column="47" selection-end-line="338" selection-end-column="47" />
+          <folding>
+            <element signature="e#6#23#0#PHP" expanded="true" />
+            <element signature="n#getmenutypes#0;n#!!top" expanded="false" />
+            <element signature="n#geteaterymenu#0;n#!!top" expanded="false" />
+            <marker date="1509184305958" expanded="true" signature="516:1360" placeholder="select id, F..eateries..." />
+            <marker date="1509184305958" expanded="true" signature="1029:1289" placeholder="select id fr..eateries..." />
+            <marker date="1509184305958" expanded="true" signature="2789:2847" placeholder="select * fro..eateriesmedia..." />
+            <marker date="1509184305958" expanded="true" signature="3292:3340" placeholder="select * fro..cuisines..." />
+            <marker date="1509184305958" expanded="true" signature="3507:3564" placeholder="select * fro..lifestyle_choices..." />
+            <marker date="1509184305958" expanded="true" signature="4292:4387" placeholder="UPDATE eater..." />
+            <marker date="1509184305958" expanded="true" signature="4476:4569" placeholder="UPDATE eater..." />
+            <marker date="1509184305958" expanded="true" signature="5475:5528" placeholder="select * fro..cuisines..." />
+            <marker date="1509184305958" expanded="true" signature="5666:5728" placeholder="select * fro..lifestyle_choices..." />
+            <marker date="1509184305958" expanded="true" signature="5864:5924" placeholder="select * fro..nutrition_types..." />
+            <marker date="1509184305958" expanded="true" signature="6059:6118" placeholder="select * fro..allergen_types..." />
+            <marker date="1509184305958" expanded="true" signature="9485:9550" placeholder="select * fro..user_favourite_eateries..." />
+            <marker date="1509184305958" expanded="true" signature="9671:9769" placeholder="select ifnul..dishes..." />
+            <marker date="1509184305958" expanded="true" signature="10703:10807" placeholder="select ifnul..dishes..." />
+            <marker date="1509184305958" expanded="true" signature="11926:12036" placeholder="select ifnul..dishes..." />
+          </folding>
         </state>
       </provider>
     </entry>
