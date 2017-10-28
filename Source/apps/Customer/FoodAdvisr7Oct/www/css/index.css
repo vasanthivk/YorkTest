@@ -2101,10 +2101,12 @@ margin-bottom:20px;
 }
 
 .midpop-buttons,.midpopbook-buttons {
+    /*width: 70%;*/
+    /*text-align: right;*/
     position: absolute;
     bottom: 15px;
-    width: 70%;
-    text-align: right;
+    width: 93%;
+    text-align: center;
 }
 .midpop-buttons a{
   padding:7px 15px;

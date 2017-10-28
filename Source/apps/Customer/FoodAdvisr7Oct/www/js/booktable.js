@@ -100,7 +100,7 @@
       $('body').on('click','.popupbook-act-button',function(){
         // overlay.hide();
       var message ="This will be live soon. We'll let you know when it's available!";
-      popupcall.show(message,'  Ok  ,Cancel');
+      popupcall.show(message,'  Cancel,Ok  ');
         // return false;
       });
 
