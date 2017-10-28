@@ -817,7 +817,7 @@ body.on('click','.act-clear-search',function(){
     });
     function eaterySearch()
     {
-      //openLoading();
+      openLoading();
       var favouriteseateries = [];
       api.getFavouriteEateries(function(data){
         favouriteseateries = data.result;
@@ -898,6 +898,10 @@ body.on('click','.act-clear-search',function(){
             }
           }
         }
+        else
+        {
+          op += '<p> We are not available at this location. try other location.  </p>';
+        }
         closeLoading();
         $("#loadeateries").html(op);
       })
@@ -924,6 +928,7 @@ body.on('click','.act-clear-search',function(){
     
 
     body.on('click','.act-eatery',function(){
+      $('.eateryfav').css({"color": "black"}).removeClass('fa-heart').addClass('fa-heart-o');
       var eateryId=$(this).find('#eateryId').val();
       api.getAddClickAfterAssociated(eateryId,function(data){
       });
