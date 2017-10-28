@@ -25,6 +25,7 @@ function onSuccess(position) {
     // onError Callback receives a PositionError object
     //
     function onError(error) {
+      $("#loadeateries").html("<p> Can't locate you. try searching a location. </p>");
         // alert('code: '    + error.code    + '\n' +
         //       'message: ' + error.message + '\n');
     }
