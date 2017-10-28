@@ -1011,15 +1011,15 @@ body.on('click','.act-clear-search',function(){
                 var html_fields = "<div>"+"Did you visit "+data.result.BusinessName+ ", London? Let us and your communities know what you thought! "
                         +"<br><div class='stars'>" +
                 "<form action=''>" +
-                "<input class='star star-5' id='star-5' type='radio' name='star'/>" +
+                "<input class='star star-5' id='star-5' type='radio' name='star' value='5'/>" +
                 "<label class='star star-5' for='star-5'></label>" +
-                "<input class='star star-4' id='star-4' type='radio' name='star'/>" +
+                "<input class='star star-4' id='star-4' type='radio' name='star' value='4' />" +
                 "<label class='star star-4' for='star-4'></label>" +
-                "<input class='star star-3' id='star-3' type='radio' name='star'/>" +
+                "<input class='star star-3' id='star-3' type='radio' name='star' value='3'/>" +
                 "<label class='star star-3' for='star-3'></label>" +
-                "<input class='star star-2' id='star-2' type='radio' name='star'/>" +
+                "<input class='star star-2' id='star-2' type='radio' name='star' value='2'/>" +
                 "<label class='star star-2' for='star-2'></label>" +
-                "<input class='star star-1' id='star-1' type='radio' name='star'/>" +
+                "<input class='star star-1' id='star-1' type='radio' name='star' value='1'/>" +
                 "<label class='star star-1' for='star-1'></label>" +
                 "</form> </div><br><textarea></textarea> "
                 +"</div>";
@@ -1065,8 +1065,10 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.in-act-eatery',function(){
       var eateryId=$(this).find('#eateryId').val();
       var eateryName=$(this).find('#eateryName').val();
-      var message = eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus.";
-      popup.show(message,'Invite|in-act-eatery-invite,Cancel');
+        var message= "Invite to FoodAdvisr";
+      var text = "<div>"+eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus."+"</div>";
+      vartext=message+'<br/>'+text;
+        popup.show(vartext,'Invite|in-act-eatery-invite,Cancel');
       api.getAddClickBeforeAssociated(eateryId,function(data){
       });
     });
