@@ -1008,7 +1008,7 @@ body.on('click','.act-clear-search',function(){
 
             body.on('click','.eatery-call',function(){
                 var message =data.result.ContactNumber;
-                popupcall.show(message,'Call|eatery-call,Cancel');
+                popupcall.show(message,'Cancel|eatery-call,Call');
                 api.getAddClickBeforeAssociated(eateryId,function(data){
                 });
             });
@@ -1074,7 +1074,7 @@ body.on('click','.act-clear-search',function(){
         var message= "Invite to FoodAdvisr";
       var text = "<div>"+eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus."+"</div>";
       vartext=message+'<br/>'+text;
-        popup.show(vartext,'Invite|in-act-eatery-invite,Cancel');
+        popup.show(vartext,'Cancel|in-act-eatery-invite,Invite');
       api.getAddClickBeforeAssociated(eateryId,function(data){
       });
     });
@@ -1101,7 +1101,7 @@ body.on('click','.act-clear-search',function(){
             "</div>" +
             "<textarea rows='4' cols='50' style='padding-bottom: 0px;'></textarea></div>" ;
         vartext = message+'<br/>'+html_fields;
-        popupbook.show(vartext,'Book|item-bc-eatery,Cancel');
+        popupbook.show(vartext,'Cancel|item-bc-eatery,Book');
         api.getAddClickBeforeAssociated(eateryId,function(data){
         });
     });
