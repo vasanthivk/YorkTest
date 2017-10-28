@@ -901,7 +901,7 @@ body.on('click','.act-clear-search',function(){
         closeLoading();
         $("#loadeateries").html(op);
       })
-      $('.eatery-search-clear').addClass('hide');
+      $('#eatery-search').blur();
     }
 
     function eaterySearchReset()
