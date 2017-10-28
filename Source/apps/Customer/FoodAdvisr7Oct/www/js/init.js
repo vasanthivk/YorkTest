@@ -901,6 +901,7 @@ body.on('click','.act-clear-search',function(){
         closeLoading();
         $("#loadeateries").html(op);
       })
+      $('.eatery-search-clear').addClass('hide');
     }
 
     function eaterySearchReset()
@@ -926,6 +927,7 @@ body.on('click','.act-clear-search',function(){
       api.getEateryDetails(eateryId,function(data){
         if(data.result != null)
         {
+          document.getElementById("selected_eateryId").value = data.result.id;
           $('#eaterylogo').attr("src",objInit.mediaPath +data.result.LogoPath);
           $("#eaterybusinessname").text(data.result.BusinessName);
           $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
@@ -936,6 +938,7 @@ body.on('click','.act-clear-search',function(){
                               (data.result.postal_town == null ? "" : data.result.postal_town + "<br/>") +
                               (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
           $("#eateryaddress").html(eateryAddress);
+
 
           // if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
           // {
@@ -1211,6 +1214,7 @@ body.on('click','.act-clear-search',function(){
                 geocoords.longitude = results[0].geometry.location.lng();
                 geocoords.locationfrom = t.val().toLowerCase();
                 eaterySearch();
+
                 //myMap(geocoords.latitude, geocoords.longitude,t.val().toLowerCase());
               }
               else
@@ -1234,26 +1238,28 @@ body.on('click','.act-clear-search',function(){
     });
 
     body.on('click','.eateryfav',function(){
-      // if($(this).hasClass( "fa-heart-o" ))
-      // {
-      //   api.addToFavouriteEatery(432369,function(data){
-      //     if(data.status == "0")
-      //     {
-      //       $(this).removeClass( "fa-heart-o" );
-      //       $(this).addClass( "fa-heart" );
-      //     }
-      //   });
-      // }
-      // else
-      // {
-      //   api.removeFromFavouriteEatery(432369,function(data){
-      //     if(data.status == "0")
-      //     {
-      //       $(this).removeClass( "fa-heart" );
-      //       $(this).addClass( "fa-heart-o" );
-      //     }
-      //   });
-      // }
+      if($(this).hasClass( "fa-heart-o" ))
+      {
+        api.addToFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
+           //alert(JSON.stringify(data));
+          if(data.status == "0")
+          {
+            $(this).removeClass( "fa-heart-o" );
+            $(this).addClass( "fa-heart" );
+          }
+        });
+      }
+      else
+      {
+        api.removeFromFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
+          //alert(JSON.stringify(data));
+          if(data.status == "0")
+          {
+            $(this).removeClass( "fa-heart" );
+            $(this).addClass( "fa-heart-o" );
+          }
+        });
+      }
     });
     
 

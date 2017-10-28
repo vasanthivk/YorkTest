@@ -8,6 +8,8 @@ use Illuminate\Http\Response;
 use App\Http\Requests;
 use App\Http\Responses;
 use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use DateTimeZone;
 
 class RestApi_V1_GeneralController extends Controller
 {
@@ -268,6 +270,40 @@ class RestApi_V1_GeneralController extends Controller
             $data = array('status' => 0,'message' => 'Success','result' => $returnvalue);
             return $this->appendHeaders($data);
          }
+        else
+        {
+            $data = array('status' => -1000,'message' => 'Invalid Inputdata','result' => null);
+            return $this->appendHeaders($data);
+        }
+    }
+
+    public function V1_AddFeedbackEatery(Request $request){
+        $postdata = file_get_contents("php://input");
+        if (isset($postdata)) {
+            $request = json_decode($postdata);
+            $feedback['userid'] = $request->{'userid'};
+            $feedback['email'] = $request->{'email'};
+            $feedback['message'] = $request->{'message'};
+            $feedback['msgdate'] = Carbon::now(new DateTimeZone('Europe/London'));
+            $feedback['response'] = $request->{'response'};
+            $feedback['rating'] = $request->{'rating'};
+            $feedback['eatery_id'] = $request->{'eatery_id'};
+            $feedback['resptime'] = Carbon::now(new DateTimeZone('Europe/London'));
+            $feedback['version'] = $request->{'version'};
+            $feedback['device'] = $request->{'device'};
+            $feedback['os'] = $request->{'os'};
+            $feedback['osversion'] = $request->{'osversion'};
+            $feedback['model'] = $request->{'model'};
+            $feedback['maker'] = $request->{'maker'};
+            if($feedback == array())
+            {
+                $data = array('status' => -205,'message' => 'Invalid User Id');
+                return $this->appendHeaders($data);
+            }
+            $returnvalue =  v1_addfeedbackeateries($feedback);
+            $data = array('status' => 0,'message' => 'Success','result' => $returnvalue);
+            return $this->appendHeaders($data);
+        }
         else
         {
             $data = array('status' => -1000,'message' => 'Invalid Inputdata','result' => null);

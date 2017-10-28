@@ -3,6 +3,7 @@ use App\Defaults;
 use App\Eateries;
 use App\UserFavouriteEateries;
 use App\User;
+use App\Feedback;
 use App\Dishes;
 use App\Menu;
 use App\MenuSection;
@@ -172,6 +173,53 @@ ini_set('max_execution_time', 5000);
             return -2003;
     }
 
+function v1_addfeedbackeateries($feedback)
+{
+    $userid = $feedback['userid'];
+    $eatery_id = $feedback['eatery_id'];
+    $email = $feedback['email'];
+    $message = $feedback['message'];
+    $msgdate = $feedback['msgdate'];
+    $response = $feedback['response'];
+    $rating = $feedback['rating'];
+    $resptime = $feedback['resptime'];
+    $version = $feedback['version'];
+    $device = $feedback['device'];
+    $os = $feedback['os'];
+    $osversion = $feedback['osversion'];
+    $model = $feedback['model'];
+    $maker = $feedback['maker'];
+    $user_count = User::where('id',$userid)->count();
+    if($user_count == 0)
+        return -2002;
+    $eatery_count = Eateries::where('id',$eatery_id)->count();
+    if($eatery_count == 0)
+        return -2001;
+
+    if(isset($feedback) && !empty($feedback))
+    {
+        $feedback = new Feedback();
+        $feedback->userid = $userid;
+        $feedback->eatery_id = $eatery_id;
+        $feedback->email = $email;
+        $feedback->message = $message;
+        $feedback->msgdate = $msgdate;
+        $feedback->response = $response;
+        $feedback->rating = $rating;
+        $feedback->resptime = $resptime;
+        $feedback->version = $version;
+        $feedback->device = $device;
+        $feedback->os = $os;
+        $feedback->osversion = $osversion;
+        $feedback->model = $model;
+        $feedback->maker = $maker;
+        $feedback->save();
+        return 'Added Eatery Feedback Successfully';
+    }
+    else
+        return -2003;
+}
+
     function v1_removefromfavouriteeatery($userid, $eatery_id)
     {
         $user_count = User::where('id',$userid)->count();
@@ -252,11 +300,12 @@ function getmenusections($id)
         foreach ($sectionsids as $section_detail) {
             $section_group_result = DB::table('menu_section')
                 ->where('id', '=', $section_detail)
-                ->select(DB::raw('id,section_name'))
+                ->select(DB::raw('id,menu_id,section_name'))
                 ->get();
 
             foreach ($section_group_result as $result) {
                 $section_result[$i]['section_id'] = $result->id;
+                $section_result[$i]['menu_id'] = $result->menu_id;
                 $section_result[$i]['section_name'] = $result->section_name;
             }
             $i++;
@@ -287,11 +336,12 @@ function getmenusubsections($id)
         foreach ($subsectionsids as $subsection_detail) {
             $subsection_group_result = DB::table('menu_sub_section')
                 ->where('id', '=', $subsection_detail)
-                ->select(DB::raw('id,sub_section_name'))
+                ->select(DB::raw('id,section_id,sub_section_name'))
                 ->get();
 
             foreach ($subsection_group_result as $result) {
                 $subsection_result[$i]['subsection_id'] = $result->id;
+                $subsection_result[$i]['section_id'] = $result->section_id;
                 $subsection_result[$i]['subsection_name'] = $result->sub_section_name;
             }
             $i++;
