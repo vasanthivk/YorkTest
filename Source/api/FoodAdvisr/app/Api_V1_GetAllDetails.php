@@ -187,8 +187,9 @@ ini_set('max_execution_time', 5000);
             return -2006;
         else
         {
-            $sql  = "delete from user_favourite_eateries where userid='" . $userid . "' and eatery_id=" . $eatery_id;
-            $result = DB::delete( DB::raw($sql,[$userid, $eatery_id]));
+            /*$sql  = "delete from user_favourite_eateries where userid='" . $userid . "' and eatery_id=" . $eatery_id;
+            $result = DB::delete( DB::raw($sql));*/
+            $result = DB::table('user_favourite_eateries')->where('userid', $userid)->where('eatery_id',$eatery_id)->delete();
             return 'Removed Favourite Eatery Successfully';
         }
     }
