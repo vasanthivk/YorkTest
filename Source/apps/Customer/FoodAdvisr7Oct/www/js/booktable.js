@@ -159,9 +159,9 @@
 
   }
 
-var popupcuisine = new Object();
+var popuprating = new Object();
 
-  popupcuisine.show=function(ptext,buttons){
+  popuprating.show=function(ptext,buttons){
       midpop=$('.midpopbook');
       midpop.css({top:-80});
       overlay.show();
@@ -196,7 +196,7 @@ var popupcuisine = new Object();
 
 
 
-  popupcuisine.hide=function(){
+  popuprating.hide=function(){
       overlay.hide();
       $('.midpopbook').hide();
 
