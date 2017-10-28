@@ -1006,6 +1006,30 @@ body.on('click','.act-clear-search',function(){
                 api.getAddClickBeforeAssociated(eateryId,function(data){
                 });
             });
+            body.on('click','.eatery-rating',function(){
+                var message = "Leave a Review ";
+                var html_fields = "<div>"+"Did you visit "+data.result.BusinessName+ ", London? Let us and your communities know what you thought! "
+                        +"<br><div class='stars'>" +
+                "<form action=''>" +
+                "<input class='star star-5' id='star-5' type='radio' name='star'/>" +
+                "<label class='star star-5' for='star-5'></label>" +
+                "<input class='star star-4' id='star-4' type='radio' name='star'/>" +
+                "<label class='star star-4' for='star-4'></label>" +
+                "<input class='star star-3' id='star-3' type='radio' name='star'/>" +
+                "<label class='star star-3' for='star-3'></label>" +
+                "<input class='star star-2' id='star-2' type='radio' name='star'/>" +
+                "<label class='star star-2' for='star-2'></label>" +
+                "<input class='star star-1' id='star-1' type='radio' name='star'/>" +
+                "<label class='star star-1' for='star-1'></label>" +
+                "</form> </div><br><textarea></textarea> "
+                +"</div>";
+                //var message = eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus.;
+                vartext = message+'<br/>'+html_fields;
+                popuprating.show(vartext,'Cancel|eatery-rating,Post');
+                api.getAddClickBeforeAssociated(eateryId,function(data){
+
+                });
+            });
 
           page.route('eaterydetails');
         }
@@ -1053,7 +1077,8 @@ body.on('click','.act-clear-search',function(){
 
     body.on('click','.item-bc-eatery',function(){
         var message = "Book a Table" ;
-        var html_fields = "<div>Date : <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none;'/></div>" +
+        var html_fields =
+            "<div>Date : <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none;'/></div>" +
             "<br/><div><label for='appt-time'>Time:<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;' /></div><br/>" +
             "<div>How many people?<br>" +
             "<div style='float: left;padding-bottom: 13px;padding-top: 11px;color: #00B2A9;'>" +
@@ -1206,9 +1231,6 @@ body.on('click','.act-clear-search',function(){
       return false;
     });
 
-    body.on('click','.eatery-rating',function(){
-      //alert('Hello');
-    });
     body.on('click','.eateryfav',function(){
       // if($(this).hasClass( "fa-heart-o" ))
       // {
