@@ -909,7 +909,10 @@ body.on('click','.act-clear-search',function(){
         $("#loadeateries").text("");
     }
     body.on('click','.filter',function(){
+      if($('.cuisinetypes').hasClass('hide'))
       $('.cuisinetypes').removeClass('hide');
+    else
+      $('.cuisinetypes').addClass('hide');
     });
     body.on('click','.filter-button-submit',function(){
       $('.cuisinetypes').addClass('hide');
@@ -1228,6 +1231,14 @@ body.on('click','.act-clear-search',function(){
         $('.eatery-search-clear').addClass('hide');
         eaterySearchReset();
       }
+    });
+
+    $('#eatery-search').focus(function() {
+       $('.eatery-search-clear').removeClass('hide');
+    });
+
+     $('#eatery-search').focusout(function() {
+       $('.eatery-search-clear').addClass('hide');
     });
 
     body.on('click','.eatery-search-clear',function(){
