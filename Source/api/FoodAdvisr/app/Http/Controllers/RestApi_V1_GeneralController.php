@@ -28,8 +28,10 @@ class RestApi_V1_GeneralController extends Controller
         {
 		 	$request = json_decode($postdata);
 		 	$latitude = $request->{'latitude'};
-            $longitude = $request->{'longitude'};            
-	        $v1_geteateries = v1_geteateries($latitude,$longitude);
+            $longitude = $request->{'longitude'};
+            $cuisines_ids = $request->{'cuisines_ids'};                        
+            $lifestyle_choices_ids = $request->{'lifestyle_choices_ids'};
+	        $v1_geteateries = v1_geteateries($latitude,$longitude,$cuisines_ids,$lifestyle_choices_ids);
 	        $data = array('status' => 0,'message' => 'Success','result' => $v1_geteateries);
 	        return $this->appendHeaders($data);
      	}
@@ -163,6 +165,114 @@ class RestApi_V1_GeneralController extends Controller
         $v1_getallergens = v1_getallergens();
         $data = array('status' => 0,'message' => 'Success','result' => $v1_getallergens);
         return $this->appendHeaders($data);
+    }
+
+     public function V1_AddToFavouriteEatery(Request $request)
+    {
+         $postdata = file_get_contents("php://input");
+        if (isset($postdata)) {
+            $request = json_decode($postdata);
+            $userid = $request->{'userid'};
+            if($userid == '')
+            {
+               $data = array('status' => -201,'message' => 'Invalid User Id');
+                return $this->appendHeaders($data);
+            }
+            $eatery_id = $request->{'eatery_id'};
+            if($eatery_id == '')
+            {
+                $data = array('status' => -202,'message' => 'Invalid Eatery Id');
+                return $this->appendHeaders($data);
+            }
+            $returnvalue =  v1_addtofavouriteeatery($userid, $eatery_id);
+
+            $message = "";
+            if($returnvalue == -2001)
+                $message = "Eatery details are not exists";
+            elseif($returnvalue == -2002)
+                $message = "User details are not exists";
+            elseif($returnvalue == -2003)
+                $message = "Eatery already added in favourite list";
+            else
+                $message = "Success";
+            if (in_array($returnvalue, array(-2001,-2002,-2003), true ) )
+            { 
+            $data = array('status' => $returnvalue,'message' => $message,'result' => null);
+            return $this->appendHeaders($data);
+            }
+            $data = array('status' => 0,'message' => $message,'result' => $returnvalue);
+            return $this->appendHeaders($data);
+        }
+        else
+        {
+            $data = array('status' => -1000,'message' => 'Invalid Inputdata','result' => null);
+            return $this->appendHeaders($data);
+        }
+    }
+
+     public function V1_RemoveFromFavouriteEatery(Request $request)
+    {
+         $postdata = file_get_contents("php://input");
+        if (isset($postdata)) {
+            $request = json_decode($postdata);
+            $userid = $request->{'userid'};
+            if($userid == '')
+            {
+               $data = array('status' => -203,'message' => 'Invalid User Id');
+                return $this->appendHeaders($data);
+            }
+            $eatery_id = $request->{'eatery_id'};
+            if($eatery_id == '')
+            {
+                $data = array('status' => -204,'message' => 'Invalid Eatery Id');
+                return $this->appendHeaders($data);
+            }
+            $returnvalue =  v1_removefromfavouriteeatery($userid, $eatery_id);
+
+            $message = "";
+            if($returnvalue == -2004)
+                $message = "Eatery details are not exists";
+            elseif($returnvalue == -2005)
+                $message = "User details are not exists";
+            elseif($returnvalue == -2006)
+                $message = "Eatery already removed from favourite list";
+            else
+                $message = "Success";
+            if (in_array($returnvalue, array(-2004,-2005,-2006), true ) )
+            { 
+            $data = array('status' => $returnvalue,'message' => $message,'result' => null);
+            return $this->appendHeaders($data);
+            }
+            $data = array('status' => 0,'message' => $message,'result' => $returnvalue);
+            return $this->appendHeaders($data);
+        }
+        else
+        {
+            $data = array('status' => -1000,'message' => 'Invalid Inputdata','result' => null);
+            return $this->appendHeaders($data);
+        }
+    }
+
+    public function V1_GetFavouriteEateries(Request $request)
+    {
+         $postdata = file_get_contents("php://input");
+        if (isset($postdata)) {
+            $request = json_decode($postdata);
+            $userid = $request->{'userid'};
+            if($userid == '')
+            {
+               $data = array('status' => -205,'message' => 'Invalid User Id');
+                return $this->appendHeaders($data);
+            }           
+            $returnvalue =  v1_getfavouriteeateries($userid);
+            $data = array('status' => 0,'message' => 'Success','result' => $returnvalue);
+            return $this->appendHeaders($data);
+         }
+        else
+        {
+            $data = array('status' => -1000,'message' => 'Invalid Inputdata','result' => null);
+            return $this->appendHeaders($data);
+        }
     }
     
 }

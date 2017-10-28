@@ -76,10 +76,10 @@ html,body{
   .eatery-clear         { clear: both; }
 
 .act-eatery {
-    min-height: 100px;
+    min-height: 85px;
     color: white;
    /* margin-bottom: 10px;*/
-    padding: 10px;
+    padding: 4px 0 0 5px;
     background: #ffffff;
     /*border-radius: 6px;*/
     box-shadow: 0px 0px 1px 1px #ccc;
@@ -110,27 +110,27 @@ html,body{
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    padding-right:5%;
+    padding-left:5%;
   }
   .act-eatery-image{ width:66px;height:14px; }
 .act-eatery-favorite{ width:13px;height: 13px;
     padding-top: 2px;
 }
   .act-eatery-distance {
-     font-size: 0.8rem;
+   
     padding-right: 10px;
 }
 .in-act-eatery-image {
    
     width: 80px;
     height: 80px;
-	border:1px solid #D4D4D4;
+
 }
 img#eaterylogo {
     float: left;
 }
 div#eaterybusinessname {
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     text-align: center;
     margin-top: -21px;
@@ -138,10 +138,12 @@ div#eaterybusinessname {
     overflow: hidden;
      text-overflow: ellipsis;
       white-space: nowrap;
-    margin-left: 70px;
+    margin-left: 84px;
+	text-transform: uppercase;
 }
 div#eateryaddress {
-    font-size: 12px;
+    font-size: 1rem;
+	padding:8px;
 }
 .eatery-rating {
     font-size: 18px;
@@ -202,7 +204,7 @@ div#eateryaddress {
     color: #000;
     font-size: 14px;
     display: block;
-    border: 1px solid #ccc;
+   /* border: 1px solid #ccc;*/
     margin: 5px;
     padding: 5px;
 }
@@ -248,7 +250,7 @@ div#toggled-items {
     color:gray;
 }
 .act-action-div{
-    border-top: 1px solid #e9e9eb;
+   /* border-top: 1px solid #e9e9eb;*/
     margin-top: 22px;
     padding-top: 12px;
     color: #686b78;
@@ -265,10 +267,10 @@ div#toggled-items {
       min-height: 100px;
       color: white;
       /*margin-bottom: 10px;*/
-      padding: 10px;
+      padding: 5px;
       background: #efefef;
      /* border-radius: 5px;*/
-      box-shadow: 0px 0px 1px 1px #ccc;
+     box-shadow: 0px 0px 1px 1px #ccc;
   }
   .in-act-eatery-logo      { width: 24%;}
 .in-act-eatery-name {
@@ -281,10 +283,10 @@ div#toggled-items {
     text-overflow: ellipsis;
     overflow: hidden;
     white-space: nowrap;
-    padding-right: 5%;
+    padding-left: 5%;
 }
 .in-act-action-div {
-    border-top: 1px solid #e2d7d7;
+    
     margin-top: 22px;
     padding-top: 12px;
     color: #686b78;
@@ -305,22 +307,24 @@ div#toggled-items {
   font-size:1.2rem;
   border-radius:3px;
 }
-#eatery-search{
-  display:inline-block;
-  margin-bottom:2px !important;
-  border:1px solid #808080;
-  border-radius:4px;
-  color:#808080;
-  font-size:1.1rem;
-  text-align:center;
-  background:white;
-  width:99%;
-  margin-left:0.5%;
-  margin-top:2%;
-  text-indent:20px;
-  text-align:left;
-  background:url(../img/searchlight.svg) 5px 3px no-repeat;
-  background-size:25px 25px;
+#eatery-search {
+    /* display: inline-block; */
+    margin-bottom: 2px !important;
+    /* border: 1px solid #808080; */
+    border-radius: 4px;
+    color: #808080;
+    font-size: 1.1rem;
+    text-align: center;
+    background: white;
+    width: 88%;
+    margin-left: 0.5%;
+    margin-top: 2%;
+    /* text-indent: 20px; */
+    text-align: left;
+    /* background: url(../img/searchlight.svg) no-repeat; */
+    /* background-size: 25px 25px; */
+    background-position: right;
+    background: #f1ecec;
 }
 
 #eatery-search::placeholder{
@@ -336,7 +340,7 @@ div#toggled-items {
     background: #f0f0f0;
 }
 .res-details-div {
-    height: 50px !important;
+    height: 40px !important;
     background: #fff;
     padding: 10px;
 }
@@ -351,8 +355,8 @@ div#toggled-items {
     letter-spacing: 0.9px;
     margin-bottom: 0px;
     padding-left: 10px;
-    background: #028079;
-    color: #fff;
+   
+    color: #000;
 }
 .meat-icon{
     width: 18px;
@@ -365,7 +369,7 @@ div#toggled-items {
     padding-left:10px !important;
 }
 .eateryMenuDetails {
-    padding-top: 37px;
+    padding-top: 2px;
 }
 .rec-item-div{
     padding:6px;
@@ -450,8 +454,13 @@ div#toggled-items {
     /*font-size: 12px;*/
     font-family: roboto;
     margin-bottom: 0px;
-    border: 1px solid #ccc;
+   /* border: 1px solid #ccc;*/
     
+}
+
+
+.midpopbook{
+    overflow: auto;
 }
 .midpopbook.overlay-hide p {
     font-size: 18px;
@@ -460,7 +469,7 @@ div#toggled-items {
     color: black;
 }
 .item-call {
-    border: 1px solid #ccc;
+   /* border: 1px solid #ccc;*/
     border-radius: 8px;
 }
 .item-bc-img {
@@ -476,7 +485,7 @@ div#toggled-items {
     padding: 8px;
     padding-bottom: 0px;
     font-size: 22px;
-    /*color: #00B2A9;*/
+    color: #00B2A9;
     font-weight: bold;
 }
 .item-book-call {
@@ -497,7 +506,7 @@ div#toggled-items {
     margin-top: -21px;
     color: black;
   }
-.fa-arrow-left{
+.fa-chevron-left{
   color: black;
   float: left;
 }
@@ -2044,7 +2053,7 @@ margin-bottom:20px;
   border:1px solid #909090;
   padding:4%;
   z-index:250;
-  font-size:1.2rem;
+  font-size:1rem;
   color:#303030;
   transition: all .2s ease-in-out;
   padding-bottom:45px;
@@ -2102,7 +2111,7 @@ margin-bottom:20px;
 
 .bar-nav .btn-link{
   color:white !important;
-  font-size:0.9rem !important;
+  font-size:1rem !important;
 
 }
 
@@ -2670,6 +2679,8 @@ h3.header{
   text-align: center;
 }
 
+
+
 .spinner > div {
   width: 18px;
   height: 18px;
@@ -2689,6 +2700,43 @@ h3.header{
   -webkit-animation-delay: -0.16s;
   animation-delay: -0.16s;
 }
+.cuisinetypes {
+    max-height: 300px;
+    overflow: auto;
+    position: absolute;
+    width: 100%;
+    border: 1px solid #ccc;
+    box-shadow: 1px 2px 1px #ccc;
+    background: #fff;}
+
+.cusineslist{ border:1px solid #ccc;
+font-size: 0.9rem;
+    border: 1px solid #e8e4e4;
+    padding: 8px;
+    margin: 5px;
+    background: #fff;
+	
+}
+.cusineslist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
+.cusineslist input{ margin:8px}
+.lifestylelist{ border:1px solid #ccc;
+font-size: 1rem;
+    border: 1px solid #e8e4e4;
+    padding: 8px;
+    margin: 5px;
+    background: #fff;
+}
+.lifestylelist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
+.lifestylelist input{ margin:8px}
+.filter-button-submit{ background:#00b2a9; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
+.filter-button-cancel{ background:gray; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
+.filter{float: right;
+    margin: 10px;
+    
+	display:block}
+
+
+
 
 @-webkit-keyframes sk-bouncedelay {
   0%, 80%, 100% { -webkit-transform: scale(0) }

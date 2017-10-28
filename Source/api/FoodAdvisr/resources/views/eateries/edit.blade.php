@@ -46,6 +46,32 @@ My Profile
             {{ Form::ahText('Latitude','Latitude :',$eateries->Latitude,array("readonly"=>"true"))  }}
             {{ Form::ahSwitch('IsAssociated','Is Associated :',null,$eateries->IsAssociated) }}      
             {{ Form::ahDate('AssociatedOn','Associated On :', $eateries->AssociatedOn) }} 
+            <?php 
+            $cuisines_ids = $eateries->cuisines_ids;
+            $cuisines_ids=explode(",",$cuisines_ids);
+            $lifestyle_choices_ids = $eateries->lifestyle_choices_ids;
+            $lifestyle_choices_ids=explode(",",$lifestyle_choices_ids);
+            ?>
+            <div class="form-group" style="margin:5px">
+                  <label for="cuisine" class="control-label col-sm-4">Cuisines :</label>
+                  <div class="col-md-8">
+                      <select multiple name="cuisines_ids[]" data-live-search='true' class="form-control select">
+                      @foreach($cuisines as $cuisine)
+                          <option value="{{$cuisine->id}}" @if(isset($cuisines_ids)) @if(in_array($cuisine->id,$cuisines_ids)) selected="selected" @endif @endif>{{$cuisine->cuisine_name}}</option>
+                      @endforeach
+                      </select>
+                  </div>
+            </div>             
+            <div class="form-group" style="margin:5px">
+                  <label for="lifestyle_choices" class="control-label col-sm-4">Lifestyle Choices :</label>
+                  <div class="col-md-8">
+                      <select multiple name="lifestyle_choices_ids[]" id="lifestyle_choices_ids[]" class="form-control select">
+                      @foreach($lifestyle_choices as $lifestyle_choice)
+                      <option value="{{$lifestyle_choice->id}}" @if(isset($lifestyle_choices_ids)) @if(in_array($lifestyle_choice->id,$lifestyle_choices_ids)) selected="selected" @endif @endif>{{$lifestyle_choice->description}}</option>
+                      @endforeach
+                      </select>
+                  </div>
+            </div> 
             </br>
         </div>
         <div class="col-md-6">

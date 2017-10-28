@@ -18,8 +18,7 @@ var rulesByCode={};
 var selectedDB='brandbank';
 var dbatabaseText='';
 var errorCount=0;
-objInit=new Object();
-objInit.mediaPath=appSettings.mediaPath;
+
 
 //var root="https://code.clevertech.tv/cxx/workspace/quicr/content/";
 
@@ -815,57 +814,16 @@ body.on('click','.act-clear-search',function(){
       return false;
 
     });
-    function eaterySearch()
+    function eaterySearch(latitude, longitude,searchval)
     {
-      //openLoading();
-      var favouriteseateries = [];
-      api.getFavouriteEateries(function(data){
-        favouriteseateries = data.result;
-      });
-
-      var cuisines_ids = [];
-      var lifestyle_choices_ids = [];
-      $('.cusineslist').find('input').each(function(){
-            if($(this).is(":checked"))
-            {
-              cuisines_ids.push($(this).val());
-            } 
-        });
-       $('.lifestylelist').find('input').each(function(){
-            if($(this).is(":checked"))
-            {
-              lifestyle_choices_ids.push($(this).val());
-            } 
-        });
-      api.getEateries(geocoords.latitude, geocoords.longitude, geocoords.locationfrom,cuisines_ids.toString(),lifestyle_choices_ids.toString(),function(data){
+      openLoading();
+      api.getEateries(latitude, longitude, searchval,function(data){
         var op ='';
         if(data.result.length > 0)
         {
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
             {
-                var favouriticon = ''; //<i class="fa fa-heart-o"></i>'; 
-                // favouriteseateries.forEach(function(data){
-                //   if(data.eatery_id == data.result[idx].id)
-                //   {
-                //     favouriticon = '<i class="fa fa-heart"  style="color:red"></i>';
-                //   }
-                // })
-
-                var opCuisines = [];
-                if(!(data.result[idx].cuisines_ids == null || data.result[idx].cuisines_ids == ""))
-                {
-                  data.result[idx].cuisines_ids.split(',').forEach(function(value){
-                    for(idxc in cuisines.list)
-                    {
-                      if(value == cuisines.list[idxc].id)
-                      {
-                        opCuisines.push(cuisines.list[idxc].cuisine_name);              
-                        break;
-                      }
-                    }
-                  })
-                }
                 var rating= data.result[idx].FoodAdvisrOverallRating;
                 //rating.length >= 1 &&
                 if( rating != null){
@@ -877,12 +835,14 @@ body.on('click','.act-clear-search',function(){
                 op += '<div class="act-eatery">' +
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<div class="act-action-div"><div class="act-eatery-distance" style="font-size:15px; color:#000; margin:0 0 0 5px">'+ data.result[idx].distance+'miles'+'</div><i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].FoodAdvisrOverallRating+' <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</div> ' + favouriticon + ' </div>' +
-                // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>' + rating_feed + '</div> ' + favouriticon + '</div>' +
-                '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + objInit.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
+				'<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + appSettings.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
+                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + '<div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>'+ rating_feed+'</div> </div>' +
+                
                 '</div>' +
                 '<div class="eatery-clear"></div>' +
                 '</div>';
+
+                // <div class="act-eatery-image"> <img class="act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp|&nbsp&nbsp&nbsp</img> </div>
             }
             else
             {
@@ -890,9 +850,10 @@ body.on('click','.act-clear-search',function(){
                 '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
                 '<div class="eatery-columns">' +
-                '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp'+'</div>'+'</div></div>' +
-                '<div class="in-act-eatery-logo" ><img class="in-act-eatery-image" src="img/thumb.svg"/></div>' +
-                '</div>' +
+				'<div class="in-act-eatery-logo" ><img class="in-act-eatery-image" src="img/thumb.svg"/></div>' +
+                '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp'+'</div>'+/*'<div class="act-eatery-image"> <img class="in-act-eatery-image" src="img/foodadvisr-green.png"/>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</img> </div> */'</div></div>' +
+                
+      '</div>' +
                 '<div class="eatery-clear"></div>' +
                 '</div>';
             }
@@ -908,14 +869,38 @@ body.on('click','.act-clear-search',function(){
         $("#loadeateries").text("");
     }
     body.on('click','.filter',function(){
-      $('.cuisinetypes').removeClass('hide');
+      $('.cuisineypes').removeClass('hide');
+
+      api.getCuisines(function(data)
+      {
+        
+          var op = '';
+          op += "<h2>cuisines</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].cuisine_name +"</input></br>" ;
+          }
+      $(".cusineslist").html(op);
+         
+      });//[{'id':'1','name':'Indian'},{'id':'2','name':'Italian'}];
+
+       api.getLifeStyleChoices(function(data)
+      {
+        
+          var op = '';
+          op += "<h2>Lifestylechoices</h2>"
+          for(idx in data.result){
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "'>" + data.result[idx].description +"</input></br>" ;
+          }
+      $(".lifestylelist").html(op);
+	  popup($(".cuisineypes").html(),'submit|filter-button,Cancel');
+         
+      });
+      
     });
-    body.on('click','.filter-button-submit',function(){
-      $('.cuisinetypes').addClass('hide');
-      eaterySearch();
-    });
-    body.on('click','.filter-button-cancel',function(){
-      $('.cuisinetypes').addClass('hide');
+    body.on('click','.filter-button',function(){
+      $('.cusineslist').find('input').each(function(){
+              alert($(this).is(":checked")); 
+        });
     });
     
 
@@ -926,57 +911,17 @@ body.on('click','.act-clear-search',function(){
       api.getEateryDetails(eateryId,function(data){
         if(data.result != null)
         {
-          $('#eaterylogo').attr("src",objInit.mediaPath +data.result.LogoPath);
+          $('#eaterylogo').attr("src",appSettings.mediaPath +data.result.LogoPath);
           $("#eaterybusinessname").text(data.result.BusinessName);
           $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
-          var eateryAddress = data.result.Address + "<br/>" + 
-                              (data.result.locality == null ? "" : data.result.locality + "<br/>") +
-                              (data.result.area_level_1 == null ? "" : data.result.area_level_1 + "<br/>") +
-                              (data.result.area_level_2 == null ? "" : data.result.area_level_2 + "<br/>") +
-                              (data.result.postal_town == null ? "" : data.result.postal_town + "<br/>") +
-                              (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
-          $("#eateryaddress").html(eateryAddress);
-
-          // if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
-          // {
-          //   var opCuisines = [];
-          //   data.result.cuisines_ids.split(',').forEach(function(value){
-          //     for(idxc in cuisines.list)
-          //     {
-          //       if(value == cuisines.list[idxc].id)
-          //       {
-          //         opCuisines.push(cuisines.list[idxc].cuisine_name);              
-          //         break;
-          //       }
-          //     }
-          //   })
-          //   $("#eaterycuisines").html(opCuisines.toString());
-          // }
-          if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
-          {
-            var opLifeStyles = '';
-            data.result.lifestyle_choices_ids.split(',').forEach(function(value){
-              for(idxc in lifestylechoices.list)
-              {
-                if(value == lifestylechoices.list[idxc].id)
-                {
-                   opLifeStyles += "<img width='25px' height='25px' src='"+ objInit.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
-                   break;
-                }
-              }
-            })
-            $("#eaterylifestylechoices").html(opLifeStyles);
-          }
-
-
-          lifestylechoices.list
+          $("#eateryaddress").text(data.result.Address);
 
             var media = data.result.media.images;
             var mediaPath = [];
             if(media.length >= 1) {
                 for (var i = 0; i < media.length; i++) {
 
-                    mediaPath += '<img class="mySlides w3-animate-right" src="' + objInit.mediaPath + media[i].media_name + '" alt="' + media[i].media_name + '" width="100%" height="200px" />';
+                    mediaPath += '<img class="mySlides w3-animate-right" src="' + appSettings.mediaPath + media[i].media_name + '" alt="' + media[i].media_name + '" width="100%" height="200px" />';
                 }
 
                 $("#eateryImgSlider").html(mediaPath);
@@ -1178,13 +1123,10 @@ body.on('click','.act-clear-search',function(){
           var geocoder = new google.maps.Geocoder();
           geocoder.geocode( { 'address': t.val().toLowerCase()}, function(results, status) {
             if (status == google.maps.GeocoderStatus.OK) {
-                // var latitude = results[0].geometry.location.lat();
-                // var longitude = results[0].geometry.location.lng();
-                geocoords.latitude = results[0].geometry.location.lat();
-                geocoords.longitude = results[0].geometry.location.lng();
-                geocoords.locationfrom = t.val().toLowerCase();
-                eaterySearch();
-                //myMap(geocoords.latitude, geocoords.longitude,t.val().toLowerCase());
+                var latitude = results[0].geometry.location.lat();
+                var longitude = results[0].geometry.location.lng();
+                eaterySearch(latitude, longitude,t.val().toLowerCase());
+                myMap(latitude, longitude,t.val().toLowerCase());
               }
               else
               {
@@ -1207,31 +1149,8 @@ body.on('click','.act-clear-search',function(){
     });
 
     body.on('click','.eatery-rating',function(){
-      //alert('Hello');
+      alert('Hello');
     });
-    body.on('click','.eateryfav',function(){
-      // if($(this).hasClass( "fa-heart-o" ))
-      // {
-      //   api.addToFavouriteEatery(432369,function(data){
-      //     if(data.status == "0")
-      //     {
-      //       $(this).removeClass( "fa-heart-o" );
-      //       $(this).addClass( "fa-heart" );
-      //     }
-      //   });
-      // }
-      // else
-      // {
-      //   api.removeFromFavouriteEatery(432369,function(data){
-      //     if(data.status == "0")
-      //     {
-      //       $(this).removeClass( "fa-heart" );
-      //       $(this).addClass( "fa-heart-o" );
-      //     }
-      //   });
-      // }
-    });
-    
 
 
 //fire42 end

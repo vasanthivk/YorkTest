@@ -21,6 +21,17 @@ var userdata=new Object();
 userdata.email='';
 userdata.userid='';
 
+var geocoords=new Object();
+geocoords.latitude = '';
+geocoords.longitude = '';
+geocoords.locationfrom = '';
+
+var cuisines=new Object();
+cuisines.list = [];
+
+var lifestylechoices=new Object();
+lifestylechoices.list = [];
+
 var feedbackCache=new Object();
 feedbackCache.list=[];
 

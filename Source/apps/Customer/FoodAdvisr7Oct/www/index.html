@@ -214,7 +214,7 @@ You can select membership of a range of communities to belong to, which allows y
 
 
     <div class="error-count">0</div>
-    <div class="error-list"></div>
+    <div class="error-list" ></div>
     <div class="message"></div>
     <div class="detailpop"><div class="closer act-hide-parent">X</div><div class="detail-targ"></div></div>
     <div class="accountpop">
@@ -530,7 +530,7 @@ You can select membership of a range of communities to belong to, which allows y
 
           <div style="position:relative;">
           <input type="search" id="intol-search" value="" placeholder="Search"/>
-          <div class="intol-search-clear act-intol-search-reset hide">X</div>
+          <!--<div class="intol-search-clear act-intol-search-reset hide">X</div>-->
         </div>
 
 
@@ -558,19 +558,21 @@ You can select membership of a range of communities to belong to, which allows y
         <div class="ctpanel loggedin hide" id="ct-retail">
           <div style="position:relative;">
             <input type="search" id="eatery-search" value="" placeholder="Search"/>
-            <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
+            <!--<div class="eatery-search-clear act-eatery-search-reset hide">X</div>-->
+            <div class="filter"><i class="fa fa-filter" aria-hidden="true"></i></div>
           </div>
          <span class="eatery-tab-wrap">
-                <a href="#list" class="act-eatery-tab selected">List</a>
-                <a href="#map" class="act-eatery-tab">Map</a>
-                <div class="eatery-tab-underline"></div>
+                <a href="#list" class="act-eatery-tab selected" style="display:none">List</a>
+                <a href="#map" class="act-eatery-tab" style="display:none">Map</a>
+                <div class="eatery-tab-underline" style="display:none"></div>
             </span>
-            <div class="cuisineypes hide">
+            <div class="cuisinetypes hide">
                 <div class="cusineslist"></div>
                 <div class="lifestylelist"></div>
-                <div class="filter-button" >Submit</div>
+                <div class="filter-button-submit" >submit</div>
+                <!--<div class="filter-button-cancel" >cancel</div>-->
             </div>
-            <div class="filter">Show Filter</div>
+            
             <div id="map" class="eateries-map eatery-frame inner-frame hide" style="width:250;height:400px;background:yellow"></div>
             <div id="loadeateries" class="eateries-list eatery-frame inner-frame "></div>             
             <!--<div id="retail-space">Retail space</div>-->
@@ -640,9 +642,9 @@ You can select membership of a range of communities to belong to, which allows y
          <div class="ctpanel loggedin hide helpable menu-res-background" id="ct-eaterydetails">
             <div class="res-details-div">
               <!-- <img id='eaterylogo'src='' width="100px" height="100px" /> -->
-                <a href="#retail" class="act-menu"><span class="fa fa-arrow-left"></span></a><div class="eatery-rating"><img src="img/star.png"  width="15px;" height="17px";/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
+                <a href="#retail" class="act-menu"><span class="fa fa-chevron-left"></span></a><div class="eatery-rating"><img src="img/star.png"  width="18px;" height="18px";/><span id='eateryrating'></span><br/><!-- <span class="eateryRating">Ratings</span> --></div>
                 <div id='eaterybusinessname'></div>
-                <i class="fa fa-heart-o"></i>
+                <div class="eateryfav fa fa-heart-o"></div>
                 <div class="eatery-distance"><span id='eaterydistance'></span></div>
             </div>
             
@@ -650,7 +652,9 @@ You can select membership of a range of communities to belong to, which allows y
                  <div id="eateryImgSlider"></div>
              </div>
 
-              <div id='eateryaddress' class="center"></div>
+              <div id='eateryaddress'></div>
+              <div id='eaterycuisines' class="hide""></div>
+              <div id='eaterylifestylechoices' class="center"></div>
 
 
              <div class="eateryMenuDetails" id="menu-section-Recommendeds">

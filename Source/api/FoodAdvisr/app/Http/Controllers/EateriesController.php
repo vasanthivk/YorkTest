@@ -100,19 +100,6 @@ class EateriesController extends Controller
          ->with('privileges',$privileges);
     }
 
-    public function autocomplete(Request $request)
-    {
-        $eateries = $request->eateries;
-        $data = Eateries::where('BusinessName','LIKE','%'.$eateries.'%')
-        ->take(10)
-        ->get();
-        $result = array();
-        foreach ($data as $key => $value) {
-            $result[] = ['value' => $value->BusinessName];
-        }
-        return response()->json($result);
-    }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -127,7 +114,10 @@ class EateriesController extends Controller
             return Redirect::to('/');
         $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
         $locations = Locations::all()->pluck('Description','Description');
-
+        $cuisinetypes = 'select id,cuisine_name from cuisines';
+        $cuisines = DB::select( DB::raw($cuisinetypes));
+        $lifestyle_choices_types = 'select id,description from lifestyle_choices';
+        $lifestyle_choices = DB::select( DB::raw($lifestyle_choices_types));
         $session_id = Session::getId();
         $tempdestinationPath = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id;
         File::makeDirectory($tempdestinationPath, 0775, true, true);
@@ -140,6 +130,8 @@ class EateriesController extends Controller
 
         return view('eateries.create')
         ->with('privileges',$privileges)
+        ->with('cuisines',$cuisines)
+        ->with('lifestyle_choices',$lifestyle_choices)
         ->with('businesstypes',$businesstypes)
         ->with('locations',$locations)
         ->with('fileslist',$fileslist);
@@ -216,12 +208,25 @@ class EateriesController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();        
-
-        $file_size = $_FILES['logo']['size'];       
+        $input = Input::all(); 
+        Session::put('cuisines',Input::get('cuisines_ids'));
+        Session::put('lifestyle_choices',Input::get('lifestyle_choices_ids'));
+         $file_size = $_FILES['logo']['size'];       
         if($file_size > 2097152)
             {
                  return Redirect::back()->with('warning','File size must be less than 2 MB!')
+                 ->withInput();
+            }
+
+            if(empty($input['cuisines_ids']))
+            {
+                return Redirect::back()->with('warning','Please Select Cuisines!')
+                 ->withInput();
+            }
+
+             if(empty($input['lifestyle_choices_ids']))
+            {
+                return Redirect::back()->with('warning','Please Select Lifestyle Choices!')
                  ->withInput();
             }
       
@@ -256,7 +261,8 @@ class EateriesController extends Controller
         else
         {   
             $location_id = Locations::where('Description','=',$input['LocationID'])->get();
-             
+            $cuisines_ids = implode(", ", $input['cuisines_ids']); 
+            $lifestyle_choices_ids = implode(", ", $input['lifestyle_choices_ids']); 
             $eateries = new Eateries();
             $eateries->FHRSID = Input::get('FHRSID');
             $eateries->BusinessName = Input::get('BusinessName');
@@ -272,6 +278,8 @@ class EateriesController extends Controller
             $eateries->CreatedOn = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $eateries->IsAssociated =  (Input::get('IsAssociated')== ''  ? '0' : '1');
             $eateries->AssociatedOn = Input::get('AssociatedOn');
+            $eateries->cuisines_ids = $cuisines_ids;
+            $eateries->lifestyle_choices_ids = $lifestyle_choices_ids;
              if($file <> null)
                 $eateries->LogoExtension = $extension;        
             $eateries->save();
@@ -376,7 +384,10 @@ class EateriesController extends Controller
         $eateries =  Eateries::find($id);
         $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
         $locations = Locations::all()->pluck('Description','LocationID');
-
+        $cuisinetypes = 'select id,cuisine_name from cuisines';
+        $cuisines = DB::select( DB::raw($cuisinetypes));
+        $lifestyle_choices_types = 'select id,description from lifestyle_choices';
+        $lifestyle_choices = DB::select( DB::raw($lifestyle_choices_types));
         $session_id = Session::getId();
         $sourceDir = env('CONTENT_EATERY_IMAGE_PATH') . '\\'. $id;
         $destinationDir = env('CONTENT_EATERY_IMAGE_TEMP_PATH') . '\\'. $session_id;
@@ -404,6 +415,8 @@ class EateriesController extends Controller
         ->with('privileges',$privileges)
         ->with('eateriesmedia',$eateriesmedia)
         ->with('eateries',$eateries)
+        ->with('cuisines',$cuisines)
+        ->with('lifestyle_choices',$lifestyle_choices)
         ->with('businesstypes',$businesstypes)
         ->with('locations',$locations)
         ->with('fileslist',$fileslist);
@@ -455,7 +468,8 @@ class EateriesController extends Controller
         else
         {    
             $location_id = Locations::where('Description','=',$input['LocationID'])->get();
-
+            $cuisines_ids = implode(", ", $input['cuisines_ids']); 
+            $lifestyle_choices_ids = implode(", ", $input['lifestyle_choices_ids']);
             $eateries = Eateries::find($id);
 
             if($file <> null)
@@ -491,7 +505,8 @@ class EateriesController extends Controller
             $eateries->LogoPath =  $LogoPath;
             $eateries->IsAssociated =  (Input::get('IsAssociated')== ''  ? '0' : '1');
             $eateries->AssociatedOn = Input::get('AssociatedOn');
-            
+            $eateries->cuisines_ids = $cuisines_ids;
+            $eateries->lifestyle_choices_ids = $lifestyle_choices_ids;
             if($file <> null)
                 $eateries->LogoExtension = $extension;
             $eateries->update();          
