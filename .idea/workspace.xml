@@ -52,26 +52,26 @@
       <file leaf-file-name="Api_V1_GetAllDetails.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.31161973" vertical-offset="4481" max-vertical-offset="7174">
-              <caret line="274" column="22" selection-start-line="274" selection-start-column="22" selection-end-line="274" selection-end-column="22" />
+            <state vertical-scroll-proportion="0.67077464" vertical-offset="4277" max-vertical-offset="7174">
+              <caret line="274" column="26" selection-start-line="274" selection-start-column="26" selection-end-line="274" selection-end-column="26" />
               <folding>
                 <element signature="e#6#23#0#PHP" expanded="true" />
-                <marker date="1509170835559" expanded="true" signature="498:1342" placeholder="select id, F..eateries..." />
-                <marker date="1509170835559" expanded="true" signature="1011:1271" placeholder="select id fr..eateries..." />
-                <marker date="1509170835559" expanded="true" signature="2771:2829" placeholder="select * fro..eateriesmedia..." />
-                <marker date="1509170835559" expanded="true" signature="3274:3322" placeholder="select * fro..cuisines..." />
-                <marker date="1509170835559" expanded="true" signature="3489:3546" placeholder="select * fro..lifestyle_choices..." />
-                <marker date="1509170835559" expanded="true" signature="4274:4369" placeholder="UPDATE eater..." />
-                <marker date="1509170835559" expanded="true" signature="4458:4551" placeholder="UPDATE eater..." />
-                <marker date="1509170835559" expanded="true" signature="5457:5510" placeholder="select * fro..cuisines..." />
-                <marker date="1509170835559" expanded="true" signature="5648:5710" placeholder="select * fro..lifestyle_choices..." />
-                <marker date="1509170835559" expanded="true" signature="5846:5906" placeholder="select * fro..nutrition_types..." />
-                <marker date="1509170835559" expanded="true" signature="6041:6100" placeholder="select * fro..allergen_types..." />
-                <marker date="1509170835559" expanded="true" signature="7544:7625" placeholder="delete from ..." />
-                <marker date="1509170835559" expanded="true" signature="7859:7924" placeholder="select * fro..user_favourite_eateries..." />
-                <marker date="1509170835559" expanded="true" signature="8045:8143" placeholder="select ifnul..dishes..." />
-                <marker date="1509170835559" expanded="true" signature="9072:9176" placeholder="select ifnul..dishes..." />
-                <marker date="1509170835559" expanded="true" signature="10215:10325" placeholder="select ifnul..dishes..." />
+                <marker date="1509170938252" expanded="true" signature="498:1342" placeholder="select id, F..eateries..." />
+                <marker date="1509170938252" expanded="true" signature="1011:1271" placeholder="select id fr..eateries..." />
+                <marker date="1509170938252" expanded="true" signature="2771:2829" placeholder="select * fro..eateriesmedia..." />
+                <marker date="1509170938252" expanded="true" signature="3274:3322" placeholder="select * fro..cuisines..." />
+                <marker date="1509170938252" expanded="true" signature="3489:3546" placeholder="select * fro..lifestyle_choices..." />
+                <marker date="1509170938252" expanded="true" signature="4274:4369" placeholder="UPDATE eater..." />
+                <marker date="1509170938252" expanded="true" signature="4458:4551" placeholder="UPDATE eater..." />
+                <marker date="1509170938252" expanded="true" signature="5457:5510" placeholder="select * fro..cuisines..." />
+                <marker date="1509170938252" expanded="true" signature="5648:5710" placeholder="select * fro..lifestyle_choices..." />
+                <marker date="1509170938252" expanded="true" signature="5846:5906" placeholder="select * fro..nutrition_types..." />
+                <marker date="1509170938252" expanded="true" signature="6041:6100" placeholder="select * fro..allergen_types..." />
+                <marker date="1509170938252" expanded="true" signature="7544:7625" placeholder="delete from ..." />
+                <marker date="1509170938252" expanded="true" signature="7859:7924" placeholder="select * fro..user_favourite_eateries..." />
+                <marker date="1509170938252" expanded="true" signature="8045:8143" placeholder="select ifnul..dishes..." />
+                <marker date="1509170938252" expanded="true" signature="9077:9181" placeholder="select ifnul..dishes..." />
+                <marker date="1509170938252" expanded="true" signature="10225:10335" placeholder="select ifnul..dishes..." />
               </folding>
             </state>
           </provider>
@@ -930,26 +930,26 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Source/api/FoodAdvisr/app/Api_V1_GetAllDetails.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.31161973" vertical-offset="4481" max-vertical-offset="7174">
-          <caret line="274" column="22" selection-start-line="274" selection-start-column="22" selection-end-line="274" selection-end-column="22" />
+        <state vertical-scroll-proportion="0.67077464" vertical-offset="4277" max-vertical-offset="7174">
+          <caret line="274" column="26" selection-start-line="274" selection-start-column="26" selection-end-line="274" selection-end-column="26" />
           <folding>
             <element signature="e#6#23#0#PHP" expanded="true" />
-            <marker date="1509170835559" expanded="true" signature="498:1342" placeholder="select id, F..eateries..." />
-            <marker date="1509170835559" expanded="true" signature="1011:1271" placeholder="select id fr..eateries..." />
-            <marker date="1509170835559" expanded="true" signature="2771:2829" placeholder="select * fro..eateriesmedia..." />
-            <marker date="1509170835559" expanded="true" signature="3274:3322" placeholder="select * fro..cuisines..." />
-            <marker date="1509170835559" expanded="true" signature="3489:3546" placeholder="select * fro..lifestyle_choices..." />
-            <marker date="1509170835559" expanded="true" signature="4274:4369" placeholder="UPDATE eater..." />
-            <marker date="1509170835559" expanded="true" signature="4458:4551" placeholder="UPDATE eater..." />
-            <marker date="1509170835559" expanded="true" signature="5457:5510" placeholder="select * fro..cuisines..." />
-            <marker date="1509170835559" expanded="true" signature="5648:5710" placeholder="select * fro..lifestyle_choices..." />
-            <marker date="1509170835559" expanded="true" signature="5846:5906" placeholder="select * fro..nutrition_types..." />
-            <marker date="1509170835559" expanded="true" signature="6041:6100" placeholder="select * fro..allergen_types..." />
-            <marker date="1509170835559" expanded="true" signature="7544:7625" placeholder="delete from ..." />
-            <marker date="1509170835559" expanded="true" signature="7859:7924" placeholder="select * fro..user_favourite_eateries..." />
-            <marker date="1509170835559" expanded="true" signature="8045:8143" placeholder="select ifnul..dishes..." />
-            <marker date="1509170835559" expanded="true" signature="9072:9176" placeholder="select ifnul..dishes..." />
-            <marker date="1509170835559" expanded="true" signature="10215:10325" placeholder="select ifnul..dishes..." />
+            <marker date="1509170938252" expanded="true" signature="498:1342" placeholder="select id, F..eateries..." />
+            <marker date="1509170938252" expanded="true" signature="1011:1271" placeholder="select id fr..eateries..." />
+            <marker date="1509170938252" expanded="true" signature="2771:2829" placeholder="select * fro..eateriesmedia..." />
+            <marker date="1509170938252" expanded="true" signature="3274:3322" placeholder="select * fro..cuisines..." />
+            <marker date="1509170938252" expanded="true" signature="3489:3546" placeholder="select * fro..lifestyle_choices..." />
+            <marker date="1509170938252" expanded="true" signature="4274:4369" placeholder="UPDATE eater..." />
+            <marker date="1509170938252" expanded="true" signature="4458:4551" placeholder="UPDATE eater..." />
+            <marker date="1509170938252" expanded="true" signature="5457:5510" placeholder="select * fro..cuisines..." />
+            <marker date="1509170938252" expanded="true" signature="5648:5710" placeholder="select * fro..lifestyle_choices..." />
+            <marker date="1509170938252" expanded="true" signature="5846:5906" placeholder="select * fro..nutrition_types..." />
+            <marker date="1509170938252" expanded="true" signature="6041:6100" placeholder="select * fro..allergen_types..." />
+            <marker date="1509170938252" expanded="true" signature="7544:7625" placeholder="delete from ..." />
+            <marker date="1509170938252" expanded="true" signature="7859:7924" placeholder="select * fro..user_favourite_eateries..." />
+            <marker date="1509170938252" expanded="true" signature="8045:8143" placeholder="select ifnul..dishes..." />
+            <marker date="1509170938252" expanded="true" signature="9077:9181" placeholder="select ifnul..dishes..." />
+            <marker date="1509170938252" expanded="true" signature="10225:10335" placeholder="select ifnul..dishes..." />
           </folding>
         </state>
       </provider>

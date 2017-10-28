@@ -205,7 +205,7 @@ function getmenutypes($id)
     $sql = 'select ifnull(menus_ids,"0") as menus_ids from dishes where eatery_id=' . $id . ' and is_visible=1';
     $sql_result = DB::select(DB::raw($sql));
     $menu_result=array();
-    $menu_id='';
+    $menu_id=array();
     if($sql_result != 0){
         foreach ($sql_result as $menus) {
             $menu_ids = $menus->menus_ids;
@@ -237,7 +237,7 @@ function getmenusections($id)
     $sql = 'select ifnull(sections_ids,"0") as sections_ids from dishes where eatery_id=' . $id . ' and is_visible=1';
     $sql_result = DB::select(DB::raw($sql));
     $section_result = array();
-    $section_id='';
+    $section_id=array();
     $temp_id = 0;
     if($sql_result != 0){
         foreach ($sql_result as $section) {
@@ -272,7 +272,7 @@ function getmenusubsections($id)
     $sql = 'select ifnull(subsections_ids,"0") as subsections_ids from dishes where eatery_id=' . $id . ' and is_visible=1';
     $sql_result = DB::select(DB::raw($sql));
     $subsection_result = array();
-    $subsection_id='';
+    $subsection_id=array();
     if($sql_result != 0){
         $temp_id = 0;
         foreach ($sql_result as $subsection) {
