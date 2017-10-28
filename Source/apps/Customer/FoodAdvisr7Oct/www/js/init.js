@@ -901,6 +901,7 @@ body.on('click','.act-clear-search',function(){
         closeLoading();
         $("#loadeateries").html(op);
       })
+      $('.eatery-search-clear').addClass('hide');
     }
 
     function eaterySearchReset()
@@ -937,6 +938,7 @@ body.on('click','.act-clear-search',function(){
                               (data.result.postal_town == null ? "" : data.result.postal_town + "<br/>") +
                               (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
           $("#eateryaddress").html(eateryAddress);
+
 
           // if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
           // {
@@ -1210,6 +1212,7 @@ body.on('click','.act-clear-search',function(){
                 geocoords.longitude = results[0].geometry.location.lng();
                 geocoords.locationfrom = t.val().toLowerCase();
                 eaterySearch();
+
                 //myMap(geocoords.latitude, geocoords.longitude,t.val().toLowerCase());
               }
               else
