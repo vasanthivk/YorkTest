@@ -1,4 +1,69 @@
-li {
+ .behind {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+    }
+    .behind a.ui-btn {
+        width: auto;
+        height: auto;
+        margin: 0px;
+        float: right;
+        border: none;
+    }
+    .behind a.delete-btn, .behind a.delete-btn:active, .behind a.delete-btn:visited, .behind a.delete-btn:focus, .behind a.delete-btn:hover {
+        color: #00B2A9;
+        top:10px; 
+        height: 75px;
+        background-color: white;
+        text-shadow: none;
+    }
+    .behind a.ui-btn.pull-left {
+        float: left;
+    }
+    .behind a.edit-btn, .behind a.edit-btn:active, .behind a.edit-btn:visited, .behind a.edit-btn:focus, .behind a.edit-btn:hover {
+        color: #00B2A9;
+        top:10px; 
+        height: 75px;
+        background-color: white;
+        text-shadow: none;
+    }
+
+
+.behind div.ui-btn {
+        width: 68px;
+        margin: 0px;
+        float: right;
+        border: none;
+    }
+    .behind div.delete-btn, .behind div.delete-btn:active, .behind div.delete-btn:visited, .behind div.delete-btn:focus, .behind div.delete-btn:hover {
+        color: white;
+        background-color: red;
+        text-shadow: none;
+    }
+    .behind div.ui-btn.pull-left {
+        float: left;
+    }
+    .behind div.edit-btn, .behind div.edit-btn:active, .behind div.edit-btn:visited, .behind div.edit-btn:focus, .behind div.edit-btn:hover {
+        color: white;
+        background-color: orange;
+        text-shadow: none;
+    }
+
+
+div.ui-input-search { width: 320px !important }
+
+
+
+
+
+
+
+
+
+
+/*li {
     padding: 0 !important;
 }
 li .wrapper {
@@ -41,7 +106,7 @@ li .wrapper {
 }
 
 
-/*.ui-listview > li {
+.ui-listview > li {
   display: table;
     width: 100%;
     -webkit-user-select: none;
@@ -118,15 +183,16 @@ li .wrapper {
   background-size: cover;
 }
 
+
+
+
+
+
+
+
+
+
+
+
+
 */
-
-
-
-
-
-
-
-
-
-
-
