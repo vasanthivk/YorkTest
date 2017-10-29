@@ -1,65 +1,35 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Item Groups
+FoodAdvisr-Menu
 @endsection
 @section('module')
-Item Groups
+Menu
 @endsection
 
 @section('content')
 @include('components.message')
 {{Form::component('ahText', 'components.form.text', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+{{Form::component('ahTextarea', 'components.form.textarea', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+{{Form::component('ahNumber', 'components.form.number', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+{{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
 
-{{ Form::open(array('route' => 'itemgroups.store','files'=>true)) }}
+{{ Form::open(array('route' => 'menu.store','files'=>true)) }}
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('group_name','Group Name :','',array('maxlength' => '100'))  }}
-		       <div class="form-group" style="margin:5px">
-        			<label for="group_name" class="control-label col-sm-4">Is Enabled :</label>
-    				<div class="col-sm-8">
-        				<label class="switch">
-                             <input type="checkbox" name="is_visible" class="switch" value="1" checked/>
-                              <span></span>
-                        </label>
-    				</div>
-				</div>
-				<div class="form-group" style="margin:5px">
-        			<label for="group_name" class="control-label col-sm-4">Display Order :</label>
-    				<div class="col-sm-8">
-        				 <input type="number" name="display_order" class="form-control" value="" min="1" step="1">
-    				</div>
-				</div>
-		        </br>
-		    </div>
-		     <div class="row">         
-          <?php                
-                $no_image=env('NO_IMAGE');
-                ?>
-            <div class="col-md-4">
-                    <div class="form-group">            
-                        <div class="fileinput fileinput-new" data-provides="fileinput">
-                            <div class="fileinput-new thumbnail" style="width: 130px; height: 120px;">
-                                <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 120px;">
-                            </div>
-                             <div class="fileinput-preview fileinput-exists thumbnail" style="max-width: 130px; max-height: 120px;"></div>
-                                <div>
-                                   <span class="btn btn-primary btn-file"><span class="fileinput-new">Select Image</span><span class="fileinput-exists">Change</span>
-                                   <input type="file" name="logo" id="logo">
-                                    </span>
-                                    <a href="#" class="btn btn-default fileinput-exists" data-dismiss="fileinput">Remove</a>
-                                 </div>
-                        </div>
-                    </div>
-                </div>
-               </div>
+		        {{ Form::ahText('menu','Menu Name:','',array('maxlength' => '100'))  }}
+            	{{ Form::ahText('submenu','Sub Menu :','',array('maxlength' => '100'))  }}
+            	{{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
+		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }} 
+				</br>
+		    </div>		     
 	    <div class="form-group">
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">
 		            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-		            {{ link_to_route('itemgroups.index','Cancel',null, array('class' => 'btn btn-danger')) }}
+		            {{ link_to_route('menu.index','Cancel',null, array('class' => 'btn btn-danger')) }}
 		        </div>
 		    </div>
 	    </div>

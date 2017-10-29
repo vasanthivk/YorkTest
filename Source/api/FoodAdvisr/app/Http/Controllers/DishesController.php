@@ -49,15 +49,15 @@ class DishesController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $eatery_id = $request['eatery_id'];
-        $items = DB::table('items')
-        ->select(DB::raw('*,items.id as id,if(ifnull(items.is_visible,1)=1,"Active","Inactive") as is_visible'))
-        ->where('items.eatery_id','=',$eatery_id)
+        $dishes = DB::table('dishes')
+        ->select(DB::raw('*,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Active","Inactive") as is_visible'))
+        ->where('dishes.eatery_id','=',$eatery_id)
         ->get();
         $eatery_details = DB::table('eateries')
         ->select(DB::raw('*'))
         ->where('id','=',$eatery_id)
         ->get();
-         return View('items.index', compact('items'))         
+         return View('dishes.index', compact('dishes'))         
         ->with('privileges',$privileges)
         ->with('eatery_details',$eatery_details)
         ->with('eatery_id',$eatery_id);
@@ -74,12 +74,16 @@ class DishesController extends Controller
             return Redirect::to('/');
         $eatery_id = $request['eatery_id'];
         $privileges = $this->getPrivileges();
-        $itemgroups = DB::table('item_groups')
-            ->select(DB::raw('id,group_name'))
+        $menus = DB::table('menu')
+            ->select(DB::raw('id,menu_name'))
             ->where('is_visible','=',1)
             ->get();
-        $itemcategories = DB::table('item_categories')
-            ->select(DB::raw('id,category_name'))
+        $menu_sections = DB::table('menu_section')
+            ->select(DB::raw('id,section_name'))
+            ->where('is_visible','=',1)
+            ->get();
+        $menu_sub_sections = DB::table('menu_sub_section')
+            ->select(DB::raw('id,sub_section_name'))
             ->where('is_visible','=',1)
             ->get();
         $cuisinetypes = DB::table('cuisines')
@@ -90,18 +94,19 @@ class DishesController extends Controller
             ->select(DB::raw('id,nutrition_type'))
             ->where('is_enabled','=',1)
             ->get();
-        $allergenttypes = DB::table('allergent_types')
-            ->select(DB::raw('id,allergent_type'))
+        $allergentypes = DB::table('allergen_types')
+            ->select(DB::raw('id,allergen_type'))
             ->where('is_enabled','=',1)
             ->get();
 
-        return View('items.create')
+        return View('dishes.create')
             ->with('privileges',$privileges)
             ->with('eatery_id',$eatery_id)
-            ->with('itemcategories',$itemcategories)
-            ->with('itemgroups',$itemgroups)
+            ->with('menu_sub_sections',$menu_sub_sections)
+            ->with('menu_sections',$menu_sections)
+            ->with('menus',$menus)
             ->with('nutritiontypes',$nutritiontypes)
-            ->with('allergenttypes',$allergenttypes)
+            ->with('allergentypes',$allergentypes)
             ->with('cuisinetypes',$cuisinetypes);
     }
 
@@ -150,7 +155,7 @@ class DishesController extends Controller
     public function store(Request $request)
     {
        $input = Input::all();
-
+       return $input;
         $file_size = $_FILES['logo']['size'];
         if($file_size > 2097152)
         {
@@ -173,7 +178,7 @@ class DishesController extends Controller
         if ($validator->fails())
         {
             $eatery_id = $request['eatery_id'];
-            return Redirect::route('items.create',array('eatery_id' => $eatery_id))
+            return Redirect::route('dishes.create',array('eatery_id' => $eatery_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');

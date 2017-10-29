@@ -12,7 +12,8 @@ use View;
 use DB;
 use App\User;
 use App\Role;
-use App\Company;
+use App\Eateries;
+use App\Locations;
 use Input;
 use Session;
 use App\Log;
@@ -69,9 +70,19 @@ class UserController extends Controller
         if($privileges['Add'] !='true')    
             return Redirect::to('/');       
         $role = Role::all()->pluck('name','id');
-       
+        $location_id = Input::get('location_id');
+        $locationsAll = Locations::all();
+        $locations = Locations::all()->pluck('Description','LocationID');
+
+        $eateries=null;
+        if($locations->count()>0)
+            $eateries = Eateries::where('LocationId','=',$locationsAll[0]->LocationID)->pluck('BusinessName','id');
+      
+         
         return View::make('user.create')
-        ->with('role',$role)            
+        ->with('role',$role)
+        ->with('locations',$locations)
+        ->with('eateries',$eateries)            
         ->with('privileges',$privileges);
     }
    

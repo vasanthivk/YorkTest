@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Item Categories
+FoodAdvisr-Menu Sub Sections
 @endsection
 @section('module')
-Item Categories
+Menu Sub Sections
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Item Categories
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="{{URL::to('itemcategory/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item Categories</a>
+                                        <a href="{{URL::to('menusubsections/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Sub Section</a>
                                         @endif
                                     </div>
                                 </div>
@@ -22,25 +22,29 @@ Item Categories
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th>Category Name</th>            
+                                                <th>Sub Section Name</th>
+                                                <th>Status</th>                
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
-                                        <tbody>                                                    @foreach($itemcategories as $category)
+                                        <tbody>                                                    @foreach($menusubsections as $subsection)
                                     <tr>
                                         <td>
-                                            {{$category->category_name}}
-                                        </td>       
+                                            {{$subsection->sub_section_name}}
+                                        </td>  
+                                        <td>
+                                            {{$subsection->status}}
+                                        </td>     
                                         <td width="30%">
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('itemcategory.edit','Edit',array($category->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('menusubsections.edit','Edit',array($subsection->id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
                                                    @if($privileges['Delete']=='true')
-                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('itemcategory.destroy', $category->id))) }}
+                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('menusubsections.destroy', $subsection->id))) }}
                                                     <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
                                                     {{ Form::close() }}
                                                    @endif

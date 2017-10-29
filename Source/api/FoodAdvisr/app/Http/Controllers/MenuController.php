@@ -43,7 +43,14 @@ class MenuController extends Controller
      */
     public function index()
     {
-        return view('menu.index');
+        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        $menus = DB::table('menu')
+        ->select(DB::raw('menu.ref as id,menu.menu,menu.submenu,if(ifnull(menu.is_visible,1)=1,"Visible","InVisible") as status'))
+        ->get();
+         return View('menu.index', compact('menus'))         
+        ->with('privileges',$privileges);
     }
 
     /**
@@ -53,46 +60,12 @@ class MenuController extends Controller
      */
     public function create()
     {
-        //
+        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        return View('menu.create')          
+        ->with('privileges',$privileges);
     }
-
-    private function saveLogoInTempLocation($file)
-    {
-        $session_id = Session::getId();
-        $tempdestinationPath = env('CONTENT_ITEM_GROUP_TEMP_PATH');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $session_id . '.' . $extension;
-        $upload_success = $file->move($tempdestinationPath, $filename);
-        return $extension;
-    }
-
-    private function saveLogoInLogoPath($itemgropuid, $extension)
-    {
-        $session_id = Session::getId();
-        $sourceDir = env('CONTENT_ITEM_GROUP_TEMP_PATH');
-        $destinationDir = env('CONTENT_ITEM_GROUP_PATH');
-        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemgropuid . '.' .  $extension);
-        try {
-            $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);
-        } catch (Exception $e) {
-        }
-
-        createThumbnailImage($destinationDir,$itemgropuid,$extension);
-    }
-
-    private function deleteLogo($itemgropuid, $extension)
-    {
-        $sourceDir = env('CONTENT_ITEM_GROUP_PATH');
-        try {
-            $success = File::delete($sourceDir . '//' . $itemgropuid . '.' .  $extension);
-        } catch (Exception $e) {
-        }
-        try {
-            $success = File::delete($sourceDir . '//' . $itemgropuid . '_t.' .  $extension);
-        } catch (Exception $e) {
-        }
-    }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -101,7 +74,42 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = Input::all(); 
+        $this->validate($request, [
+            'menu'  => 'required']);        
+        
+        $rules = array('');
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) 
+        {
+            return Redirect::route('menu.create')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('errors', 'There were validation errors');
+        }
+        else
+        {   
+       
+            $menu = new Menu();
+            $menu->menu =  Input::get('menu');
+            $menu->submenu =  (Input::get('submenu')=='' ? ' ' : Input::get('submenu'));
+            $menu->description =  (Input::get('description')=='' ? ' ' : Input::get('description'));
+            $menu->is_visible =  (Input::get('is_visible')== ''  ? '0' : '1');
+            $menu->sort_order =  1;
+            $menu->save();         
+
+            $log = new Log();
+            $log->module_id=6;
+            $log->action='create';      
+            $log->description='Menu ' . $menu->menu . ' is created';
+            $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get('user_id'); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
+        return Redirect::route('menu.index')->with('success','Menu Created Successfully!');
+        
+        }
     }
 
     /**
@@ -123,7 +131,15 @@ class MenuController extends Controller
      */
     public function edit($id)
     {
-        //
+         if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        if($privileges['Edit'] !='true')
+            return Redirect::to('/');        
+        $menu = Menu::where('ref','=',$id)->get();
+        return View('menu.edit')
+        ->with('menu',$menu[0])
+        ->with('privileges',$privileges);
     }
 
     /**
@@ -135,7 +151,42 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = Input::all(); 
+        $this->validate($request, [
+            'menu'  => 'required']);        
+        
+        $rules = array('');
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) 
+        {
+            return Redirect::route('menu.edit')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('errors', 'There were validation errors');
+        }
+        else
+        {   
+            Menu::where('ref','=',$id)
+            ->update(array(
+                'menu'=> Input::get('menu'),
+                'submenu'=> (Input::get('submenu')=='' ? ' ' : Input::get('submenu')),
+                'description'=> (Input::get('description')=='' ? ' ' : Input::get('description')),
+                'is_visible'=> (Input::get('is_visible')== ''  ? '0' : '1'),
+                'sort_order'=> 1
+            ));
+
+            $log = new Log();
+            $log->module_id=6;
+            $log->action='update';      
+            $log->description='Menu ' . Input::get('menu') . ' is updated';
+            $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get('user_id'); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
+        return Redirect::route('menu.index')->with('success','Menu Updated Successfully!');
+        
+        }
     }
 
     /**
@@ -146,6 +197,25 @@ class MenuController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $menu =  Menu::where('ref','=',$id)->get();
+        if (is_null($menu))
+        {
+         return Redirect::back()->with('warning','Menu Details Are Not Found!');
+        }
+        else
+        {
+           Menu::where('ref','=',$id)->delete();
+
+            $log = new Log();
+            $log->module_id=6;
+            $log->action='delete';      
+            $log->description='Menu '. $menu[0]->menu . ' is Deleted';
+            $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get("user_id"); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
+           return Redirect::back()->with('warning','Menu Deleted Successfully!');
+        }
     }
 }

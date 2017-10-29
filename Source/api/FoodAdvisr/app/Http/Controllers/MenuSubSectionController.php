@@ -44,7 +44,14 @@ class MenuSubSectionController extends Controller
      */
     public function index()
     {
-        return view('menu.index');
+         if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        $menusubsections = DB::table('menu_sub_section')
+        ->select(DB::raw('menu_sub_section.*,if(ifnull(menu_sub_section.is_visible,1)=1,"Visible","InVisible") as status'))
+        ->get();
+         return View('menusubsections.index', compact('menusubsections'))         
+        ->with('privileges',$privileges);
     }
 
     /**
@@ -54,44 +61,13 @@ class MenuSubSectionController extends Controller
      */
     public function create()
     {
-        //
-    }
-
-    private function saveLogoInTempLocation($file)
-    {
-        $session_id = Session::getId();
-        $tempdestinationPath = env('CONTENT_ITEM_GROUP_TEMP_PATH');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $session_id . '.' . $extension;
-        $upload_success = $file->move($tempdestinationPath, $filename);
-        return $extension;
-    }
-
-    private function saveLogoInLogoPath($itemgropuid, $extension)
-    {
-        $session_id = Session::getId();
-        $sourceDir = env('CONTENT_ITEM_GROUP_TEMP_PATH');
-        $destinationDir = env('CONTENT_ITEM_GROUP_PATH');
-        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemgropuid . '.' .  $extension);
-        try {
-            $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);
-        } catch (Exception $e) {
-        }
-
-        createThumbnailImage($destinationDir,$itemgropuid,$extension);
-    }
-
-    private function deleteLogo($itemgropuid, $extension)
-    {
-        $sourceDir = env('CONTENT_ITEM_GROUP_PATH');
-        try {
-            $success = File::delete($sourceDir . '//' . $itemgropuid . '.' .  $extension);
-        } catch (Exception $e) {
-        }
-        try {
-            $success = File::delete($sourceDir . '//' . $itemgropuid . '_t.' .  $extension);
-        } catch (Exception $e) {
-        }
+         if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        $sections = MenuSection::pluck('section_name','id');
+        return View('menusubsections.create')  
+        ->with('sections',$sections)
+        ->with('privileges',$privileges);
     }
 
     /**
@@ -102,7 +78,46 @@ class MenuSubSectionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $input = Input::all();
+
+        $this->validate($request, [
+            'sub_section_name'  => 'required']);        
+        
+        $rules = array('');
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) 
+        {
+            return Redirect::route('menusubsections.create')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('errors', 'There were validation errors');
+        }
+        else
+        {    
+            $menusubsection = new MenuSubSection();
+            $menusubsection->sub_section_name = Input::get('sub_section_name');
+            $menusubsection->description = Input::get('description');
+            $menusubsection->section_id = Input::get('section_id');
+            $menusubsection->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
+            $menusubsection->display_order = 1;
+            $menusubsection->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusubsection->added_by = Session::get('user_id');
+            $menusubsection->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusubsection->modified_by = Session::get('user_id');            
+            $menusubsection->save();           
+
+            $log = new Log();
+            $log->module_id=7;
+            $log->action='create';      
+            $log->description='Menu Sub Section ' . $menusubsection->sub_section_name . ' is created';
+            $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get('user_id'); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
+        return Redirect::route('menusubsections.index')->with('success','Menu Sub Section Created Successfully!');
+        
+        }
     }
 
     /**
@@ -124,7 +139,17 @@ class MenuSubSectionController extends Controller
      */
     public function edit($id)
     {
-        //
+        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        if($privileges['Edit'] !='true')
+            return Redirect::to('/');        
+        $menusubsections = MenuSubSection::find($id);
+        $sections = MenuSection::pluck('section_name','id');
+        return View('menusubsections.edit')          
+        ->with('menusubsections',$menusubsections)
+        ->with('sections',$sections)
+        ->with('privileges',$privileges);
     }
 
     /**
@@ -136,7 +161,46 @@ class MenuSubSectionController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $input = Input::all();
+
+        $this->validate($request, [
+            'sub_section_name'  => 'required']);        
+        
+        $rules = array('');
+        $validator = Validator::make(Input::all(), $rules);
+        if ($validator->fails()) 
+        {
+            return Redirect::route('menusubsections.edit')
+                ->withInput()
+                ->withErrors($validator)
+                ->with('errors', 'There were validation errors');
+        }
+        else
+        {    
+            $menusubsection = MenuSubSection::find($id);
+            $menusubsection->sub_section_name = Input::get('sub_section_name');
+            $menusubsection->description = Input::get('description');
+            $menusubsection->section_id = Input::get('section_id');
+            $menusubsection->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
+            $menusubsection->display_order = 1;
+            $menusubsection->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusubsection->added_by = Session::get('user_id');
+            $menusubsection->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusubsection->modified_by = Session::get('user_id');            
+            $menusubsection->save();           
+
+            $log = new Log();
+            $log->module_id=7;
+            $log->action='create';      
+            $log->description='Menu Sub Section ' . $menusubsection->sub_section_name . ' is created';
+            $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get('user_id'); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
+        return Redirect::route('menusubsections.index')->with('success','Menu Sub Section Created Successfully!');
+        
+        }
     }
 
     /**
@@ -147,6 +211,25 @@ class MenuSubSectionController extends Controller
      */
     public function destroy($id)
     {
-        //
+         $menusubsections = MenuSubSection::find($id);
+        if (is_null($menusubsections))
+        {
+         return Redirect::back()->with('warning','Menu Sub Section Details Are Not Found!');
+        }
+        else
+        {
+           MenuSubSection::find($id)->delete();
+          
+            $log = new Log();
+            $log->module_id=7;
+            $log->action='delete';      
+            $log->description='Menu Sub Section '. $menusubsections->sub_section_name . ' is Deleted';
+            $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $log->user_id=Session::get("user_id"); 
+            $log->category=1;    
+            $log->log_type=1;
+            createLog($log);
+           return Redirect::back()->with('warning','Menu Sub Section Deleted Successfully!');
+        }
     }
 }

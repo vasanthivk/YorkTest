@@ -41,10 +41,10 @@ class MenuSectionController extends Controller
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $itemcategories = DB::table('item_categories')
-        ->select(DB::raw('*'))
+        $menusections = DB::table('menu_section')
+        ->select(DB::raw('menu_section.*,if(ifnull(menu_section.is_visible,1)=1,"Visible","InVisible") as status'))
         ->get();
-         return View('itemcategory.index', compact('itemcategories'))         
+         return View('menusections.index', compact('menusections'))         
         ->with('privileges',$privileges);
     }
 
@@ -58,47 +58,13 @@ class MenuSectionController extends Controller
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $itegroups = ItemGroups::all()->pluck('group_name','id');
-        return View('itemcategory.create')          
-        ->with('itegroups',$itegroups)
+         $menus = DB::table('menu')
+        ->select(DB::raw('menu.menu,menu.ref as id'))
+        ->pluck('menu','id');
+
+        return View('menusections.create')          
+        ->with('menus',$menus)
         ->with('privileges',$privileges);
-    }
-
-     private function saveLogoInTempLocation($file)
-     {
-        $session_id = Session::getId();
-        $tempdestinationPath = env('CONTENT_ITEM_CATEGORY_TEMP_PATH');
-        $extension = $file->getClientOriginalExtension();
-        $filename = $session_id . '.' . $extension;
-        $upload_success = $file->move($tempdestinationPath, $filename);
-        return $extension;
-     }
-
-     private function saveLogoInLogoPath($itemgropuid, $extension)
-    {
-        $session_id = Session::getId();
-        $sourceDir = env('CONTENT_ITEM_CATEGORY_TEMP_PATH');
-        $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');
-        $success = File::copy($sourceDir . '//' . $session_id . '.' .  $extension, $destinationDir . '//' . $itemgropuid . '.' .  $extension);        
-        try {
-            $success = File::delete($sourceDir . '//' . $session_id . '.' .  $extension);     
-        } catch (Exception $e) {
-        }
-        
-        createThumbnailImage($destinationDir,$itemgropuid,$extension);
-    }
-
-    private function deleteLogo($itemgropuid, $extension)
-    {
-        $sourceDir = env('CONTENT_ITEM_CATEGORY_PATH');
-        try {
-            $success = File::delete($sourceDir . '//' . $itemgropuid . '.' .  $extension);        
-        } catch (Exception $e) {
-        }
-        try {
-            $success = File::delete($sourceDir . '//' . $itemgropuid . '_t.' .  $extension);        
-        } catch (Exception $e) {
-        }
     }
 
     /**
@@ -111,20 +77,8 @@ class MenuSectionController extends Controller
     {
         $input = Input::all();
 
-         $file_size = $_FILES['logo']['size'];       
-        if($file_size > 2097152)
-            {
-                 return Redirect::back()->with('warning','File size must be less than 2 MB!')
-                 ->withInput();
-            }
-      
-        $file = array_get($input,'logo');
-        $extension = '';
-        if($file <> null)
-            $extension = $this->saveLogoInTempLocation($file); 
-
         $this->validate($request, [
-            'category_name'  => 'required']);        
+            'section_name'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -137,40 +91,28 @@ class MenuSectionController extends Controller
         }
         else
         {    
-            $itemcategory = new ItemCategories();
-            $itemcategory->category_name = Input::get('category_name');
-            $itemcategory->description = Input::get('description');
-            $itemcategory->group_id = Input::get('group_id');
-            $itemcategory->is_visible = 1;
-            $itemcategory->display_order = Input::get('display_order');;
-            $itemcategory->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemcategory->added_by = Session::get('user_id');
-            $itemcategory->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemcategory->modified_by = Session::get('user_id');
-             if($file <> null)
-                $itemcategory->logo_extension = $extension; 
-            $itemcategory->save();           
-
-            if(!empty($extension))
-            {
-             $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');            
-             $LogoPath=$destinationDir . '/' . $itemcategory->id . '.' .  $itemcategory->logo_extension;
-             $itemcategory->img_url =  $LogoPath;
-             $itemcategory->update();
-            }
-             if($file <> null)
-                $this->saveLogoInLogoPath($itemcategory->id, $extension);
+            $menusection = new MenuSection();
+            $menusection->section_name = Input::get('section_name');
+            $menusection->description = Input::get('description');
+            $menusection->menu_id = Input::get('menu_id');
+            $menusection->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
+            $menusection->display_order = 1;
+            $menusection->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusection->added_by = Session::get('user_id');
+            $menusection->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusection->modified_by = Session::get('user_id');            
+            $menusection->save();           
 
             $log = new Log();
             $log->module_id=7;
             $log->action='create';      
-            $log->description='Item Category ' . $itemcategory->category_name . ' is created';
+            $log->description='Menu Section ' . $menusection->section_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('itemcategory.index')->with('success','Item Category Created Successfully!');
+        return Redirect::route('menusections.index')->with('success','Menu Section Created Successfully!');
         
         }
     }
@@ -199,11 +141,13 @@ class MenuSectionController extends Controller
         $privileges = $this->getPrivileges();
         if($privileges['Edit'] !='true')
             return Redirect::to('/');        
-        $itemcategories = ItemCategories::find($id);
-        $itegroups = ItemGroups::all()->pluck('group_name','id');
-        return View('itemcategory.edit')          
-        ->with('itegroups',$itegroups)
-        ->with('itemcategories',$itemcategories)
+        $menusections = MenuSection::find($id);
+        $menus = DB::table('menu')
+        ->select(DB::raw('menu.menu,menu.ref as id'))
+        ->pluck('menu','id');
+        return View('menusections.edit')          
+        ->with('menusections',$menusections)
+        ->with('menus',$menus)
         ->with('privileges',$privileges);
     }
 
@@ -217,81 +161,43 @@ class MenuSectionController extends Controller
     public function update(Request $request, $id)
     {
         $input = Input::all(); 
-
-        $file_size = $_FILES['logo']['size'];
-        if($file_size > 5097152)
-            {
-                 return Redirect::back()->with('warning','File size must be less than 2 MB!');
-            }
-
-        $file = array_get($input,'logo');
-        $extension = '';
-        if($file <> null)
-            $extension = $this->saveLogoInTempLocation($file);
-
+       
         $this->validate($request, [
-            'category_name'  => 'required']);        
+            'section_name'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('itemcategory.edit')
+            return Redirect::route('menusections.edit')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
         }
         else
         {  
-            $itemcategory = ItemCategories::find($id);
-             if($file <> null)
-             {
-            $success = File::delete($itemcategory->img_url);
-            $LogoPath = env('CONTENT_ITEM_CATEGORY_PATH') . '/' . $itemcategory->id .  '_t.' . $itemcategory->logo_extension ;
-            $delete=File::delete($LogoPath);
-            }             
-            
-              if(empty($extension))
-            {
-                $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');
-                $LogoPath=$destinationDir . '/' . $id . '.' .  $itemcategory->logo_extension; 
-            }
-            else
-            {
-                $destinationDir = env('CONTENT_ITEM_CATEGORY_PATH');
-                $LogoPath=$destinationDir . '/' . $id . '.' .  $extension;
-            }
-
-           
-            $itemcategory->category_name = Input::get('category_name');
-            $itemcategory->description = Input::get('description');
-            $itemcategory->group_id = Input::get('group_id');
-            $itemcategory->is_visible = 1;
-            $itemcategory->display_order = Input::get('display_order');;
-            $itemcategory->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemcategory->added_by = Session::get('user_id');
-            $itemcategory->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $itemcategory->modified_by = Session::get('user_id');
-            $itemcategory->img_url = $LogoPath;
-            $itemcategory->Update();           
-
-            if($file <> null)
-                $itemcategory->logo_extension = $extension;
-            $itemcategory->update();          
-
-            if($file <> null)
-                $this->saveLogoInLogoPath($itemcategory->id, $extension);
+            $menusection = MenuSection::find($id);            
+            $menusection->section_name = Input::get('section_name');
+            $menusection->description = Input::get('description');
+            $menusection->menu_id = Input::get('menu_id');
+            $menusection->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
+            $menusection->display_order = 1;
+            $menusection->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusection->added_by = Session::get('user_id');
+            $menusection->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $menusection->modified_by = Session::get('user_id'); 
+            $menusection->Update();           
 
             $log = new Log();
             $log->module_id=7;
             $log->action='update';      
-            $log->description='Item Category ' . $itemcategory->group_name . ' is updated';
+            $log->description='Menu Section ' . $menusection->section_name . ' is updated';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('itemcategory.index')->with('success','Item Category Updated Successfully!');
+        return Redirect::route('menusections.index')->with('success','Menu Section Updated Successfully!');
         
         }
     }
@@ -304,30 +210,25 @@ class MenuSectionController extends Controller
      */
     public function destroy($id)
     {
-        $itemcategory = ItemCategories::find($id);
-        if (is_null($itemcategory))
+        $menusections = MenuSection::find($id);
+        if (is_null($menusections))
         {
-         return Redirect::back()->with('warning','Item Category Details Are Not Found!');
+         return Redirect::back()->with('warning','Menu Section Details Are Not Found!');
         }
         else
         {
-           ItemCategories::find($id)->delete();
+           MenuSection::find($id)->delete();
           
-             try {
-                $this->deleteLogo($itemcategory->id, $itemcategory->logo_extension);
-            } catch (Exception $e) {
-            }
-
             $log = new Log();
             $log->module_id=7;
             $log->action='delete';      
-            $log->description='Item Category '. $itemcategory->category_name . ' is Deleted';
+            $log->description='Menu Section '. $menusections->section_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','Item Groups Deleted Successfully!');
+           return Redirect::back()->with('warning','Menu Section Deleted Successfully!');
         }
     }
 }
