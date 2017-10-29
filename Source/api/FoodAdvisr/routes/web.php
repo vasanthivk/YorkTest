@@ -62,6 +62,7 @@ Route::get('api/v1/getcuisines','RestApi_V1_GeneralController@V1_GetCuisines');
 Route::get('api/v1/getlifestylechoices','RestApi_V1_GeneralController@V1_GetLifeStyleChoices');
 Route::get('api/v1/getnutritions','RestApi_V1_GeneralController@V1_GetNutritions');
 Route::get('api/v1/getallergens','RestApi_V1_GeneralController@V1_GetAllergens');
+Route::get('api/v1/ajaxsearch','ajaxSearchController@ajaxSearchByResult');
 
 Route::post('api/v1/addtofavouriteeatery', array('as' => 'v1_addtofavouriteeatery', 'uses' => 'RestApi_V1_GeneralController@V1_AddToFavouriteEatery'));
 Route::post('api/v1/removefromfavouriteeatery', array('as' => 'v1_removefromfavouriteeatery', 'uses' => 'RestApi_V1_GeneralController@V1_RemoveFromFavouriteEatery'));

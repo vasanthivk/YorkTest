@@ -29,7 +29,9 @@ My Profile
                     <label for="location_id" class="control-label col-sm-4"></label>
                         <div class="input-group push-down-10">
                             <span class="input-group-addon"><span class="fa fa-info-circle fa-1x" title='Eatery Names,Locations,Contact Numbers,Zip,Cuisines'></span></span>
-                            <input type="text" class="form-control" name="search" id="search" placeholder="Search...." value="{{$searchvalue}}"/>
+                            {{--<input type="text" class="form-control" name="search" id="search" placeholder="Search...." value="{{$searchvalue}}"/>--}}
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search...." value=""/>
+                            <div id="searchresult"></div>
                             <div class="input-group-btn">
                                 <button class="btn btn-primary">Search</button>
                             </div>
@@ -190,6 +192,23 @@ My Profile
                                 </div>
                             </div>
     					</div>
-    				</div> 
-
+    				</div>
+<script>
+    $(document).ready(function(){
+        $('input[name="search"]').keyup(function(){
+            var search = $('input[name="search"]').val();
+            $.ajax({
+                url: '../../../../api/v1/ajaxsearch',
+                data: {
+                    search: search
+                },
+                type: 'post',
+                success: function (response) {
+                    alert(response);
+                    $('#searchresult').html(response);
+                }
+            });
+        }) ;
+    });
+</script>
 @endsection
