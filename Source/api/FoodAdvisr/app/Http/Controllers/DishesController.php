@@ -57,7 +57,7 @@ class DishesController extends Controller
         ->select(DB::raw('*'))
         ->where('id','=',$eatery_id)
         ->get();
-         return View('dishes.index', compact('dishes'))
+         return View('dishes.index', compact('dishes'))         
         ->with('privileges',$privileges)
         ->with('eatery_details',$eatery_details)
         ->with('eatery_id',$eatery_id);
@@ -74,14 +74,15 @@ class DishesController extends Controller
             return Redirect::to('/');
         $eatery_id = $request['eatery_id'];
         $privileges = $this->getPrivileges();
-        $menu = DB::table('menu')
-            ->select(DB::raw('ref,menu'))
+        $menus = DB::table('menu')
+            ->select(DB::raw('id,menu_name'))
+            ->where('is_visible','=',1)
             ->get();
-        $menusection = DB::table('menu_section')
+        $menu_sections = DB::table('menu_section')
             ->select(DB::raw('id,section_name'))
             ->where('is_visible','=',1)
             ->get();
-        $menusubsection = DB::table('menu_sub_section')
+        $menu_sub_sections = DB::table('menu_sub_section')
             ->select(DB::raw('id,sub_section_name'))
             ->where('is_visible','=',1)
             ->get();
@@ -89,29 +90,23 @@ class DishesController extends Controller
             ->select(DB::raw('id,cuisine_name'))
             ->where('is_enabled','=',1)
             ->get();
-        $allergenttypes = DB::table('allergens')
-            ->select(DB::raw('ref,title'))
-            ->where('display','=',"yes")
-            ->where('type','=',"I")
+        $nutritiontypes = DB::table('nutrition_types')
+            ->select(DB::raw('id,nutrition_type'))
+            ->where('is_enabled','=',1)
             ->get();
-        $ingredients = DB::table('_product_ingredients')
-            ->select(DB::raw('ref,name'))
-            ->where('deleted','!=',"yes")
-            ->get();
-        $lifestyle_choices = DB::table('lifestyle_choices')
-            ->select(DB::raw('id,description'))
-            ->where('is_enabled','=','1')
+        $allergentypes = DB::table('allergen_types')
+            ->select(DB::raw('id,allergen_type'))
+            ->where('is_enabled','=',1)
             ->get();
 
         return View('dishes.create')
             ->with('privileges',$privileges)
             ->with('eatery_id',$eatery_id)
-            ->with('menusection',$menusection)
-            ->with('menusubsection',$menusubsection)
-            ->with('menu',$menu)
-            ->with('allergenttypes',$allergenttypes)
-            ->with('ingredients',$ingredients)
-            ->with('lifestyle_choices',$lifestyle_choices)
+            ->with('menu_sub_sections',$menu_sub_sections)
+            ->with('menu_sections',$menu_sections)
+            ->with('menus',$menus)
+            ->with('nutritiontypes',$nutritiontypes)
+            ->with('allergentypes',$allergentypes)
             ->with('cuisinetypes',$cuisinetypes);
     }
 
@@ -147,7 +142,7 @@ class DishesController extends Controller
         } catch (Exception $e) {
         }
         try {
-            $success = File::delete($sourceDir . '//' . $itemid . '_t.' .  $extension);
+            $success = File::delete($sourceDir . '//' . $itemidaq . '_t.' .  $extension);        
         } catch (Exception $e) {
         }
     }
@@ -160,7 +155,7 @@ class DishesController extends Controller
     public function store(Request $request)
     {
        $input = Input::all();
-
+       return $input;
         $file_size = $_FILES['logo']['size'];
         if($file_size > 2097152)
         {
@@ -175,7 +170,7 @@ class DishesController extends Controller
 
 
         $this->validate($request, [
-            'dish_name'  => 'required','default_price' => 'required','eatery_id' => 'required']);
+            'item_name'  => 'required','item_default_price' => 'required','eatery_id' => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -190,70 +185,109 @@ class DishesController extends Controller
         }
         else
         {
-            $dish = new Dishes();
-            $dish->dish_name = Input::get('dish_name');
-            $dish->description = Input::get('description');
-            $dish->cuisines_ids = serialize(Input::get('cuisines_ids'));
-            $dish->lifestyle_choices_ids = Input::get('lifestyle_choices_ids');
-            $dish->allergens_contain_ids = serialize(Input::get('allergens_contain_ids'));
-            $dish->ingredients_ids = serialize(Input::get('ingredients_ids'));
-            $dish->menus_ids = Input::get('menus_ids');
-            $dish->sections_ids = Input::get('sections_ids');
-            $dish->subsections_ids = Input::get('subsections_ids');
-            $dish->group_id = Input::get('group_id');
-            $dish->eatery_id = Input::get('eatery_id');
-            $dish->valid_from = date('Y-m-d',strtotime(Input::get('valid_from')));
-            $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
-            $dish->applicable_days = serialize(Input::get('applicable_days'));
-            $dish->default_price = Input::get('default_price');
+            if(isset($input['itemGroupName']) && !empty($input['itemGroupName'])){
+                $itemgroups = new ItemGroups();
+                $itemgroups->group_name = Input::get('itemGroupName');
+                $itemgroups->is_visible = 1;
+                $itemgroups->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemgroups->added_by = Session::get('user_id');
+                $itemgroups->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemgroups->modified_by = Session::get('user_id');
+                $itemgroups->save();
+                $itemgroup_id = $itemgroups->id;
+            }
+            else if(isset($input['itemgroup']) && !empty($input['itemgroup'])) {
+                $itemgroup_id = $input['itemgroup'];
+            }
+            if(isset($input['itemCategoryName']) && !empty($input['itemCategoryName'])){
+                $itemcategories = new ItemCategories();
+                $itemcategories->category_name = Input::get('itemCategoryName');
+                $itemcategories->group_id = $itemgroup_id;
+                $itemcategories->is_visible = 1;
+                $itemcategories->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemcategories->added_by = Session::get('user_id');
+                $itemcategories->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                $itemcategories->modified_by = Session::get('user_id');
+                $itemcategories->save();
+                $itemcategory_id = $itemcategories->id;
+            }
+            else if(isset($input['itemcategory']) && !empty($input['itemcategory'])) {
+                $itemcategory_id = $input['itemcategory'];
+            }
+            $items = new Items();
+            $items->eatery_id = Input::get('eatery_id');
+            $items->item_name = Input::get('item_name');
+            $items->item_default_price = Input::get('item_default_price');
+            $items->item_description = Input::get('item_description');
+            $items->item_valid_from = date('Y-m-d',strtotime(Input::get('item_valid_from')));
+            $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
+            $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
+            $items->cuisine_id = serialize(Input::get('cuisine_id'));
+            $items->item_ingredients = serialize(Input::get('item_ingredients'));
+            $items->allergents_contain = serialize(Input::get('allergents_contain'));
+            $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
+            $items->nutrition_levels = serialize(Input::get('nutrition_to'));
+            $items->meat_content_type = Input::get('meat_content_type');
+            $items->category_id = $itemcategory_id;
+            if(isset($input['contains_nuts']) && !empty($input['contains_nuts'])){
+                $items->contains_nuts = 1;
+            }
+            else{
+                $items->contains_nuts = 0;
+            }
+
+            if(isset($input['dairy_free']) && !empty($input['dairy_free'])){
+                $items->dairy_free = 1;
+            }
+            else{
+                $items->dairy_free = 0;
+            }
+            if(isset($input['gluten_free']) && !empty($input['gluten_free'])){
+                $items->gluten_free = 1;
+            }
+            else{
+                $items->gluten_free = 0;
+            }
+            if(isset($input['vegan']) && !empty($input['vegan'])){
+                $items->vegan = 1;
+            }
+            else{
+                $items->vegan = 0;
+            }
             if(isset($input['is_visible']) && !empty($input['is_visible'])){
-                $dish->is_visible = 1;
+                $items->is_visible = 1;
             }
             else{
-                $dish->is_visible = 0;
+                $items->is_visible = 0;
             }
-            if(isset($input['is_featured']) && !empty($input['is_featured'])){
-                $dish->is_featured = 1;
-            }
-            else{
-                $dish->is_featured = 0;
-            }
-            $dish->allergens_may_contain = serialize(Input::get('allergens_may_contain'));
-            if(isset($input['is_new']) && !empty($input['is_new'])){
-                $dish->is_new = 1;
-            }
-            else{
-                $dish->is_new = 0;
-            }
-            $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
-            $dish->display_order =  Input::get('display_order');
-            $dish->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $dish->added_by = Session::get('user_id');
-            $dish->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $dish->modified_by = Session::get('user_id');
+            $items->display_order =  Input::get('display_order');
+            $items->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->added_by = Session::get('user_id');
+            $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->modified_by = Session::get('user_id');
             if($file <> null)
-                $dish->logo_extension = $extension;
-            $dish->save();
+                $items->logo_extension = $extension;
+            $items->save();
 
            if(!empty($extension))
             {
              $destinationDir = env('CONTENT_ITEM_PATH');            
-             $LogoPath=$destinationDir . '/' . $dish->id . '.' .  $dish->logo_extension;
-                $dish->img_url =  $LogoPath;
-                $dish->update();
+             $LogoPath=$destinationDir . '/' . $items->id . '.' .  $items->logo_extension;
+             $items->img_url =  $LogoPath;
+             $items->update();
             }
              if($file <> null)
-                $this->saveLogoInLogoPath($dish->id, $extension);
+                $this->saveLogoInLogoPath($items->id, $extension);
             $log = new Log();
             $log->module_id=9;
             $log->action='create';      
-            $log->description='Dish ' . $dish->dish_name . ' is created';
+            $log->description='items ' . $items->item_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('dishes.index',array('eatery_id' => $dish->eatery_id))->with('success','Dish Created Successfully!');
+        return Redirect::route('items.index',array('eatery_id' => $items->eatery_id))->with('success','Item Created Successfully!');
         
         }
     }
@@ -283,67 +317,45 @@ class DishesController extends Controller
         if($privileges['Edit'] !='true')
             return Redirect::to('/');
         $eatery_id = $request['eatery_id'];
-        $menu = DB::table('menu')
-            ->select(DB::raw('ref,menu'))
-            ->get();
-        $menusection = DB::table('menu_section')
-            ->select(DB::raw('id,section_name'))
-            ->where('is_visible','=',1)
-            ->get();
-        $menusubsection = DB::table('menu_sub_section')
-            ->select(DB::raw('id,sub_section_name'))
+        $category = DB::table('item_categories')
+            ->select(DB::raw('id,category_name'))
             ->where('is_visible','=',1)
             ->get();
         $cuisinetypes = DB::table('cuisines')
             ->select(DB::raw('id,cuisine_name'))
             ->where('is_enabled','=',1)
             ->get();
-        $allergenttypes = DB::table('allergens')
-            ->select(DB::raw('ref,title'))
-            ->where('display','=',"yes")
-            ->where('type','=',"I")
+        $nutritiontypes = DB::table('nutrition_types')
+            ->select(DB::raw('id,nutrition_type'))
+            ->where('is_enabled','=',1)
             ->get();
-        $ingredients = DB::table('_product_ingredients')
-            ->select(DB::raw('ref,name'))
-            ->where('deleted','!=',"yes")
+        $allergenttypes = DB::table('allergent_types')
+            ->select(DB::raw('id,allergent_type'))
+            ->where('is_enabled','=',1)
             ->get();
-        $lifestyle_choices = DB::table('lifestyle_choices')
-            ->select(DB::raw('id,description'))
-            ->where('is_enabled','=','1')
-            ->get();
-
-        $dish = Dishes::find($id);
-        $applicable_days = unserialize($dish->applicable_days);
-        $cuisines_ids = unserialize($dish->cuisines_ids);
-        $lifestyle_choices_ids = unserialize($dish->lifestyle_choices_ids);
-        $ingredients_ids = unserialize($dish->ingredients_ids);
-        $allergens_contain_ids = unserialize($dish->allergens_contain_ids);
-        $menus_ids = unserialize($dish->menus_ids);
-        $sections_ids = unserialize($dish->sections_ids);
-        $subsections_ids = unserialize($dish->subsections_ids);
-        $allergens_may_contain = unserialize($dish->allergens_may_contain);
+        $items = Items::find($id);
+        $item_applicable_days = unserialize($items->item_applicable_days);
+        $cuisine_id = unserialize($items->cuisine_id);
+        $item_ingredients = unserialize($items->item_ingredients);
+        $allergents_contain = unserialize($items->allergents_contain);
+        $allergents_may_contain = unserialize($items->allergents_may_contain);
+        $nutrition_levels = unserialize($items->nutrition_levels);
 
         /*return $allergents_contain;*/
 
-        return View('dishes.edit')
-        ->with('menu',$menu)
-        ->with('menusection',$menusection)
-        ->with('menusubsection',$menusubsection)
-        ->with('cuisinetypes',$cuisinetypes)
-        ->with('allergenttypes',$allergenttypes)
-        ->with('ingredients',$ingredients)
-        ->with('lifestyle_choices',$lifestyle_choices)
-        ->with('dish',$dish)
+        return View('items.edit')
+        ->with('items',$items)
         ->with('eatery_id',$eatery_id)
-        ->with('cuisines_ids',$cuisines_ids)
-        ->with('lifestyle_choices_ids',$lifestyle_choices_ids)
-        ->with('ingredients_ids',$ingredients_ids)
-        ->with('allergens_contain_ids',$allergens_contain_ids)
-        ->with('applicable_days',$applicable_days)
-        ->with('menus_ids',$menus_ids)
-        ->with('sections_ids',$sections_ids)
-        ->with('subsections_ids',$subsections_ids)
-        ->with('allergens_may_contain',$allergens_may_contain)
+        ->with('category',$category)
+        ->with('cuisinetypes',$cuisinetypes)
+        ->with('nutritiontypes',$nutritiontypes)
+        ->with('allergenttypes',$allergenttypes)
+        ->with('item_applicable_days',$item_applicable_days)
+        ->with('cuisine_id',$cuisine_id)
+        ->with('item_ingredients',$item_ingredients)
+        ->with('allergents_contain',$allergents_contain)
+        ->with('allergents_may_contain',$allergents_may_contain)
+        ->with('nutrition_levels',$nutrition_levels)
         ->with('privileges',$privileges);
     }
 
@@ -385,19 +397,19 @@ class DishesController extends Controller
         }
         else
         {   
-            $dish = Dishes::find($id);
+            $items = Items::find($id);
 
              if($file <> null)
              {
-            $success = File::delete($dish->img_url);
-            $LogoPath = env('CONTENT_ITEM_PATH') . '/' . $dish->id .  '_t.' . $dish->logo_extension ;
+            $success = File::delete($items->img_url);
+            $LogoPath = env('CONTENT_ITEM_PATH') . '/' . $items->id .  '_t.' . $items->logo_extension ;
             $delete=File::delete($LogoPath);
             }             
             
               if(empty($extension))
             {
                 $destinationDir = env('CONTENT_ITEM_PATH');
-                $LogoPath=$destinationDir . '/' . $id . '.' .  $dish->logo_extension;
+                $LogoPath=$destinationDir . '/' . $id . '.' .  $items->logo_extension; 
             }
             else
             {
@@ -405,65 +417,77 @@ class DishesController extends Controller
                 $LogoPath=$destinationDir . '/' . $id . '.' .  $extension;
             }
 
-            $dish->dish_name = Input::get('dish_name');
-            $dish->description = Input::get('description');
-            $dish->cuisines_ids = serialize(Input::get('cuisines_ids'));
-            $dish->lifestyle_choices_ids = Input::get('lifestyle_choices_ids');
-            $dish->allergens_contain_ids = serialize(Input::get('allergens_contain_ids'));
-            $dish->ingredients_ids = serialize(Input::get('ingredients_ids'));
-            $dish->menus_ids = Input::get('menus_ids');
-            $dish->sections_ids = Input::get('sections_ids');
-            $dish->subsections_ids = Input::get('subsections_ids');
-            $dish->group_id = Input::get('group_id');
-            $dish->eatery_id = Input::get('eatery_id');
-            $dish->valid_from = date('Y-m-d',strtotime(Input::get('valid_from')));
-            $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
-            $dish->applicable_days = serialize(Input::get('applicable_days'));
-            $dish->default_price = Input::get('default_price');
-            if(isset($input['is_visible']) && !empty($input['is_visible'])){
-                $dish->is_visible = 1;
-            }
-            else{
-                $dish->is_visible = 0;
-            }
-            if(isset($input['is_featured']) && !empty($input['is_featured'])){
-                $dish->is_featured = 1;
-            }
-            else{
-                $dish->is_featured = 0;
-            }
-            $dish->allergens_may_contain = serialize(Input::get('allergens_may_contain'));
-            if(isset($input['is_new']) && !empty($input['is_new'])){
-                $dish->is_new = 1;
-            }
-            else{
-                $dish->is_new = 0;
-            }
-            $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
-            $dish->display_order =  Input::get('display_order');
-            $dish->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $dish->modified_by = Session::get('user_id');
 
-            $dish->img_url = $LogoPath;
-            $dish->Update();
+            $items->eatery_id = Input::get('eatery_id');
+            $items->item_name = Input::get('item_name');
+            $items->item_default_price = Input::get('item_default_price');
+            $items->item_description = Input::get('item_description');
+            $items->item_valid_from = date('Y-m-d',strtotime(Input::get('item_valid_from')));
+            $items->item_valid_till = date('Y-m-d',strtotime(Input::get('item_valid_till')));
+            $items->item_applicable_days = serialize(Input::get('item_applicable_days'));
+            $items->cuisine_id = serialize(Input::get('cuisine_id'));
+            $items->item_ingredients = serialize(Input::get('item_ingredients'));
+            $items->allergents_contain = serialize(Input::get('allergents_contain'));
+            $items->allergents_may_contain = serialize(Input::get('allergents_may_contain'));
+            $items->nutrition_levels = serialize(Input::get('nutrition_to'));
+            $items->meat_content_type = Input::get('meat_content_type');
+            $items->category_id = Input::get('category_id');
+            if(isset($input['contains_nuts']) && !empty($input['contains_nuts'])){
+                $items->contains_nuts = 1;
+            }
+            else{
+                $items->contains_nuts = 0;
+            }
+
+            if(isset($input['dairy_free']) && !empty($input['dairy_free'])){
+                $items->dairy_free = 1;
+            }
+            else{
+                $items->dairy_free = 0;
+            }
+            if(isset($input['gluten_free']) && !empty($input['gluten_free'])){
+                $items->gluten_free = 1;
+            }
+            else{
+                $items->gluten_free = 0;
+            }
+            if(isset($input['vegan']) && !empty($input['vegan'])){
+                $items->vegan = 1;
+            }
+            else{
+                $items->vegan = 0;
+            }
+            if(isset($input['is_visible']) && !empty($input['is_visible'])){
+                $items->is_visible = 1;
+            }
+            else{
+                $items->is_visible = 0;
+            }
+            $items->display_order =  Input::get('display_order');
+
+            $items->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $items->modified_by = Session::get('user_id');
+
+            $items->img_url = $LogoPath;
+            $items->Update();
          
             if($file <> null)
-                $dish->logo_extension = $extension;
-            $dish->update();
+                $items->logo_extension = $extension;
+            $items->update();          
 
             if($file <> null)
-                $this->saveLogoInLogoPath($dish->id, $extension);
+                $this->saveLogoInLogoPath($items->id, $extension);
 
             $log = new Log();
             $log->module_id=9;
             $log->action='update';      
-            $log->description='items ' . $dish->dish_name . ' is updated';
+            $log->description='items ' . $items->item_name . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('dishes.index',array('eatery_id' => $request['eatery_id']))->with('success','Dish Updated Successfully!');
+        return Redirect::route('items.index',array('eatery_id' => $request['eatery_id']))->with('success','Item Updated Successfully!');
         
         }
     }
@@ -476,30 +500,30 @@ class DishesController extends Controller
      */
     public function destroy($id)
     {
-         $dish = Dishes::where('id','=',$id)->get();
-        if (is_null($dish))
+         $items = Items::where('id','=',$id)->get();
+        if (is_null($items))
         {
          return Redirect::back()->with('warning','Item Details Are Not Found!');
         }
         else
         {
-           Dishes::where('id','=',$id)->delete();
+           Items::where('id','=',$id)->delete();
 
             try {
-                $this->deleteLogo($dish->img_url);
+                $this->deleteLogo($items->img_url);
             } catch (Exception $e) {
             }
 
             $log = new Log();
             $log->module_id=9;
             $log->action='delete';      
-            $log->description='Item '. $dish->dish_name . ' is Deleted';
+            $log->description='Item '. $items->item_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','Dish Deleted Successfully!');
+           return Redirect::back()->with('warning','Item Deleted Successfully!');
         }
     }
 }

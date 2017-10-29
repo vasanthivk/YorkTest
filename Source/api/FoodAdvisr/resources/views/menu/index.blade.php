@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Item Groups
+FoodAdvisr-Menu
 @endsection
 @section('module')
-Item Groups
+Menu
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Item Groups
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="{{URL::to('itemgroups/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item Groups</a>
+                                        <a href="{{URL::to('menu/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu</a>
                                         @endif
                                     </div>
                                 </div>
@@ -22,25 +22,29 @@ Item Groups
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th>Group Name</th>                                  
+                                                <th>Menu Name</th>
+                                                <th>Sub Menu</th>
+                                                <th>Status</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
-                                        <tbody>                                                    @foreach($item_groups as $group)
+                                        <tbody>                                                    @foreach($menus as $menu)
                                     <tr>
                                         <td>
-                                            {{$group->group_name}}
+                                            {{$menu->menu}}
                                         </td>       
+                                        <td>{{$menu->submenu}}</td>
+                                        <td>{{$menu->status}}</td>
                                         <td width="30%">
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('itemgroups.edit','Edit',array($group->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('menu.edit','Edit',array($menu->id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
                                                    @if($privileges['Delete']=='true')
-                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('itemgroups.destroy', $group->id))) }}
+                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('menu.destroy', $menu->id))) }}
                                                     <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
                                                     {{ Form::close() }}
                                                    @endif

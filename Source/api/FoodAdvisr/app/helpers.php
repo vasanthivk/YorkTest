@@ -80,34 +80,9 @@ function createThumbnailImage($sourceDir,$identity,$extension)
     imagejpeg($dst,$dest_image, $quality);
 }
 
-function ValidateForms($formnofrom,$formnoto,$role)
-{
-  $sql = "select count(*) as cnt from agent where '" . $formnofrom . "' between form_no_from and form_no_to and role='".$role."'";
-        $result = DB::select( DB::raw($sql));
-        if($result[0]->cnt > 0)
-            return false;   
-
- $sql = "select count(*) as cnt from agent where '" . $formnoto . "' between form_no_from and form_no_to and role='".$role."'";
-        $result = DB::select( DB::raw($sql));
-        if($result[0]->cnt > 0)
-            return false; 
-
-$sql = "select count(*) as cnt from agent where form_no_from between  '" . $formnofrom . "' and '" . $formnoto . "' and role='".$role."'";
-        $result = DB::select( DB::raw($sql));
-        if($result[0]->cnt > 0)
-            return false; 
-
-$sql = "select count(*) as cnt from agent where form_no_to between  '" . $formnofrom . "' and '" . $formnoto . "'  and role='".$role."'";
-        $result = DB::select( DB::raw($sql));
-        if($result[0]->cnt > 0)
-            return false; 
-
- return true;     
-}
-
 function getaddress($lat,$lng)
 {
-$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&key=AIzaSyApmamnJubEjENg2b9jcNr_jAAvVbgGtTc';
+$url = 'https://maps.googleapis.com/maps/api/geocode/json?latlng='.trim($lat).','.trim($lng).'&key=AIzaSyAo-1vLBBuUJNBS7wOfJpnlsmtHpahSDz4';
 $json = @file_get_contents($url);
 $data=json_decode($json);
 $status = $data->status;

@@ -14,6 +14,7 @@ Users
 {{Form::component('ahTextarea', 'components.form.textarea', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahNumber', 'components.form.number', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
+{{Form::component('ahSearchSelect', 'components.form.searchselect', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
 
 {{ Form::open(array('route' => 'user.store','files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -26,6 +27,9 @@ Users
 		        {{ Form::ahNumber('mobile_no','Mobile No :','',array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}
 		        {{ Form::ahSelect('role_id','Role :',null,$role) }}
 		        {{ Form::ahSelect('status','Status :','1',array('1' => 'Active', '2' => 'Inactive')) }}
+		        {{ Form::ahSearchSelect('location_id','Location :',null,$locations) }}
+		        {{ Form::ahSearchSelect('eatery_id','Eateries :',null,$eateries) }}
+		        
 		        </br>
 		    </div>
 		     
@@ -40,4 +44,41 @@ Users
 	 </div>
  </div>
  
+ <script type="text/javascript">
+   
+   $(document).ready(function(){    
+    
+        
+        $("#location_id").change(function(){
+          districChange();
+        });
+       
+        districChange();
+        var value ='<?php echo Session::get('eatery_id') ?>';
+        $("select#eatery_id option") .each(function() {
+            this.selected = (this.value == '<?php echo Session::get('eatery_id') ?>'); 
+        });
+
+    });
+    function districChange(){
+
+  var id = $("#location_id").val();
+              $.get("../../api/geteaterybylocation?location_id="+id, function(data){
+                $('#eatery_id').empty();
+                var mandal_value ='<?php echo Session::get('eatery_id') ?>';
+                $.each(data, function(i, obj){
+                    if( mandal_value == obj.eatery_id) {
+                    $('#eatery_id').append($('<option selected>').text(obj.eatery_name).attr('value', obj.eatery_id)); 
+                }
+                else{
+                 $('#eatery_id').append($('<option>').text(obj.eatery_name).attr('value', obj.eatery_id)); 
+
+                }
+
+                });
+                
+            });
+
+    }
+</script>
 @endsection
