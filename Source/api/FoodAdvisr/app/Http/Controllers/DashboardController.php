@@ -36,7 +36,7 @@ class DashboardController extends Controller
             ->select(DB::raw('*'))
             ->count();
         
-        $registered_count = DB::table('user')
+        $registered_count = DB::table('person')
             ->select(DB::raw('*'))
             ->count();
                 

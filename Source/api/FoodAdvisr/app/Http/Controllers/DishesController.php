@@ -76,32 +76,31 @@ class DishesController extends Controller
         $privileges = $this->getPrivileges();
 
         $menus = DB::table('menu')
+            ->where('is_visible','=','1')
             ->select(DB::raw('ref,menu'))
-            ->where('is_visible','=',1)
             ->get();
         $menusection = DB::table('menu_section')
+            ->where('is_visible','=','1')
             ->select(DB::raw('id,section_name'))
-            ->where('is_visible','=',1)
             ->get();
         $menusubsection = DB::table('menu_sub_section')
+            ->where('is_visible','=','1')
             ->select(DB::raw('id,sub_section_name'))
-            ->where('is_visible','=',1)
             ->get();
         $allergentypes = DB::table('allergens')
-            ->select(DB::raw('ref,title'))
-            ->where('display','=',"yes")
             ->where('type','=',"I")
+            ->select(DB::raw('ref,title'))
             ->get();
         $ingredients = DB::table('_product_ingredients')
             ->select(DB::raw('ref,name'))
             ->get();
         $cuisinetypes = DB::table('cuisines')
+            ->where('is_enabled','=','1')
             ->select(DB::raw('id,cuisine_name'))
-            ->where('is_enabled','=',1)
             ->get();
         $lifestyle_choices = DB::table('lifestyle_choices')
-            ->select(DB::raw('id,description'))
             ->where('is_enabled','=','1')
+            ->select(DB::raw('id,description'))
             ->get();
 
 
@@ -291,29 +290,27 @@ class DishesController extends Controller
             ->where('is_visible','=',1)
             ->get();
         $menusection = DB::table('menu_section')
+            ->where('is_visible','=','1')
             ->select(DB::raw('id,section_name'))
-            ->where('is_visible','=',1)
             ->get();
         $menusubsection = DB::table('menu_sub_section')
+            ->where('is_visible','=','1')
             ->select(DB::raw('id,sub_section_name'))
-            ->where('is_visible','=',1)
             ->get();
         $allergenttypes = DB::table('allergens')
-            ->select(DB::raw('ref,title'))
-            ->where('display','=',"yes")
             ->where('type','=',"I")
+            ->select(DB::raw('ref,title'))
             ->get();
         $ingredients = DB::table('_product_ingredients')
             ->select(DB::raw('ref,name'))
-            ->where('deleted','!=',"yes")
             ->get();
         $cuisinetypes = DB::table('cuisines')
+            ->where('is_enabled','=','1')
             ->select(DB::raw('id,cuisine_name'))
-            ->where('is_enabled','=',1)
             ->get();
         $lifestyle_choices = DB::table('lifestyle_choices')
-            ->select(DB::raw('id,description'))
             ->where('is_enabled','=','1')
+            ->select(DB::raw('id,description'))
             ->get();
         $dish = Dishes::find($id);
         $applicable_days = unserialize($dish->applicable_days);
