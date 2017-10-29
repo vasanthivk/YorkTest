@@ -66,7 +66,7 @@ My Profile
                                                 <th>Business Name</th>
                                                 <th>Business Type</th>  
                                                 <th>Edit/Delete</th>
-                                               <!--  <th></th>       -->        
+                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -114,11 +114,11 @@ My Profile
                                                 </div>
                                             </div>
                                         </td>
-                                       <!--  <td>
+                                         <td>
                                             <div class="btn-group pull-left">
-                                                    <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
+                                                    <a href="../../dishes?eatery_id={{$eatery->id}}" class="btn btn-success">Menu Details</a>
                                                 </div>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                     @endforeach      
                                         </tbody>
@@ -131,7 +131,7 @@ My Profile
                                                 <th>Business Name</th>
                                                 <th>Business Type</th>  
                                                 <th>Edit/Delete</th>
-                                               <!--  <th></th>   -->            
+                                                 <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -179,11 +179,11 @@ My Profile
                                                 </div>
                                             </div>
                                         </td>
-                                       <!--  <td>
+                                         <td>
                                             <div class="btn-group pull-left">
-                                                    <a href="../../items?eatery_id={{$eatery->id}}" class="btn btn-success">Items</a>
+                                                    <a href="../../dishes?eatery_id={{$eatery->id}}" class="btn btn-success">Menu details</a>
                                                 </div>
-                                        </td> -->
+                                        </td>
                                     </tr>
                                     @endforeach      
                                         </tbody>
