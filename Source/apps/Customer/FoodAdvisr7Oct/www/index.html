@@ -8,6 +8,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
 <meta name="viewport" content="initial-scale=1, maximum-scale=1,width=device-width,">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <!-- <meta name="format-detection" content="telephone=no"> -->
       <link rel="stylesheet" type="text/css" href="css/ratchet.min.css" />
     <link rel="stylesheet" type="text/css" href="css/ratchet-theme-ios.min.css" />
     <link rel="stylesheet" type="text/css" href="css/swiper.css" />
@@ -21,7 +22,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="css/loadingoverlay.css" />
     <link rel="stylesheet" type="text/css" href="css/swipelistitem.css" />
-   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
+   <link rel="stylesheet" href="css/jquery.mobile-1.4.3.min.css" />
       <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>-->
 
     <script type="text/javascript" src="cordova.js"></script>
@@ -29,8 +30,8 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/api.js"></script>
 
 <!-- <script type="text/javascript" src="jslibs/jquery311.js"></script> -->
-<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
-<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
+<script src="jslibs/jquery-1.10.0.min.js"></script>
+<script src="jslibs/jquery.mobile-1.4.3.min.js"></script>
 
     
     <script type="text/javascript" src="jslibs/timeago.js"></script>
@@ -564,8 +565,8 @@ You can select membership of a range of communities to belong to, which allows y
      <div class="ctpanel loggedin hide" id="ct-retail" data-role="page" style="top: 44px;">
          <!--  <div class="ui-grid-b"> -->
           <div class="ui-grid-a">
-            <div class="ui-block-a"> <input type="search" id="eatery-search" value="" placeholder="Search"/></div>
-            <div class="ui-block-b"><i class="fa fa-filter filter" style="font-size: 29px;" aria-hidden="true"></i></div>
+            <div class="ui-block-a" style="width:85%"> <input type="search" id="eatery-search" value="" placeholder="Search"/></div>
+            <div class="ui-block-b" style="width:15%"><i class="fa fa-filter filter" style="font-size: 29px;" aria-hidden="true"></i></div>
           </div><!-- /grid-a -->
            
           
