@@ -954,7 +954,7 @@ body.on('click','.act-clear-search',function(){
             }
             else
             {
-              $('#eatery-list').append('<li class="in-act-eatery"> <div class="behind"> <a href="#" class="ui-btn">Inactive</a> <a href="#" class="ui-btn pull-left">Inactive</a></div><a href="" data-id="' + data.result[idx].id + '"><img src="img/thumb.svg" style="padding:5px;"/><h3>' + data.result[idx].BusinessName  + '</h3><p> is not associated with us.<br/> Click and invite, we will let them know.  </p></a></li>');
+              $('#eatery-list').append('<li class="in-act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id + '" /><input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" /><a href="" data-id="' + data.result[idx].id + '"><img src="img/thumb.svg" style="padding:5px;"/><h3>' + data.result[idx].BusinessName  + '</h3><p> is not associated with us.<br/> Click and invite, we will let them know.  </p></a></li>');
                 // op += '<div class="in-act-eatery">' +
                 // '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
                 // '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
