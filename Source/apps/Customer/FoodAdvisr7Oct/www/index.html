@@ -20,14 +20,19 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <link rel="stylesheet" type="text/css" href="css/share.css" />
     <link rel="stylesheet" type="text/css" href="css/font-awesome.css" />
     <link rel="stylesheet" type="text/css" href="css/loadingoverlay.css" />
+    <link rel="stylesheet" type="text/css" href="css/swipelistitem.css" />
+   <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.css" />
       <!--<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>-->
 
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/api.js"></script>
 
+<!-- <script type="text/javascript" src="jslibs/jquery311.js"></script> -->
+<script src="http://code.jquery.com/jquery-1.10.0.min.js"></script>
+<script src="http://code.jquery.com/mobile/1.4.3/jquery.mobile-1.4.3.min.js"></script>
 
-    <script type="text/javascript" src="jslibs/jquery311.js"></script>
+    
     <script type="text/javascript" src="jslibs/timeago.js"></script>
     <script type="text/javascript" src="jslibs/fastclick.js"></script>
     <script type="text/javascript" src="jslibs/swiper.js"></script>
@@ -42,7 +47,8 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/engine.js"></script>
     <script type="text/javascript" src="js/lib1.js"></script>
     <script type="text/javascript" src="js/lib.js"></script>
-    <script type="text/javascript" src="js/init.js"></script><script type="text/javascript" src="js/booktable.js"></script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/booktable.js"></script>
     <script type="text/javascript" src="js/start.js"></script>
     <script type="text/javascript" src="js/menu.js"></script>
     <script type="text/javascript" src="js/share.js"></script>
@@ -50,6 +56,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="js/map.js"></script>
     <script type="text/javascript" src="js/loadingoverlay.js"></script>
     <script type="text/javascript" src="js/getCurrentLocation.js"></script>
+    <script type="text/javascript" src="js/swipelistitem.js"></script>
       <!--<script type="text/javascript" src="js/jquery-3.2.1.min.js"></script>-->
       <!--<script type="text/javascript" src="js/bootstrap.min.js" ></script>-->
 
@@ -554,9 +561,30 @@ You can select membership of a range of communities to belong to, which allows y
           </div>
         </div>
 
+     <div class="ctpanel loggedin hide" id="ct-retail" data-role="page" style="top: 44px;">
+         <!--  <div class="ui-grid-b"> -->
+          <div class="ui-grid-a">
+            <div class="ui-block-a"> <input type="search" id="eatery-search" value="" placeholder="Search"/></div>
+            <div class="ui-block-b"><i class="fa fa-filter filter" style="font-size: 29px;" aria-hidden="true"></i></div>
+          </div><!-- /grid-a -->
+           
+          
+            <div class="cuisinetypes hide">
+                <div class="cusineslist"></div>
+                <div class="lifestylelist"></div>
+                <div class="filter-button-submit" >submit</div>
+            </div>
+           
+            <div data-role="content">
+              <div id="loadeateries"></div>
+                <ul data-role="listview" id="eatery-list" class="swipe-delete" style="bottom: 50px;">
+
+                </ul>
+            </div>
+        </div>
 
 
-        <div class="ctpanel loggedin hide" id="ct-retail">
+       <!--  <div class="ctpanel loggedin hide" id="ct-retail">
           <div style="position:relative;">
             <input type="search" id="eatery-search" value="" placeholder="Search"/>
             <div class="eatery-search-clear act-eatery-search-reset hide">X</div>
@@ -570,14 +598,14 @@ You can select membership of a range of communities to belong to, which allows y
             <div class="cuisinetypes hide">
                 <div class="cusineslist"></div>
                 <div class="lifestylelist"></div>
-                <div class="filter-button-submit" >submit</div>
+                <div class="filter-button-submit" >submit</div> -->
                 <!--<div class="filter-button-cancel" >cancel</div>-->
-            </div>
+          <!--   </div>
             
             <div id="map" class="eateries-map eatery-frame inner-frame hide" style="width:250;height:400px;background:yellow"></div>
-            <div id="loadeateries" class="eateries-list eatery-frame inner-frame "></div>             
+            <div id="loadeateries" class="eateries-list eatery-frame inner-frame "></div>              -->
             <!--<div id="retail-space">Retail space</div>-->
-        </div>
+      <!--   </div> -->
 
 
         <div class="ctpanel loggedin hide" id="ct-item">

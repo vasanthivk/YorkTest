@@ -76,13 +76,13 @@ html,body{
   .eatery-clear         { clear: both; }
 
 .act-eatery {
-    min-height: 85px;
+    /*min-height: 85px;*/
     color: white;
    /* margin-bottom: 10px;*/
-    padding: 4px 0 0 5px;
+    /*padding: 4px 0 0 5px;*/
     background: #ffffff;
     /*border-radius: 6px;*/
-    box-shadow: 0px 0px 1px 1px #ccc;
+    /*box-shadow: 0px 0px 1px 1px #ccc;*/
 }
   .act-eatery-logo      { width: 24%;}
   .act-eatery-logopath {
@@ -267,7 +267,7 @@ div#toggled-items {
   }*/
 
   .in-act-eatery{
-      min-height: 100px;
+      /*min-height: 100px;*/
       color: white;
       /*margin-bottom: 10px;*/
       padding: 5px;
@@ -2755,7 +2755,9 @@ h3.header{
     width: 100%;
     border: 1px solid #ccc;
     box-shadow: 1px 2px 1px #ccc;
-    background: #fff;}
+    background: #fff;
+    z-index: 1;
+  }
 
 .cusineslist{ border:1px solid #ccc;
 font-size: 0.9rem;
@@ -2780,7 +2782,7 @@ font-size: 1rem;
 .filter-button-cancel{ background:gray; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
 .filter{float: right;
     margin: 10px;
-    
+    font-size: 30px;
 	display:block}
 
 

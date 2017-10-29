@@ -817,6 +817,7 @@ body.on('click','.act-clear-search',function(){
     });
     function eaterySearch()
     {
+      $('#eatery-list').empty();
       openLoading();
       var favouriteseateries = [];
       api.getFavouriteEateries(function(data){
@@ -839,8 +840,10 @@ body.on('click','.act-clear-search',function(){
         });
       api.getEateries(geocoords.latitude, geocoords.longitude, geocoords.locationfrom,cuisines_ids.toString(),lifestyle_choices_ids.toString(),function(data){
         var op ='';
+
         if(data.result.length > 0)
         {
+           
           for(idx in data.result){
             if(data.result[idx].IsAssociated == 1)
             {
@@ -851,8 +854,7 @@ body.on('click','.act-clear-search',function(){
                 //     favouriticon = '<i class="fa fa-heart"  style="color:red"></i>';
                 //   }
                 // })
-
-                var opCuisines = [];
+            var opCuisines = [];
                 if(!(data.result[idx].cuisines_ids == null || data.result[idx].cuisines_ids == ""))
                 {
                   data.result[idx].cuisines_ids.split(',').forEach(function(value){
@@ -866,6 +868,72 @@ body.on('click','.act-clear-search',function(){
                     }
                   })
                 }
+               
+            $('#eatery-list').append('<li class="act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id 
+              + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-thumbs-o-down" aria-hidden="true" style="font-size:30px; color:#00B2A9; margin:0 5px 0 5px">&nbsp</i><br>Dis-Like</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-thumbs-o-up" aria-hidden="true" style="font-size:30px; color:#00B2A9; margin:0 5px 0 5px">&nbsp</i><br>Like</a></div><a href="" data-id="' + data.result[idx].id 
+              + '"><img style="height:75px;top:10px;left:10px; " src="'+objInit.mediaPath + data.result[idx].LogoPath+'"/><h3>' + data.result[idx].BusinessName 
+              + '</h3><p> ' + opCuisines.toString()  + ' </p><p>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].FoodAdvisrOverallRating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</p></a></li>');
+                $(function() {
+
+                function prevent_default(e) {
+                e.preventDefault();
+                }
+
+                function disable_scroll() {
+                $(document).on('touchmove', prevent_default);
+                }
+
+                function enable_scroll() {
+                $(document).unbind('touchmove', prevent_default)
+                }
+
+                var x;
+                $('.swipe-delete li > a')
+                .on('touchstart', function(e) {
+                console.log(e.originalEvent.pageX)
+                $('.swipe-delete li > a.open').css('left', '0px').removeClass('open') // close em all
+                $(e.currentTarget).addClass('open')
+                x = e.originalEvent.targetTouches[0].pageX // anchor point
+                })
+                .on('touchmove', function(e) {
+                var change = e.originalEvent.targetTouches[0].pageX - x
+                change = Math.min(Math.max(-100, change), 100) // restrict to -100px left, 0px right
+                e.currentTarget.style.left = change + 'px'
+                if (change < -10) disable_scroll() // disable scroll once we hit 10px horizontal slide
+                })
+                .on('touchend', function(e) {
+                var left = parseInt(e.currentTarget.style.left)
+                var new_left;
+                if (left < -35) {
+                new_left = '-100px'
+                } else if (left > 35) {
+                new_left = '100px'
+                } else {
+                new_left = '0px'
+                }
+                // e.currentTarget.style.left = new_left
+                $(e.currentTarget).animate({left: new_left}, 200)
+                enable_scroll()
+                });
+
+                $('li .delete-btn').on('touchend', function(e) {
+                e.preventDefault()
+                $(this).parents('li').slideUp('fast', function() {
+                $(this).remove()
+                })
+                })
+
+                $('li .edit-btn').on('touchend', function(e) {
+                e.preventDefault()
+                 // $('.swipe-delete li > a.open').css('left', '0px').removeClass('open') // close em all
+                 //  $(e.currentTarget).addClass('open')
+                 //  x = e.originalEvent.targetTouches[0].pageX 
+                ////$(this).parents('li').children('a').html('edited')
+                })
+
+                });
+          
+                
                 var rating= data.result[idx].FoodAdvisrOverallRating;
                 //rating.length >= 1 &&
                 if( rating != null){
@@ -874,27 +942,28 @@ body.on('click','.act-clear-search',function(){
                 else{
                     rating_feed = '';
                 }
-                op += '<div class="act-eatery">' +
-                '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
-                '<div class="eatery-columns">' +
-                '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<div class="act-action-div"><div class="act-eatery-distance" style="font-size:15px; color:#000; margin:0 0 0 5px">'+ data.result[idx].distance+'miles'+'</div><i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].FoodAdvisrOverallRating+' <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</div> ' + favouriticon + ' </div>' +
-                // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>' + rating_feed + '</div> ' + favouriticon + '</div>' +
-                '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + objInit.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
-                '</div>' +
-                '<div class="eatery-clear"></div>' +
-                '</div>';
+                // op += '<div class="act-eatery">' +
+                // '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
+                // '<div class="eatery-columns">' +
+                // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<div class="act-action-div"><div class="act-eatery-distance" style="font-size:15px; color:#000; margin:0 0 0 5px">'+ data.result[idx].distance+'miles'+'</div><i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].FoodAdvisrOverallRating+' <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</div> ' + favouriticon + ' </div>' +
+                // // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>' + rating_feed + '</div> ' + favouriticon + '</div>' +
+                // '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + objInit.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
+                // '</div>' +
+                // '<div class="eatery-clear"></div>' +
+                // '</div>';
             }
             else
             {
-                op += '<div class="in-act-eatery">' +
-                '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
-                '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
-                '<div class="eatery-columns">' +
-                '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp'+'</div>'+'</div></div>' +
-                '<div class="in-act-eatery-logo" ><img class="in-act-eatery-image" src="img/thumb.svg"/></div>' +
-                '</div>' +
-                '<div class="eatery-clear"></div>' +
-                '</div>';
+              $('#eatery-list').append('<li class="in-act-eatery"> <div class="behind"> <a href="#" class="ui-btn">Inactive</a> <a href="#" class="ui-btn pull-left">Inactive</a></div><a href="" data-id="' + data.result[idx].id + '"><img src="img/thumb.svg" style="padding:5px;"/><h3>' + data.result[idx].BusinessName  + '</h3><p> is not associated with us.<br/> Click and invite, we will let them know.  </p></a></li>');
+                // op += '<div class="in-act-eatery">' +
+                // '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
+                // '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
+                // '<div class="eatery-columns">' +
+                // '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp'+'</div>'+'</div></div>' +
+                // '<div class="in-act-eatery-logo" ><img class="in-act-eatery-image" src=""/></div>' +
+                // '</div>' +
+                // '<div class="eatery-clear"></div>' +
+                // '</div>';
             }
           }
         }
@@ -903,7 +972,10 @@ body.on('click','.act-clear-search',function(){
           op += '<p> We are not available at this location. try other location.  </p>';
         }
         closeLoading();
-        $("#loadeateries").html(op);
+        //refresh listview with slide buttons
+        $('#eatery-list').listview('refresh');
+          $("#loadeateries").empty();      
+          $("#loadeateries").html(op);
       })
       $('#eatery-search').blur();
     }
