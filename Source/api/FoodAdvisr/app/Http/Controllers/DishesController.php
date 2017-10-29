@@ -245,7 +245,7 @@ class DishesController extends Controller
              if($file <> null)
                 $this->saveLogoInLogoPath($dish->id, $extension);
             $log = new Log();
-            $log->module_id=8;
+            $log->module_id=9;
             $log->action='create';      
             $log->description='Dish ' . $dish->dish_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
@@ -455,7 +455,7 @@ class DishesController extends Controller
                 $this->saveLogoInLogoPath($dish->id, $extension);
 
             $log = new Log();
-            $log->module_id=8;
+            $log->module_id=9;
             $log->action='update';      
             $log->description='items ' . $dish->dish_name . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
@@ -491,7 +491,7 @@ class DishesController extends Controller
             }
 
             $log = new Log();
-            $log->module_id=8;
+            $log->module_id=9;
             $log->action='delete';      
             $log->description='Item '. $dish->dish_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
