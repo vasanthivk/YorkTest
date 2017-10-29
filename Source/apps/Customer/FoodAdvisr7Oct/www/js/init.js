@@ -1166,15 +1166,20 @@ body.on('click','.act-clear-search',function(){
             "<div>Date : <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none;'/></div>" +
             "<br/><div><label for='appt-time'>Time:<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;' /></div><br/>" +
             "<div>How many people?<br>" +
-            "<div style='float: left;padding-bottom: 13px;padding-top: 11px;color: #00B2A9;'>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
             "<label for='people1' class='people1'>1</label><input id='people1' class='people-show' type='radio' name='people' value='1'/></div>" +
-            "<div  style='float: left;padding-bottom: 13px;padding-top: 11px;color: #00B2A9;'>" +
-            "<label for='#people2' class='people2'>2</label><input id='people2' class='people-show' type='radio' name='people' value='2'/>" +
-            "<label for='#people3' class='people3'>3</label><input id='people3' class='people-show' type='radio' name='people' value='3'/>" +
-            "<label for='#people4' class='people4'>4</label><input id='people4' class='people-show' type='radio' name='people' value='4'/>" +
-            "<label for='#people5' class='people5'>5</label><input id='people5' class='people-show' type='radio' name='people' value='5'/>" +
-            "<label for='#people6' class='people6'>6</label><input id='people6' class='people-show' type='radio' name='people' value='6'/>" +
-            "<label for='#people7' class='people7'>7+</label><input id='people7' class='people-show' type='radio' name='people' value='7'/>" +
+             "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<label for='#people2' class='people2'>2</label><input id='people2' class='people-show' type='radio' name='people' value='2'/></div>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<label for='#people3' class='people3'>3</label><input id='people3' class='people-show' type='radio' name='people' value='3'/></div>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<label for='#people4' class='people4'>4</label><input id='people4' class='people-show' type='radio' name='people' value='4'/></div>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<label for='#people5' class='people5'>5</label><input id='people5' class='people-show' type='radio' name='people' value='5'/></div>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<label for='#people6' class='people6'>6</label><input id='people6' class='people-show' type='radio' name='people' value='6'/></div>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<label for='#people7' class='people7'>7+</label><input id='people7' class='people-show' type='radio' name='people' value='7'/></div>" +
             "</div>" +
             "<textarea rows='4' cols='50' style='padding-bottom: 0px;'></textarea></div>" ;
         vartext = message+'<br/>'+html_fields;
