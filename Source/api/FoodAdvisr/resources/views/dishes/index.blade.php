@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Items
+FoodAdvisr-Dishes
 @endsection
 @section('module')
-    {{$eatery_details[0]->BusinessName}} - Menu Items
+    {{$eatery_details[0]->BusinessName}} - Menu Details
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ FoodAdvisr-Items
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="items/create?eatery_id={{$eatery_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Item</a>
+                                        <a href="dishes/create?eatery_id={{$eatery_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Dish</a>
                                         @endif
                                     </div>
                                 </div>
@@ -28,27 +28,27 @@ FoodAdvisr-Items
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>
-                                        <tbody>                                                    @foreach($items as $item)
+                                        <tbody>                                                    @foreach($dishes as $dish)
                                     <tr>
                                         <td>
-                                            {{$item->item_name}}
+                                            {{$dish->dish_name}}
                                         </td> 
                                         <td width="40%">
-                                            {{$item->item_description}}
+                                            {{$dish->description}}
                                         </td> 
                                         <td>
-                                            {{$item->is_visible}}
+                                            {{$dish->is_visible}}
                                         </td>       
                                         <td width="30%">
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('items.edit','Edit',array($item->id,'eatery_id' => $eatery_id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('dishes.edit','Edit',array($dish->id,'eatery_id' => $eatery_id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
                                                    @if($privileges['Delete']=='true')
-                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('items.destroy', $item->id))) }}
+                                                    {{ Form::open(array('onsubmit' => 'return confirm("Are you sure you want to delete?")','method' => 'DELETE', 'route' => array('dishes.destroy', $dish->id))) }}
                                                     <button type="submit" class="btn btn-danger btn-xs pull-right" style="font-size: 11px;padding: 4px 12px;">Delete</button>
                                                     {{ Form::close() }}
                                                    @endif
