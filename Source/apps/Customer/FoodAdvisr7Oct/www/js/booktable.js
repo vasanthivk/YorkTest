@@ -85,7 +85,10 @@
           if(vv[1]!=undefined){
             ccl=vv[1];
           }
+          if(ccl.toLowerCase() == "")
           op+='<a href="#index.html" class="popupbook-act-button '+ccl+'">'+vv[0]+'</a>';
+        else
+          op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
         }
         op+='</div>';
       }
@@ -100,8 +103,13 @@
       $('body').on('click','.popupbook-act-button',function(){
         // overlay.hide();
       var message ="This will be live soon. We'll let you know when it's available!";
-      popupcall.show(message,'  Ok  ,Cancel');
+      popupcall.show(message,'  Cancel,Ok  ');
         // return false;
+      });
+
+      $('body').on('click','.popupbook-button',function(){
+        overlay.hide();
+        return false;
       });
 
   }

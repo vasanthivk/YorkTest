@@ -817,7 +817,7 @@ body.on('click','.act-clear-search',function(){
     });
     function eaterySearch()
     {
-      //openLoading();
+      openLoading();
       var favouriteseateries = [];
       api.getFavouriteEateries(function(data){
         favouriteseateries = data.result;
@@ -898,9 +898,14 @@ body.on('click','.act-clear-search',function(){
             }
           }
         }
+        else
+        {
+          op += '<p> We are not available at this location. try other location.  </p>';
+        }
         closeLoading();
         $("#loadeateries").html(op);
       })
+      $('#eatery-search').blur();
     }
 
     function eaterySearchReset()
@@ -908,7 +913,10 @@ body.on('click','.act-clear-search',function(){
         $("#loadeateries").text("");
     }
     body.on('click','.filter',function(){
+      if($('.cuisinetypes').hasClass('hide'))
       $('.cuisinetypes').removeClass('hide');
+    else
+      $('.cuisinetypes').addClass('hide');
     });
     body.on('click','.filter-button-submit',function(){
       $('.cuisinetypes').addClass('hide');
@@ -920,12 +928,14 @@ body.on('click','.act-clear-search',function(){
     
 
     body.on('click','.act-eatery',function(){
+      $('.eateryfav').css({"color": "black"}).removeClass('fa-heart').addClass('fa-heart-o');
       var eateryId=$(this).find('#eateryId').val();
       api.getAddClickAfterAssociated(eateryId,function(data){
       });
       api.getEateryDetails(eateryId,function(data){
         if(data.result != null)
         {
+          document.getElementById("selected_eateryId").value = data.result.id;
           $('#eaterylogo').attr("src",objInit.mediaPath +data.result.LogoPath);
           $("#eaterybusinessname").text(data.result.BusinessName);
           $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
@@ -936,6 +946,7 @@ body.on('click','.act-clear-search',function(){
                               (data.result.postal_town == null ? "" : data.result.postal_town + "<br/>") +
                               (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
           $("#eateryaddress").html(eateryAddress);
+
 
           // if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
           // {
@@ -1002,7 +1013,7 @@ body.on('click','.act-clear-search',function(){
 
             body.on('click','.eatery-call',function(){
                 var message =data.result.ContactNumber;
-                popupcall.show(message,'Call|eatery-call,Cancel');
+                popupcall.show(message,'Cancel|eatery-call,Call');
                 api.getAddClickBeforeAssociated(eateryId,function(data){
                 });
             });
@@ -1011,15 +1022,15 @@ body.on('click','.act-clear-search',function(){
                 var html_fields = "<div>"+"Did you visit "+data.result.BusinessName+ ", London? Let us and your communities know what you thought! "
                         +"<br><div class='stars'>" +
                 "<form action=''>" +
-                "<input class='star star-5' id='star-5' type='radio' name='star'/>" +
+                "<input class='star star-5' id='star-5' type='radio' name='star' value='5'/>" +
                 "<label class='star star-5' for='star-5'></label>" +
-                "<input class='star star-4' id='star-4' type='radio' name='star'/>" +
+                "<input class='star star-4' id='star-4' type='radio' name='star' value='4' />" +
                 "<label class='star star-4' for='star-4'></label>" +
-                "<input class='star star-3' id='star-3' type='radio' name='star'/>" +
+                "<input class='star star-3' id='star-3' type='radio' name='star' value='3'/>" +
                 "<label class='star star-3' for='star-3'></label>" +
-                "<input class='star star-2' id='star-2' type='radio' name='star'/>" +
+                "<input class='star star-2' id='star-2' type='radio' name='star' value='2'/>" +
                 "<label class='star star-2' for='star-2'></label>" +
-                "<input class='star star-1' id='star-1' type='radio' name='star'/>" +
+                "<input class='star star-1' id='star-1' type='radio' name='star' value='1'/>" +
                 "<label class='star star-1' for='star-1'></label>" +
                 "</form> </div><br><textarea></textarea> "
                 +"</div>";
@@ -1065,8 +1076,10 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.in-act-eatery',function(){
       var eateryId=$(this).find('#eateryId').val();
       var eateryName=$(this).find('#eateryName').val();
-      var message = eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus.";
-      popup.show(message,'Invite|in-act-eatery-invite,Cancel');
+        var message= "Invite to FoodAdvisr";
+      var text = "<div>"+eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus."+"</div>";
+      vartext=message+'<br/>'+text;
+        popup.show(vartext,'Cancel|in-act-eatery-invite,Invite');
       api.getAddClickBeforeAssociated(eateryId,function(data){
       });
     });
@@ -1093,7 +1106,7 @@ body.on('click','.act-clear-search',function(){
             "</div>" +
             "<textarea rows='4' cols='50' style='padding-bottom: 0px;'></textarea></div>" ;
         vartext = message+'<br/>'+html_fields;
-        popupbook.show(vartext,'Book|item-bc-eatery,Cancel');
+        popupbook.show(vartext,'Cancel|item-bc-eatery,Book');
         api.getAddClickBeforeAssociated(eateryId,function(data){
         });
     });
@@ -1209,6 +1222,7 @@ body.on('click','.act-clear-search',function(){
                 geocoords.longitude = results[0].geometry.location.lng();
                 geocoords.locationfrom = t.val().toLowerCase();
                 eaterySearch();
+
                 //myMap(geocoords.latitude, geocoords.longitude,t.val().toLowerCase());
               }
               else
@@ -1224,6 +1238,14 @@ body.on('click','.act-clear-search',function(){
       }
     });
 
+    $('#eatery-search').focus(function() {
+       $('.eatery-search-clear').removeClass('hide');
+    });
+
+     $('#eatery-search').focusout(function() {
+       $('.eatery-search-clear').addClass('hide');
+    });
+
     body.on('click','.eatery-search-clear',function(){
       $('#eatery-search').val('');
       $('.eatery-search-clear').addClass('hide');
@@ -1232,26 +1254,30 @@ body.on('click','.act-clear-search',function(){
     });
 
     body.on('click','.eateryfav',function(){
-      // if($(this).hasClass( "fa-heart-o" ))
-      // {
-      //   api.addToFavouriteEatery(432369,function(data){
-      //     if(data.status == "0")
-      //     {
-      //       $(this).removeClass( "fa-heart-o" );
-      //       $(this).addClass( "fa-heart" );
-      //     }
-      //   });
-      // }
-      // else
-      // {
-      //   api.removeFromFavouriteEatery(432369,function(data){
-      //     if(data.status == "0")
-      //     {
-      //       $(this).removeClass( "fa-heart" );
-      //       $(this).addClass( "fa-heart-o" );
-      //     }
-      //   });
-      // }
+      if($(this).hasClass( "fa-heart-o" ))
+      {
+         $(this).css({"color": "red"}).removeClass('fa-heart-o').addClass('fa-heart');
+        api.addToFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
+           //alert(JSON.stringify(data));
+          if(data.status == "0")
+          {
+            // $(this).removeClass( "fa-heart-o" );
+            // $(this).addClass( "fa-heart" );
+          }
+        });
+      }
+      else
+      {
+        $(this).css({"color": "black"}).removeClass('fa-heart').addClass('fa-heart-o');
+        api.removeFromFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
+          //alert(JSON.stringify(data));
+          if(data.status == "0")
+          {
+            // $(this).removeClass( "fa-heart" );
+            // $(this).addClass( "fa-heart-o" );
+          }
+        });
+      }
     });
     
 
