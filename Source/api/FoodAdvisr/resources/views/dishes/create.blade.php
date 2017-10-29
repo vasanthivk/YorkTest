@@ -1,19 +1,27 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Items
+    FoodAdvisr-Items
 @endsection
 @section('module')
-Items
+    Dish
 @endsection
 
 @section('content')
-@include('components.message')
-{{Form::component('ahText', 'components.form.text', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
-{{Form::component('ahSelect', 'components.form.select', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
+    @include('components.message')
+    {{Form::component('ahText', 'components.form.text', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+    {{Form::component('ahSelect', 'components.form.select', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
+    {{Form::component('ahTextarea', 'components.form.textarea', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+    {{Form::component('ahNumber', 'components.form.number', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+    {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
+    {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+    {{Form::component('ahCheckbox', 'components.form.checkbox', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
+    {{Form::component('ahSearchSelect', 'components.form.searchselect', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
+    {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 
-{{ Form::open(array('method' => 'PUT', 'route' => array('dishes.update',$dish->id),'files'=>true)) }}
-<input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
-<div class="form-group form-horizontal">
+
+    {{ Form::open(array('route' => 'dishes.store','files'=>true)) }}
+    <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
+    <div class="form-group form-horizontal">
         <div class="panel panel-default">
             <div class="col-md-10">
                 <div class="form-group" style="margin:5px">
@@ -22,7 +30,7 @@ Items
                         <select multiple class="form-control select" data-live-search='true' id="menus_ids"  name="menus_ids">
                             <option>Choose Menu</option>
                             @foreach($menus as $menu)
-                                <option value="{{$menu->ref}}"  @if(isset($menus_ids) && !empty($menus_ids)) @if(in_array($menu->ref,array($menus_ids))) selected="selected" @endif @endif  >{{$menu->menu}}</option>
+                                <option value="{{$menu->ref}}" >{{$menu->menu}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -34,7 +42,7 @@ Items
                         <select multiple class="form-control select" data-live-search='true' id="sections_ids"  name="sections_ids">
                             <option>Choose Section</option>
                             @foreach($menusection as $section)
-                                <option value="{{$section->id}}" @if(isset($sections_ids) && !empty($sections_ids)) @if(in_array($section->id,array($sections_ids))) selected="selected" @endif @endif >{{$section->section_naem}}</option>
+                                <option value="{{$section->id}}" >{{$section->section_naem}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -46,17 +54,17 @@ Items
                         <select multiple class="form-control select" data-live-search='true' id="subsections_ids"  name="subsections_ids">
                             <option>Choose Sub-Section</option>
                             @foreach($menusubsection as $subsection)
-                                <option value="{{$subsection->id}}" @if(isset($subsections_ids) && !empty($subsections_ids)) @if(in_array($subsection->id,array($subsections_ids))) selected="selected" @endif @endif >{{$subsection->sub_section_name}}</option>
+                                <option value="{{$subsection->id}}" >{{$subsection->sub_section_name}}</option>
                             @endforeach
                         </select>
                     </div>
                 </div>
                 <hr/>
-                {{ Form::ahText('dish_name','Dish Name :',$dish->dish_name,array('maxlength' => '100'))  }}
+                {{ Form::ahText('dish_name','Dish Name :','',array('maxlength' => '100'))  }}
                 <hr/>
-                {{ Form::ahNumber('default_price','Price :',$dish->default_price,array('maxlength' => '100','min' => '0', 'step' => '0.01'))  }}
+                {{ Form::ahNumber('default_price','Price :','',array('maxlength' => '100','min' => '0', 'step' => '0.01'))  }}
                 <hr/>
-                {{ Form::ahTextarea('description','Description :',$dish->description,array())  }}
+                {{ Form::ahTextarea('description','Description :','',array())  }}
                 <hr/>
                 <div class="form-group">
                     <label for="group_name" class="control-label col-sm-4">Upload Dish Image :</label>
@@ -65,23 +73,7 @@ Items
                             <div class="fileinput fileinput-new" data-provides="fileinput">
                                 <?php
                                 $logo_path = '';
-                                $no_image=env('NO_IMAGE');
-                                if(File::exists(env('CONTENT_ITEM_PATH') . '/' . $dish->id .  '.' . $dish->LogoExtension))
-                                {
-                                $logo_path = env('CONTENT_ITEM_PATH') . '/' . $dish->id .  '.' . $dish->LogoExtension ;
-                                ?>
-                                <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
-                                    <a>
-                                        <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 130px; height: 102px;">
-                                    </a>
-                                </div>
-                                <?php } else { ?>
-                                <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
-                                    <a>
-                                        <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 111px;">
-                                    </a>
-                                </div>
-                                <?php } ?>
+                                $no_image=env('NO_IMAGE');?>
                                 <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
                                     <a>
                                         <img src="../../<?php echo $no_image ?>" alt="..." style="width: 130px; height: 111px;">
@@ -108,13 +100,13 @@ Items
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">From :</label>
                     <div class="col-sm-4">
-                        <input type="text" name="valid_from" class="form-control datepicker" value="{{$dish->valid_from}}">
+                        <input type="text" name="valid_from" class="form-control datepicker" value="">
                     </div>
                 </div>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">To :</label>
                     <div class="col-sm-4">
-                        <input type="text" name="valid_till" class="form-control datepicker" value="{{$dish->valid_till}}">
+                        <input type="text" name="valid_till" class="form-control datepicker" value="">
                     </div>
                 </div>
                 <hr/>
@@ -122,13 +114,13 @@ Items
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">
                         <select multiple name="applicable_days[]" class="form-control select">
-                            <option value="0"  @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(0,array($applicable_days))) selected="selected" @endif @endif>Sunday</option>
-                            <option value="1" @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(1,array($applicable_days))) selected="selected" @endif @endif>Monday</option>
-                            <option value="2"  @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(2,array($applicable_days))) selected="selected" @endif @endif>Tuesday</option>
-                            <option value="3"  @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(3,array($applicable_days))) selected="selected" @endif @endif>Wednesday</option>
-                            <option value="4"  @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(4,array($applicable_days))) selected="selected" @endif @endif>Thursday</option>
-                            <option value="5"  @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(5,array($applicable_days))) selected="selected" @endif @endif>Friday</option>
-                            <option value="6"  @if(isset($applicable_days) && !empty($applicable_days)) @if(in_array(6,array($applicable_days))) selected="selected" @endif @endif>Saturday</option>
+                            <option value="0" >Sunday</option>
+                            <option value="1" >Monday</option>
+                            <option value="2" >Tuesday</option>
+                            <option value="3" >Wednesday</option>
+                            <option value="4" >Thursday</option>
+                            <option value="5" >Friday</option>
+                            <option value="6" >Saturday</option>
                         </select>
                     </div>
                 </div>
@@ -138,7 +130,7 @@ Items
                     <div class="col-sm-8">
                         <select multiple name="lifestyle_choices_ids[]" class="form-control select">
                             @foreach($lifestyle_choices as $lifestyle)
-                                <option value="{{$lifestyle->id}}" @if(isset($lifestyle_choices_ids) && !empty($lifestyle_choices_ids)) @if(in_array($lifestyle->id,array($lifestyle_choices_ids))) selected="selected" @endif @endif>{{$lifestyle->description}}</option>
+                            <option value="{{$lifestyle->id}}" >{{$lifestyle->description}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -149,7 +141,7 @@ Items
                     <div class="col-sm-8">
                         <select multiple name="ingredients_ids[]" data-live-search='true' class="form-control select">
                             @foreach($ingredients as $ingredient)
-                                <option value="{{$ingredient->ref}}" @if(isset($ingredients_ids) && !empty($ingredients_ids)) @if(in_array($ingredient->ref,array($ingredients_ids))) selected="selected" @endif @endif>{{$ingredient->name}}</option>
+                                <option value="{{$ingredient->ref}}">{{$ingredient->name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -160,7 +152,7 @@ Items
                     <div class="col-sm-8">
                         <select multiple name="cuisines_ids[]" data-live-search='true' class="form-control select">
                             @foreach($cuisinetypes as $cuisine)
-                                <option value="{{$cuisine->id}}"  @if(isset($cuisines_ids) && !empty($cuisines_ids)) @if(in_array($cuisine->id,array($cuisines_ids))) selected="selected" @endif @endif>{{$cuisine->cuisine_name}}</option>
+                                <option value="{{$cuisine->id}}" >{{$cuisine->cuisine_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -171,7 +163,7 @@ Items
                     <div class="col-sm-8">
                         <select multiple name="allergens_contain_ids[]" data-live-search='true' class="form-control select">
                             @foreach($allergentypes as $allergen)
-                                <option value="{{$allergen->ref}}"  @if(isset($allergens_contain_ids) && !empty($allergens_contain_ids)) @if(in_array($allergen->ref,array($allergens_contain_ids))) selected="selected" @endif @endif>{{$allergen->title}}</option>
+                                <option value="{{$allergen->ref}}" >{{$allergen->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -182,7 +174,7 @@ Items
                     <div class="col-sm-8">
                         <select multiple name="allergents_may_contain[]" data-live-search='true' class="form-control select">
                             @foreach($allergentypes as $allergen)
-                                <option value="{{$allergen->ref}}"  @if(isset($allergens_may_contain) && !empty($allergens_may_contain)) @if(in_array($allergen->ref,array($allergens_may_contain))) selected="selected" @endif @endif>{{$allergen->title}}</option>
+                                <option value="{{$allergen->ref}}" >{{$allergen->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -195,7 +187,7 @@ Items
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">New Till Date :</label>
                     <div class="col-sm-4">
-                        <input type="text" name="new_till_date" class="form-control datepicker" value="{{$dish->new_till_date}}">
+                        <input type="text" name="new_till_date" class="form-control datepicker" value="">
                     </div>
                 </div>
 
@@ -208,17 +200,40 @@ Items
                 <!--  <hr/> -->
 
             </div>
-            
+
             <div class="form-group">
                 <div class="panel-footer">
                     <div class="col-md-6 col-md-offset-3">
-                        {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
+                        {{ Form::submit('Submit', array('class' => 'btn btn-primary')) }}
                         {{ link_to_route('dishes.index','Cancel',array('eatery_id'=>$eatery_id), array('class' => 'btn btn-danger')) }}
                     </div>
                 </div>
             </div>
-     </div>
- </div>
- 
+        </div>
+    </div>
+    <style type="text/css">
+        .input-controls {
+            margin-top: 10px;
+            border: 1px solid transparent;
+            border-radius: 2px 0 0 2px;
+            box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            height: 32px;
+            outline: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+        }
+        #searchInput {
+            background-color: #fff;
+            font-family: Roboto;
+            font-size: 15px;
+            font-weight: 300;
+            margin-left: 12px;
+            padding: 0 11px 0 13px;
+            text-overflow: ellipsis;
+            width: 50%;
+        }
+        #searchInput:focus {
+            border-color: #4d90fe;
+        }
+    </style>
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>

@@ -77,7 +77,6 @@ class EateriesController extends Controller
         $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')     
              ->leftjoin('cuisines', 'cuisines.id', '=', 'eateries.cuisines_ids')
-             ->leftjoin('brands', 'brands.id', '=', 'eateries.BrandId')   
              ->leftjoin('groups', 'groups.id', '=', 'eateries.GroupId') 
              ->leftjoin('locations', 'locations.LocationID', '=', 'eateries.LocationID')
              ->where(function ($query) use ($search){
