@@ -36,7 +36,7 @@ Route::resource('company', 'CompanyController');
 Route::resource('category', 'CategoryController');
 Route::resource('ingredients', 'IngredientsController');
 Route::resource('nutrition', 'NutritionController');
-Route::resource('items', 'ItemsController');
+Route::resource('dishes', 'DishesController');
 Route::resource('recipe', 'RecipeController');
 Route::resource('itemnutritions', 'ItesmNutritionController');
 Route::post('allowprivileges/{role_id}/{module_id}/{privilege_id}', array('as' => 'allowprivileges', 'uses' => 'PrivilegesController@allowprivileges'));
