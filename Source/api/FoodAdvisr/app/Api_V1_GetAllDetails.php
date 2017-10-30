@@ -10,6 +10,7 @@ use App\MenuSection;
 use App\MenuSubSection;
 use App\AppUsersDelete;
 use Carbon\Carbon;
+use App\AppCustomers;
 
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
@@ -154,7 +155,7 @@ ini_set('max_execution_time', 5000);
 
     function v1_addtofavouriteeatery($userid, $eatery_id)
     {
-        $user_count = User::where('ref',$userid)->count();
+        $user_count = AppCustomers::where('ref',$userid)->count();
         if($user_count == 0)
             return -2002;
         $eatery_count = Eateries::where('id',$eatery_id)->count();
@@ -177,7 +178,7 @@ ini_set('max_execution_time', 5000);
 
     function v1_removefromfavouriteeatery($userid, $eatery_id)
     {
-        $user_count = User::where('ref',$userid)->count();
+        $user_count = AppCustomers::where('ref',$userid)->count();
         if($user_count == 0)
             return -2005;
         $eatery_count = Eateries::where('id',$eatery_id)->count();
@@ -455,7 +456,7 @@ function v1_addfeedbackeateries($feedback)
     $osversion = $feedback['osversion'];
     $model = $feedback['model'];
     $maker = $feedback['maker'];
-    $user_count = User::where('ref',$userid)->count();
+    $user_count = AppCustomers::where('ref',$userid)->count();
     if($user_count == 0)
         return -2002;
     $eatery_count = Eateries::where('id',$eatery_id)->count();

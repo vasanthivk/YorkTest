@@ -36,6 +36,8 @@ if(in_array(Session::get("role_id"),array(1)))
                             <li  class="{{ Request::segment(1) === 'menusubsections'? 'active' : null }}"><a href="{{action('MenuSubSectionController@index')}}"><span class="fa fa-cutlery"></span> Menu Sub Sections</a></li>
                         </ul>
                     </li>  
+                     <li class="{{ Request::segment(1) === 'appcustomers' ? 'active' : null }}"><a href="{{action('AppCustomersController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">Customers</span></a>     
+                    </li>
 
      <?php
 if(!in_array(Session::get("role_id"),array(2)))

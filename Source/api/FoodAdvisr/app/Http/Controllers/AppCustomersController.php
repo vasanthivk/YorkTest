@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Redirect;
 use DB;
 use Session;
 use Input;
-use App\Menu;
+use App\AppCustomers;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
@@ -46,10 +46,10 @@ class AppCustomersController extends Controller
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $menus = DB::table('menu')
-        ->select(DB::raw('menu.ref as id,menu.menu,menu.submenu,if(ifnull(menu.is_visible,1)=1,"Visible","InVisible") as status'))
+        $appcustomers = DB::table('appusers')
+        ->select(DB::raw('appusers.ref as id,appusers.email as email,appusers.status,appusers.fullname as fullname'))
         ->get();
-         return View('menu.index', compact('menus'))         
+         return View('appcustomers.index', compact('appcustomers'))         
         ->with('privileges',$privileges);
     }
 
@@ -63,7 +63,7 @@ class AppCustomersController extends Controller
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        return View('menu.create')          
+        return View('appcustomers.create')          
         ->with('privileges',$privileges);
     }
     /**
