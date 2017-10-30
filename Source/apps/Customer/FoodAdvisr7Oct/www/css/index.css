@@ -188,7 +188,7 @@ div#eateryaddress {
     bottom: 59px;
 }
 #menu-categories {
-    width: 98%;
+    width: 58%;
     margin: auto;
     z-index: 10000;
     background: white;
@@ -199,7 +199,8 @@ div#eateryaddress {
     position: fixed;
     bottom: -100px;
     /* margin-bottom: -164px; */
-    /* left: 50%; */
+   left: 25%; 
+  box-shadow:0px 1px 0px #000;
     /* margin-left: -99px; */
 }
 .menu-cat {
@@ -451,7 +452,7 @@ div#toggled-items {
     position: relative;*/
 }
 .item-bc-eatery{
-    min-height: 70px;
+    min-height: 60px;
     /*margin: 5px 5px 10px 5px;*/
     /*padding-top: 8px;*/
     /*font-size: 12px;*/
@@ -461,7 +462,7 @@ div#toggled-items {
     
 }
 div.stars {
-    width: 256px;
+    width: 210px;
     display: inline-block;
     padding-top: 5px;
 }
@@ -498,10 +499,10 @@ label.star:before {
     overflow: auto;
 }
 .midpopbook.overlay-hide p {
-    font-size: 18px;
+    font-size: 0.93rem;
     font-weight: bold;
     text-align: center;
-    color: rgba(0, 0, 0, 0.67);
+    color: #000;
 }
 .midpop.overlay-hide p {
     font-size: 18px;
@@ -525,7 +526,7 @@ label.star:before {
 .item-bc-name{
     padding: 8px;
     padding-bottom: 0px;
-    font-size: 22px;
+    font-size: 18px;
     color: #00B2A9;
     font-weight: bold;
 }
@@ -656,10 +657,10 @@ padding:2%;
 }
 
 .help-inner h4{
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
-    background: rgba(100, 149, 237, 0.13);
+   
 
  }
 .help-inner h5{
@@ -729,8 +730,8 @@ padding:2%;
     text-align: center;
 }
 .res-img-book{
-    height:40px;
-    width:40px;
+    height:30px;
+    width:30px;
 }
 
 .icon img{
@@ -1481,7 +1482,7 @@ padding:2%;
 .accountpop a{
   display:block;
   vertical-align:middle;
-  color:#808080;
+  color:#000;
   font-size:2.6vh;
   line-height:6vh;
 }
@@ -2099,8 +2100,8 @@ margin-bottom:20px;
   border:1px solid #909090;
   padding:4%;
   z-index:250;
-  font-size:1rem;
-  color:#303030;
+  font-size:0.93rem;
+  color:#000;
   transition: all .2s ease-in-out;
   padding-bottom:45px;
 }
@@ -2756,16 +2757,17 @@ h3.header{
     max-height: 300px;
     overflow: auto;
     position: absolute;
-    width: 100%;
+    width: 70%;
     border: 1px solid #ccc;
     box-shadow: 1px 2px 1px #ccc;
     background: #fff;
     z-index: 1;
+	right:5px;
   }
 
-.cusineslist{ border:1px solid #ccc;
+.cusineslist{
 font-size: 0.9rem;
-    border: 1px solid #e8e4e4;
+   
     padding: 8px;
     margin: 5px;
     background: #fff;
@@ -2773,21 +2775,21 @@ font-size: 0.9rem;
 }
 .cusineslist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
 .cusineslist input{
-	float: right;
+	
     width: 10%;
     border: 1px solid #da2a2a;
-    margin: 0px 10px 5px 0px;}
+    margin: 0px 10px 10px 0px;}
 	
-.lifestylelist{ border:1px solid #ccc;
+.lifestylelist{ 
 font-size: 1rem;
-    border: 1px solid #e8e4e4;
+   
     padding: 8px;
     margin: 5px;
     background: #fff;
 }
 .lifestylelist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
 .lifestylelist input{
-	float: right;
+	
     width: 10%;
     border: 1px solid #da2a2a;
     margin: 0px 10px 5px 0px;
@@ -2799,7 +2801,7 @@ font-size: 1rem;
     font-size: 30px;
 	display:block}
 
-
+.ui-listview>li h1, .ui-listview>li h2, .ui-listview>li h3, .ui-listview>li h4, .ui-listview>li h5, .ui-listview>li h6,p{text-align:left!important}
 
 
 @-webkit-keyframes sk-bouncedelay {
@@ -2852,6 +2854,7 @@ font-size: 1rem;
     background-color: white;
     padding: 8px;
     text-align: left;
+	font-size:0.93rem;
 }
 
 .help-text{
