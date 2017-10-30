@@ -144,7 +144,7 @@ div#eaterybusinessname {
 div#eateryaddress {
     font-size: 1rem;
 	padding:8px;
-}
+	color:#000;}
 .eatery-rating {
     font-size: 18px;
     margin-left: 0px;
@@ -312,16 +312,16 @@ div#toggled-items {
 }
 #eatery-search {
     /* display: inline-block; */
-    margin-bottom: 2px !important;
+  
     /* border: 1px solid #808080; */
     border-radius: 4px;
-    color: #808080;
+    color: #000;
     font-size: 1.1rem;
     text-align: center;
     background: white;
-    width: 88%;
+    width: 100%;
     margin-left: 0.5%;
-    margin-top: 2%;
+  
     /* text-indent: 20px; */
     text-align: left;
     /* background: url(../img/searchlight.svg) no-repeat; */
@@ -2633,7 +2633,7 @@ h3.header{
 
 .ctpanel h3{
   text-align:center;
-  color:#808080;
+  color:#000;
   margin-bottom:4%;
   margin-top:4%;
   font-size:1.9rem
@@ -2641,7 +2641,7 @@ h3.header{
 
 .ctpanel p{
   text-align:center;
-  color:#606060;
+  color:#000;
   margin-bottom:4%;
   margin-top:1%;
   font-size:1rem;
@@ -2718,6 +2718,10 @@ h3.header{
 }
 
 
+
+.ui-input-has-clear{padding-right:0px!important;}
+
+
 .spinner {
   position:absolute;
   top:-85px;
@@ -2768,7 +2772,12 @@ font-size: 0.9rem;
 	
 }
 .cusineslist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
-.cusineslist input{ margin:8px}
+.cusineslist input{
+	float: right;
+    width: 10%;
+    border: 1px solid #da2a2a;
+    margin: 0px 10px 5px 0px;}
+	
 .lifestylelist{ border:1px solid #ccc;
 font-size: 1rem;
     border: 1px solid #e8e4e4;
@@ -2777,11 +2786,16 @@ font-size: 1rem;
     background: #fff;
 }
 .lifestylelist h2{ margin:8px; font-size:1rem; color:#000; text-transform:uppercase;}
-.lifestylelist input{ margin:8px}
+.lifestylelist input{
+	float: right;
+    width: 10%;
+    border: 1px solid #da2a2a;
+    margin: 0px 10px 5px 0px;
+	}
 .filter-button-submit{ background:#00b2a9; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
 .filter-button-cancel{ background:gray; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
 .filter{float: right;
-    margin: 10px;
+    margin: 18px;
     font-size: 30px;
 	display:block}
 
