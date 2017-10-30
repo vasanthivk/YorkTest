@@ -60,6 +60,7 @@ class MenuSectionController extends Controller
         $privileges = $this->getPrivileges();
         $menus = DB::table('menu')
             ->where('is_visible','=','1')
+            ->where('company','=','FoodAdvisr')
             ->select(DB::raw('menu.menu,menu.ref as id'))
             ->pluck('menu','id');
 
@@ -144,6 +145,8 @@ class MenuSectionController extends Controller
             return Redirect::to('/');        
         $menusections = MenuSection::find($id);
         $menus = DB::table('menu')
+        ->where('is_visible','=','1')
+        ->where('company','=','FoodAdvisr')
         ->select(DB::raw('menu.menu,menu.ref as id'))
         ->pluck('menu','id');
         return View('menusections.edit')          

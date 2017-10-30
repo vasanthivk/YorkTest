@@ -27,8 +27,8 @@ Users
 		        {{ Form::ahNumber('mobile_no','Mobile No :','',array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}
 		        {{ Form::ahSelect('role_id','Role :',null,$role) }}
 		        {{ Form::ahSelect('status','Status :','1',array('1' => 'Active', '2' => 'Inactive')) }}
-		        {{ Form::ahSearchSelect('location_id','Location :',null,$locations) }}
-		        {{ Form::ahSearchSelect('eatery_id','Eateries :',null,$eateries) }}
+		        {{ Form::ahSelect('location_id','Location :',null,$locations) }}
+		        {{ Form::ahSelect('eatery_id','Eateries :',null,$eateries) }}
 		        
 		        </br>
 		    </div>

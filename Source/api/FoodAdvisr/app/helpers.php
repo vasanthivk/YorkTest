@@ -108,3 +108,19 @@ function getEateryByLocation($location_id){
                 ->get();
     return $eateries;
 }
+
+function getMenusectionByMenuIds($menu_id){
+    $menu_section =  DB::table('menu_section')
+                ->where('menu_id','=',$menu_id)
+                ->select(DB::raw('menu_section.id as sections_ids,menu_section.section_name'))
+                ->get();
+    return $menu_section;
+}
+
+function getMenusubsectionByMenuSection($section_id){
+    $menu_sub_section =  DB::table('menu_sub_section')
+                ->where('section_id','=',$section_id)
+                ->select(DB::raw('menu_sub_section.id as subsections_ids,menu_sub_section.sub_section_name'))
+                ->get();
+    return $menu_sub_section;
+}

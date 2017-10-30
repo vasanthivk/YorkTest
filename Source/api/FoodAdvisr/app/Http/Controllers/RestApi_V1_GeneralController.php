@@ -141,6 +141,30 @@ class RestApi_V1_GeneralController extends Controller
         return $this->appendHeaders(getEateryByLocation($location_id));
     }
 
+    public function GetMenusectionByMenuIds(Request $request)
+    {
+        $menu_id = $request['menu_id'];
+
+        if($menu_id==null || $menu_id=='')
+        {
+            $data = array('status' => '201','message' => 'Invalid Menu id');
+            return $this->appendHeaders($data);
+        }
+        return $this->appendHeaders(getMenusectionByMenuIds($menu_id));
+    }
+
+     public function GetMenuSubsectionByMenuSection(Request $request)
+    {
+        $section_id = $request['section_id'];
+
+        if($section_id==null || $section_id=='')
+        {
+            $data = array('status' => '201','message' => 'Invalid Section id');
+            return $this->appendHeaders($data);
+        }
+        return $this->appendHeaders(getMenusubsectionByMenuSection($section_id));
+    }
+
     public function V1_GetCuisines(Request $request)
     {
         $v1_getcuisines = v1_getcuisines();
