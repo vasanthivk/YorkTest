@@ -277,6 +277,35 @@ class RestApi_V1_GeneralController extends Controller
         }
     }
 
+    public function V1_RemoveFavouriteEateries(Request $request)
+    {
+          $postdata = file_get_contents("php://input");
+        if (isset($postdata)) {
+            $request = json_decode($postdata);
+            $userid = $request->{'userid'};
+            if($userid == '')
+            {
+               $data = array('status' => -206,'message' => 'Invalid User Id');
+                return $this->appendHeaders($data);
+            }
+            $eatery_id = $request->{'eatery_id'};
+            if($eatery_id == '')
+            {
+                $data = array('status' => -207,'message' => 'Invalid Eatery Id');
+                return $this->appendHeaders($data);
+            }
+            $returnvalue =  v1_removefavouriteeateries($userid, $eatery_id);
+           
+            $data = array('status' => 0,'message' => 'Success','result' => $returnvalue);
+            return $this->appendHeaders($data);
+        }
+        else
+        {
+            $data = array('status' => -1000,'message' => 'Invalid Inputdata','result' => null);
+            return $this->appendHeaders($data);
+        }
+    }
+
     public function V1_AddFeedbackEatery(Request $request){
         $postdata = file_get_contents("php://input");
         if (isset($postdata)) {
@@ -297,7 +326,7 @@ class RestApi_V1_GeneralController extends Controller
             $feedback['maker'] = $request->{'maker'};
             if($feedback == array())
             {
-                $data = array('status' => -205,'message' => 'Invalid User Id');
+                $data = array('status' => -207,'message' => 'Invalid User Id');
                 return $this->appendHeaders($data);
             }
             $returnvalue =  v1_addfeedbackeateries($feedback);
