@@ -147,11 +147,21 @@ Items
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Ingredients :</label>
                     <div class="col-sm-8">
-                        <select multiple name="ingredients_ids[]" data-live-search='true' class="form-control select">
+                        <table>
                             @foreach($ingredients as $ingredient)
-                                <option value="{{$ingredient->ref}}" @if(isset($ingredients_ids) && !empty($ingredients_ids)) @if(in_array($ingredient->ref,array($ingredients_ids))) selected="selected" @endif @endif>{{$ingredient->name}}</option>
+                                <tr>
+                                    <td><input type="hidden" value="{{$ingredient->id}}" name="ingredients_ids[]" class="form-control ingredients_ids col-md-4" /></td>
+                                    <td><input type="text" value="{{$ingredient->name}}" name="" class="form-control ingredients_ids col-md-4" /></td>
+                                </tr>
                             @endforeach
-                        </select>
+                            <tr>
+                                <td><a class="btn btn-primary" id="add_ingredient">Add</a></td>
+                                <td><input type="text" value="" name="new_ingredients_ids[]" class="form-control ingredients_ids col-md-4" /></td>
+                            </tr>
+                        </table>
+                        <table id="new_ingredients_ids">
+
+                        </table>
                     </div>
                 </div>
                 <hr/>
@@ -196,6 +206,73 @@ Items
                     <label for="group_name" class="control-label col-sm-4">New Till Date :</label>
                     <div class="col-sm-4">
                         <input type="text" name="new_till_date" class="form-control datepicker" value="{{$dish->new_till_date}}">
+                    </div>
+                </div>
+                <hr/>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="col-sm-4 control-label">Nutrition :</label>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Total Fat :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_fat" class="form-control" value="{{$dish->nutrition_fat}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Cholesterol :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_cholesterol" class="form-control" value="{{$dish->nutrition_cholesterol}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Sugar :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_sugar" class="form-control" value="{{$dish->nutrition_sugar}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Fibre :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_fibre" class="form-control" value="{{$dish->nutrition_fibre}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Protein :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_protein" class="form-control" value="{{$dish->nutrition_protein}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Saturated Fat :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_saturated_fat" class="form-control" value="{{$dish->nutrition_saturated_fat}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Calories :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_calories" class="form-control" value="{{$dish->nutrition_calories}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Carbs :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_carbohydrates" class="form-control" value="{{$dish->nutrition_carbohydrates}}" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Salt :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_salt" class="form-control" value="{{$dish->nutrition_salt}}" min="0" step="0.0001"/>
                     </div>
                 </div>
 

@@ -18,6 +18,7 @@ use App\Category;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
+use App\ProductIngredients;
 
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
@@ -91,10 +92,7 @@ class DishesController extends Controller
             ->where('type','=',"I")
             ->select(DB::raw('ref,title'))
             ->get();
-        // $ingredients = DB::table('_product_ingredients')
-        //     ->select(DB::raw('ref,name'))
-        //     ->get();
-            $ingredients = array();
+
         $cuisinetypes = DB::table('cuisines')
             ->where('is_enabled','=','1')
             ->select(DB::raw('id,cuisine_name'))
@@ -104,7 +102,7 @@ class DishesController extends Controller
             ->select(DB::raw('id,description'))
             ->get();
 
-
+//return $ingredients;
         return View('dishes.create')
             ->with('privileges',$privileges)
             ->with('eatery_id',$eatery_id)
@@ -112,7 +110,6 @@ class DishesController extends Controller
             ->with('menusubsection',$menusubsection)
             ->with('menus',$menus)
             ->with('allergentypes',$allergentypes)
-            ->with('ingredients',$ingredients)
             ->with('lifestyle_choices',$lifestyle_choices)
             ->with('cuisinetypes',$cuisinetypes);
     }
@@ -192,13 +189,38 @@ class DishesController extends Controller
         }
         else
         {
+            $ingredient_items = Input::get('ingredients_ids');
+            if(isset($ingredient_items) && !empty($ingredient_items)){
+                foreach($ingredient_items as $ingredient){
+                    $token = openssl_random_pseudo_bytes(3);
+                    $token = bin2hex($token);
+                    $ingre = new ProductIngredients();
+                    $ingre->ref = $token;
+                    $ingre->name = $ingredient;
+                    $ingre->product_barcode = 'NULL';
+                    $ingre->percentage = 'NULL';
+                    $ingre->order_of_amount = 'NULL';
+                    $ingre->date_entered = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $ingre->date_modified = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $ingre->deleted = 'NULL';
+                    $ingre->date_deleted = 'NULL';
+                    $ingre->date_modified = 'NULL';
+                    $ingre->save();
+
+                    $ingredients_ids[] = $ingre->id;
+                }
+            }
+            else{
+                $ingredients_ids[] = array();
+            }
+
             $dish = new Dishes();
             $dish->dish_name = Input::get('dish_name');
             $dish->description = Input::get('description');
             $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
             $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
             $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
-            $dish->ingredients_ids = implode(',',Input::get('ingredients_ids'));
+            $dish->ingredients_ids = implode(',',$ingredients_ids);
             $dish->menus_ids = implode(',',Input::get('menus_ids'));
             $dish->sections_ids = implode(',',Input::get('sections_ids'));
             $dish->subsections_ids = implode(',',Input::get('subsections_ids'));
@@ -228,6 +250,15 @@ class DishesController extends Controller
                 $dish->is_new=0;
             }
             $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
+            $dish->nutrition_fat =  Input::get('nutrition_fat');
+            $dish->nutrition_cholesterol =  Input::get('nutrition_cholesterol');
+            $dish->nutrition_sugar =  Input::get('nutrition_sugar');
+            $dish->nutrition_fibre =  Input::get('nutrition_fibre');
+            $dish->nutrition_protein =  Input::get('nutrition_protein');
+            $dish->nutrition_saturated_fat =  Input::get('nutrition_saturated_fat');
+            $dish->nutrition_calories =  Input::get('nutrition_calories');
+            $dish->nutrition_carbohydrates =  Input::get('nutrition_carbohydrates');
+            $dish->nutrition_salt =  Input::get('nutrition_salt');
             $dish->display_order =  Input::get('display_order');
             $dish->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $dish->added_by = Session::get('user_id');
@@ -280,7 +311,7 @@ class DishesController extends Controller
      */
     public function edit(Request $request,$id)
     {
-        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+       if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         if($privileges['Edit'] !='true')
@@ -302,9 +333,8 @@ class DishesController extends Controller
             ->where('type','=',"I")
             ->select(DB::raw('ref,title'))
             ->get();
-        $ingredients = DB::table('_product_ingredients')
-            ->select(DB::raw('ref,name'))
-            ->get();
+
+
         $cuisinetypes = DB::table('cuisines')
             ->where('is_enabled','=','1')
             ->select(DB::raw('id,cuisine_name'))
@@ -314,15 +344,20 @@ class DishesController extends Controller
             ->select(DB::raw('id,description'))
             ->get();
         $dish = Dishes::find($id);
-        $applicable_days = unserialize($dish->applicable_days);
-        $cuisines_ids = unserialize($dish->cuisines_ids);
-        $lifestyle_choices_ids = unserialize($dish->lifestyle_choices_ids);
-        $ingredients_ids = unserialize($dish->ingredients_ids);
-        $allergens_contain_ids = unserialize($dish->allergens_contain_ids);
-        $menus_ids = unserialize($dish->menus_ids);
-        $sections_ids = unserialize($dish->sections_ids);
-        $subsections_ids = unserialize($dish->subsections_ids);
-        $allergens_may_contain = unserialize($dish->allergens_may_contain);
+        $applicable_days = $dish->applicable_days;
+        $cuisines_ids = $dish->cuisines_ids;
+        $lifestyle_choices_ids = $dish->lifestyle_choices_ids;
+        $ingredients_ids = $dish->ingredients_ids;
+        $ingredients = DB::table('_product_ingredients')
+            ->leftjoin('dishes','dishes.ingredients_ids','=','_product_ingredients.id')
+            ->whereIn('dishes.ingredients_ids',array($ingredients_ids))
+            ->select('_product_ingredients.id,_product_ingredients.name')
+            ->get();
+        $allergens_contain_ids = $dish->allergens_contain_ids;
+        $menus_ids = $dish->menus_ids;
+        $sections_ids = $dish->sections_ids;
+        $subsections_ids = $dish->subsections_ids;
+        $allergens_may_contain = $dish->allergens_may_contain;
 
 
         /*return $allergents_contain;*/
@@ -388,6 +423,39 @@ class DishesController extends Controller
         else
         {   
             $dish = Dishes::find($id);
+            $ingredient_items = Input::get('new_ingredients_ids');
+            $implode_ingredient_items = implode(',',$ingredient_items);
+            $ingredient_item_result = DB::table('_product_ingredients')
+                ->whereNotIn('name',array($implode_ingredient_items))
+                ->where('product_barcode','=','NULL')
+                ->where('percentage','=','NULL')
+                ->where('order_of_amount','=','NULL')
+                ->select('id,name')
+                ->get();
+            foreach($ingredient_item_result as $in_dish)
+            {
+                if(isset($ingredient_items) && !empty($ingredient_items) && !in_array($in_dish->name,$ingredient_items)) {
+                    foreach ($ingredient_items as $ingredient) {
+                        $token = openssl_random_pseudo_bytes(3);
+                        $token = bin2hex($token);
+                        $ingre = new ProductIngredients();
+                        $ingre->ref = $token;
+                        $ingre->name = $ingredient;
+                        $ingre->product_barcode = 'NULL';
+                        $ingre->percentage = 'NULL';
+                        $ingre->order_of_amount = 'NULL';
+                        $ingre->date_modified = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                        $ingre->deleted = 'NULL';
+                        $ingre->date_deleted = 'NULL';
+                        $ingre->date_modified = 'NULL';
+                        $ingre->save();
+
+                        $ingredients_ids[] = $ingre->id;
+                    }
+                }else{
+                    $ingredients_ids[] = array();
+                }
+            }
 
              if($file <> null)
              {
@@ -413,7 +481,7 @@ class DishesController extends Controller
             $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
             $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
             $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
-            $dish->ingredients_ids = implode(',',Input::get('ingredients_ids'));
+            $dish->ingredients_ids = implode(',',$ingredients_ids);
             $dish->menus_ids = implode(',',Input::get('menus_ids'));
             $dish->sections_ids = implode(',',Input::get('sections_ids'));
             $dish->subsections_ids = implode(',',Input::get('subsections_ids'));
@@ -443,6 +511,15 @@ class DishesController extends Controller
                 $dish->is_new=0;
             }
             $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
+            $dish->nutrition_fat =  Input::get('nutrition_fat');
+            $dish->nutrition_cholesterol =  Input::get('nutrition_cholesterol');
+            $dish->nutrition_sugar =  Input::get('nutrition_sugar');
+            $dish->nutrition_fibre =  Input::get('nutrition_fibre');
+            $dish->nutrition_protein =  Input::get('nutrition_protein');
+            $dish->nutrition_saturated_fat =  Input::get('nutrition_saturated_fat');
+            $dish->nutrition_calories =  Input::get('nutrition_calories');
+            $dish->nutrition_carbohydrates =  Input::get('nutrition_carbohydrates');
+            $dish->nutrition_salt =  Input::get('nutrition_salt');
             $dish->display_order =  Input::get('display_order');
             $dish->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $dish->modified_by = Session::get('user_id');
@@ -504,5 +581,32 @@ class DishesController extends Controller
             createLog($log);
            return Redirect::back()->with('warning','Dish Deleted Successfully!');
         }
+    }
+
+     public function ajaxSectionByMenuId($menuids){
+        $query = DB::table('menu_section')
+            ->whereIn('menu_id',array($menuids))
+            ->select(DB::raw('id,section_name'))
+            ->get();
+
+        return $query;
+    }
+
+    public function ajaxSubSectionBySectionId($sections_ids){
+        $query = DB::table('menu_sub_section')
+            ->whereIn('section_id',array($sections_ids))
+            ->select(DB::raw('id,sub_section_name'))
+            ->get();
+
+        return $query;
+    }
+
+    public function ajaxIngredientSearch($search){
+        $query = DB::table('_product_ingredients')
+            ->where('name','like', '%' . $search . '%')
+            ->select(DB::raw('ref,name'))
+            ->get();
+
+        return $query;
     }
 }

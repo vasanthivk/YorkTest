@@ -7,12 +7,12 @@
 @endsection
 
 @section('content')
-
-
-    {{ Form::open(array('route' => 'dishes.store','files'=>true)) }}
+@include('components.message')
+{{ Form::open(array('route' => 'dishes.store','files'=>true)) }}
     <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
     <div class="form-group form-horizontal">
-        <div class="panel panel-default">
+         <div class="panel panel-default">
+            <br/>
             <div class="col-md-10">
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Menu :</label>
@@ -108,10 +108,9 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Is Enabled</label>
-
-                    <div class="col-md-10">
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="col-sm-4 control-label">Is Enabled :</label>
+                    <div class="col-sm-4">
                         <label class="switch">
                             <input type="checkbox" name="is_visible" checked value="1"/>
                             <span></span>
@@ -124,7 +123,6 @@
                 </div>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">From :</label>
-
                     <div class="col-sm-4">
                         <input type="text" name="valid_from" class="form-control datepicker" value=""/>
                     </div>
@@ -169,11 +167,15 @@
                     <label for="group_name" class="control-label col-sm-4">Ingredients :</label>
 
                     <div class="col-sm-8">
-                        <select multiple name="ingredients_ids[]" data-live-search='true' class="form-control select">
-                            @foreach($ingredients as $ingredient)
-                                <option value="{{$ingredient->ref}}">{{$ingredient->name}}</option>
-                            @endforeach
-                        </select>
+                        <table>
+                            <tr>
+                                <td><a class="btn btn-primary" id="add_ingredient">Add</a></td>
+                                <td><input type="text" value="" name="ingredients_ids[]" class="form-control ingredients_ids col-md-4" /></td>
+                            </tr>
+                        </table>
+                        <table id="new_ingredients_ids">
+
+                        </table>
                     </div>
                 </div>
                 <hr/>
@@ -204,7 +206,6 @@
                 <hr/>
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Allergens May Contain :</label>
-
                     <div class="col-sm-8">
                         <select multiple name="allergents_may_contain[]" data-live-search='true'
                                 class="form-control select">
@@ -216,10 +217,9 @@
                 </div>
                 <hr/>
 
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Is Featured</label>
-
-                    <div class="col-md-10">
+               <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Is Featured :</label>
+                    <div class="col-sm-8">
                         <label class="switch">
                             <input type="checkbox" name="is_featured" checked value="1"/>
                             <span></span>
@@ -227,10 +227,10 @@
                     </div>
                 </div>
                 <hr/>
-                <div class="form-group">
-                    <label class="col-md-2 control-label">Is New</label>
+               <div class="form-group" style="margin:5px">
+                   <label for="group_name" class="control-label col-sm-4">Is New :</label>
 
-                    <div class="col-md-10">
+                    <div class="col-md-8">
                         <label class="switch">
                             <input type="checkbox" name="is_new" checked value="1"/>
                             <span></span>
@@ -245,16 +245,75 @@
                         <input type="text" name="new_till_date" class="form-control datepicker" value="">
                     </div>
                 </div>
+                 <hr/>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="col-sm-4 control-label">Nutrition :</label>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Total Fat :</label>
 
-                <!-- <div class="form-group" style="margin:5px">
-                    <label for="group_name" class="control-label col-sm-4">Display Order :</label> -->
-                <!--  <div class="col-sm-8"> -->
-                <input type="hidden" name="display_order" class="form-control" value="1" min="1" step="1">
-                <!--   </div>
-              </div> -->
-                <!--  <hr/> -->
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_fat" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Cholesterol :</label>
 
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_cholesterol" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Sugar :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_sugar" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Fibre :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_fibre" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Protein :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_protein" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Saturated Fat :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_saturated_fat" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Calories :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_calories" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Carbs :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_carbohydrates" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
+                <div class="form-group" style="margin:5px">
+                    <label for="group_name" class="control-label col-sm-4">Salt :</label>
+
+                    <div class="col-sm-4">
+                        <input type="number" name="nutrition_salt" class="form-control" value="" min="0" step="0.0001"/>
+                    </div>
+                </div>
             </div>
+            
 
             <div class="form-group">
                 <div class="panel-footer">
@@ -266,4 +325,30 @@
             </div>
         </div>
     </div>
+    <script>
+        $(document).ready(function(){
+            $('#add_ingredient').click(function(){
+               $('#new_ingredients_ids').append('<tr><td><a class="del_ingredients_ids btn btn-danger">Del</a></td><td><input type="text" value="" name="ingredients_ids[]" class="form-control ingredients_ids" /></td></tr>');
+            });
+            $('#add_ingredient').on('click','.del_ingredients_ids',function(e){
+                e.preventDefault();
+                alert('del');
+               $(this).parent().parent().remove();
+            });
+           $('#menus_ids').on('change',function(){
+               var menus_ids = $('#menus_ids').val();
+               $.ajax({
+                   //url: '../../../../api/v1/ajaxSectionByMenuId',
+                   url: 'http://localhost:8000/api/v1/ajaxSectionByMenuId',
+                   data: {
+                       menus_ids: menus_ids
+                   },
+                   type: 'post',
+                   success: function (response) {
+                       alert(response);
+                   }
+               });
+           }) ;
+        });
+    </script>
 @endsection

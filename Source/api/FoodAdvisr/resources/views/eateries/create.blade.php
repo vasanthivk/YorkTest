@@ -40,15 +40,17 @@ Eateries
             {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}
             <?php 
             if(isset($cuisines) || isset($lifestyle_choices))
-            {           
+            {       
+             
             $cuisines_ids = Session::get('cuisines');
             $lifestyle_choices_ids = Session::get('lifestyle_choices');
             }
             ?>
+           
              <div class="form-group" style="margin:5px">
                   <label for="cuisine" class="control-label col-sm-4">Cuisines :</label>
                   <div class="col-md-8">
-                      <select multiple name="cuisines_ids[]" data-live-search='true' class="form-control select">
+                      <select multiple name="cuisines_ids[]" id="myDynamicSelectBox"data-live-search='true' class="form-control select">
                       @foreach($cuisines as $cuisine)
                      <option value="{{$cuisine->id}}" @if(isset($cuisines_ids)) @if(in_array($cuisine->id,$cuisines_ids)) selected="selected" @endif @endif>{{$cuisine->cuisine_name}}</option>
                       @endforeach
@@ -118,6 +120,13 @@ Eateries
  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQRQHxDzP0SoX_WMbskBK3OOr5qT3QK08&libraries=places"></script>
   <script>
 /* script */
+$(document).ready(function(){
+    $('#myDynamicSelectBox').change(function(){
+         localStorage.setItem('cuisines_ids', $(this).val());
+         $('#myDynamicSelectBox').value(localStorage.getItem('mySelectLocalstorageValue'));
+    });
+});
+
  function ChooseContact(data) {
 
 var location = document.getElementById ("searchInput").value = data.value;
