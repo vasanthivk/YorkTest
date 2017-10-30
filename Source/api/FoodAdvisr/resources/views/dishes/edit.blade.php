@@ -231,6 +231,73 @@ Dish
             </div>
      </div>
  </div>
- 
+
+<script>
+        $(document).ready(function(){
+             $('#ingrediant_add').on('click',function(){
+           $('.ingrediants').append('<br/><input type="text" name="item_ingredients[]" value="" class="form-control" />');
+        });
+        $('.del_remove').on('click',function(){
+           $(this).remove();
+        });
+        });
+    </script>  
+
+    <script type="text/javascript">
+    $(document).ready(function(){   
+    
+        
+        $("#menus_ids").change(function(){
+          menuChange();
+        });
+        $("#sections_ids").change(function(){
+            fillSubSections();
+        });
+        menuChange();
+        var value ='<?php echo Session::get('sections_ids') ?>';
+        $("select#sections_ids option") .each(function() {
+            this.selected = (this.value == '<?php echo Session::get('sections_ids') ?>'); 
+        });
+        $("select#subsections_ids option") .each(function() { this.selected = (this.value == '<?php echo Session::get('subsections_ids') ?>'); });
+
+    });
+    function menuChange(){
+
+  var id = $("#menus_ids").val();
+            $.get("../../api/getmenusectionbymenuIds?menu_id="+id, function(data){
+                $('#sections_ids').empty();
+                var section_value ='<?php echo Session::get('section_ids') ?>';
+                $.each(data, function(i, obj){
+                    if( section_value == obj.sections_ids) {
+                    $('#sections_ids').append($('<option selected>').text(obj.section_name).attr('value', obj.sections_ids)); 
+                }
+                else{
+                 $('#sections_ids').append($('<option>').text(obj.section_name).attr('value', obj.sections_ids)); 
+
+                }
+
+                });
+                fillSubSections();
+            });
+
+    }
+    function fillSubSections()
+        {
+            var id = $("#sections_ids").val();
+            $.get("../../api/getmenusubsectionbymenusection?section_id="+id, function(data){
+                $('#subsections_ids').empty();
+                var subsection_value ='<?php echo Session::get('subsections_ids') ?>';
+                $.each(data, function(i, obj){
+                    if( subsection_value == obj.subsections_ids) {
+                         $('#subsections_ids').append($('<option selected>').text(obj.sub_section_name).attr('value', obj.subsections_ids));    
+
+                    }
+                    else 
+                    {
+                       $('#subsections_ids').append($('<option>').text(obj.sub_section_name).attr('value', obj.subsections_ids));       
+                   }             
+                });
+            });
+        }
+</script>   
 @endsection
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
