@@ -93,6 +93,16 @@ api.getLifeStyleChoices=function(callBack)
     });
 }
 
+api.getUserFavouriteEateries=function(callBack)
+{
+    postData = '{"userid": ' + userdata.userid + '}';
+    $.post(api.eateiesroot+'getfavouriteeateries',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+
 api.getAddClickBeforeAssociated=function(eateryId,callBack)
 {
     postData = '{"id": ' + eateryId + '}';

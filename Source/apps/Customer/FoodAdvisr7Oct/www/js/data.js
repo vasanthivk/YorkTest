@@ -32,6 +32,9 @@ cuisines.list = [];
 var lifestylechoices=new Object();
 lifestylechoices.list = [];
 
+var favouriteEateries=new Object();
+favouriteEateries.list = [];
+
 var feedbackCache=new Object();
 feedbackCache.list=[];
 

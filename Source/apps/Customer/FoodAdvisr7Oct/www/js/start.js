@@ -89,6 +89,15 @@ myProfile.person.settings=1;
 	//get current Location fire42
 	GetCurrentLocation();
 
+	function fillUserFavouriteEateries()
+	{
+      api.getUserFavouriteEateries(function(data)
+      {
+        favouriteEateries.list = data.result;        
+      });
+	}
+	fillUserFavouriteEateries();
+
 
 
 	$('.startupwhite').fadeTo('slow',0,function(){
