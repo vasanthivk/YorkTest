@@ -306,7 +306,8 @@ class RestApi_V1_GeneralController extends Controller
         }
     }
 
-    public function V1_AddFeedbackEatery(Request $request){
+    public function V1_AddFeedbackEatery(Request $request)
+    {
         $postdata = file_get_contents("php://input");
         if (isset($postdata)) {
             $request = json_decode($postdata);
@@ -339,5 +340,4 @@ class RestApi_V1_GeneralController extends Controller
             return $this->appendHeaders($data);
         }
     }
-    
 }

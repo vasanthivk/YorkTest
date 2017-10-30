@@ -1,6 +1,6 @@
 @extends('layouts.master')
 @section('title')
-    FoodAdvisr-Items
+    FoodAdvisr-Dishes
 @endsection
 @section('module')
     Dish
@@ -20,7 +20,6 @@
                     <div class="col-sm-8">
                         <select multiple class="form-control select" data-live-search='true' id="menus_ids"
                                 name="menus_ids">
-                            <option>Choose Menu</option>
                             @foreach($menus as $menu)
                                 <option value="{{$menu->ref}}">{{$menu->menu}}</option>
                             @endforeach
@@ -34,9 +33,8 @@
                     <div class="col-sm-8">
                         <select multiple class="form-control select" data-live-search='true' id="sections_ids"
                                 name="sections_ids">
-                            <option>Choose Section</option>
                             @foreach($menusection as $section)
-                                <option value="{{$section->id}}">{{$section->section_naem}}</option>
+                                <option value="{{$section->id}}">{{$section->section_name}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -48,7 +46,6 @@
                     <div class="col-sm-8">
                         <select multiple class="form-control select" data-live-search='true' id="subsections_ids"
                                 name="subsections_ids">
-                            <option>Choose Sub-Section</option>
                             @foreach($menusubsection as $subsection)
                                 <option value="{{$subsection->id}}">{{$subsection->sub_section_name}}</option>
                             @endforeach

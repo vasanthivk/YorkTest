@@ -91,9 +91,10 @@ class DishesController extends Controller
             ->where('type','=',"I")
             ->select(DB::raw('ref,title'))
             ->get();
-        $ingredients = DB::table('_product_ingredients')
-            ->select(DB::raw('ref,name'))
-            ->get();
+        // $ingredients = DB::table('_product_ingredients')
+        //     ->select(DB::raw('ref,name'))
+        //     ->get();
+            $ingredients = array();
         $cuisinetypes = DB::table('cuisines')
             ->where('is_enabled','=','1')
             ->select(DB::raw('id,cuisine_name'))

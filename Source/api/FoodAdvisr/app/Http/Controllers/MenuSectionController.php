@@ -58,9 +58,10 @@ class MenuSectionController extends Controller
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-         $menus = DB::table('menu')
-        ->select(DB::raw('menu.menu,menu.ref as id'))
-        ->pluck('menu','id');
+        $menus = DB::table('menu')
+            ->where('is_visible','=','1')
+            ->select(DB::raw('menu.menu,menu.ref as id'))
+            ->pluck('menu','id');
 
         return View('menusections.create')          
         ->with('menus',$menus)
