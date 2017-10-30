@@ -33,6 +33,7 @@ Route::resource('dishes', 'DishesController');
 Route::resource('uploadmenu', 'UploadMenuController');
 Route::get('generateExcel', 'UploadMenuController@generateExcel');
 Route::resource('user', 'UserController');
+Route::resource('appcustomers', 'AppCustomersController');
 Route::resource('groups', 'GroupsController');
 Route::resource('brands', 'BrandsController');
 Route::resource('company', 'CompanyController');
@@ -70,6 +71,7 @@ Route::get('api/v1/ajaxsearch','ajaxSearchController@ajaxSearchByResult');
 Route::post('api/v1/addtofavouriteeatery', array('as' => 'v1_addtofavouriteeatery', 'uses' => 'RestApi_V1_GeneralController@V1_AddToFavouriteEatery'));
 Route::post('api/v1/removefromfavouriteeatery', array('as' => 'v1_removefromfavouriteeatery', 'uses' => 'RestApi_V1_GeneralController@V1_RemoveFromFavouriteEatery'));
 Route::post('api/v1/getfavouriteeateries', array('as' => 'v1_getfavouriteeateries', 'uses' => 'RestApi_V1_GeneralController@V1_GetFavouriteEateries'));
+Route::post('api/v1/removefavouriteeateries', array('as' => 'v1_removefavouriteeateries', 'uses' => 'RestApi_V1_GeneralController@V1_RemoveFavouriteEateries'));
 Route::post('api/v1/addfeedbackeateries', array('as' => 'v1_addfeedbackeateries', 'uses' => 'RestApi_V1_GeneralController@V1_AddFeedbackEatery'));
 
 Route::get('api/geteaterybylocation','RestApi_V1_GeneralController@GetEateryByLocation');

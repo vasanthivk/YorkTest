@@ -8,6 +8,8 @@ use App\Dishes;
 use App\Menu;
 use App\MenuSection;
 use App\MenuSubSection;
+use App\AppUsersDelete;
+use Carbon\Carbon;
 
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
@@ -152,7 +154,7 @@ ini_set('max_execution_time', 5000);
 
     function v1_addtofavouriteeatery($userid, $eatery_id)
     {
-        $user_count = User::where('id',$userid)->count();
+        $user_count = User::where('ref',$userid)->count();
         if($user_count == 0)
             return -2002;
         $eatery_count = Eateries::where('id',$eatery_id)->count();
@@ -173,56 +175,9 @@ ini_set('max_execution_time', 5000);
             return -2003;
     }
 
-function v1_addfeedbackeateries($feedback)
-{
-    $userid = $feedback['userid'];
-    $eatery_id = $feedback['eatery_id'];
-    $email = $feedback['email'];
-    $message = $feedback['message'];
-    $msgdate = $feedback['msgdate'];
-    $response = $feedback['response'];
-    $rating = $feedback['rating'];
-    $resptime = $feedback['resptime'];
-    $version = $feedback['version'];
-    $device = $feedback['device'];
-    $os = $feedback['os'];
-    $osversion = $feedback['osversion'];
-    $model = $feedback['model'];
-    $maker = $feedback['maker'];
-    $user_count = User::where('id',$userid)->count();
-    if($user_count == 0)
-        return -2002;
-    $eatery_count = Eateries::where('id',$eatery_id)->count();
-    if($eatery_count == 0)
-        return -2001;
-
-    if(isset($feedback) && !empty($feedback))
-    {
-        $feedback = new Feedback();
-        $feedback->userid = $userid;
-        $feedback->eatery_id = $eatery_id;
-        $feedback->email = $email;
-        $feedback->message = $message;
-        $feedback->msgdate = $msgdate;
-        $feedback->response = $response;
-        $feedback->rating = $rating;
-        $feedback->resptime = $resptime;
-        $feedback->version = $version;
-        $feedback->device = $device;
-        $feedback->os = $os;
-        $feedback->osversion = $osversion;
-        $feedback->model = $model;
-        $feedback->maker = $maker;
-        $feedback->save();
-        return 'Added Eatery Feedback Successfully';
-    }
-    else
-        return -2003;
-}
-
     function v1_removefromfavouriteeatery($userid, $eatery_id)
     {
-        $user_count = User::where('id',$userid)->count();
+        $user_count = User::where('ref',$userid)->count();
         if($user_count == 0)
             return -2005;
         $eatery_count = Eateries::where('id',$eatery_id)->count();
@@ -244,9 +199,27 @@ function v1_addfeedbackeateries($feedback)
 
     function v1_getfavouriteeateries($userid)
     {
-        $sql  = "select * from user_favourite_eateries where userid='". $userid."'";
+        $sql  = "select eatery_id from user_favourite_eateries where userid='". $userid."'";
         $result = DB::select( DB::raw($sql));
         return $result;
+    }
+
+    function v1_removefavouriteeateries($userid,$eatery_id)
+    {
+     $user_remove_count = AppUsersDelete::where('userid',$userid)
+        ->where('eatery_id',$eatery_id)->count();
+      if($user_remove_count == 0)
+      {
+       $removefavouriteeateries = new AppUsersDelete();
+       $removefavouriteeateries->userid = $userid; 
+       $removefavouriteeateries->eatery_id = $eatery_id;
+       $removefavouriteeateries->deleted_on =  Carbon::now(new DateTimeZone('Europe/London'));
+       $removefavouriteeateries->save();
+       return 'Removed Favourite Eatery Successfully';
+       }
+       else 
+        return 'Already removed';
+
     }
 
 function getmenutypes($id)
@@ -265,8 +238,8 @@ function getmenutypes($id)
         $i = 0;
         foreach ($menu_idss as $menus_id) {
             $menu_group_result = DB::table('menu')
-                ->where('id', '=', $menus_id)
-                ->select(DB::raw('id,menu_name'))
+                ->where('ref', '=', $menus_id)
+                ->select(DB::raw('ref as id,menu as menu_name'))
                 ->get();
             foreach ($menu_group_result as $result) {
                 $menu_result[$i]['menu_id'] = $result->id;
@@ -464,5 +437,52 @@ function geteaterymenu2($id)
 
     return $menu;
 
+}
+
+function v1_addfeedbackeateries($feedback)
+{
+    $userid = $feedback['userid'];
+    $eatery_id = $feedback['eatery_id'];
+    $email = $feedback['email'];
+    $message = $feedback['message'];
+    $msgdate = $feedback['msgdate'];
+    $response = $feedback['response'];
+    $rating = $feedback['rating'];
+    $resptime = $feedback['resptime'];
+    $version = $feedback['version'];
+    $device = $feedback['device'];
+    $os = $feedback['os'];
+    $osversion = $feedback['osversion'];
+    $model = $feedback['model'];
+    $maker = $feedback['maker'];
+    $user_count = User::where('ref',$userid)->count();
+    if($user_count == 0)
+        return -2002;
+    $eatery_count = Eateries::where('id',$eatery_id)->count();
+    if($eatery_count == 0)
+        return -2001;
+
+    if(isset($feedback) && !empty($feedback))
+    {
+        $feedback = new Feedback();
+        $feedback->userid = $userid;
+        $feedback->eatery_id = $eatery_id;
+        $feedback->email = $email;
+        $feedback->message = $message;
+        $feedback->msgdate = $msgdate;
+        $feedback->response = $response;
+        $feedback->rating = $rating;
+        $feedback->resptime = $resptime;
+        $feedback->version = $version;
+        $feedback->device = $device;
+        $feedback->os = $os;
+        $feedback->osversion = $osversion;
+        $feedback->model = $model;
+        $feedback->maker = $maker;
+        $feedback->save();
+        return 'Added Eatery Feedback Successfully';
+    }
+    else
+        return -2003;
 }
 ?>
