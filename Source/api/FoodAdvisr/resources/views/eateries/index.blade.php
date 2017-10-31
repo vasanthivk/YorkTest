@@ -77,9 +77,9 @@ My Profile
                         <?php
                       $logo_path = '';
                      $no_image=env('NO_IMAGE');
-                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension))
+                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->logo_extension))
                 {
-                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
+                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->logo_extension ;
                  ?>
                             
                                 <img src="../../<?php echo $logo_path ?>" alt="..." style="width: 40px; height: 40px;">
@@ -93,10 +93,10 @@ My Profile
                         </div>
                                         </td>
                                         <td>
-                                            {{$eatery->BusinessName}}
+                                            {{$eatery->business_name}}
                                         </td> 
                                         <td>
-                                            {{$eatery->BusinessType}}
+                                            {{$eatery->business_type}}
                                         </td>                                        
                                          <td width="20%">
                                             <div>
@@ -142,9 +142,9 @@ My Profile
                         <?php
                       $logo_path = '';
                      $no_image=env('NO_IMAGE');
-                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension))
+                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->logo_extension))
                 {
-                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->LogoExtension ;
+                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eatery->id .  '_t.' . $eatery->logo_extension ;
                  ?>
                             
                                 <img src="../../<?php echo $logo_path ?>" alt="..." style="    width: 60px;height: 55px;">
@@ -158,10 +158,10 @@ My Profile
                         </div>
                                         </td>
                                         <td>
-                                            {{$eatery->BusinessName}}
+                                            {{$eatery->business_name}}
                                         </td> 
                                         <td>
-                                            {{$eatery->BusinessType}}
+                                            {{$eatery->business_type}}
                                         </td>                                        
                                          <td width="30%">
                                             <div>

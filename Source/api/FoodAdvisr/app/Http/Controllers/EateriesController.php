@@ -58,8 +58,8 @@ class EateriesController extends Controller
         {
           $eatery_id = Session::get("eatery_id");
           $all_eateries = DB::table('eateries')
-            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
+            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
             ->where('eateries.id','=',$eatery_id)
             ->get();
         } 
@@ -67,27 +67,27 @@ class EateriesController extends Controller
         if($searchvalue =='')
         {
             $all_eateries = DB::table('eateries')
-            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
+            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
             ->where('eateries.LocationID','=','')
             ->get();
         }
         else{
             
         $all_eateries = DB::table('eateries')
-            ->join('businesstype', 'businesstype.BusinessTypeID', '=', 'eateries.BusinessTypeID')     
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
              ->leftjoin('cuisines', 'cuisines.id', '=', 'eateries.cuisines_ids')
-             ->leftjoin('groups', 'groups.id', '=', 'eateries.GroupId') 
-             ->leftjoin('locations', 'locations.LocationID', '=', 'eateries.LocationID')
+             ->leftjoin('groups', 'groups.id', '=', 'eateries.group_id')
+             ->leftjoin('locations', 'locations.location_id', '=', 'eateries.location_id')
              ->where(function ($query) use ($search){
-                    $query->where('eateries.BusinessName', 'like', $search)
-                            ->orwhere('eateries.ContactNumber', 'like', $search)
+                    $query->where('eateries.business_name', 'like', $search)
+                            ->orwhere('eateries.contact_number', 'like', $search)
                             ->orwhere('eateries.locality', 'like', $search)
                             ->orwhere('cuisine_name', 'like', $search)
-                            ->orwhere('groups.Description', 'like', $search)
-                            ->orwhere('locations.Description', 'like', $search);
+                            ->orwhere('groups.description', 'like', $search)
+                            ->orwhere('locations.description', 'like', $search);
                 })
-            ->select(DB::raw('eateries.BusinessName,businesstype.Description as BusinessType,eateries.id,eateries.LogoExtension'))
+            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
             ->get();
         }
         }
@@ -111,8 +111,8 @@ class EateriesController extends Controller
         $privileges = $this->getPrivileges();
         if($privileges['Add'] !='true')    
             return Redirect::to('/');
-        $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
-        $locations = Locations::all()->pluck('Description','Description');
+        $businesstypes = BusinessType::all()->pluck('description','business_type_id');
+        $locations = Locations::all()->pluck('description','description');
         $cuisinetypes = 'select id,cuisine_name from cuisines';
         $cuisines = DB::select( DB::raw($cuisinetypes));
         $lifestyle_choices_types = 'select id,description from lifestyle_choices';
@@ -246,7 +246,7 @@ class EateriesController extends Controller
         if($file <> null)
             $this->saveImageInTempLocation($file);
 
-        $this->validate($request,['FHRSID'  => 'required|unique:eateries','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);        
+        $this->validate($request,['fhrsid'  => 'required|unique:eateries','business_name'  => 'required','website'=>'required','email_id' =>'required|email','longitude'=>'required','latitude'=>'required','address' => 'required','contact_number' => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -259,28 +259,28 @@ class EateriesController extends Controller
         }
         else
         {   
-            $location_id = Locations::where('Description','=',$input['LocationID'])->get();
+            $location_id = Locations::where('description','=',$input['location_id'])->get();
             $cuisines_ids = implode(", ", $input['cuisines_ids']); 
             $lifestyle_choices_ids = implode(", ", $input['lifestyle_choices_ids']); 
             $eateries = new Eateries();
-            $eateries->FHRSID = Input::get('FHRSID');
-            $eateries->BusinessName = Input::get('BusinessName');
-            $eateries->LocalAuthorityBusinessID = Input::get('LocalAuthorityBusinessID');
-            $eateries->BusinessTypeID = Input::get('BusinessTypeID');
-            $eateries->Address = Input::get('Address');
-            $eateries->ContactNumber = Input::get('ContactNumber');
-            $eateries->WebSite = Input::get('WebSite');
-            $eateries->EmailId = Input::get('EmailId');
-            $eateries->LocationId = $location_id[0]['LocationID'];
-            $eateries->Longitude = Input::get('Longitude');
-            $eateries->Latitude = Input::get('Latitude');
-            $eateries->CreatedOn = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $eateries->IsAssociated =  (Input::get('IsAssociated')== ''  ? '0' : '1');
-            $eateries->AssociatedOn = Input::get('AssociatedOn');
+            $eateries->fhrsid = Input::get('fhrsid');
+            $eateries->business_name = Input::get('business_name');
+            $eateries->local_authority_business_id = Input::get('local_authority_business_id');
+            $eateries->business_type_id = Input::get('business_type_id');
+            $eateries->address = Input::get('address');
+            $eateries->contact_number = Input::get('contact_number');
+            $eateries->website = Input::get('website');
+            $eateries->email_id = Input::get('email_id');
+            $eateries->location_id = $location_id[0]['location_id'];
+            $eateries->longitude = Input::get('longitude');
+            $eateries->latitude = Input::get('latitude');
+            $eateries->created_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $eateries->is_associated =  (Input::get('is_associated')== ''  ? '0' : '1');
+            $eateries->associated_on = Input::get('associated_on');
             $eateries->cuisines_ids = $cuisines_ids;
             $eateries->lifestyle_choices_ids = $lifestyle_choices_ids;
              if($file <> null)
-                $eateries->LogoExtension = $extension;        
+                $eateries->logo_extension = $extension;
             $eateries->save();
 
             $this->saveEateryMedia($eateries->id);
@@ -289,8 +289,8 @@ class EateriesController extends Controller
             if(!empty($extension))
             {
              $destinationDir = env('CONTENT_EATERY_LOGO_PATH');            
-             $LogoPath=$destinationDir . '/' . $eateries->id . '.' .  $eateries->LogoExtension;
-             $eateries->LogoPath =  $LogoPath;
+             $LogoPath=$destinationDir . '/' . $eateries->id . '.' .  $eateries->logo_extension;
+             $eateries->logo_path =  $LogoPath;
              $eateries->update();
             }
              if($file <> null)
@@ -299,7 +299,7 @@ class EateriesController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='create';      
-            $log->description='Eateries ' . $eateries->BusinessName . ' is created';
+            $log->description='Eateries ' . $eateries->business_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
@@ -381,8 +381,8 @@ class EateriesController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $eateries =  Eateries::find($id);
-        $businesstypes = BusinessType::all()->pluck('Description','BusinessTypeID');
-        $locations = Locations::all()->pluck('Description','LocationID');
+        $businesstypes = BusinessType::all()->pluck('description','business_type_id');
+        $locations = Locations::all()->pluck('description','location_id');
         $cuisinetypes = 'select id,cuisine_name from cuisines';
         $cuisines = DB::select( DB::raw($cuisinetypes));
         $lifestyle_choices_types = 'select id,description from lifestyle_choices';
@@ -451,9 +451,9 @@ class EateriesController extends Controller
         $file = array_get($input,'logo');
         $extension = '';
         if($file <> null)
-            $extension = $this->saveLogoInTempLocation($file);       
-      
-        $this->validate($request,['FHRSID'  => 'required','BusinessName'  => 'required','WebSite'=>'required','EmailId' =>'required|email','Longitude'=>'required','Latitude'=>'required','Address' => 'required','ContactNumber' => 'required']);         
+            $extension = $this->saveLogoInTempLocation($file);
+
+        $this->validate($request,['fhrsid'  => 'required|unique:eateries','business_name'  => 'required','website'=>'required','email_id' =>'required|email','longitude'=>'required','latitude'=>'required','address' => 'required','contact_number' => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -466,7 +466,7 @@ class EateriesController extends Controller
         }
         else
         {    
-            $location_id = Locations::where('Description','=',$input['LocationID'])->get();
+            $location_id = Locations::where('description','=',$input['location_id'])->get();
             $cuisines_ids = implode(", ", $input['cuisines_ids']); 
             $lifestyle_choices_ids = implode(", ", $input['lifestyle_choices_ids']);
             $eateries = Eateries::find($id);
@@ -489,25 +489,24 @@ class EateriesController extends Controller
                 $LogoPath=$destinationDir . '/' . $id . '.' .  $extension;
             }
 
-            $eateries->FHRSID = Input::get('FHRSID');
-            $eateries->BusinessName = Input::get('BusinessName');
-            $eateries->LocalAuthorityBusinessID = Input::get('LocalAuthorityBusinessID');
-            $eateries->BusinessTypeID = Input::get('BusinessTypeID');
-            $eateries->Address = Input::get('Address');
-            $eateries->ContactNumber = Input::get('ContactNumber');
-            $eateries->WebSite = Input::get('WebSite');
-            $eateries->EmailId = Input::get('EmailId');
-            $eateries->LocationId = Input::get('LocationID');
-            $eateries->Longitude = Input::get('Longitude');
-            $eateries->Latitude = Input::get('Latitude');
-            $eateries->CreatedOn = Carbon::now(new DateTimeZone('Asia/Kolkata'));
-            $eateries->LogoPath =  $LogoPath;
-            $eateries->IsAssociated =  (Input::get('IsAssociated')== ''  ? '0' : '1');
-            $eateries->AssociatedOn = Input::get('AssociatedOn');
+            $eateries->fhrsid = Input::get('fhrsid');
+            $eateries->business_name = Input::get('business_name');
+            $eateries->local_authority_business_id = Input::get('local_authority_business_id');
+            $eateries->business_type_id = Input::get('business_type_id');
+            $eateries->address = Input::get('address');
+            $eateries->contact_number = Input::get('contact_number');
+            $eateries->website = Input::get('website');
+            $eateries->email_id = Input::get('email_id');
+            $eateries->location_id = $location_id[0]['location_id'];
+            $eateries->longitude = Input::get('longitude');
+            $eateries->latitude = Input::get('latitude');
+            $eateries->created_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $eateries->is_associated =  (Input::get('is_associated')== ''  ? '0' : '1');
+            $eateries->associated_on = Input::get('associated_on');
             $eateries->cuisines_ids = $cuisines_ids;
             $eateries->lifestyle_choices_ids = $lifestyle_choices_ids;
             if($file <> null)
-                $eateries->LogoExtension = $extension;
+                $eateries->logo_extension = $extension;
             $eateries->update();          
 
             if($file <> null)
@@ -519,7 +518,7 @@ class EateriesController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='update';      
-            $log->description='Eateries ' . $eateries->BusinessName . ' is updated';
+            $log->description='Eateries ' . $eateries->business_name . ' is updated';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
@@ -559,7 +558,7 @@ class EateriesController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='delete';      
-            $log->description='Eateries '. $eateries->BusinessName . ' is Deleted';
+            $log->description='Eateries '. $eateries->business_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    

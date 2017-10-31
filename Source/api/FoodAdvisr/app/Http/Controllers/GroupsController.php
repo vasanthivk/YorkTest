@@ -69,7 +69,7 @@ class GroupsController extends Controller
        $input = Input::all(); 
 
         $this->validate($request, [
-            'Description'  => 'required']);        
+            'description'  => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -83,13 +83,13 @@ class GroupsController extends Controller
         else
         {    
             $groups = new Groups();
-            $groups->Description =  Input::get('Description');
+            $groups->Description =  Input::get('description');
             $groups->save();            
 
             $log = new Log();
             $log->module_id=3;
             $log->action='create';      
-            $log->description='Groups ' . $groups->Description . ' is created';
+            $log->description='Groups ' . $groups->description . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
@@ -142,7 +142,7 @@ class GroupsController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-            'Description'  => 'required']);
+            'description'  => 'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
@@ -156,13 +156,13 @@ class GroupsController extends Controller
         else
         {   
             $groups = Groups::find($id);
-            $groups->Description =  Input::get('Description');
+            $groups->Description =  Input::get('description');
             $groups->save(); 
 
             $log = new Log();
             $log->module_id=3;
             $log->action='update';      
-            $log->description='Groups ' . $groups->Description . ' is updated';
+            $log->description='Groups ' . $groups->description . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
@@ -192,7 +192,7 @@ class GroupsController extends Controller
             $log = new Log();
             $log->module_id=3;
             $log->action='delete';      
-            $log->description='Groups '. $groups->Description . ' is Deleted';
+            $log->description='Groups '. $groups->description . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
