@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="col-md-3">
-              <div class="widget widget-default widget-item-icon" onclick="location.href='/user';">
+              <div class="widget widget-default widget-item-icon" onclick="location.href='#';">
                 <div class="widget-item-left">
                     <span class="fa fa-user"></span>
                 </div>                             
