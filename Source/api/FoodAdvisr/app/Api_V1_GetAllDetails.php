@@ -20,7 +20,7 @@ ini_set('max_execution_time', 5000);
 		 $defaults = Defaults::all();    
          $search_radius = $defaults[0]->search_radius;
          $search_result_limit = $defaults[0]->search_result_limit;
-         $associated_sql  = "select id, fhrsid as FHRSID, business_name as BusinessName, address as Address, logo_path as LogoPath, is_associated as IsAssociated, longitude as Longitude, latitude as Latitude,clicks_after_associated as ClicksAfterAssociated, foodadvisr_overall_rating as FoodAdvisrOverallRating,cuisines_ids,lifestyle_choices_ids,
+         $associated_sql  = "select id, fhrsid, business_name, address, logo_path, is_associated , longitude, latitude,clicks_after_associated, foodadvisr_overall_rating,cuisines_ids,lifestyle_choices_ids,
                     round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) 
                     +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) 
                     * pi()/180 / 2), 2) ))),2) as distance
@@ -37,7 +37,7 @@ ini_set('max_execution_time', 5000);
                     limit $search_result_limit";
          $eateries_associated = DB::select( DB::raw($associated_sql));
 
-        $unassociated_sql  = "select id, fhrsid as FHRSID, business_name as BusinessName, address as Address, logo_path as LogoPath, is_associated as IsAssociated, longitude as Longitude, latitude as Latitude,clicks_after_associated as ClicksAfterAssociated, foodadvisr_overall_rating as FoodAdvisrOverallRating,cuisines_ids,lifestyle_choices_ids,
+        $unassociated_sql  = "select id, fhrsid, business_name, address, logo_path, is_associated, longitude, latitude,clicks_after_associated, foodadvisr_overall_rating,cuisines_ids,lifestyle_choices_ids,
                     round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2)
                     +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude)
                     * pi()/180 / 2), 2) ))),2) as distance
@@ -57,14 +57,14 @@ ini_set('max_execution_time', 5000);
     {
         $result = Eateries::find($id);
         if($result <> null)
+        {
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
             $result->menutypes = getmenutypes($id);
             $result->sectiontypes = getmenusections($id);
             $result->subsectiontypes = getmenusubsections($id);
-            $result->menu = geteaterymenu2($id);
-            // $result->cuisines_ids = getCusinesById($result->cuisines_ids);
-            // $result->lifestyle_choices_ids = getLifestyleChoicesById($result->lifestyle_choices_ids);
+            $result->menu = geteaterymenu($id);
+        }
         return $result;     
     }
 
@@ -92,28 +92,6 @@ ini_set('max_execution_time', 5000);
          return $images_array;
     }
 
-    function getCusinesById($ids)
-    {
-         $sql  = "select * from cuisines where id in(" . $ids ." )";
-         $cuisines_result = DB::select( DB::raw($sql));
-         return $cuisines_result;
-    }
-
-    function getLifestyleChoicesById($ids)
-    {
-         $sql  = "select * from lifestyle_choices where id in(" . $ids ." )";
-         $lifestyle_choices_result = DB::select( DB::raw($sql));
-         return $lifestyle_choices_result;
-         
-    }
-
-	function v1_gettop10eateries($latitude,$longitude)
-	{
-		$sql  = 'select id, fhrsid as FHRSID, business_name as BusinessName, address as Address, logo_path as LogoPath, is_associated as IsAssociated, longitude as Longitude, latitude as Latitude, foodadvisr_overall_rating as FoodAdvisrOverallRating,round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(("'.$latitude.'" - abs(latitude)) * pi()/180 / 2),2) +  COS("'.$latitude.'" * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(("'.$longitude.'" - longitude) * pi()/180 / 2), 2) ))),2) as distance from eateries  ORDER BY id LIMIT 10';
-		$result = DB::select( DB::raw($sql));
-		return $result;
-	}
-
     function v1_addclickbeforeassociated($id)
     {
         DB::update('UPDATE eateries SET clicks_before_associated = IFNULL(clicks_before_associated,0) + 1 WHERE ID =  ?', [$id]);
@@ -127,7 +105,7 @@ ini_set('max_execution_time', 5000);
     function v1_gettop5eateriesBeforeAssociated()
     {
         $result  = DB::table('eateries')
-                ->select(DB::raw('business_name as BusinessName,clicks_before_associated as ClicksBeforeAssociated'))
+                ->select(DB::raw('business_name,clicks_before_associated'))
                 ->orwhereNull('is_associated')
                 ->Where('is_associated', '=', 0)
                 ->Where('clicks_before_associated', '>', 0)
@@ -140,7 +118,7 @@ ini_set('max_execution_time', 5000);
     function v1_gettop5eateriesAfterAssociated()
     {
        $result  = DB::table('eateries')
-                ->select(DB::raw('business_name as BusinessName,clicks_after_associated as ClicksAfterAssociated'))
+                ->select(DB::raw('business_name,clicks_after_associated'))
                 ->Where('is_associated', '=', 1)
                 ->orderby('clicks_after_associated','DESC')
                 ->LIMIT(5)
@@ -352,108 +330,10 @@ ini_set('max_execution_time', 5000);
     function geteaterymenu($id)
     {
         $menu = DB::table('dishes')
-            ->join('menu', 'dishes.menus_ids', '=', 'menu.id')
-            ->join('menu_section', 'dishes.sections_ids', '=', 'menu_section.id')
-            ->leftjoin('menu_sub_section', 'dishes.subsections_ids', '=', 'menu_sub_section.id')
-            ->join('cuisines', 'dishes.cuisines_ids', '=', 'cuisines.id')
-            ->leftjoin('allergen_types', 'dishes.allergens_contain_ids', '=', 'allergen_types.id')
             ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
             ->where('dishes.eatery_id', '=', $id)
             ->where('dishes.is_visible', '=', '1')
-            ->where('menu_section.is_visible', '=', '1')
-            /*->groupBy('menu.id,menu_section.id,menu_sub_section.id')
-            ->orderBy('menu.display_order,menu_section.display_order,menu_sub_section.display_order')*/
-            ->select(DB::raw('eateries.business_name as BusinessName,menu.menu_name,menu_section.section_name,menu_sub_section.sub_section_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price'))
-            ->get();
-
-        foreach($menu as $dish_cuisine)
-        {
-            $menu_cuisines[$dish_cuisine->dish_id] = $dish_cuisine->cuisines_ids;
-            $menu_cuisine_explode[$dish_cuisine->dish_id] = explode(',',$menu_cuisines[$dish_cuisine->dish_id]);
-            foreach($menu_cuisine_explode[$dish_cuisine->dish_id] as $cus)
-            {
-                $cuisine_details[$dish_cuisine->dish_id][$cus] = DB::table('cuisines')
-                    ->where('id','=',$cus)
-                    ->select(DB::raw('cuisine_name'))
-                    ->get();
-                /*$cuisine_details[$cus] = DB::table('cuisines')
-                    ->where('id','=',$cus)
-                    ->select(DB::raw('cuisine_name'))
-                    ->get();*/
-            }
-        }
-
-        foreach($menu as $dish_life_style)
-        {
-            $life_style[$dish_life_style->dish_id] = $dish_life_style->lifestyle_choices_ids;
-            $life_style_explode[$dish_life_style->dish_id] = explode(',',$life_style[$dish_life_style->dish_id]);
-            foreach($life_style_explode[$dish_life_style->dish_id] as $cus)
-            {
-                $life_style_details[$dish_life_style->dish_id][$cus] = DB::table('lifestyle_choices')
-                    ->where('id','=',$cus)
-                    ->select(DB::raw('description'))
-                    ->get();
-                /*$life_style_details[$cus] = DB::table('lifestyle_choices')
-                    ->where('id','=',$cus)
-                    ->select(DB::raw('description'))
-                    ->get();*/
-            }
-        }
-
-        foreach($menu as $dish_allergens_contain_ids)
-        {
-            $allergens_contain[$dish_allergens_contain_ids->dish_id] = $dish_allergens_contain_ids->allergens_contain_ids;
-            $allergens_contain_explode[$dish_allergens_contain_ids->dish_id] = explode(',',$allergens_contain[$dish_allergens_contain_ids->dish_id]);
-            foreach($allergens_contain_explode[$dish_allergens_contain_ids->dish_id] as $cus)
-            {
-                $allergens_contain_details[$dish_allergens_contain_ids->dish_id][$cus] = DB::table('allergen_types')
-                    ->where('id','=',$cus)
-                    ->select(DB::raw('allergen_type'))
-                    ->get();
-                /*$allergens_contain_details[$cus] = DB::table('allergen_types')
-                    ->where('id','=',$cus)
-                    ->select(DB::raw('allergen_type'))
-                    ->get();*/
-            }
-        }
-
-        foreach($menu as $val){
-            $dish_details['BusinessName'] = $val->BusinessName;
-            $dish_details['menu_name'] = $val->menu_name;
-            $dish_details['section_name'] = $val->section_name;
-            $dish_details['sub_section_name'] = $val->sub_section_name;
-            $dish_details['dish_id'] = $val->dish_id;
-            $dish_details['dish_name'] = $val->dish_name;
-            $dish_details['description'] = $val->description;
-            $dish_details['img_url'] = $val->img_url;
-            $dish_details['ingredients_ids'] = $val->ingredients_ids;
-            $dish_details['default_price'] = $val->default_price;
-        }
-
-        $dish_details['cuisine_details'] = $cuisine_details;
-        $dish_details['lifestyle_choise'] = $life_style_details;
-        $dish_details['allergens'] = $allergens_contain_details;
-
-
-
-        /*
-        foreach($menu as $dish_ingredients_ids){
-            $menu_ingredients_ids = $dish_ingredients_ids->ingredients_ids;
-            $menu_ingredients_ids[]=$menu_ingredients_ids;
-        }*/
-
-
-        return $dish_details;
-        return $menu;
-
-    }
-    function geteaterymenu2($id)
-    {
-        $menu = DB::table('dishes')
-            ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
-            ->where('dishes.eatery_id', '=', $id)
-            ->where('dishes.is_visible', '=', '1')
-            ->select(DB::raw('eateries.business_name as BusinessName,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
+            ->select(DB::raw('eateries.business_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
             ->get();
 
 

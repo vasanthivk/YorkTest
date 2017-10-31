@@ -54,7 +54,6 @@ Route::resource('configuration', 'ConfigurationController');
 
 Route::post('api/v1/geteateries', array('as' => 'v1_geteateries', 'uses' => 'RestApi_V1_GeneralController@V1_GetEateries'));
 Route::post('api/v1/geteaterydetailsbyid', array('as' => 'v1_geteaterydetailsbyid', 'uses' => 'RestApi_V1_GeneralController@V1_GetEateryDetailsById'));
-Route::post('api/v1/gettop10eateries', array('as' => 'v1_gettop10eateries', 'uses' => 'RestApi_V1_GeneralController@V1_GetTop10Eateries'));
 Route::get('api/v1/getcategories','RestApi_V1_GeneralController@V1_GetCategories');
 Route::post('api/v1/gethotelbyitemdetails', array('as' => 'v1_gethotelbyitemdetails', 'uses' => 'RestApi_V1_GeneralController@V1_GetHotelByItemDetails'));
 Route::post('api/v1/addclickbeforeassociated', array('as' => 'v1_addclickbeforeassociated', 'uses' => 'RestApi_V1_GeneralController@V1_AddClickBeforeAssociated'));

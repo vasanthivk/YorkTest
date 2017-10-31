@@ -62,25 +62,6 @@ class RestApi_V1_GeneralController extends Controller
         }
     }
 
-    public function V1_GetTop10Eateries(Request $request)
-    {
-    	 $postdata = file_get_contents("php://input");
-        if (isset($postdata)) 
-        {
-		 	$request = json_decode($postdata);
-		 	$latitude = $request->{'latitude'};
-            $longitude = $request->{'longitude'};            
-	        $v1_gettop10eateries = v1_gettop10eateries($latitude,$longitude);
-	        $data = array('status' => 0,'message' => 'Success','result' => $v1_gettop10eateries);
-	        return $this->appendHeaders($data);
-     	}
-     	else
-        {
-            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
-            return $this->appendHeaders($data);
-        }
-    }
-
     public function V1_AddClickBeforeAssociated(Request $request)
     {
         $postdata = file_get_contents("php://input");
