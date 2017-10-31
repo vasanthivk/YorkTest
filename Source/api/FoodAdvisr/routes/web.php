@@ -75,6 +75,8 @@ Route::post('api/v1/removefavouriteeateries', array('as' => 'v1_removefavouritee
 Route::post('api/v1/addfeedbackeateries', array('as' => 'v1_addfeedbackeateries', 'uses' => 'RestApi_V1_GeneralController@V1_AddFeedbackEatery'));
 
 Route::get('api/geteaterybylocation','RestApi_V1_GeneralController@GetEateryByLocation');
+Route::get('api/getmenusectionbymenuIds','RestApi_V1_GeneralController@GetMenusectionByMenuIds');
+Route::get('api/getmenusubsectionbymenusection','RestApi_V1_GeneralController@GetMenuSubsectionByMenuSection');
 
 
 //End------------------------Api Version 1-------------------------End//

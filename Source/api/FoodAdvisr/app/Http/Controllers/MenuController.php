@@ -92,7 +92,8 @@ class MenuController extends Controller
        
             $menu = new Menu();
             $menu->menu =  Input::get('menu');
-            $menu->submenu =  (Input::get('submenu')=='' ? ' ' : Input::get('submenu'));
+            $menu->company =  'FoodAdvisr';
+            $menu->submenu =  'NULL';
             $menu->description =  (Input::get('description')=='' ? ' ' : Input::get('description'));
             $menu->is_visible =  (Input::get('is_visible')== ''  ? '0' : '1');
             $menu->sort_order =  1;
@@ -169,7 +170,8 @@ class MenuController extends Controller
             Menu::where('ref','=',$id)
             ->update(array(
                 'menu'=> Input::get('menu'),
-                'submenu'=> (Input::get('submenu')=='' ? ' ' : Input::get('submenu')),
+                'company'=>'FoodAdvisr',
+                'submenu'=> 'NULL',
                 'description'=> (Input::get('description')=='' ? ' ' : Input::get('description')),
                 'is_visible'=> (Input::get('is_visible')== ''  ? '0' : '1'),
                 'sort_order'=> 1

@@ -23,7 +23,6 @@ Menu
                                         <thead>
                                             <tr>
                                                 <th>Menu Name</th>
-                                                <th>Sub Menu</th>
                                                 <th>Status</th>
                                                 <th>Edit/Delete</th>
                                             </tr>
@@ -32,8 +31,7 @@ Menu
                                     <tr>
                                         <td>
                                             {{$menu->menu}}
-                                        </td>       
-                                        <td>{{$menu->submenu}}</td>
+                                        </td>    
                                         <td>{{$menu->status}}</td>
                                         <td width="30%">
                                             <div >

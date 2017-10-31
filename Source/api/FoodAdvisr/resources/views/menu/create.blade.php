@@ -20,7 +20,6 @@ Menu
 		</br>
 			<div class="col-md-6">
 		        {{ Form::ahText('menu','Menu Name:','',array('maxlength' => '100'))  }}
-            	{{ Form::ahText('submenu','Sub Menu :','',array('maxlength' => '100'))  }}
             	{{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
 		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }} 
 				</br>
