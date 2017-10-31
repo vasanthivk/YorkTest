@@ -1086,15 +1086,19 @@ body.on('click','.act-clear-search',function(){
 
             body.on('click','.eatery-call',function(){
                 var message =data.result.ContactNumber;
-                popupcall.show(message,'Cancel|eatery-call,Call');
+                popupcall.show(message,'Cancel|eatery-call, <a class="midpopbookbtn" href = "tel: '+message+'">Call</a>');
                 api.getAddClickBeforeAssociated(eateryId,function(data){
                 });
             });
+			
+		
+			
+			
             body.on('click','.eatery-rating',function(){
                 var message = "Leave a Review ";
-                var html_fields = "<div>"+"Did you visit "+data.result.BusinessName+ ", London? Let us and your communities know what you thought! "
+                var html_fields = "<div class='rating-text'>"+"Did you visit "+data.result.BusinessName+ ", London? Let us and your communities know what you thought! "
                         +"<br><div class='stars'>" +
-                "<form action=''>" +
+                "<form action='' name='details'>" +
                 "<input class='star star-5' id='star-5' type='radio' name='star' value='5'/>" +
                 "<label class='star star-5' for='star-5'></label>" +
                 "<input class='star star-4' id='star-4' type='radio' name='star' value='4' />" +
@@ -1105,7 +1109,7 @@ body.on('click','.act-clear-search',function(){
                 "<label class='star star-2' for='star-2'></label>" +
                 "<input class='star star-1' id='star-1' type='radio' name='star' value='1'/>" +
                 "<label class='star star-1' for='star-1'></label>" +
-                "</form> </div><br><textarea></textarea> "
+                "</form> </div><br><textarea id='text'></textarea> "
                 +"</div>";
                 //var message = eateryName + " is not yet a member of the " + appSettings.orgName + " community. <br> When you tap 'invite' we will send a message to this business inviting them to join the " + appSettings.orgName + " community so that you can see their full and updated menus.;
                 vartext = message+'<br/>'+html_fields;

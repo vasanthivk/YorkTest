@@ -524,8 +524,7 @@ label.star:before {
 }
 
 .item-bc-name{
-    padding: 8px;
-    padding-bottom: 0px;
+   padding-bottom: 0px;
     font-size: 18px;
     color: #00B2A9;
     font-weight: bold;
@@ -537,6 +536,7 @@ label.star:before {
 .calender{
     width: 25%;
 }
+
 
 .people-show {
     position: relative;
@@ -2130,6 +2130,16 @@ margin-bottom:20px;
     color: white;
 
 }
+
+.midpopbookbtn{
+   
+   
+    margin-right:0px;
+    background-color: #00B2A9;
+    color: white;
+
+}
+
 
 .overlay{
     position: fixed;
