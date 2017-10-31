@@ -139,8 +139,11 @@
               if(vv[1]!=undefined){
                   ccl=vv[1];
               }
-              op+='<a href="#index.html" class="popupcall-act-button '+ccl+'">'+vv[0]+'</a>';
-          }
+              if(ccl.toLowerCase() == "")
+          op+='<a href="#index.html" class="popupcall-act-button call'+ccl+'">'+vv[0]+'</a>';
+        else
+          op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
+        }
           op+='</div>';
       }
       midpop.html(op);
@@ -151,7 +154,7 @@
       //midpop.css({top:ttop});
       midpop.css({top:'210px'});
 
-      $('body').on('click','.popupcall-act-button',function(){
+      $('body').on('click','.popupbook-button',function(){
           overlay.hide();
           return false;
       });
@@ -183,7 +186,10 @@ var popuprating = new Object();
               if(vv[1]!=undefined){
                   ccl=vv[1];
               }
-              op+='<a href="#index.html" class="popupcuisine-act-button '+ccl+'">'+vv[0]+'</a>';
+               if(ccl.toLowerCase() == "")
+          op+='<a href="#index.html" class="popuprating-act-button call '+ccl+'">'+vv[0]+'</a>';
+        else
+          op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
           }
           op+='</div>';
       }
@@ -195,10 +201,22 @@ var popuprating = new Object();
       //midpop.css({top:ttop});
       midpop.css({top:'50px'});
 
-      $('body').on('click','.popupcuisine-act-button',function(){
+      $('body').on('click','.popuprating-act-button',function(){
+          // overlay.hide();
+          var message=$('.rating-text').text();
+          var x=document.details.star.value;
+          var y=document.getElementById("text").value;
+          alert(message +"User Rating:"+x+"text:"+y);
+
+
+      });
+
+
+      $('body').on('click','.popupbook-button',function(){
           overlay.hide();
           return false;
       });
+
 
   }
 
@@ -207,8 +225,6 @@ var popuprating = new Object();
   popuprating.hide=function(){
       overlay.hide();
       $('.midpopbook').hide();
-
-
   }
 
 
