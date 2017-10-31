@@ -16,7 +16,7 @@ Brands
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('Description','Group Name :',$brands->Description,array('maxlength' => '100'))  }}
+		        {{ Form::ahText('description','Group Name :',$brands->Description,array('maxlength' => '100'))  }}
 		        </br>
 		    </div>
 		     

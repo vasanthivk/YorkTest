@@ -69,7 +69,7 @@ class BrandsController extends Controller
        $input = Input::all(); 
 
         $this->validate($request, [
-            'Description'  => 'required']);        
+            'description'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -83,13 +83,13 @@ class BrandsController extends Controller
         else
         {    
             $brands = new Brands();
-            $brands->Description =  Input::get('Description');
+            $brands->description =  Input::get('description');
             $brands->save();            
 
             $log = new Log();
             $log->module_id=3;
             $log->action='create';      
-            $log->description='brands ' . $brands->Description . ' is created';
+            $log->description='brands ' . $brands->description . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
@@ -142,7 +142,7 @@ class BrandsController extends Controller
         $input = Input::all();
 
          $this->validate($request, [
-            'Description'  => 'required']);
+            'description'  => 'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
@@ -156,13 +156,13 @@ class BrandsController extends Controller
         else
         {   
             $brands = Brands::find($id);
-            $brands->Description =  Input::get('Description');
+            $brands->description =  Input::get('description');
             $brands->save(); 
 
             $log = new Log();
             $log->module_id=3;
             $log->action='update';      
-            $log->description='brands ' . $brands->Description . ' is updated';
+            $log->description='brands ' . $brands->description . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
@@ -192,7 +192,7 @@ class BrandsController extends Controller
             $log = new Log();
             $log->module_id=3;
             $log->action='delete';      
-            $log->description='brands '. $brands->Description . ' is Deleted';
+            $log->description='brands '. $brands->description . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    

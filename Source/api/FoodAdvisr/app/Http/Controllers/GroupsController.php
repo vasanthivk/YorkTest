@@ -83,7 +83,7 @@ class GroupsController extends Controller
         else
         {    
             $groups = new Groups();
-            $groups->Description =  Input::get('description');
+            $groups->description =  Input::get('description');
             $groups->save();            
 
             $log = new Log();
@@ -156,7 +156,7 @@ class GroupsController extends Controller
         else
         {   
             $groups = Groups::find($id);
-            $groups->Description =  Input::get('description');
+            $groups->description =  Input::get('description');
             $groups->save(); 
 
             $log = new Log();
