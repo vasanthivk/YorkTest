@@ -33,13 +33,42 @@ My Profile
     <div class="panel panel-default">
     </br>
       <div class="col-md-6">
+            <div class="form-group" style="margin:5px">
+                <label for="group_id" class="control-label col-sm-4">Groups :</label>
+                <div class="col-sm-8">
+                    <select class="form-control" data-live-search='true' id="group_id" name="group_id">
+                      <option value="0">Please Select Group</option>
+                      @foreach($groups as $group)
+                      <option value="{{$group->id}}" <?php 
+                      $res = $group->id;
+                      $db_res = $eateries->group_id;
+                      if($res == $db_res) echo 'selected="selected"' ?>>{{$group->description}}</option>
+                    @endforeach
+                  </select>
+                </div>
+            </div>
+            <div class="form-group" style="margin:5px">
+                <label for="brand_id" class="control-label col-sm-4">Brands :</label>
+                <div class="col-sm-8">
+                    <select class="form-control" data-live-search='true' id="brand_id" name="brand_id">
+                      <option value="0">Please Select Brand</option>
+                      @foreach($brands as $brand)
+                      <option value="{{$brand->id}}" <?php 
+                      $res = $brand->id;
+                      $db_res = $eateries->brand_id;
+                      if($res == $db_res) echo 'selected="selected"' ?>>{{$group->description}}</option>
+                    @endforeach
+                  </select>
+                </div>
+            </div>
             {{ Form::ahNumber('fhrsid','FHRSID :',$eateries->fhrsid,array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
             {{ Form::ahText('local_authority_business_id','Business ID :',$eateries->local_authority_business_id,array('maxlength'=> '1000'))  }}
             {{ Form::ahText('business_name','Business Name :',$eateries->business_name,array('maxlength'=> '1000'))  }}
             {{ Form::ahSelect('business_type_id','Business Type :',$eateries->business_type_id,$businesstypes)  }}
+            {{ Form::ahSelect('location_id','Location :',$eateries->location_id,$locations,array("onchange"=>"ChooseContact(this)"))  }}
             {{ Form::ahTextarea('address','Address :',$eateries->address,array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
-             {{ Form::ahSelect('location_id','Location :',$eateries->location_id,$locations,array("onchange"=>"ChooseContact(this)"))  }}
-             {{ Form::ahNumber('contact_number','Contact Number :',$eateries->contact_number,array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
+            {{ Form::ahText('postal_code','Zip :',$eateries->postal_code,array('maxlength'=> '1000'))  }}
+            {{ Form::ahNumber('contact_number','Contact Number :',$eateries->contact_number,array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
             {{ Form::ahText('website','WebSite :',$eateries->website,array('maxlength' => '100'))  }}
             {{ Form::ahText('email_id','EmailId :',$eateries->email_id,array('maxlength' => '100'))  }}
             {{ Form::ahText('longitude','Longitude :',$eateries->longitude,array("readonly"=>"true"))  }}

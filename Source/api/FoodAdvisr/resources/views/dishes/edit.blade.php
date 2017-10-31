@@ -20,7 +20,27 @@ Dish
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
-            <div class="col-md-6">                
+            <div class="col-md-6">   
+                <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4">Groups :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="group_id" name="group_id">
+                                <option value="0">Please select group</option>
+                                @foreach($groups as $group)
+                                <option value="{{ $group->id }}"  <?php 
+                                $val = $group->id;
+                                $res = $dish->group_id;
+                               if($val == $res) 
+                                {
+                                  ?> 
+                                  selected="selected"
+                                  <?php 
+                                } ?>>  
+                                  {{ $group->Description }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                </div>             
                 {{ Form::ahSelect('menus_ids','Menu Name :',$dish->menus_ids,$menus) }}
                 {{ Form::ahSelect('sections_ids','Section Name :',$dish->sections_ids,$menusection) }}
                 {{ Form::ahSelect('subsections_ids','Sub Section Name :',$dish->subsections_ids,$menusubsection) }}
@@ -39,7 +59,7 @@ Dish
             $lifestyle_choices_ids = Session::get('lifestyle_choices');
             $allergens_contain_ids = Session::get('allergens_contain_ids');
             $applicabledays = Session::get('applicable_days');
-            $allergents_may_contain = Session::get('allergents_may_contain');
+            $allergens_may_contain = Session::get('allergens_may_contain');
             }
             $cuisines_ids = $dish->cuisines_ids;
             $cuisines_ids=explode(",",$cuisines_ids);
@@ -49,8 +69,8 @@ Dish
             $applicabledays=explode(",",$applicabledays);
             $allergens_contain_ids = $dish->allergens_contain_ids;
             $allergens_contain_ids=explode(",",$allergens_contain_ids);
-            $allergents_may_contain = $dish->allergents_may_contain;
-            $allergents_may_contain=explode(",",$allergents_may_contain);
+            $allergens_may_contain = $dish->allergens_may_contain;
+            $allergens_may_contain=explode(",",$allergens_may_contain);
 
             ?>
                   <div class="form-group" style="margin:5px">
@@ -104,10 +124,10 @@ Dish
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Allergens May Contain :</label>
                     <div class="col-sm-8">
-                        <select multiple name="allergents_may_contain[]" data-live-search='true'
+                        <select multiple name="allergens_may_contain[]" data-live-search='true'
                                 class="form-control select">
                             @foreach($allergentypes as $allergen)
-                                 <option value="{{$allergen->ref}}" @if(isset($allergents_may_contain)) @if(in_array($allergen->ref,$allergents_may_contain)) selected="selected" @endif @endif>{{$allergen->title}}</option>
+                                 <option value="{{$allergen->ref}}" @if(isset($allergens_may_contain)) @if(in_array($allergen->ref,$allergens_may_contain)) selected="selected" @endif @endif>{{$allergen->title}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -225,7 +245,7 @@ Dish
                 <div class="panel-footer">
                     <div class="col-md-6 col-md-offset-3">
                         {{ Form::submit('Update', array('class' => 'btn btn-primary')) }}
-                        {{ link_to_route('dishes.index','Cancel',array('eatery_id'=>$eatery_id), array('class' => 'btn btn-danger')) }}
+                        {{ link_to_route('dishes.index','Cancel',null, array('class' => 'btn btn-danger')) }}
                     </div>
                 </div>
             </div>

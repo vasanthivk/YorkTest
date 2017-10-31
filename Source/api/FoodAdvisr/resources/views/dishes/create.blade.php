@@ -20,7 +20,19 @@
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
-            <div class="col-md-6">                
+            <div class="col-md-6">
+                <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4">Groups :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="group_id" name="group_id">
+                                <option value="0">Please select group</option>
+                                @foreach($groups as $group)
+                                <option value="{{ $group->id }}"> 
+                                  {{ $group->Description }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                </div>                
                 {{ Form::ahSelect('menus_ids','Menu Name :',null,$menus) }}
                 {{ Form::ahSelect('sections_ids','Section Name :',null,$menusection) }}
                 {{ Form::ahSelect('subsections_ids','Sub Section Name :',null,$menusubsection) }}
@@ -52,7 +64,7 @@
             $lifestyle_choices_ids = Session::get('lifestyle_choices');
             $allergens_contain_ids = Session::get('allergens_contain_ids');
             $applicable_days = Session::get('applicable_days');
-            $allergents_may_contain = Session::get('allergents_may_contain');
+            $allergens_may_contain = Session::get('allergens_may_contain');
             }
             ?>
            
@@ -91,10 +103,10 @@
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Allergens May Contain :</label>
                     <div class="col-sm-8">
-                        <select multiple name="allergents_may_contain[]" data-live-search='true'
+                        <select multiple name="allergens_may_contain[]" data-live-search='true'
                                 class="form-control select">
                             @foreach($allergentypes as $allergen)
-                                <option value="{{$allergen->ref}}" @if(isset($allergents_may_contain)) @if(in_array($allergen->ref,$allergents_may_contain)) selected="selected" @endif @endif>{{$allergen->title}}</option>
+                                <option value="{{$allergen->ref}}" @if(isset($allergens_may_contain)) @if(in_array($allergen->ref,$allergens_may_contain)) selected="selected" @endif @endif>{{$allergen->title}}</option>
                             @endforeach
                         </select>
                     </div>

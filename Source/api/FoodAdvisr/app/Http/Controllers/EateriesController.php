@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use DB;
 use Input;
 use App\Eateries;
+use App\Groups;
+use App\Brands;
 use App\BusinessType;
 use App\Locations;
 use App\EateriesMedia;
@@ -126,6 +128,8 @@ class EateriesController extends Controller
         {
              $fileslist[] = pathinfo($path)['basename'];
         }
+        $groups = Groups::all();
+        $brands = Brands::all();
 
         return view('eateries.create')
         ->with('privileges',$privileges)
@@ -133,6 +137,8 @@ class EateriesController extends Controller
         ->with('lifestyle_choices',$lifestyle_choices)
         ->with('businesstypes',$businesstypes)
         ->with('locations',$locations)
+        ->with('groups',$groups)
+        ->with('brands',$brands)
         ->with('fileslist',$fileslist);
     }
 
@@ -266,6 +272,9 @@ class EateriesController extends Controller
             $eateries->fhrsid = Input::get('fhrsid');
             $eateries->business_name = Input::get('business_name');
             $eateries->local_authority_business_id = Input::get('local_authority_business_id');
+            $eateries->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
+            $eateries->brand_id = (Input::get('brand_id')== ''  ? '0' : Input::get('brand_id'));
+            $eateries->postal_code = Input::get('postal_code');
             $eateries->business_type_id = Input::get('business_type_id');
             $eateries->address = Input::get('address');
             $eateries->contact_number = Input::get('contact_number');
@@ -409,6 +418,8 @@ class EateriesController extends Controller
         }
         
         $eateriesmedia = EateriesMedia::where('eatery_id',$id)->get();
+        $groups = Groups::all();
+        $brands = Brands::all();
 
         return View('eateries.edit')
         ->with('privileges',$privileges)
@@ -418,6 +429,8 @@ class EateriesController extends Controller
         ->with('lifestyle_choices',$lifestyle_choices)
         ->with('businesstypes',$businesstypes)
         ->with('locations',$locations)
+        ->with('groups',$groups)
+        ->with('brands',$brands)
         ->with('fileslist',$fileslist);
     }
 
@@ -492,6 +505,9 @@ class EateriesController extends Controller
             $eateries->fhrsid = Input::get('fhrsid');
             $eateries->business_name = Input::get('business_name');
             $eateries->local_authority_business_id = Input::get('local_authority_business_id');
+             $eateries->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
+            $eateries->brand_id = (Input::get('brand_id')== ''  ? '0' : Input::get('brand_id'));
+            $eateries->postal_code = Input::get('postal_code');
             $eateries->business_type_id = Input::get('business_type_id');
             $eateries->address = Input::get('address');
             $eateries->contact_number = Input::get('contact_number');

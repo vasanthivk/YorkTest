@@ -25,13 +25,36 @@ Eateries
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
+            <div class="form-group" style="margin:5px">
+                <label for="group_id" class="control-label col-sm-4">Groups :</label>
+                <div class="col-sm-8">
+                    <select class="form-control" data-live-search='true' id="group_id" name="group_id">
+                      <option value="0">Please Select Group</option>
+                      @foreach($groups as $group)
+                      <option value="{{$group->id}}">{{$group->description}}</option>
+                    @endforeach
+                  </select>
+                </div>
+            </div>
+            <div class="form-group" style="margin:5px">
+                <label for="brand_id" class="control-label col-sm-4">Brands :</label>
+                <div class="col-sm-8">
+                    <select class="form-control" data-live-search='true' id="brand_id" name="brand_id">
+                      <option value="0">Please Select Brand</option>
+                      @foreach($brands as $brand)
+                      <option value="{{$brand->id}}">{{$brand->description}}</option>
+                    @endforeach
+                  </select>
+                </div>
+            </div>
 		        {{ Form::ahNumber('fhrsid','FHRSID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
             {{ Form::ahText('local_authority_business_id','Business ID :','',array('maxlength'=> '1000'))  }}
 		        {{ Form::ahText('business_name','Business Name :','',array('maxlength'=> '1000'))  }}
             {{ Form::ahSelect('business_type_id','Business Type :','',$businesstypes)  }}
-            {{ Form::ahTextarea('address','Address :','',array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
             {{ Form::ahSelect('location_id','Location :',null,$locations,array("onchange"=>"ChooseContact(this)")) }}
-             {{ Form::ahNumber('contact_number','Contact Number :','',array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
+            {{ Form::ahTextarea('address','Address :','',array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
+            {{ Form::ahText('postal_code','Zip :','',array('maxlength'=> '1000'))  }}
+            {{ Form::ahNumber('contact_number','Contact Number :','',array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
 		        {{ Form::ahText('website','WebSite :','',array('maxlength' => '100'))  }}
             {{ Form::ahText('email_id','EmailId :','',array('maxlength' => '100'))  }}
             {{ Form::ahText('longitude','Longitude :','',array("readonly"=>"true"))  }}

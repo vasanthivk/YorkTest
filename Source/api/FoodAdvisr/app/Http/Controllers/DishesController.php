@@ -12,6 +12,7 @@ use DB;
 use Session;
 use Input;
 use App\Dishes;
+use App\Groups;
 use File;
 use Image;
 use App\Category;
@@ -51,8 +52,7 @@ class DishesController extends Controller
         $privileges = $this->getPrivileges();
         $eatery_id = $request['eatery_id'];
         $dishes = DB::table('dishes')
-        ->select(DB::raw('*,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Active","Inactive") as is_visible'))
-        ->where('dishes.eatery_id','=',$eatery_id)
+        ->select(DB::raw('*,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Visible","InVisible") as is_visible'))
         ->get();
         $eatery_details = DB::table('eateries')
         ->select(DB::raw('*'))
@@ -77,11 +77,8 @@ class DishesController extends Controller
         $privileges = $this->getPrivileges();
 
         $menuAll = Menu::where('is_visible','=','1')->where('company','=','FoodAdvisr')->get();
-        /*$menus = null;
-        if($menuAll->count()>0)
-        {*/
-            $menus = Menu::all()->where('is_visible','=','1')->where('company','=','FoodAdvisr')->pluck('menu','ref');
-        //}
+        $menus = Menu::all()->where('is_visible','=','1')->where('company','=','FoodAdvisr')->pluck('menu','ref');
+       
         $menusection=null;
         if($menus->count()>0)
         {
@@ -104,7 +101,7 @@ class DishesController extends Controller
         $cuisines = DB::select( DB::raw($cuisinetypes));
         $lifestyle_choices_types = 'select id,description from lifestyle_choices where ifnull(is_enabled,0) = 1';
         $lifestyle_choices = DB::select( DB::raw($lifestyle_choices_types));
-
+        $groups = Groups::all();
 //return $ingredients;
         return View('dishes.create')
             ->with('privileges',$privileges)
@@ -112,6 +109,7 @@ class DishesController extends Controller
             ->with('menusection',$menusection)
             ->with('menusubsection',$menusubsection)
             ->with('menus',$menus)
+             ->with('groups',$groups)
             ->with('allergentypes',$allergentypes)
             ->with('lifestyle_choices',$lifestyle_choices)
             ->with('cuisines',$cuisines);
@@ -169,7 +167,7 @@ class DishesController extends Controller
         Session::put('subsections_ids',Input::get('subsections_ids'));
         Session::put('allergens_contain_ids',Input::get('allergens_contain_ids'));
         Session::put('applicable_days',Input::get('applicable_days'));
-        Session::put('allergents_may_contain',Input::get('allergents_may_contain'));
+        Session::put('allergens_may_contain',Input::get('allergens_may_contain'));
 
         $file_size = $_FILES['logo']['size'];
         if($file_size > 2097152)
@@ -185,7 +183,7 @@ class DishesController extends Controller
 
 
         $this->validate($request, [
-            'dish_name'  => 'required','default_price' => 'required','eatery_id' => 'required',''=>'required','cuisines_ids'=>'required','lifestyle_choices_ids'=>'required','allergens_contain_ids'=>'required','applicable_days'=>'required']);
+            'dish_name'  => 'required','default_price' => 'required','cuisines_ids'=>'required','lifestyle_choices_ids'=>'required','allergens_contain_ids'=>'required','applicable_days'=>'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -193,7 +191,7 @@ class DishesController extends Controller
         if ($validator->fails())
         {
             $eatery_id = $request['eatery_id'];
-            return Redirect::route('dishes.create',array('eatery_id' => $eatery_id))
+            return Redirect::route('dishes.create')
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -225,7 +223,7 @@ class DishesController extends Controller
                 $ingredients = "";
             }
 
-            $allergens_may_contain_detail = Input::get('allergents_may_contain');
+            $allergens_may_contain_detail = Input::get('allergens_may_contain');
 
             if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) {
                 $allergens_may_contain = implode(',',$allergens_may_contain_detail);
@@ -241,13 +239,13 @@ class DishesController extends Controller
             $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
             $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
             $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
-            $dish->allergents_may_contain = $allergens_may_contain;
+            $dish->allergens_may_contain = $allergens_may_contain;
             $dish->ingredients_ids = $ingredients;
             $dish->menus_ids = Input::get('menus_ids');
             $dish->sections_ids = Input::get('sections_ids');
             $dish->subsections_ids = Input::get('subsections_ids');
             $dish->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
-            $dish->eatery_id = Input::get('eatery_id');
+            $dish->eatery_id = (Input::get('eatery_id')== ''  ? '0' : Input::get('eatery_id'));
             $dish->valid_from = date('Y-m-d',strtotime(Input::get('valid_from')));
             $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
             $dish->applicable_days = implode(',',Input::get('applicable_days'));
@@ -296,7 +294,7 @@ class DishesController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('dishes.index',array('eatery_id' => $dish->eatery_id))->with('success','Dish Created Successfully!');
+        return Redirect::route('dishes.index')->with('success','Dish Created Successfully!');
         
         }
     }
@@ -365,6 +363,7 @@ class DishesController extends Controller
         $cuisines = DB::select( DB::raw($cuisinetypes));
         $lifestyle_choices_types = 'select id,description from lifestyle_choices where ifnull(is_enabled,0) = 1';
         $lifestyle_choices = DB::select( DB::raw($lifestyle_choices_types));
+        $groups = Groups::all();
 
         return View('dishes.edit')
             ->with('eatery_id',$eatery_id)
@@ -375,6 +374,7 @@ class DishesController extends Controller
             ->with('lifestyle_choices',$lifestyle_choices)
             ->with('cuisines',$cuisines)
             ->with('dish',$dish)
+            ->with('groups',$groups)
             ->with('cuisines_ids',$cuisines_ids)
             ->with('lifestyle_choices_ids',$lifestyle_choices_ids)
             ->with('ingredients_ids',$ingredients_ids)
@@ -404,7 +404,7 @@ class DishesController extends Controller
         Session::put('subsections_ids',Input::get('subsections_ids'));
         Session::put('allergens_contain_ids',Input::get('allergens_contain_ids'));
         Session::put('applicable_days',Input::get('applicable_days'));
-        Session::put('allergents_may_contain',Input::get('allergents_may_contain'));
+        Session::put('allergens_may_contain',Input::get('allergens_may_contain'));
 
         $file_size = $_FILES['logo']['size'];
         if($file_size > 5097152)
@@ -419,14 +419,14 @@ class DishesController extends Controller
 
 
          $this->validate($request, [
-             'dish_name'  => 'required','default_price' => 'required','eatery_id' => 'required',''=>'required','cuisines_ids'=>'required','lifestyle_choices_ids'=>'required','allergens_contain_ids'=>'required','applicable_days'=>'required']);
+              'dish_name'  => 'required','default_price' => 'required','cuisines_ids'=>'required','lifestyle_choices_ids'=>'required','allergens_contain_ids'=>'required','applicable_days'=>'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
         if ($validator->fails()) 
         {
             $eatery_id = $request['eatery_id'];
-            return Redirect::route('dishes.edit',$id,array('eatery_id' => $eatery_id))
+            return Redirect::route('dishes.edit',$id)
                 ->withInput()
                 ->withErrors($validator)
                 ->with('warning', 'There were validation errors');
@@ -471,7 +471,7 @@ class DishesController extends Controller
                 }
             }
 
-            $allergens_may_contain_detail = Input::get('allergents_may_contain');
+            $allergens_may_contain_detail = Input::get('allergens_may_contain');
 
             if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) {
                 $allergens_may_contain = implode(',',$allergens_may_contain_detail);
@@ -503,13 +503,13 @@ class DishesController extends Controller
             $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
             $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
             $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
-            $dish->allergents_may_contain = $allergens_may_contain;
+            $dish->allergens_may_contain = $allergens_may_contain;
             $dish->ingredients_ids = $ingredients;
             $dish->menus_ids = Input::get('menus_ids');
             $dish->sections_ids = Input::get('sections_ids');
             $dish->subsections_ids = Input::get('subsections_ids');
             $dish->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
-            $dish->eatery_id = Input::get('eatery_id');
+             $dish->eatery_id = (Input::get('eatery_id')== ''  ? '0' : Input::get('eatery_id'));
             $dish->valid_from = date('Y-m-d',strtotime(Input::get('valid_from')));
             $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
             $dish->applicable_days = implode(',',Input::get('applicable_days'));
@@ -549,7 +549,7 @@ class DishesController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('dishes.index',array('eatery_id' => $request['eatery_id']))->with('success','Dish Updated Successfully!');
+        return Redirect::route('dishes.index')->with('success','Dish Updated Successfully!');
         
         }
     }

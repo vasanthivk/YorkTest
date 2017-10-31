@@ -9,6 +9,8 @@ use DB;
 use Session;
 use Input;
 use App\Menu;
+use App\Eateries;
+use App\Groups;
 use App\Log;
 use Carbon\Carbon;
 use DateTimeZone;
@@ -48,6 +50,7 @@ class MenuController extends Controller
         $privileges = $this->getPrivileges();
         $menus = DB::table('menu')
         ->select(DB::raw('menu.ref as id,menu.menu,menu.submenu,if(ifnull(menu.is_visible,1)=1,"Visible","InVisible") as status'))
+        ->where('menu.company','=','FoodAdvisr')
         ->get();
          return View('menu.index', compact('menus'))         
         ->with('privileges',$privileges);
@@ -63,9 +66,13 @@ class MenuController extends Controller
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
+        // $eateries = Eateries::all()->pluck('business_name','id');
+        $groups = Groups::all();
         return View('menu.create')          
-        ->with('privileges',$privileges);
+        ->with('privileges',$privileges)
+        ->with('groups',$groups);
     }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -74,7 +81,7 @@ class MenuController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all(); 
+        $input = Input::all();
         $this->validate($request, [
             'menu'  => 'required']);        
         
@@ -93,6 +100,7 @@ class MenuController extends Controller
             $menu = new Menu();
             $menu->menu =  Input::get('menu');
             $menu->company =  'FoodAdvisr';
+            $menu->group_id =  (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
             $menu->submenu =  'NULL';
             $menu->description =  (Input::get('description')=='' ? ' ' : Input::get('description'));
             $menu->is_visible =  (Input::get('is_visible')== ''  ? '0' : '1');
@@ -138,8 +146,11 @@ class MenuController extends Controller
         if($privileges['Edit'] !='true')
             return Redirect::to('/');        
         $menu = Menu::where('ref','=',$id)->get();
+        // $eateries = Eateries::all()->pluck('business_name','id');
+        $groups = Groups::all();
         return View('menu.edit')
         ->with('menu',$menu[0])
+        ->with('groups',$groups)
         ->with('privileges',$privileges);
     }
 
@@ -172,6 +183,7 @@ class MenuController extends Controller
                 'menu'=> Input::get('menu'),
                 'company'=>'FoodAdvisr',
                 'submenu'=> 'NULL',
+                'group_id' => (Input::get('group_id')== ''  ? '0' : Input::get('group_id')),
                 'description'=> (Input::get('description')=='' ? ' ' : Input::get('description')),
                 'is_visible'=> (Input::get('is_visible')== ''  ? '0' : '1'),
                 'sort_order'=> 1

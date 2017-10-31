@@ -12,14 +12,14 @@
                     </li>
                     <li class="{{ Request::segment(1) === 'dashboard' ? 'active' : null }}"><a href="{{action('DashboardController@index')}}"><span class="fa fa-dashboard"></span> <span class="xn-text">Dashboard</span></a>     
                     </li>
-                   <!--  <li class="{{ Request::segment(1) === 'groups' ? 'active' : null }}"><a href="{{action('GroupsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Groups</span></a>     
-                    </li>
-                    <li class="{{ Request::segment(1) === 'brands' ? 'active' : null }}"><a href="{{action('BrandsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Brands</span></a>     
+                    <!-- <li class="{{ Request::segment(1) === 'brands' ? 'active' : null }}"><a href="{{action('BrandsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Brands</span></a>     
                     </li> -->
                         <?php
 if(in_array(Session::get("role_id"),array(1)))
-{ ?>
-                     <li class="{{ Request::segment(1) === 'eateries' || Request::segment(1) === 'dishes' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
+{ ?>                
+                    <li class="{{ Request::segment(1) === 'groups' ? 'active' : null }}"><a href="{{action('GroupsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Eatery Groups</span></a>     
+                    </li>
+                     <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
                     </li>
                      <?php } else {
                         $eateryid = Session::get("eatery_id");
@@ -28,16 +28,17 @@ if(in_array(Session::get("role_id"),array(1)))
                     </li>
                     <li class="{{ Request::segment(1) === 'items'? 'active' : null }}"><a href="{{action('ItemsController@index')}}?eatery_id={{$eateryid}}"><span class="fa fa-cutlery"></span>My Items</a></li> -->
                       <?php }  ?>  
-                    <li class="xn-openable {{ Request::segment(1) === 'menu' || Request::segment(1) === 'menusections' || Request::segment(1) === 'menusubsections' ? 'active' : null }}">
+                    <li class="xn-openable {{ Request::segment(1) === 'menu' || Request::segment(1) === 'menusections' || Request::segment(1) === 'menusubsections' || Request::segment(1) === 'dishes' ? 'active' : null }}">
                          <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Manage Menu</span></a>
                         <ul>
                             <li class="{{ Request::segment(1) === 'menu'? 'active' : null }}"><a href="{{action('MenuController@index')}}"><span class="fa fa-cutlery"></span> Menu</a></li>
                             <li  class="{{ Request::segment(1) === 'menusections'? 'active' : null }}"><a href="{{action('MenuSectionController@index')}}"><span class="fa fa-cutlery"></span> Menu Sections</a></li>
                             <li  class="{{ Request::segment(1) === 'menusubsections'? 'active' : null }}"><a href="{{action('MenuSubSectionController@index')}}"><span class="fa fa-cutlery"></span> Menu Sub Sections</a></li>
+                            <li  class="{{ Request::segment(1) === 'dishes'? 'active' : null }}"><a href="{{action('DishesController@index')}}"><span class="fa fa-cutlery"></span> dishes</a></li>
                         </ul>
                     </li>  
-                     <li class="{{ Request::segment(1) === 'appcustomers' ? 'active' : null }}"><a href="{{action('AppCustomersController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">Customers</span></a>     
-                    </li>
+                     <!-- <li class="{{ Request::segment(1) === 'appcustomers' ? 'active' : null }}"><a href="{{action('AppCustomersController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">Customers</span></a>     
+                    </li> -->
 
      <?php
 if(!in_array(Session::get("role_id"),array(2)))

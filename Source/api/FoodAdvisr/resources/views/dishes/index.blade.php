@@ -3,7 +3,7 @@
 FoodAdvisr-Dishes
 @endsection
 @section('module')
-    {{$eatery_details[0]->business_name}} - Menu Details
+Dishes
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ FoodAdvisr-Dishes
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="dishes/create?eatery_id={{$eatery_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Dish</a>
+                                        <a href="dishes/create" class="btn btn-info"><i class="fa fa-edit"></i>Add Dish</a>
                                         @endif
                                     </div>
                                 </div>
@@ -53,12 +53,7 @@ FoodAdvisr-Dishes
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                               <!--  <div style="float:left;padding-right:10px;">
-                                                    <a href="../../recipe?eatery_id={{$eatery_id}}" class="btn btn-success">Recipe</a>
-                                                </div> -->
-                                              <!--  <div style="float:left;padding-right:10px;">
-                                                    <a href="../../itemnutritions?eatery_id={{$eatery_id}}" class="btn btn-primary">Nutritions</a>
-                                                </div> -->
+                                               
                                             </div>
                                         </td>
                                          </tr>
@@ -68,13 +63,7 @@ FoodAdvisr-Dishes
                                     
                                 </div>
                             </div>
-                            @if(Session::get("role_id")==1)
-                            <div class="panel-heading">
-        <div class="btn-group pull-left">
-            <a href="{{URL::to('eateries')}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Eateries</a>
-        </div>
-    </div>   
-    @endif 
+                           
                         </div>
                     </div>        
 @endsection

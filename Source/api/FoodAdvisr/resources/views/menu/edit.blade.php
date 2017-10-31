@@ -21,6 +21,26 @@ Menu
 			<div class="col-md-6">
                 {{ Form::ahText('menu','Menu Name:',$menu->menu,array('maxlength' => '100'))  }}
                 {{ Form::ahTextarea('description','Description :',$menu->description,array('size' => '30x5'))  }}
+                <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4">Groups :</label>
+	            	 <div class="col-sm-8">
+	                        <select class="form-control" id="group_id" name="group_id">
+	                            <option value="0">Please select group</option>
+	                            @foreach($groups as $group)
+	                            <option value="{{ $group->id }}"  <?php 
+                                $val = $group->id;
+                                $res = $menu->group_id;
+                               if($val == $res) 
+                                {
+                                  ?> 
+                                  selected="selected"
+                                  <?php 
+                                } ?>>  
+	                              {{ $group->Description }}</option>
+	                            @endforeach
+	                        </select>
+	                   </div>
+                </div>
                 {{ Form::ahSwitch('is_visible','Is Visible :',null,$menu->is_visible) }} 
 		    </div>
 	    <div class="form-group">
