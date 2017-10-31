@@ -786,10 +786,10 @@ appdata.showDownloads=function(){
 }
 
 appdata.setEateryUnderline=function(){
-  const ctab=$('.act-eatery-tab.selected');
-  const ww=ctab.width();
-  let pos=ctab.offset();
-  $('.eatery-tab-underline').css({left:pos.left,width:ww});
-  var mode=ctab.attr('href').substr(1);
-  $('.eateries-'+mode).removeClass('hide').addClass('search-target');
+  // const ctab=$('.act-eatery-tab.selected');
+  // const ww=ctab.width();
+  // let pos=ctab.offset();
+  //$('.eatery-tab-underline').css({left:pos.left,width:ww});
+  //var mode=ctab.attr('href').substr(1);
+  //$('.eateries-'+mode).removeClass('hide').addClass('search-target');
 }
