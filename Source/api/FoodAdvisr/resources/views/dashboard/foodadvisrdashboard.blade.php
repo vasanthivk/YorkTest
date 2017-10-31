@@ -166,8 +166,8 @@
                             <tbody>
                                     @foreach($v1_gettop5eateriesAfterAssociated as $gettop5eateriesAfterAssociated)
                                 <tr>                                                    
-                                    <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->BusinessName}}</td> 
-                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->ClicksAfterAssociated}} Views</td> 
+                                    <td style="font-size: 13px;">{{$gettop5eateriesAfterAssociated->business_name}}</td>
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-eye" style="color: #1caf9a"></span> {{$gettop5eateriesAfterAssociated->clicks_after_associated}} Views</td>
                                 </tr>
                                     @endforeach   
                             </tbody>
@@ -194,9 +194,9 @@
                             <tbody>
                                     @foreach($v1_gettop5eateriesBeforeAssociated as $gettop5eateriesBeforeAssociated)
                                 <tr>                                                    
-                                    <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->BusinessName}}
+                                    <td style="font-size: 13px;">                               {{$gettop5eateriesBeforeAssociated->business_name}}
                                     </td>
-                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->ClicksBeforeAssociated}} Clicks
+                                    <td style="font-size: 13px;width: 30%;"><span class="fa fa-hand-pointer-o"></span>                                {{$gettop5eateriesBeforeAssociated->clicks_before_associated}} Clicks
                                     </td> 
                                 </tr>
                                     @endforeach   
@@ -272,7 +272,7 @@
         var data = google.visualization.arrayToDataTable([
           ['', 'Advisr OnBoarded'],
           @foreach($date_wise_onboard as $onboard)
-            ['{{$onboard->AssociatedOn}}', {{$onboard->Total}}],
+            ['{{$onboard->associated_on}}', {{$onboard->Total}}],
             @endforeach
         ]);
 

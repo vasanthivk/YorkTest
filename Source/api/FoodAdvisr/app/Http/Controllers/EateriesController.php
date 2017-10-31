@@ -69,7 +69,7 @@ class EateriesController extends Controller
             $all_eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
             ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
-            ->where('eateries.LocationID','=','')
+            ->where('eateries.location_id','=','')
             ->get();
         }
         else{

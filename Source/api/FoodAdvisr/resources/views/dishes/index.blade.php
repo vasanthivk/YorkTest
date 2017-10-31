@@ -3,7 +3,7 @@
 FoodAdvisr-Dishes
 @endsection
 @section('module')
-    {{$eatery_details[0]->BusinessName}} - Menu Details
+    {{$eatery_details[0]->business_name}} - Menu Details
 @endsection
 
 @section('content')

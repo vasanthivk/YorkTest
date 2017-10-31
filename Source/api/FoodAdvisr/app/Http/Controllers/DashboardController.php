@@ -24,12 +24,12 @@ class DashboardController extends Controller
             $week[] =  $date;
             $week[] = DB::table('eateries')
                 ->select(DB::raw('*'))
-                ->where('AssociatedOn' ,'<=', $date)
+                ->where('associated_on' ,'<=', $date)
                 ->count();                
             $weeks[] = $week ;
         }
 
-        $sql = 'select count(AssociatedOn) as Total,AssociatedOn  from eateries where AssociatedOn>0 and IsAssociated=1 group by AssociatedOn';
+        $sql = 'select count(associated_on) as Total,associated_on  from eateries where associated_on>0 and is_associated=1 group by associated_on';
         $date_wise_onboard = DB::select( DB::raw($sql));
 
         $establishment_count = DB::table('eateries')
@@ -42,35 +42,35 @@ class DashboardController extends Controller
                 
         $nonassociatedeateries = DB::table('eateries')
             ->select(DB::raw('*'))
-            ->whereNull('IsAssociated')
-            ->orWhere('IsAssociated', '=', 0)
+            ->whereNull('is_associated')
+            ->orWhere('is_associated', '=', 0)
             ->count();
 
         $associatedeateries = DB::table('eateries')
             ->select(DB::raw('*'))
-            ->Where('IsAssociated', '=', 1)                              
+            ->Where('is_associated', '=', 1)
             ->count();
 
         $v1_gettop5eateriesBeforeAssociated = DB::table('eateries')
-                ->select(DB::raw('BusinessName,ClicksBeforeAssociated'))
-                ->Where('IsAssociated', '=', 0)
-                ->orWhereNull('IsAssociated')
-                ->Where('ClicksBeforeAssociated', '>', 0)
-                ->orderby('ClicksBeforeAssociated','DESC')
+                ->select(DB::raw('business_name,clicks_before_associated'))
+                ->Where('is_associated', '=', 0)
+                ->orWhereNull('is_associated')
+                ->Where('clicks_before_associated', '>', 0)
+                ->orderby('clicks_before_associated','DESC')
                 ->LIMIT(5)
                 ->get();
         
         $v1_gettop5eateriesAfterAssociated = DB::table('eateries')
-                ->select(DB::raw('BusinessName,ClicksAfterAssociated'))
-                ->Where('IsAssociated', '=', 1)               
-                ->orderby('ClicksAfterAssociated','DESC')
+                ->select(DB::raw('business_name,clicks_after_associated'))
+                ->Where('is_associated', '=', 1)
+                ->orderby('clicks_after_associated','DESC')
                 ->LIMIT(5)
                 ->get();
 
-        $sql = 'select CEILING(FoodAdvisrOverallRating) as FoodAdvisrOverallRating, count(*) as Total from eateries where ifnull(FoodAdvisrOverallRating,0)>0 and IsAssociated=1 group by CEILING(FoodAdvisrOverallRating)';
+        $sql = 'select CEILING(foodadvisr_overall_rating) as FoodAdvisrOverallRating, count(*) as Total from eateries where ifnull(foodadvisr_overall_rating,0)>0 and is_associated=1 group by CEILING(foodadvisr_overall_rating)';
         $foodadvisroverallratings = DB::select( DB::raw($sql));
 
-        $sql = 'select sum(ClicksAfterAssociated) as ClicksAfterAssociated from eateries';
+        $sql = 'select sum(clicks_after_associated) as ClicksAfterAssociated from eateries';
         $totalviews = DB::select( DB::raw($sql));
        
         return view('dashboard.index', compact('establishment_count'))
