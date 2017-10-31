@@ -15,9 +15,9 @@
                         <?php
 if(in_array(Session::get("role_id"),array(1)))
 { ?>                
-                    <li class="{{ Request::segment(1) === 'groups' ? 'active' : null }}"><a href="{{action('GroupsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Groups</span></a>     
+                    <li class="{{ Request::segment(1) === 'groups' ? 'active' : null }}"><a href="{{action('GroupsController@index')}}"><span class="fa fa-google"></span> <span class="xn-text">Groups</span></a>     
                     </li>
-                    <li class="{{ Request::segment(1) === 'brands' ? 'active' : null }}"><a href="{{action('BrandsController@index')}}"><span class="fa fa-h-square"></span> <span class="xn-text">Brands</span></a>     
+                    <li class="{{ Request::segment(1) === 'brands' ? 'active' : null }}"><a href="{{action('BrandsController@index')}}"><span class="fa fa-bold"></span> <span class="xn-text">Brands</span></a>     
                     </li>
                      <li class="{{ Request::segment(1) === 'eateries' ? 'active' : null }}"><a href="{{action('EateriesController@index')}}"><span class="fa fa-etsy"></span> <span class="xn-text">Eateries</span></a>     
                     </li>
