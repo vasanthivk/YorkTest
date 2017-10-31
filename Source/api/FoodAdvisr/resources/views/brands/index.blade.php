@@ -29,7 +29,7 @@ Brands
                                         <tbody>                                                    @foreach($brands as $brand)
                                     <tr>
                                         <td>
-                                            {{$brand->Description}}
+                                            {{$brand->description}}
                                         </td>       
                                         <td width="30%">
                                             <div >
