@@ -846,7 +846,7 @@ body.on('click','.act-clear-search',function(){
         {
            
           for(idx in data.result){
-            if(data.result[idx].IsAssociated == 1)
+            if(data.result[idx].is_associated == 1)
             {
                 var favouriticon = ''; //<i class="fa fa-heart-o"></i>'; 
                 // favouriteseateries.forEach(function(data){
@@ -871,9 +871,9 @@ body.on('click','.act-clear-search',function(){
                 }
                
             $('#eatery-list').append('<li class="act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id 
-              + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:30px; color:#000; margin:15px 5px 10px 5px">&nbsp</i><br>Delete</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:30px; color:#F00; margin:15px 5px 0 5px">&nbsp</i><br><br><br>Favourite</a></div><a href="" data-id="' + data.result[idx].id 
-              + '"><img style="height:75px;top:10px;left:10px; " src="'+objInit.mediaPath + data.result[idx].LogoPath+'"/><h3>' + data.result[idx].BusinessName 
-              + '</h3><p> ' + opCuisines.toString()  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].FoodAdvisrOverallRating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</p></a></li>');
+              + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:30px; color:#000; margin:15px 5px 10px 5px">&nbsp</i><br>Delete</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:30px; margin:15px 5px 0 5px">&nbsp</i><br><br><br>Favourite</a></div><a href="" data-id="' + data.result[idx].id 
+              + '"><img style="height:75px;top:10px;left:10px; " src="'+objInit.mediaPath + data.result[idx].logo_path+'"/><h3>' + data.result[idx].business_name 
+              + '</h3><p> ' + opCuisines.toString()  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].foodadvisr_overall_rating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].clicks_after_associated+'</p></a></li>');
                 $(function() {
 
                 function prevent_default(e) {
@@ -943,28 +943,10 @@ body.on('click','.act-clear-search',function(){
                 else{
                     rating_feed = '';
                 }
-                // op += '<div class="act-eatery">' +
-                // '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
-                // '<div class="eatery-columns">' +
-                // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<div class="act-action-div"><div class="act-eatery-distance" style="font-size:15px; color:#000; margin:0 0 0 5px">'+ data.result[idx].distance+'miles'+'</div><i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].FoodAdvisrOverallRating+' <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].ClicksAfterAssociated+'</div> ' + favouriticon + ' </div>' +
-                // // '<div class="act-eatery-name">'+ data.result[idx].BusinessName + '<br/>' + opCuisines.toString()  + '<br/><div class="act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'miles'+ '&nbsp&nbsp&nbsp&nbsp&nbsp|'+'</div>' + rating_feed + '</div> ' + favouriticon + '</div>' +
-                // '<div class="act-eatery-logo" ><img class="act-eatery-logopath" src="' + objInit.mediaPath + data.result[idx].LogoPath + '"></img> </div>' +
-                // '</div>' +
-                // '<div class="eatery-clear"></div>' +
-                // '</div>';
             }
             else
             {
-              $('#eatery-list').append('<li class="in-act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id + '" /><input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" /><a href="" data-id="' + data.result[idx].id + '"><img src="img/thumb.svg" style="padding:5px;"/><h3>' + data.result[idx].BusinessName  + '</h3><p> is not associated with us.<br/> Click and invite, we will let them know.  </p></a></li>');
-                // op += '<div class="in-act-eatery">' +
-                // '<input type=hidden id="eateryId" value="' + data.result[idx].id + '" />' +
-                // '<input type=hidden id="eateryName" value="' + data.result[idx].BusinessName + '" />' +
-                // '<div class="eatery-columns">' +
-                // '<div class="in-act-eatery-name">'+ data.result[idx].BusinessName + '<br/>'+'<div class="in-act-action-div"><div class="act-eatery-distance">'+ data.result[idx].distance+'m'+'&nbsp&nbsp&nbsp&nbsp&nbsp'+'</div>'+'</div></div>' +
-                // '<div class="in-act-eatery-logo" ><img class="in-act-eatery-image" src=""/></div>' +
-                // '</div>' +
-                // '<div class="eatery-clear"></div>' +
-                // '</div>';
+              $('#eatery-list').append('<li class="in-act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id + '" /><input type=hidden id="eateryName" value="' + data.result[idx].business_name + '" /><a href="" data-id="' + data.result[idx].id + '"><img src="img/thumb.svg" style="padding:5px;"/><h3>' + data.result[idx].business_name  + '</h3><p> is not associated with us.<br/> Click and invite, we will let them know.  </p></a></li>');
             }
           }
         }
