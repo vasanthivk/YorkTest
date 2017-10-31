@@ -194,6 +194,30 @@ class DishesController extends Controller
         }
         else
         {
+            $ingredient_items = Input::get('item_ingredients');
+            if(isset($ingredient_items) && !empty($ingredient_items)){
+                foreach($ingredient_items as $ingredient){
+                    $token = openssl_random_pseudo_bytes(3);
+                    $token = bin2hex($token);
+                    $ingre = new ProductIngredients();
+                    $ingre->ref = $token;
+                    $ingre->name = $ingredient;
+                    $ingre->product_barcode = 'NULL';
+                    $ingre->percentage = 'NULL';
+                    $ingre->order_of_amount = '0';
+                    $ingre->date_entered = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $ingre->date_modified = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $ingre->deleted = 'N';
+                    $ingre->date_deleted = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $ingre->date_modified = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $ingre->save();
+                    $ingredients_ids[] = $ingre->id;
+                }
+            }
+            else{
+                $ingredients_ids[] = array();
+            }
+            
             $dish = new Dishes();
             $dish->dish_name = Input::get('dish_name');
             $dish->description = Input::get('description');
@@ -201,7 +225,7 @@ class DishesController extends Controller
             $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
             $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
             $dish->allergents_may_contain = implode(',',Input::get('allergents_may_contain'));
-            $dish->ingredients_ids = implode(',',Input::get('item_ingredients'));
+            $dish->ingredients_ids = implode(',',$ingredients_ids);
             $dish->menus_ids = Input::get('menus_ids');
             $dish->sections_ids = Input::get('sections_ids');
             $dish->subsections_ids = Input::get('subsections_ids');
@@ -394,6 +418,41 @@ class DishesController extends Controller
         {   
             $dish = Dishes::find($id);
 
+            $ingredient_items = Input::get('item_ingredients');
+            $implode_ingredient_items = implode(',',$ingredient_items);
+            $ingredient_item_result = DB::table('_product_ingredients')
+                ->whereNotIn('name',array($implode_ingredient_items))
+                ->where('product_barcode','=','NULL')
+                ->where('percentage','=','NULL')
+                ->where('order_of_amount','=','NULL')
+                ->select(DB::raw('_product_ingredients.id,_product_ingredients.name'))
+                ->get();
+            foreach($ingredient_item_result as $in_dish)
+            {
+                if(isset($ingredient_items) && !empty($ingredient_items) && !in_array($in_dish->name,$ingredient_items)) {
+                    foreach ($ingredient_items as $ingredient) {
+                       $token = openssl_random_pseudo_bytes(3);
+                        $token = bin2hex($token);
+                        $ingre = new ProductIngredients();
+                        $ingre->ref = $token;
+                        $ingre->name = $ingredient;
+                        $ingre->product_barcode = 'NULL';
+                        $ingre->percentage = 'NULL';
+                        $ingre->order_of_amount = '0';
+                        $ingre->date_entered = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                        $ingre->date_modified = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                        $ingre->deleted = 'N';
+                        $ingre->date_deleted = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                        $ingre->date_modified = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                        $ingre->save();
+
+                        $ingredients_ids[] = $ingre->id;
+                    }
+                }else{
+                    $ingredients_ids[] = array();
+                }
+            }
+
              if($file <> null)
              {
             $success = File::delete($dish->img_url);
@@ -418,7 +477,7 @@ class DishesController extends Controller
             $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
             $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
             $dish->allergents_may_contain = implode(',',Input::get('allergents_may_contain'));
-            $dish->ingredients_ids = implode(',',Input::get('item_ingredients'));
+            $dish->ingredients_ids = implode(',',$ingredients_ids);
             $dish->menus_ids = Input::get('menus_ids');
             $dish->sections_ids = Input::get('sections_ids');
             $dish->subsections_ids = Input::get('subsections_ids');
