@@ -28,10 +28,16 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
     <script type="text/javascript" src="cordova.js"></script>
     <script type="text/javascript" src="js/settings.js"></script>
     <script type="text/javascript" src="js/api.js"></script>
+    
 
-<!-- <script type="text/javascript" src="jslibs/jquery311.js"></script> -->
+
+
+
+
+<!--<script type="text/javascript" src="jslibs/jquery311.js"></script>-->
 <script src="jslibs/jquery-1.10.0.min.js"></script>
 <script src="jslibs/jquery.mobile-1.4.3.min.js"></script>
+
 
     
     <script type="text/javascript" src="jslibs/timeago.js"></script>
@@ -578,9 +584,7 @@ You can select membership of a range of communities to belong to, which allows y
            
             <div data-role="content">
               <div id="loadeateries"></div>
-                <ul data-role="listview" id="eatery-list" class="swipe-delete" style="bottom: 50px;">
-
-                </ul>
+                <ul data-role="listview" id="eatery-list" class="swipe-delete" style="bottom: 50px;"></ul>
             </div>
         </div>
 
@@ -705,7 +709,7 @@ You can select membership of a range of communities to belong to, which allows y
                              <div class="item-call">
                                  <img class="res-img-book" src="img/call.png" alt="">
                                  <div class="res-details">
-                                     <span class="item-bc-name">Call</span>
+                                     <span class="item-bc-name"><a href="tel:" >Call</a></span>
                                  </div>
                              </div>
                          </div>
@@ -1044,6 +1048,7 @@ You can select membership of a range of communities to belong to, which allows y
                 <img src="img/menu.png" class="meat-icon"/><span class="item-name">Menu</span>
             </div>
             <div id="menu-categories" style="display:none;">
+            		
                 <div><a href="#menu-section-Recommended" class="menu-cat">Recommended</a></div>
                 <div><a href="#menu-section-Starters" class="menu-cat">Starters</a></div>
                 <div><a href="#menu-section-Maincourse" class="menu-cat">Main Course</a></div>
@@ -1066,6 +1071,7 @@ You can select membership of a range of communities to belong to, which allows y
         <img src="img/menu.png" class="meat-icon" /><span class="item-name">Menu</span>
     </div>
     <div id="menu-categories" style="display:none;">
+    
         <div><a href="#menu-section-Recommended" class="menu-cat">Recommended</a></div>
         <div><a href="#menu-section-Starters" class="menu-cat">Starters</a></div>
         <div><a href="#menu-section-Maincourse" class="menu-cat">Main Course</a></div>
@@ -1128,6 +1134,10 @@ You can select membership of a range of communities to belong to, which allows y
 
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCv8Ltq_TguFLK2O0HbcA42tadBhud_ZSA&libraries=places,geometry&sensor=false"></script>
+
+
+
+
 
   </body>
 </html>

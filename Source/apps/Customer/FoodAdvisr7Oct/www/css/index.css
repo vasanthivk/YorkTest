@@ -501,7 +501,7 @@ label.star:before {
 .midpopbook.overlay-hide p {
     font-size: 0.93rem;
     font-weight: bold;
-    text-align: center;
+    text-align: center !important;
     color: #000;
 }
 .midpop.overlay-hide p {
@@ -2329,6 +2329,7 @@ h5 .icon{
 
 
 }
+.emptylister p { text-align:center!important;}
 
 .emptylister h4{
   color:#808080;
