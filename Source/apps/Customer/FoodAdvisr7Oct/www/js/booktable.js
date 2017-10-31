@@ -139,8 +139,11 @@
               if(vv[1]!=undefined){
                   ccl=vv[1];
               }
-              op+='<a href="#index.html" class="popupcall-act-button '+ccl+'">'+vv[0]+'</a>';
-          }
+              if(ccl.toLowerCase() == "")
+          op+='<a href="#index.html" class="popupcall-act-button call'+ccl+'">'+vv[0]+'</a>';
+        else
+          op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
+        }
           op+='</div>';
       }
       midpop.html(op);
@@ -151,7 +154,7 @@
       //midpop.css({top:ttop});
       midpop.css({top:'210px'});
 
-      $('body').on('click','.popupcall-act-button',function(){
+      $('body').on('click','.popupbook-button',function(){
           overlay.hide();
           return false;
       });
@@ -184,7 +187,7 @@ var popuprating = new Object();
                   ccl=vv[1];
               }
                if(ccl.toLowerCase() == "")
-          op+='<a href="#index.html" class="popuprating-act-button '+ccl+'">'+vv[0]+'</a>';
+          op+='<a href="#index.html" class="popuprating-act-button call '+ccl+'">'+vv[0]+'</a>';
         else
           op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
           }

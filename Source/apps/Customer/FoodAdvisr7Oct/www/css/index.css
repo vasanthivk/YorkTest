@@ -536,7 +536,7 @@ label.star:before {
 .calender{
     width: 25%;
 }
-
+.call{display:none;}
 
 .people-show {
     position: relative;
