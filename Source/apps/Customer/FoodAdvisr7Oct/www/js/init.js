@@ -1009,10 +1009,10 @@ body.on('click','.act-clear-search',function(){
         if(data.result != null)
         {
           document.getElementById("selected_eateryId").value = data.result.id;
-          $('#eaterylogo').attr("src",objInit.mediaPath +data.result.LogoPath);
-          $("#eaterybusinessname").text(data.result.BusinessName);
-          $("#eateryrating").text(data.result.FoodAdvisrOverallRating);
-          var eateryAddress = data.result.Address + "<br/>" + 
+          $('#eaterylogo').attr("src",objInit.mediaPath +data.result.logo_path);
+          $("#eaterybusinessname").text(data.result.business_name);
+          $("#eateryrating").text(data.result.foodadvisr_overall_rating);
+          var eateryAddress = data.result.address + "<br/>" + 
                               (data.result.locality == null ? "" : data.result.locality + "<br/>") +
                               (data.result.area_level_1 == null ? "" : data.result.area_level_1 + "<br/>") +
                               (data.result.area_level_2 == null ? "" : data.result.area_level_2 + "<br/>") +
@@ -1085,7 +1085,7 @@ body.on('click','.act-clear-search',function(){
             }
 
             body.on('click','.eatery-call',function(){
-                var message =data.result.ContactNumber;
+                var message =data.result.contact_number;
                 popupcall.show(message,'Cancel|eatery-call, <a class="midpopbookbtn" href = "tel: '+message+'">Call</a>');
                 api.getAddClickBeforeAssociated(eateryId,function(data){
                 });
@@ -1096,7 +1096,7 @@ body.on('click','.act-clear-search',function(){
 			
             body.on('click','.eatery-rating',function(){
                 var message = "Leave a Review ";
-                var html_fields = "<div class='rating-text'>"+"Did you visit "+data.result.BusinessName+ ", London? Let us and your communities know what you thought! "
+                var html_fields = "<div class='rating-text'>"+"Did you visit "+data.result.business_name+ ", London? Let us and your communities know what you thought! "
                         +"<br><div class='stars'>" +
                 "<form action='' name='details'>" +
                 "<input class='star star-5' id='star-5' type='radio' name='star' value='5'/>" +
