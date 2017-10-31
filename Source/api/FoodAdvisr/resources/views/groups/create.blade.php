@@ -16,7 +16,7 @@ Groups
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('Description','Group Name :','',array('maxlength' => '100'))  }}
+		        {{ Form::ahText('description','Group Name :','',array('maxlength' => '100'))  }}
 		        </br>
 		    </div>
 		     

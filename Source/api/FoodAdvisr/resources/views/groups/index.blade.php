@@ -29,7 +29,7 @@ Groups
                                         <tbody>                                                    @foreach($groups as $group)
                                     <tr>
                                         <td>
-                                            {{$group->Description}}
+                                            {{$group->description}}
                                         </td>       
                                         <td width="30%">
                                             <div >

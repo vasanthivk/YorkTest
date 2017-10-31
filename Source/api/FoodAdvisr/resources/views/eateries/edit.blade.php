@@ -33,19 +33,19 @@ My Profile
     <div class="panel panel-default">
     </br>
       <div class="col-md-6">
-            {{ Form::ahNumber('FHRSID','FHRSID :',$eateries->FHRSID,array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
-            {{ Form::ahText('LocalAuthorityBusinessID','Business ID :',$eateries->LocalAuthorityBusinessID,array('maxlength'=> '1000'))  }}
-            {{ Form::ahText('BusinessName','Business Name :',$eateries->BusinessName,array('maxlength'=> '1000'))  }}
-            {{ Form::ahSelect('BusinessTypeID','Business Type :',$eateries->BusinessTypeID,$businesstypes)  }}
-            {{ Form::ahTextarea('Address','Address :',$eateries->Address,array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
-             {{ Form::ahSelect('LocationID','Location :',$eateries->LocationId,$locations,array("onchange"=>"ChooseContact(this)"))  }}
-             {{ Form::ahNumber('ContactNumber','Contact Number :',$eateries->ContactNumber,array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
-            {{ Form::ahText('WebSite','WebSite :',$eateries->WebSite,array('maxlength' => '100'))  }}
-            {{ Form::ahText('EmailId','EmailId :',$eateries->EmailId,array('maxlength' => '100'))  }}    
-            {{ Form::ahText('Longitude','Longitude :',$eateries->Longitude,array("readonly"=>"true"))  }}
-            {{ Form::ahText('Latitude','Latitude :',$eateries->Latitude,array("readonly"=>"true"))  }}
-            {{ Form::ahSwitch('IsAssociated','Is Associated :',null,$eateries->IsAssociated) }}      
-            {{ Form::ahDate('AssociatedOn','Associated On :', $eateries->AssociatedOn) }} 
+            {{ Form::ahNumber('fhrsid','FHRSID :',$eateries->fhrsid,array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
+            {{ Form::ahText('local_authority_business_id','Business ID :',$eateries->local_authority_business_id,array('maxlength'=> '1000'))  }}
+            {{ Form::ahText('business_name','Business Name :',$eateries->business_name,array('maxlength'=> '1000'))  }}
+            {{ Form::ahSelect('business_type_id','Business Type :',$eateries->business_type_id,$businesstypes)  }}
+            {{ Form::ahTextarea('address','Address :',$eateries->address,array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
+             {{ Form::ahSelect('location_id','Location :',$eateries->location_id,$locations,array("onchange"=>"ChooseContact(this)"))  }}
+             {{ Form::ahNumber('contact_number','Contact Number :',$eateries->contact_number,array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
+            {{ Form::ahText('website','WebSite :',$eateries->website,array('maxlength' => '100'))  }}
+            {{ Form::ahText('email_id','EmailId :',$eateries->email_id,array('maxlength' => '100'))  }}
+            {{ Form::ahText('longitude','Longitude :',$eateries->longitude,array("readonly"=>"true"))  }}
+            {{ Form::ahText('latitude','Latitude :',$eateries->latitude,array("readonly"=>"true"))  }}
+            {{ Form::ahSwitch('is_associated','Is Associated :',null,$eateries->is_associated) }}
+            {{ Form::ahDate('associated_on','Associated On :', $eateries->associated_on) }}
             <?php 
             $cuisines_ids = $eateries->cuisines_ids;
             $cuisines_ids=explode(",",$cuisines_ids);
@@ -83,9 +83,9 @@ My Profile
                         <?php
                       $logo_path = '';
                      $no_image=env('NO_IMAGE');
-                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eateries->id .  '.' . $eateries->LogoExtension))
+                if(File::exists(env('CONTENT_EATERY_LOGO_PATH') . '/' . $eateries->id .  '.' . $eateries->logo_extension))
                 {
-                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eateries->id .  '.' . $eateries->LogoExtension ;
+                    $logo_path = env('CONTENT_EATERY_LOGO_PATH') . '/' . $eateries->id .  '.' . $eateries->logo_extension ;
                  ?>
                             <div class="fileinput-new thumbnail" style="width: 130px; height: 111px;">
                             <a>
@@ -184,7 +184,7 @@ My Profile
 // }
 
 function initialize() {
-   var latlng = new google.maps.LatLng(<?php echo floatval($eateries->Latitude); ?>,<?php echo floatval($eateries->Longitude); ?>);
+   var latlng = new google.maps.LatLng(<?php echo floatval($eateries->latitude); ?>,<?php echo floatval($eateries->longitude); ?>);
     var map = new google.maps.Map(document.getElementById('map'), {
       center: latlng,
       zoom: 16

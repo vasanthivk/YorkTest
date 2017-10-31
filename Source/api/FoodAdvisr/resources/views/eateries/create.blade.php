@@ -25,19 +25,19 @@ Eateries
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahNumber('FHRSID','FHRSID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
-            {{ Form::ahText('LocalAuthorityBusinessID','Business ID :','',array('maxlength'=> '1000'))  }}
-		        {{ Form::ahText('BusinessName','Business Name :','',array('maxlength'=> '1000'))  }}
-            {{ Form::ahSelect('BusinessTypeID','Business Type :','',$businesstypes)  }}
-            {{ Form::ahTextarea('Address','Address :','',array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
-            {{ Form::ahSelect('LocationID','Location :',null,$locations,array("onchange"=>"ChooseContact(this)")) }}
-             {{ Form::ahNumber('ContactNumber','Contact Number :','',array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
-		        {{ Form::ahText('WebSite','WebSite :','',array('maxlength' => '100'))  }}
-            {{ Form::ahText('EmailId','EmailId :','',array('maxlength' => '100'))  }}    
-            {{ Form::ahText('Longitude','Longitude :','',array("readonly"=>"true"))  }}
-            {{ Form::ahText('Latitude','Latitude :','',array("readonly"=>"true"))  }}
-            {{ Form::ahSwitch('IsAssociated','Is Associated :',null) }}     
-            {{ Form::ahDate('AssociatedOn','Associated On :', \Carbon\Carbon::now()) }}
+		        {{ Form::ahNumber('fhrsid','FHRSID :','',array('min'=>'0','maxlength' => '20','max'=>'99999999999999999999'))  }}
+            {{ Form::ahText('local_authority_business_id','Business ID :','',array('maxlength'=> '1000'))  }}
+		        {{ Form::ahText('business_name','Business Name :','',array('maxlength'=> '1000'))  }}
+            {{ Form::ahSelect('business_type_id','Business Type :','',$businesstypes)  }}
+            {{ Form::ahTextarea('address','Address :','',array("onchange"=>"getlatitudelongitude(this)",'size' => '30x5'))  }}
+            {{ Form::ahSelect('location_id','Location :',null,$locations,array("onchange"=>"ChooseContact(this)")) }}
+             {{ Form::ahNumber('contact_number','Contact Number :','',array('min'=>'0','maxlength' => '12','max'=>'999999999999'))  }}
+		        {{ Form::ahText('website','WebSite :','',array('maxlength' => '100'))  }}
+            {{ Form::ahText('email_id','EmailId :','',array('maxlength' => '100'))  }}
+            {{ Form::ahText('longitude','Longitude :','',array("readonly"=>"true"))  }}
+            {{ Form::ahText('latitude','Latitude :','',array("readonly"=>"true"))  }}
+            {{ Form::ahSwitch('is_associated','Is Associated :',null) }}
+            {{ Form::ahDate('associated_on','Associated On :', \Carbon\Carbon::now()) }}
             <?php 
             if(isset($cuisines) || isset($lifestyle_choices))
             {       
