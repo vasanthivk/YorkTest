@@ -97,7 +97,7 @@ class DishesController extends Controller
         if($menusection->count()>0)
         {
             $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->get();
-            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->pluck('sub_section_name','id');
+            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->get();
         }
         
         $allergentypes = DB::table('allergens')
@@ -359,7 +359,7 @@ class DishesController extends Controller
         if($menusection->count()>0)
         {
             $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->get();
-            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->pluck('sub_section_name','id');
+            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->get();
         }
         
         $allergentypes = DB::table('allergens')

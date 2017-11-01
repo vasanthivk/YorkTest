@@ -28,14 +28,25 @@
                                 <option value="0">Please select group</option>
                                 @foreach($groups as $group)
                                 <option value="{{ $group->id }}"> 
-                                  {{ $group->Description }}</option>
+                                  {{ $group->description }}</option>
                                 @endforeach
                             </select>
                        </div>
                 </div>                
                 {{ Form::ahSelect('menus_ids','Menu Name :',null,$menus) }}
                 {{ Form::ahSelect('sections_ids','Section Name :',null,$menusection) }}
-                {{ Form::ahSelect('subsections_ids','Sub Section Name :',null,$menusubsection) }}
+                <div class="form-group" style="margin:5px">
+                    <label for="subsections_ids" class="control-label col-sm-4">Sub Section Name :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="subsections_id" name="subsections_ids">
+                                <option value="0">Please select sub section</option>
+                                @foreach($menusubsection as $subsection)
+                                <option value="{{ $subsection->id }}"> 
+                                  {{ $subsection->sub_section_name }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                </div>
                  {{ Form::ahText('dish_name','Dish Name :','',array('maxlength' => '100'))  }}
                  {{ Form::ahNumber('default_price','Price :','',array('min'=>'0','maxlength' => '20'))  }}
                  {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}

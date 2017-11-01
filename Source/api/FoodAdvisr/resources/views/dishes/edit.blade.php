@@ -36,14 +36,28 @@ Dish
                                   selected="selected"
                                   <?php 
                                 } ?>>  
-                                  {{ $group->Description }}</option>
+                                  {{ $group->description }}</option>
                                 @endforeach
                             </select>
                        </div>
                 </div>             
                 {{ Form::ahSelect('menus_ids','Menu Name :',$dish->menus_ids,$menus) }}
                 {{ Form::ahSelect('sections_ids','Section Name :',$dish->sections_ids,$menusection) }}
-                {{ Form::ahSelect('subsections_ids','Sub Section Name :',$dish->subsections_ids,$menusubsection) }}
+                <div class="form-group" style="margin:5px">
+                    <label for="subsections_ids" class="control-label col-sm-4">Sub Section Name :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="subsections_id" name="subsections_ids">
+                                <option value="0">Please select sub section</option>
+                                @foreach($menusubsection as $subsection)
+                                <option value="{{ $subsection->id }}"  
+                                    $res = $subsection->id;
+                                    $db_res = $dish->id;
+                                if($res == $db_res) echo 'selected="selected"' ?>> 
+                                  {{ $subsection->sub_section_name }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                </div>
                  {{ Form::ahText('dish_name','Dish Name :',$dish->dish_name,array('maxlength' => '100'))  }}
                  {{ Form::ahNumber('default_price','Price :',$dish->default_price,array('min'=>'0','maxlength' => '20'))  }}
                  {{ Form::ahTextarea('description','Description :',$dish->description,array('size' => '30x5'))  }}
