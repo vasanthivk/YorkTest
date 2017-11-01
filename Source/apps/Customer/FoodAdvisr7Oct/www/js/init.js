@@ -994,12 +994,12 @@ body.on('click','.act-clear-search',function(){
           $('#eaterylogo').attr("src",objInit.mediaPath +data.result.logo_path);
           $("#eaterybusinessname").text(data.result.business_name);
           $("#eateryrating").text(data.result.foodadvisr_overall_rating);
-          var eateryAddress = data.result.address + "<br/>" + 
-                              (data.result.locality == null ? "" : data.result.locality + "<br/>") +
-                              (data.result.area_level_1 == null ? "" : data.result.area_level_1 + "<br/>") +
-                              (data.result.area_level_2 == null ? "" : data.result.area_level_2 + "<br/>") +
-                              (data.result.postal_town == null ? "" : data.result.postal_town + "<br/>") +
-                              (data.result.postal_code == null ? "" : data.result.postal_code + "<br/>") ;
+          var eateryAddress = data.result.address + "" + 
+                              (data.result.locality == null ? "" : data.result.locality + "") +
+                              (data.result.area_level_1 == null ? "" : data.result.area_level_1 + "") +
+                              (data.result.area_level_2 == null ? "" : data.result.area_level_2 + "") +
+                              (data.result.postal_town == null ? "" : data.result.postal_town + "") +
+                              (data.result.postal_code == null ? "" : data.result.postal_code + "") ;
           $("#eateryaddress").html(eateryAddress);
 
 
@@ -1150,8 +1150,8 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.item-bc-eatery',function(){
         var message = "Book a Table" ;
         var html_fields =
-            "<div>Date :&nbsp; <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none; width:71%;float:right'/></div>" +
-            "<br/><div><label for='appt-time'>Time:&nbsp;<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;width:71%;float:right' /></div><br/>" +
+            "<div>Date :&nbsp; <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none; width:71%;float:right;;height:30px;  '/></div>" +
+            "<br/><div><label for='appt-time'>Time:&nbsp;<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;width:71%;float:right;margin: -32px 0 0 0;height:30px;' /></div><br/>" +
             "<div>How many people?<br>" +
             "<div style='float: left; margin: 10px;color: #00B2A9; '>" +
             "<label for='people1' class='people1'>1</label><input id='people1' class='people-show' type='radio' name='people' value='1'/></div>" +
