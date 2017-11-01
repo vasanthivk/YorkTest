@@ -285,7 +285,7 @@ ini_set('max_execution_time', 5000);
         foreach($dish_details as $dishes){
             $dish = new Dishes();
             $dish->business_name = $dishes->business_name;
-            $dish->id = $dishes->id;
+            $dish->dish_id = $dishes->dish_id;
             $dish->dish_name = $dishes->dish_name;
             $dish->description = $dishes->description;
             $dish->img_url = $dishes->img_url;
