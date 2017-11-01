@@ -14,7 +14,7 @@ Groups
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="{{URL::to('groups/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Groups</a>
+                                        <a href="{{URL::to('groups/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Group</a>
                                         @endif
                                     </div>
                                 </div>

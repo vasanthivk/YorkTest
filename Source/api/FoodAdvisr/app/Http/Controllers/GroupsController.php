@@ -95,7 +95,7 @@ class GroupsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('groups.index')->with('success','Groups Created Successfully!');
+        return Redirect::route('groups.index')->with('success','Group Created Successfully!');
         
         }
     }
@@ -168,7 +168,7 @@ class GroupsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('groups.index')->with('success','Groups Updated Successfully!');
+        return Redirect::route('groups.index')->with('success','Group Updated Successfully!');
         
         }
     }
@@ -184,7 +184,7 @@ class GroupsController extends Controller
          $groups = Groups::find($id);
         if (is_null($groups))
         {
-         return Redirect::back()->with('warning','Groups Details Are Not Found!');
+         return Redirect::back()->with('warning','Group Details Are Not Found!');
         }
         else
         {
@@ -198,7 +198,7 @@ class GroupsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','Groups Deleted Successfully!');
+           return Redirect::back()->with('warning','Group Deleted Successfully!');
         }
     }
 }

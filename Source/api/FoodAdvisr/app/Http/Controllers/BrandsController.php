@@ -95,7 +95,7 @@ class BrandsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('brands.index')->with('success','brands Created Successfully!');
+        return Redirect::route('brands.index')->with('success','brand Created Successfully!');
         
         }
     }
@@ -168,7 +168,7 @@ class BrandsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('brands.index')->with('success','brands Updated Successfully!');
+        return Redirect::route('brands.index')->with('success','brand Updated Successfully!');
         
         }
     }
@@ -184,7 +184,7 @@ class BrandsController extends Controller
          $brands = Brands::find($id);
         if (is_null($brands))
         {
-         return Redirect::back()->with('warning','brands Details Are Not Found!');
+         return Redirect::back()->with('warning','brand Details Are Not Found!');
         }
         else
         {
@@ -198,7 +198,7 @@ class BrandsController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','brands Deleted Successfully!');
+           return Redirect::back()->with('warning','brand Deleted Successfully!');
         }
     }
 }

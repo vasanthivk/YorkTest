@@ -69,7 +69,7 @@
                  <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">
-                        <select multiple name="applicable_days[]" class="form-control select">
+                        <select multiple name="applicable_days[]" id="applicable_id" class="form-control select">
                             <option value="0" if>Sunday</option>
                             <option value="1">Monday</option>
                             <option value="2">Tuesday</option>
@@ -267,6 +267,14 @@
 
     });
     function menuChange(){
+
+        
+
+        var ids = $("#applicable_id").val(dataarray);
+        var data = ids; 
+        var dataarray = data.split(",");
+        alert(dataarray);
+
 
   var id = $("#menus_ids").val();
             $.get("../../api/getmenusectionbymenuIds?menu_id="+id, function(data){

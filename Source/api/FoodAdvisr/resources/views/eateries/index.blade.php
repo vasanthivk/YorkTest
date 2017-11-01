@@ -53,7 +53,7 @@ My Profile
                                 <div class="panel-heading">
                                 @if($privileges['Add']=='true')           
                                     <div class="btn-group pull-left">                      
-                                        <a href="{{URL::to('eateries/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Eateries</a>
+                                        <a href="{{URL::to('eateries/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Eatery</a>
                                     </div>
                                     @endif
                                 </div>
