@@ -45,12 +45,11 @@ class LogsController extends Controller
             $selectedrole = $allroles[0]->id;
         $logs = DB::table('log')
                 ->join('module', 'module.id', '=', 'log.module_id')
-                ->leftjoin('user', 'user.id', '=', 'log.user_id')
-                ->select(DB::raw('log.*,module_name,name,user.role_id'))
-                ->Where('user.role_id','=',$selectedrole)
+                ->leftjoin('person', 'person.id', '=', 'log.user_id')
+                ->select(DB::raw('log.*,module_name,person.email,person.roles'))
+                ->Where('person.roles','=',$selectedrole)
                 ->orderBy('created_on', 'desc')
                 ->get();
-         
         return View::make('logs.index', compact('logs'))
         ->with('roles',$roles)
         ->with('selectedrole',$selectedrole);

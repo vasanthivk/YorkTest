@@ -20,10 +20,11 @@ Users
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('login','Login :',$user->login,array('maxlength' => '100'))  }}
-		        {{ Form::ahText('name','Name :',$user->name,array('maxlength' => '100'))  }}
-		        {{ Form::ahNumber('mobile_no','Mobile No :',$user->mobile_no,array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}               
-                {{ Form::ahSelect('role_id','Role :',$user->role_id,$role) }}
+		         {{ Form::ahText('firstnames','First Name :',$user->firstnames,array('maxlength' => '100'))  }}
+                {{ Form::ahText('surname','Surname :',$user->surname,array('maxlength' => '100'))  }}
+		        {{ Form::ahText('email','Email :',$user->email,array('maxlength' => '100'))  }}
+		        {{ Form::ahNumber('mobileno','Mobile No :',$user->mobileno,array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}
+		        {{ Form::ahSelect('roles','Role :',$user->roles,$role) }}		       
                 {{ Form::ahSelect('status','Status :',$user->status,array('1' => 'Active', '2' => 'Inactive')) }}
 		        </br>
 		    </div>

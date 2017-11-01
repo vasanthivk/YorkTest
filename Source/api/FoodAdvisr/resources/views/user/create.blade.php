@@ -21,15 +21,13 @@ Users
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('login','Login :','',array('maxlength' => '100'))  }}
+                 {{ Form::ahText('firstnames','First Name :','',array('maxlength' => '100'))  }}
+                {{ Form::ahText('surname','Surname :','',array('maxlength' => '100'))  }}
+		        {{ Form::ahText('email','Email :','',array('maxlength' => '100'))  }}
 		        {{ Form::ahPassword('password','Password :',array('maxlength' => '100')) }}
-		        {{ Form::ahText('name','Name :','',array('maxlength' => '100'))  }}
-		        {{ Form::ahNumber('mobile_no','Mobile No :','',array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}
-		        {{ Form::ahSelect('role_id','Role :',null,$role) }}
+		        {{ Form::ahNumber('mobileno','Mobile No :','',array('min'=>'0','maxlength' => '11','max'=>'99999999999')) }}
+		        {{ Form::ahSelect('roles','Role :',null,$role) }}
 		        {{ Form::ahSelect('status','Status :','1',array('1' => 'Active', '2' => 'Inactive')) }}
-		        {{ Form::ahSelect('location_id','Location :',null,$locations) }}
-		        {{ Form::ahSelect('eatery_id','Eateries :',null,$eateries) }}
-		        
 		        </br>
 		    </div>
 		     

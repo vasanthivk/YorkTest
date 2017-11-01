@@ -22,7 +22,7 @@ Users
                                     <table id="customers2" class="table datatable">
                                         <thead>
                                             <tr>
-                                                <th>Login</th>
+                                                <th>Email</th>
                                                 <th>Name</th>
                                                 <th>Role</th>
                                                 <th>Mobile No</th>
@@ -33,16 +33,16 @@ Users
                                         <tbody>                                                    @foreach($users as $user)
                                     <tr>
                                         <td>
-                                            {{$user->login}}
+                                            {{$user->email}}
                                         </td>
                                         <td>
-                                            {{$user->name}}
+                                            {{$user->firstnames}}
                                         </td>
                                         <td>
                                             {{$user->role_name}}
                                         </td>
                                          <td>
-                                            {{$user->mobile_no}}
+                                            {{$user->mobileno}}
                                         </td>
                                         <td>
                                             {{$user->status}}

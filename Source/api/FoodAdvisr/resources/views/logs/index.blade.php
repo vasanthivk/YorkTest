@@ -37,7 +37,7 @@ Logs
                                                 <th>Created On</th>
                                                 <th>Module Name</th>
                                                 <th>Action</th>
-                                                <th>Name</th>
+                                                <th>Email</th>
                                                 <th>Description</th>                           
                                             </tr>
                                         </thead>                                        
@@ -53,7 +53,7 @@ Logs
                                         <td>
                                             {{$log->action}}
                                         </td>
-                                        <td>{{$log->name}}</td>
+                                        <td>{{$log->email}}</td>
                                         <td>{{$log->description}}</td>          
                                     </tr>
                                     @endforeach
