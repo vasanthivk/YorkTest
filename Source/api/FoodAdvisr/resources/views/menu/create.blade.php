@@ -29,7 +29,7 @@ Menu
 	                            <option value="0">Please select group</option>
 	                            @foreach($groups as $group)
 	                            <option value="{{ $group->id }}"> 
-	                              {{ $group->Description }}</option>
+	                              {{ $group->description }}</option>
 	                            @endforeach
 	                        </select>
 	                   </div>

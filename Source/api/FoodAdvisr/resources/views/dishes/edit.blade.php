@@ -17,41 +17,7 @@ Dish
 
 {{ Form::open(array('method' => 'PUT', 'route' => array('dishes.update',$dish->id),'files'=>true)) }}
 <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
-<div class="form-group form-horizontal">
-        <div class="panel panel-default">
-        </br>
-            <div class="col-md-6">   
-                <div class="form-group" style="margin:5px">
-                    <label for="location_id" class="control-label col-sm-4">Groups :</label>
-                     <div class="col-sm-8">
-                            <select class="form-control" id="group_id" name="group_id">
-                                <option value="0">Please select group</option>
-                                @foreach($groups as $group)
-                                <option value="{{ $group->id }}"  <?php 
-                                $val = $group->id;
-                                $res = $dish->group_id;
-                               if($val == $res) 
-                                {
-                                  ?> 
-                                  selected="selected"
-                                  <?php 
-                                } ?>>  
-                                  {{ $group->Description }}</option>
-                                @endforeach
-                            </select>
-                       </div>
-                </div>             
-                {{ Form::ahSelect('menus_ids','Menu Name :',$dish->menus_ids,$menus) }}
-                {{ Form::ahSelect('sections_ids','Section Name :',$dish->sections_ids,$menusection) }}
-                {{ Form::ahSelect('subsections_ids','Sub Section Name :',$dish->subsections_ids,$menusubsection) }}
-                 {{ Form::ahText('dish_name','Dish Name :',$dish->dish_name,array('maxlength' => '100'))  }}
-                 {{ Form::ahNumber('default_price','Price :',$dish->default_price,array('min'=>'0','maxlength' => '20'))  }}
-                 {{ Form::ahTextarea('description','Description :',$dish->description,array('size' => '30x5'))  }}
-                 {{ Form::ahSwitch('is_visible','Is Enabled :',null,$dish->is_visible) }}
-                 {{ Form::ahSwitch('is_featured','Is Featured :',null,$dish->is_featured) }}
-                 {{ Form::ahDate('valid_from','From :',$dish->valid_from) }}
-                 {{ Form::ahDate('valid_till','To :', $dish->valid_till) }}
-                   <?php 
+ <?php 
             if(isset($cuisines) || isset($lifestyle_choices))
             {       
              
@@ -73,6 +39,55 @@ Dish
             $allergens_may_contain=explode(",",$allergens_may_contain);
 
             ?>
+<div class="form-group form-horizontal">
+        <div class="panel panel-default">
+        </br>
+            <div class="col-md-6">   
+                <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4">Groups :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="group_id" name="group_id">
+                                <option value="0">Please select group</option>
+                                @foreach($groups as $group)
+                                <option value="{{ $group->id }}"  <?php 
+                                $val = $group->id;
+                                $res = $dish->group_id;
+                               if($val == $res) 
+                                {
+                                  ?> 
+                                  selected="selected"
+                                  <?php 
+                                } ?>>  
+                                  {{ $group->description }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                </div>             
+                {{ Form::ahSelect('menus_ids','Menu Name :',$dish->menus_ids,$menus) }}
+                {{ Form::ahSelect('sections_ids','Section Name :',$dish->sections_ids,$menusection) }}
+                <div class="form-group" style="margin:5px">
+                    <label for="subsections_ids" class="control-label col-sm-4">Sub Section Name :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="subsections_id" name="subsections_ids">
+                                <option value="0">Please select sub section</option>
+                                @foreach($menusubsection as $subsection)
+                                <option value="{{ $subsection->id }}"  
+                                    $res = $subsection->id;
+                                    $db_res = $dish->id;
+                                if($res == $db_res) echo 'selected="selected"' ?>> 
+                                  {{ $subsection->sub_section_name }}</option>
+                                @endforeach
+                            </select>
+                       </div>
+                </div>
+                 {{ Form::ahText('dish_name','Dish Name :',$dish->dish_name,array('maxlength' => '100'))  }}
+                 {{ Form::ahNumber('default_price','Price :',$dish->default_price,array('min'=>'0','maxlength' => '20'))  }}
+                 {{ Form::ahTextarea('description','Description :',$dish->description,array('size' => '30x5'))  }}
+                 {{ Form::ahSwitch('is_visible','Is Enabled :',null,$dish->is_visible) }}
+                 {{ Form::ahSwitch('is_featured','Is Featured :',null,$dish->is_featured) }}
+                 {{ Form::ahDate('valid_from','From :',$dish->valid_from) }}
+                 {{ Form::ahDate('valid_till','To :', $dish->valid_till) }}
+                  
                   <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">

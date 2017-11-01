@@ -36,7 +36,7 @@ Menu
                                   selected="selected"
                                   <?php 
                                 } ?>>  
-	                              {{ $group->Description }}</option>
+	                              {{ $group->description }}</option>
 	                            @endforeach
 	                        </select>
 	                   </div>

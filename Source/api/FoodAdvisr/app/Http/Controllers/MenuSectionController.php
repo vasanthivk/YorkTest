@@ -63,7 +63,11 @@ class MenuSectionController extends Controller
             ->where('company','=','FoodAdvisr')
             ->select(DB::raw('menu.menu,menu.ref as id'))
             ->pluck('menu','id');
-
+        $menus_count = $menus->count();
+        if($menus_count == 0)
+        {
+            return Redirect::back()->with('warning','Please Add Menu Details While Adding Menu Section!');
+        }
         return View('menusections.create')          
         ->with('menus',$menus)
         ->with('privileges',$privileges);
