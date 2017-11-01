@@ -1026,6 +1026,20 @@ body.on('click','.act-clear-search',function(){
             })            
             $(".eaterymenu-list").html(opmenus);
           }
+            if(!(data.result.dishes == null || data.result.dishes == ""))
+            {
+                opdishes='<div>';
+                data.result.dishes.forEach(function(dishvalue){
+                    opdishes +="<div>"+dishvalues.dish_name+"</div>";
+                    opdishes +="<div>"+dishvalues.description+"</div>";
+                    opdishes +="<div>"+dishvalues.img_url+"</div>";
+                    opdishes +="<div>"+dishvalues.img_url+"</div>";
+                });
+                opdishes="</div>";
+
+                $(".eaterydish-list").html(opdishes);
+            }
+
           if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
           {
             var opLifeStyles = '';
