@@ -60,6 +60,7 @@ ini_set('max_execution_time', 5000);
         {
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
+            $result->menuStructure = getmenubygroupid($id);
             $result->menutypes = getmenutypes($id);
             $result->sectiontypes = getmenusections($id);
             $result->subsectiontypes = getmenusubsections($id);
@@ -329,7 +330,7 @@ ini_set('max_execution_time', 5000);
     }
 
     function getmenubygroupid($id){
-        $menugroup = 'select m.id as menu_id,m.menu, ms.id as section_id,ms.section_name,mss.id as sub_section_id, from menu as m
+        $menugroup = 'select m.id as menu_id,m.menu, ms.id as section_id,ms.section_name,mss.id as sub_section_id, mss.sub_section_name from menu as m
                       inner join eateries as e
                       on m.eatery_id = e.id
                       left join groups as g
@@ -340,7 +341,10 @@ ini_set('max_execution_time', 5000);
                       on ms.id = mss.section_id
                       where m.eatery_id='.$id.';';
         $menugroup_result = DB::select(DB::raw($menugroup));
-        return $menugroup_result;
+        foreach($menugroup_result as $menu){
+            $menuGroup[$menu->menu][$menu->section_name] = $menu->sub_section_name;
+        }
+        return $menuGroup;
     }
     function geteaterymenu($id)
     {

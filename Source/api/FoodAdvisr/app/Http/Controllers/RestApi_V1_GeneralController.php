@@ -179,8 +179,8 @@ class RestApi_V1_GeneralController extends Controller
          $postdata = file_get_contents("php://input");
         if (isset($postdata)) {
             $request = json_decode($postdata);
-            $userid = $request->{'userid'};
-            if($userid == '')
+            $email = $request->{'email'};
+            if($email == '')
             {
                $data = array('status' => -201,'message' => 'Invalid User Id');
                 return $this->appendHeaders($data);
@@ -191,7 +191,7 @@ class RestApi_V1_GeneralController extends Controller
                 $data = array('status' => -202,'message' => 'Invalid Eatery Id');
                 return $this->appendHeaders($data);
             }
-            $returnvalue =  v1_addtofavouriteeatery($userid, $eatery_id);
+            $returnvalue =  v1_addtofavouriteeatery($email, $eatery_id);
 
             $message = "";
             if($returnvalue == -2001)
@@ -222,8 +222,8 @@ class RestApi_V1_GeneralController extends Controller
          $postdata = file_get_contents("php://input");
         if (isset($postdata)) {
             $request = json_decode($postdata);
-            $userid = $request->{'userid'};
-            if($userid == '')
+            $email = $request->{'email'};
+            if($email == '')
             {
                $data = array('status' => -203,'message' => 'Invalid User Id');
                 return $this->appendHeaders($data);
@@ -234,7 +234,7 @@ class RestApi_V1_GeneralController extends Controller
                 $data = array('status' => -204,'message' => 'Invalid Eatery Id');
                 return $this->appendHeaders($data);
             }
-            $returnvalue =  v1_removefromfavouriteeatery($userid, $eatery_id);
+            $returnvalue =  v1_removefromfavouriteeatery($email, $eatery_id);
 
             $message = "";
             if($returnvalue == -2004)
