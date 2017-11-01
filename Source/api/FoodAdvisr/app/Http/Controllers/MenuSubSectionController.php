@@ -65,6 +65,11 @@ class MenuSubSectionController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $sections = MenuSection::pluck('section_name','id');
+        $sections_count = $sections->count();
+        if($sections_count == 0)
+        {
+            return Redirect::back()->with('warning','Please Add Menu Sections Details While Adding Menu Sub Section!');
+        }
         return View('menusubsections.create')  
         ->with('sections',$sections)
         ->with('privileges',$privileges);
