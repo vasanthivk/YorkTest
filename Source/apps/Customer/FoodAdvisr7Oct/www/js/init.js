@@ -1150,10 +1150,10 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.item-bc-eatery',function(){
         var message = "Book a Table" ;
         var html_fields =
-            "<div>Date : <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none;'/></div>" +
-            "<br/><div><label for='appt-time'>Time:<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;' /></div><br/>" +
+            "<div>Date :&nbsp; <i class='fa fa-calendar' ></i><input type='date' id='bookdate' name='booktableDate' value='dd-mm-yyyy' style='display:none; width:71%;float:right'/></div>" +
+            "<br/><div><label for='appt-time'>Time:&nbsp;<i class='fa fa-clock-o' aria-hidden='true'></i> </label><input id='booktime' type='time' name='appt-time' value='13:30' style='display:none;width:71%;float:right' /></div><br/>" +
             "<div>How many people?<br>" +
-            "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
+            "<div style='float: left; margin: 10px;color: #00B2A9; '>" +
             "<label for='people1' class='people1'>1</label><input id='people1' class='people-show' type='radio' name='people' value='1'/></div>" +
              "<div style='float: left; margin: 10px;color: #00B2A9;'>" +
             "<label for='#people2' class='people2'>2</label><input id='people2' class='people-show' type='radio' name='people' value='2'/></div>" +
