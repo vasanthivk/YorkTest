@@ -10,6 +10,7 @@
     <preference name="orientation" value="portrait" />
     <content src="index.html" />
     <access origin="*" />
+    <access origin="tel:*" launch-external="yes" />
     <feature name="http://api.phonegap.com/1.0/camera" />
     <feature name="http://api.phonegap.com/1.0/geolocation" />
     <feature name="http://api.phonegap.com/1.0/network" />
