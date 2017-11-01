@@ -17,6 +17,28 @@ Dish
 
 {{ Form::open(array('method' => 'PUT', 'route' => array('dishes.update',$dish->id),'files'=>true)) }}
 <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
+ <?php 
+            if(isset($cuisines) || isset($lifestyle_choices))
+            {       
+             
+            $cuisines_ids = Session::get('cuisines');
+            $lifestyle_choices_ids = Session::get('lifestyle_choices');
+            $allergens_contain_ids = Session::get('allergens_contain_ids');
+            $applicabledays = Session::get('applicable_days');
+            $allergens_may_contain = Session::get('allergens_may_contain');
+            }
+            $cuisines_ids = $dish->cuisines_ids;
+            $cuisines_ids=explode(",",$cuisines_ids);
+            $lifestyle_choices_ids = $dish->lifestyle_choices_ids;
+            $lifestyle_choices_ids=explode(",",$lifestyle_choices_ids);
+            $applicabledays = $dish->applicable_days;
+            $applicabledays=explode(",",$applicabledays);
+            $allergens_contain_ids = $dish->allergens_contain_ids;
+            $allergens_contain_ids=explode(",",$allergens_contain_ids);
+            $allergens_may_contain = $dish->allergens_may_contain;
+            $allergens_may_contain=explode(",",$allergens_may_contain);
+
+            ?>
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
@@ -65,28 +87,7 @@ Dish
                  {{ Form::ahSwitch('is_featured','Is Featured :',null,$dish->is_featured) }}
                  {{ Form::ahDate('valid_from','From :',$dish->valid_from) }}
                  {{ Form::ahDate('valid_till','To :', $dish->valid_till) }}
-                   <?php 
-            if(isset($cuisines) || isset($lifestyle_choices))
-            {       
-             
-            $cuisines_ids = Session::get('cuisines');
-            $lifestyle_choices_ids = Session::get('lifestyle_choices');
-            $allergens_contain_ids = Session::get('allergens_contain_ids');
-            $applicabledays = Session::get('applicable_days');
-            $allergens_may_contain = Session::get('allergens_may_contain');
-            }
-            $cuisines_ids = $dish->cuisines_ids;
-            $cuisines_ids=explode(",",$cuisines_ids);
-            $lifestyle_choices_ids = $dish->lifestyle_choices_ids;
-            $lifestyle_choices_ids=explode(",",$lifestyle_choices_ids);
-            $applicabledays = $dish->applicable_days;
-            $applicabledays=explode(",",$applicabledays);
-            $allergens_contain_ids = $dish->allergens_contain_ids;
-            $allergens_contain_ids=explode(",",$allergens_contain_ids);
-            $allergens_may_contain = $dish->allergens_may_contain;
-            $allergens_may_contain=explode(",",$allergens_may_contain);
-
-            ?>
+                  
                   <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">

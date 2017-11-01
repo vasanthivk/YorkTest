@@ -17,6 +17,18 @@
 
 {{ Form::open(array('route' => 'dishes.store','files'=>true)) }}
 <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
+
+ <?php 
+            if(isset($cuisines) || isset($lifestyle_choices) || isset($allergens_contain_ids))
+            {
+            $cuisines_ids = Session::get('cuisines');
+            $lifestyle_choices_ids = Session::get('lifestyle_choices');
+            $allergens_contain_ids = Session::get('allergens_contain_ids');
+            $applicable_days = Session::get('applicable_days');
+            $allergens_may_contain = Session::get('allergens_may_contain');
+            }
+            ?>
+
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
@@ -58,7 +70,7 @@
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">
                         <select multiple name="applicable_days[]" class="form-control select">
-                            <option value="0">Sunday</option>
+                            <option value="0" if>Sunday</option>
                             <option value="1">Monday</option>
                             <option value="2">Tuesday</option>
                             <option value="3">Wednesday</option>
@@ -67,17 +79,7 @@
                             <option value="6">Saturday</option>
                         </select>
                     </div>
-                </div>
-                <?php 
-            if(isset($cuisines) || isset($lifestyle_choices) || isset($allergens_contain_ids))
-            {
-            $cuisines_ids = Session::get('cuisines');
-            $lifestyle_choices_ids = Session::get('lifestyle_choices');
-            $allergens_contain_ids = Session::get('allergens_contain_ids');
-            $applicable_days = Session::get('applicable_days');
-            $allergens_may_contain = Session::get('allergens_may_contain');
-            }
-            ?>
+                </div>               
            
              <div class="form-group" style="margin:5px">
                   <label for="cuisine" class="control-label col-sm-4">Cuisines :</label>
@@ -227,7 +229,7 @@
             <div class="panel-footer">
                 <div class="col-md-6 col-md-offset-3">
                     {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-                    {{ link_to_route('menusections.index','Cancel',null, array('class' => 'btn btn-danger')) }}
+                    {{ link_to_route('dishes.index','Cancel',null, array('class' => 'btn btn-danger')) }}
                 </div>
             </div>
         </div>
