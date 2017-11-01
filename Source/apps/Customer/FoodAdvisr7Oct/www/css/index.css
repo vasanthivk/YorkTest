@@ -558,6 +558,9 @@ label.star:before {
   color: black;
   float: left;
 }
+.eatery-menu{color:red}
+.eatery-menu-section{color:green}
+.eatery-menu-subsection{color:orange}
 /*fire42 end*/
 .intol-tab-wrap{
   display:block;

@@ -1002,22 +1002,30 @@ body.on('click','.act-clear-search',function(){
                               (data.result.postal_code == null ? "" : data.result.postal_code + "") ;
           $("#eateryaddress").html(eateryAddress);
 
-
-          // if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == ""))
-          // {
-          //   var opCuisines = [];
-          //   data.result.cuisines_ids.split(',').forEach(function(value){
-          //     for(idxc in cuisines.list)
-          //     {
-          //       if(value == cuisines.list[idxc].id)
-          //       {
-          //         opCuisines.push(cuisines.list[idxc].cuisine_name);              
-          //         break;
-          //       }
-          //     }
-          //   })
-          //   $("#eaterycuisines").html(opCuisines.toString());
-          // }
+          if(!(data.result.menus == null || data.result.menus == ""))
+          {
+            opmenus='';
+            data.result.menus.forEach(function(menuvalue){
+              opmenus += "<div class='eatery-menu'>"+ menuvalue.menu_name+ "</div>"; 
+              if(!(menuvalue.sections == null || menuvalue.sections == ""))
+              {
+                opmenus += "<div>";  
+                menuvalue.sections.forEach(function(sectionvalue){
+                  opmenus += "<div class='eatery-menu-section'>"+ sectionvalue.section_name+ "</div>"; 
+                  if(!(sectionvalue.sub_sections == null || sectionvalue.sub_sections == ""))
+                  {
+                    opmenus += "<div>";  
+                    sectionvalue.sub_sections.forEach(function(subsectionvalue){
+                      opmenus += "<div class='eatery-menu-subsection'>"+ subsectionvalue.sub_section_name+ "</div>";
+                    }) 
+                    opmenus += "</div>";
+                  }
+                })            
+                opmenus += "</div>";
+              }
+            })            
+            $(".eaterymenu-list").html(opmenus);
+          }
           if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
           {
             var opLifeStyles = '';
