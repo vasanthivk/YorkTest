@@ -1076,7 +1076,7 @@ body.on('click','.act-clear-search',function(){
 		
 			
 			
-            body.on('click','.eatery-rating',function(){
+            body.on('click','#rating',function(){
                 var message = "Leave a Review ";
                 var html_fields = "<div class='rating-text'>"+"Did you visit "+data.result.business_name+ ", London? Let us and your communities know what you thought! "
                         +"<br><div class='stars'>" +

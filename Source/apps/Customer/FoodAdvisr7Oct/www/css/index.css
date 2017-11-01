@@ -485,7 +485,7 @@ input.star:checked ~ label.star:before {
 
 input.star-5:checked ~ label.star:before {
     color: #FE7;
-    text-shadow: 0 0 20px #952;
+    /*text-shadow: 0 0 20px #952;*/
 }
 
 input.star-1:checked ~ label.star:before { color: #F62; }
@@ -542,6 +542,7 @@ label.star:before {
     position: relative;
     left: -10px;
     opacity: 0.01;
+    top:-25px;
 }
   .fa-heart-o{
     float: right;
@@ -2792,7 +2793,7 @@ font-size: 0.9rem;
     margin: 0px 10px 10px 0px;}
 	
 .lifestylelist{ 
-font-size: 1rem;
+font-size: 0.9rem;
    
     padding: 8px;
     margin: 5px;
@@ -2803,7 +2804,7 @@ font-size: 1rem;
 	
     width: 10%;
     border: 1px solid #da2a2a;
-    margin: 0px 10px 5px 0px;
+    margin: 0px 10px 10px 0px;
 	}
 .filter-button-submit{ background:#00b2a9; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
 .filter-button-cancel{ background:gray; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}

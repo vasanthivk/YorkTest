@@ -103,7 +103,7 @@
       $('body').on('click','.popupbook-act-button',function(){
         // overlay.hide();
       var message ="This will be live soon. We'll let you know when it's available!";
-      popupcall.show(message,'  Cancel,Ok  ');
+          popupcancel.show(message,'  Cancel,Ok  ');
         // return false;
       });
 
@@ -122,6 +122,57 @@
 
 
   }
+
+
+  var popupcancel = new Object();
+
+  popupcancel.show=function(ptext,buttons){
+      midpop=$('.midpopbook');
+      midpop.css({top:-80});
+      overlay.show();
+      var op='<p>'+ptext+'</p>';
+      if(buttons!='' && buttons!=undefined){
+          op+='<div class="midpopbook-buttons">';
+          var b=buttons.split(',');
+          for(idx in b){
+              vv=b[idx].split('|');
+              ccl='';
+              if(vv[1]!=undefined){
+                  ccl=vv[1];
+              }
+              if(ccl.toLowerCase() == "")
+                  op+='<a href="#index.html" class="popupcancel-act-button '+ccl+'">'+vv[0]+'</a>';
+              else
+                  op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
+          }
+          op+='</div>';
+      }
+      midpop.html(op);
+      midpop.show();
+      bh=$('body').height();
+      poph=midpop.height();
+      ttop=(bh/2)-(poph/2);
+      //midpop.css({top:ttop});
+      midpop.css({top:'150px'});
+
+      $('body').on('click','.popupcancel-act-button',function(){
+          overlay.hide();
+          return false;
+
+
+      });
+
+
+      $('body').on('click','.popupbook-button',function(){
+          overlay.hide();
+          return false;
+      });
+  }
+  popupcancel.hide=function(){
+      overlay.hide();
+      $('.midpopbook').hide();
+  }
+
 
   var popupcall = new Object();
 
@@ -142,7 +193,7 @@
               if(ccl.toLowerCase() == "")
           op+='<a href="#index.html" class="popupcall-act-button call'+ccl+'">'+vv[0]+'</a>';
         else
-          op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
+          op+='<a href="#index.html" class="popupcall-button '+ccl+'">'+vv[0]+'</a>';
         }
           op+='</div>';
       }
@@ -154,7 +205,7 @@
       //midpop.css({top:ttop});
       midpop.css({top:'210px'});
 
-      $('body').on('click','.popupbook-button',function(){
+      $('body').on('click','.popupcall-button',function(){
           overlay.hide();
           return false;
       });
@@ -170,7 +221,7 @@
 
   }
 
-var popuprating = new Object();
+  var popuprating = new Object();
 
   popuprating.show=function(ptext,buttons){
       midpop=$('.midpopbook');
@@ -186,10 +237,10 @@ var popuprating = new Object();
               if(vv[1]!=undefined){
                   ccl=vv[1];
               }
-               if(ccl.toLowerCase() == "")
-          op+='<a href="#index.html" class="popuprating-act-button call '+ccl+'">'+vv[0]+'</a>';
-        else
-          op+='<a href="#index.html" class="popupbook-button '+ccl+'">'+vv[0]+'</a>';
+              if(ccl.toLowerCase() == "")
+                  op+='<a href="#index.html" class="popuprating-act-button'+ccl+'">'+vv[0]+'</a>';
+              else
+                  op+='<a href="#index.html" class="popuprating-button '+ccl+'">'+vv[0]+'</a>';
           }
           op+='</div>';
       }
@@ -203,16 +254,16 @@ var popuprating = new Object();
 
       $('body').on('click','.popuprating-act-button',function(){
           // overlay.hide();
-          var message=$('.rating-text').text();
+          //var message=$('.rating-text').text();
           var x=document.details.star.value;
           var y=document.getElementById("text").value;
-          alert(message +"User Rating:"+x+"text:"+y);
+          alert("User Rating:"+x+"\n text:"+y);
 
 
       });
 
 
-      $('body').on('click','.popupbook-button',function(){
+      $('body').on('click','.popuprating-button',function(){
           overlay.hide();
           return false;
       });
@@ -226,6 +277,8 @@ var popuprating = new Object();
       overlay.hide();
       $('.midpopbook').hide();
   }
+
+
 
 
 
