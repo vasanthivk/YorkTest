@@ -43,8 +43,8 @@ if(in_array(Session::get("role_id"),array(1)))
      <?php
 if(!in_array(Session::get("role_id"),array(2)))
 { ?>                 
-                    <li class="{{ Request::segment(1) === 'uploadeatery' ? 'active' : null }}"><a href="{{action('FoodController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Eateries</span></a>     
-                    </li> 
+                   <!--  <li class="{{ Request::segment(1) === 'uploadeatery' ? 'active' : null }}"><a href="{{action('FoodController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Eateries</span></a>     
+                    </li>  -->
                     <!--  <li class="{{ Request::segment(1) === 'uploadmenu' ? 'active' : null }}"><a href="{{action('UploadMenuController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Menu</span></a>     
                     </li>  -->                                      
                     <li class="{{ Request::segment(1) === 'user' || Request::segment(1) === 'userpermissions' ? 'active' : null }}"><a href="{{action('UserController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">User</span></a>     

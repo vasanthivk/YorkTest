@@ -48,11 +48,10 @@ class UserController extends Controller
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $users = DB::table('user')
-               ->join('role', 'role.id', '=', 'user.role_id')
-                ->select(DB::raw('user.*,role.name as role_name,if(ifnull(user.status,1)=1,"Active","Inactive") as status'))
-                ->get();  
-                // return $users;     
+        $users = DB::table('person')
+               ->join('role', 'role.id', '=', 'person.roles')
+                ->select(DB::raw('person.*,role.name as role_name,if(ifnull(person.status,1)=1,"Active","Inactive") as status'))
+                ->get();
          return View::make('user.index', compact('users'))         
         ->with('privileges',$privileges);
     }
@@ -69,20 +68,10 @@ class UserController extends Controller
         $privileges = $this->getPrivileges();
         if($privileges['Add'] !='true')    
             return Redirect::to('/');       
-        $role = Role::all()->pluck('name','id');
-        $location_id = Input::get('location_id');
-        $locationsAll = Locations::all();
-        $locations = Locations::all()->pluck('Description','LocationID');
-
-        $eateries=null;
-        if($locations->count()>0)
-            $eateries = Eateries::where('LocationId','=',$locationsAll[0]->LocationID)->pluck('BusinessName','id');
-      
+        $role = Role::all()->pluck('name','id');     
          
         return View::make('user.create')
-        ->with('role',$role)
-        ->with('locations',$locations)
-        ->with('eateries',$eateries)            
+        ->with('role',$role)        
         ->with('privileges',$privileges);
     }
    
@@ -94,9 +83,10 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        $input = Input::all();        
+        $input = Input::all(); 
+         
         $this->validate($request, [
-            'login'  => 'required|unique:user','password'  => 'required']);        
+            'email'  => 'required|email|unique:person','password'  => 'required']);        
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -108,20 +98,36 @@ class UserController extends Controller
                 ->with('errors', 'There were validation errors');
         }
         else
-        {    
-            $user = new user();
-            $user->login =  Input::get('login');
-            $user->name =  Input::get('name');
-            $user->password =  Input::get('password');
-            $user->role_id =  Input::get('role_id'); 
-            $user->status =  Input::get('status');
-            $user->mobile_no =  Input::get('mobile_no');
-            $user->save();            
+        {   
+            $token = openssl_random_pseudo_bytes(12);
+            $token = bin2hex($token);
+            $person = new User();
+            $person->ref =  $token;
+            $person->email =  Input::get('email');
+            $person->firstnames =  (Input::get('firstnames')== ''  ? ' ' : Input::get('firstnames'));
+            $person->surname =  (Input::get('surname')== ''  ? ' ' : Input::get('surname'));
+            $person->password =  password_hash(Input::get('password'), PASSWORD_DEFAULT);
+            $person->roles =  Input::get('roles'); 
+            $person->status =  Input::get('status');
+            $person->mobileno =  (Input::get('mobileno')== ''  ? ' ' : Input::get('mobileno'));
+            $person->pin =  ' ';
+            $person->hash =  ' ';
+            $person->adminroles =  ' ';
+            $person->lastloginstate =  ' ';
+            $person->lastlogintime =  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $person->failedlogins =  0;
+            $person->secret =  ' ';
+            $person->date_created =  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $person->created_by =  Input::get('roles');
+            $person->date_modified =   Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $person->modified_user_id =  Input::get('roles');
+            $person->settings =  ' ';
+            $person->save();            
 
             $log = new Log();
             $log->module_id=4;
             $log->action='create';      
-            $log->description='User ' . $user->name . ' is created';
+            $log->description='User ' . $person->firstnames . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
@@ -175,13 +181,8 @@ class UserController extends Controller
     {
          $input = Input::all(); 
 
-         $file = array_get($input,'logo');
-        $extension = '';
-        if($file <> null)
-            $extension = $this->saveLogoInTempLocation($file);
-
          $this->validate($request, [
-            'login'  => 'required']);
+            'email'  => 'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
@@ -195,18 +196,35 @@ class UserController extends Controller
         else
         {   
             
-            $user = User::find($id);
-            $user->login =  Input::get('login');
-            $user->name =  Input::get('name');
-            $user->role_id =  Input::get('role_id'); 
-            $user->status =  Input::get('status');
-            $user->mobile_no =  Input::get('mobile_no');
-            $user ->update();
+            $person = User::find($id);
+            $token = openssl_random_pseudo_bytes(12);
+            $token = bin2hex($token);
+            $person->ref =  $token;
+            $person->email =  Input::get('email');
+            $person->firstnames =  (Input::get('firstnames')== ''  ? ' ' : Input::get('firstnames'));
+            $person->surname =  (Input::get('surname')== ''  ? ' ' : Input::get('surname'));
+            $person->password =  password_hash(Input::get('password'), PASSWORD_DEFAULT);
+            $person->roles =  Input::get('roles'); 
+            $person->status =  Input::get('status');
+            $person->mobileno =  (Input::get('mobileno')== ''  ? ' ' : Input::get('mobileno'));
+            $person->pin =  ' ';
+            $person->hash =  ' ';
+            $person->adminroles =  ' ';
+            $person->lastloginstate =  ' ';
+            $person->lastlogintime =  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $person->failedlogins =  0;
+            $person->secret =  ' ';
+            $person->date_created =  Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $person->created_by =  Input::get('roles');
+            $person->date_modified =   Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $person->modified_user_id =  Input::get('roles');
+            $person->settings =  ' ';
+            $person ->update();
 
             $log = new Log();
             $log->module_id=4;
             $log->action='update';      
-            $log->description='User ' . $user->name . ' is updated';
+            $log->description='User ' . $person->firstnames . ' is updated';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
@@ -238,7 +256,7 @@ class UserController extends Controller
             $log = new Log();
             $log->module_id=4;
             $log->action='delete';      
-            $log->description='User '. $user->name . ' is Deleted';
+            $log->description='User '. $user->firstnames . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
