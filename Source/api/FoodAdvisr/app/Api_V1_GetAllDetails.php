@@ -268,23 +268,15 @@ ini_set('max_execution_time', 5000);
     }
     function geteaterymenu($id)
     {
-        /*$menu = DB::table('dishes')
-            ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
-            ->where('dishes.eatery_id', '=', $id)
-            ->where('dishes.is_visible', '=', '1')
-            ->select(DB::raw('eateries.business_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
-            ->get();*/
         $dish_details = DB::table('dishes')
-            ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
             ->where('dishes.eatery_id', '=', $id)
             ->where('dishes.is_visible', '=', '1')
-            ->select(DB::raw('eateries.business_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
+            ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
             ->get();
 
         $dish_array = [];
         foreach($dish_details as $dishes){
             $dish = new Dishes();
-            $dish->business_name = $dishes->business_name;
             $dish->dish_id = $dishes->dish_id;
             $dish->dish_name = $dishes->dish_name;
             $dish->description = $dishes->description;
