@@ -308,13 +308,13 @@ class EateriesController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='create';      
-            $log->description='Eateries ' . $eateries->business_name . ' is created';
+            $log->description='Eatery ' . $eateries->business_name . ' is created';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('eateries.index')->with('success','Eateries Created Successfully!');
+        return Redirect::route('eateries.index')->with('success','Eatery Created Successfully!');
         
         }
     }
@@ -534,13 +534,13 @@ class EateriesController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='update';      
-            $log->description='Eateries ' . $eateries->business_name . ' is updated';
+            $log->description='Eatery ' . $eateries->business_name . ' is updated';
             $log->created_on=  Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get('user_id'); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('eateries.index')->with('success','Eateries Updated Successfully!');
+        return Redirect::route('eateries.index')->with('success','Eatery Updated Successfully!');
         
         }
     }
@@ -556,7 +556,7 @@ class EateriesController extends Controller
         $eateries = Eateries::find($id);
         if (is_null($eateries))
         {
-         return Redirect::back()->with('warning','Eateries Details Are Not Found!');
+         return Redirect::back()->with('warning','Eatery Details Are Not Found!');
         }
         else
         {
@@ -574,13 +574,13 @@ class EateriesController extends Controller
             $log = new Log();
             $log->module_id=2;
             $log->action='delete';      
-            $log->description='Eateries '. $eateries->business_name . ' is Deleted';
+            $log->description='Eatery '. $eateries->business_name . ' is Deleted';
             $log->created_on= Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $log->user_id=Session::get("user_id"); 
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-           return Redirect::back()->with('warning','Eateries Deleted Successfully!');
+           return Redirect::back()->with('warning','Eatery Deleted Successfully!');
         }
     }
 }

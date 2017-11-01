@@ -3,7 +3,7 @@
 FoodAdvisr-Brands
 @endsection
 @section('module')
-Brands
+Brand
 @endsection
 
 @section('content')

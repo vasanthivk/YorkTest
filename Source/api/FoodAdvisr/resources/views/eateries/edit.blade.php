@@ -4,7 +4,7 @@
 FoodAdvisr-Eateries
 @endsection
 @section('module')
-Eateries
+Eatery
 @endsection
 @elseif(Session::get("role_id")==2) 
 @section('title')

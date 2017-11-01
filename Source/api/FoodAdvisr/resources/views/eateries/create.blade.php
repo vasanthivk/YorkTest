@@ -3,7 +3,7 @@
 FoodAdvisr-Eateries
 @endsection
 @section('module')
-Eateries
+Eatery
 @endsection
 
 @section('content')

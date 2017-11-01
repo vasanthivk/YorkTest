@@ -3,7 +3,7 @@
 FoodAdvisr-Menu Sub Sections
 @endsection
 @section('module')
-Menu Sub Sections
+Menu Sub Section
 @endsection
 
 @section('content')
