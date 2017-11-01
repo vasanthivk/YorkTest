@@ -60,7 +60,6 @@ ini_set('max_execution_time', 5000);
         {
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
-            $result->menuStructure = getmenubygroupid($id);
             $result->menutypes = getmenutypes($id);
             $result->sectiontypes = getmenusections($id);
             $result->subsectiontypes = getmenusubsections($id);
