@@ -3,7 +3,7 @@
 FoodAdvisr-Groups
 @endsection
 @section('module')
-Groups
+Group
 @endsection
 
 @section('content')
