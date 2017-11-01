@@ -60,11 +60,8 @@ ini_set('max_execution_time', 5000);
         {
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
-            //$result->menudetails = getmenubygroupid($id);
-            $result->menutypes = getmenutypes($id);
-            $result->sectiontypes = getmenusections($id);
-            $result->subsectiontypes = getmenusubsections($id);
-            $result->menu = geteaterymenu($id);
+            $result->menus = getmenubygroupid($id);
+            $result->dishes = geteaterymenu($id);
         }
         return $result;     
     }
@@ -223,173 +220,84 @@ ini_set('max_execution_time', 5000);
 
     }
 
-    function getmenutypes($id)
-    {
-        $sql = 'select ifnull(menus_ids,"0") as menus_ids from dishes where eatery_id=' . $id . ' and is_visible=1';
-        $sql_result = DB::select(DB::raw($sql));
-        $menu_result=array();
-        $menu_id=array();
-        if($sql_result != 0){
-            foreach ($sql_result as $menus) {
-                $menu_ids = $menus->menus_ids;
-                $menu_id[] = $menu_ids;
-            }
-            $menu_ids = implode(',', $menu_id);
-            $menu_idss = array_unique(explode(",", $menu_ids));
-            $i = 0;
-            foreach ($menu_idss as $menus_id) {
-                $menu_group_result = DB::table('menu')
-                    ->where('ref', '=', $menus_id)
-                    ->select(DB::raw('ref as id,menu as menu_name'))
-                    ->get();
-                foreach ($menu_group_result as $result) {
-                    $menu_result[$i]['menu_id'] = $result->id;
-                    $menu_result[$i]['menu_name'] = $result->menu_name;
-                }
-                $i++;
-            }
-        }else{
-            $menu_result = array();
-        }
-
-        return $menu_result;
-    }
-
-    function getmenusections($id)
-    {
-        $sql = 'select ifnull(sections_ids,"0") as sections_ids from dishes where eatery_id=' . $id . ' and is_visible=1';
-        $sql_result = DB::select(DB::raw($sql));
-        $section_result = array();
-        $section_id=array();
-        $temp_id = 0;
-        if($sql_result != 0){
-            foreach ($sql_result as $section) {
-                $section_ids = $section->sections_ids;
-                $section_id[] = $section_ids;
-            }
-            $section_ids = implode(',', $section_id);
-            $sectionsids = array_unique(explode(',', $section_ids));
-            $i = 0;
-
-            foreach ($sectionsids as $section_detail) {
-                $section_group_result = DB::table('menu_section')
-                    ->where('id', '=', $section_detail)
-                    ->select(DB::raw('id,menu_id,section_name'))
-                    ->get();
-
-                foreach ($section_group_result as $result) {
-                    $section_result[$i]['section_id'] = $result->id;
-                    $section_result[$i]['menu_id'] = $result->menu_id;
-                    $section_result[$i]['section_name'] = $result->section_name;
-                }
-                $i++;
-            }
-        }else{
-            $section_result = array();
-        }
-
-        return $section_result;
-    }
-
-    function getmenusubsections($id)
-    {
-        $sql = 'select ifnull(subsections_ids,"0") as subsections_ids from dishes where eatery_id=' . $id . ' and is_visible=1';
-        $sql_result = DB::select(DB::raw($sql));
-        $subsection_result = array();
-        $subsection_id=array();
-        if($sql_result != 0){
-            $temp_id = 0;
-            foreach ($sql_result as $subsection) {
-                $subsection_ids = $subsection->subsections_ids;
-                $subsection_id[] = $subsection_ids;
-            }
-            $subsection_ids = implode(',', $subsection_id);
-            $subsectionsids = array_unique(explode(',', $subsection_ids));
-            $i = 0;
-
-            foreach ($subsectionsids as $subsection_detail) {
-                $subsection_group_result = DB::table('menu_sub_section')
-                    ->where('id', '=', $subsection_detail)
-                    ->select(DB::raw('id,section_id,sub_section_name'))
-                    ->get();
-
-                foreach ($subsection_group_result as $result) {
-                    $subsection_result[$i]['subsection_id'] = $result->id;
-                    $subsection_result[$i]['section_id'] = $result->section_id;
-                    $subsection_result[$i]['subsection_name'] = $result->sub_section_name;
-                }
-                $i++;
-            }
-        }
-        else{
-            $subsection_result = array();
-        }
-
-        return $subsection_result;
-
-    }
-
     function getmenubygroupid($id){
-        $menugroup = 'select m.ref as menu_id,m.group_id,m.eatery_id,m.menu, ms.id as section_id,ms.menu_id,ms.section_name,mss.id as sub_section_id,mss.section_id,mss.sub_section_name from menu as m
-                      inner join eateries as e
-                      on m.eatery_id = e.id
-                      left join groups as g
-                      on e.group_id = g.id
-                      inner join menu_section as ms
-                      on m.ref = ms.menu_id
-                      left join menu_sub_section as mss
-                      on ms.id = mss.section_id
-                      where m.eatery_id='.$id.' and company="FoodAdvisr";';
-        $menugroup_result = DB::select(DB::raw($menugroup));
+        $menu_details = DB::table('menu')
+            ->select(DB::raw('ref,menu,description'))
+            ->where('eatery_id','=',$id)
+            ->get();
+        $menuDetails = [];
 
-        foreach($menugroup_result as $menugroup){
+        foreach($menu_details as $menu){
+            $menus = new Menu();
+            $menus->id = $menu->ref;
+            $menus->menu_name = $menu->menu;
+            $menus->menu_description = $menu->description;
+            $menu_section_details = DB::table('menu_section')
+                ->select(DB::raw('id,section_name,description'))
+                ->where('menu_id','=',$menu->ref)
+                ->get();
+            $section_array = [];
+            foreach($menu_section_details as $section){
+                $menu_section = [];
+                $menu_section = new MenuSection();
+                $menu_section->section_id = $section->id;
+                $menu_section->section_name = $section->section_name;
+                $menu_section->description = $section->description;
 
-            $sql = 'select from dishes as d
-                    inner join eateries as e
-                    on e.id = d.eatery_id
-                    where d.group_id = '.$menugroup->group_id.' or d.eatery_id = '.$menugroup->eatery_id.' and d.menus_ids in('.$menugroup->menu_id.') and d.sections_ids in('.$menugroup->section_id.') and d.subsections_ids in('.$menugroup->sub_section_id.') and d.is_visible=1;';
+                $menu_sub_section_details = DB::table('menu_sub_section')
+                    ->select(DB::raw('id,sub_section_name,description'))
+                    ->where('section_id','=',$section->id)
+                    ->get();
+                $sub_section_array = [];
+                foreach($menu_sub_section_details as $sub_section){
+                    $menu_sub_section = new MenuSubSection();
+                    $menu_sub_section->sub_section_id = $sub_section->id;
+                    $menu_sub_section->sub_section_name = $sub_section->sub_section_name;
+                    $menu_sub_section->description = $sub_section->description;
 
-
-            $menugroup_result1 = DB::select(DB::raw($sql));
-
-
-            /*$menugroup_result1 = DB::table('dishes')
-                ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
-                ->where('dishes.group_id', '=', $menugroup->group_id)
-                ->Orwhere('dishes.eatery_id', '=', $menugroup->eatery_id)
-                ->whereIn('dishes.menus_ids',array($menugroup->menu_id))
-                ->whereIn('dishes.sections_ids',array($menugroup->section_id))
-                ->whereIn('dishes.subsections_ids',array($menugroup->sub_section_id))
-                ->where('dishes.is_visible', '=', '1')
-                ->select(DB::raw('eateries.business_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
-                ->get();*/
+                    $sub_section_array[] = $menu_sub_section;
+                }
+                $menu_section['sub_sections'] = $sub_section_array ;
+                $section_array[] = $menu_section;
+            }
+            $menus['sections'] = $section_array;
+            $menuDetails[] = $menus;
         }
 
-        $i=0;
-        foreach($menugroup_result as $menu){
-            if(isset($menu->sub_section_id) && !empty($menu->sub_section_id)){
-                $menuGroupResult[$i][$menu->menu][$i][$menu->section_name][$i][$menu->sub_section_name][$i]['menu']=$menu->menu;
-                $menuGroupResult[$i][$menu->menu][$i][$menu->section_name][$i][$menu->sub_section_name][$i]['section']=$menu->section_name;
-                $menuGroupResult[$i][$menu->menu][$i][$menu->section_name][$i][$menu->sub_section_name][$i]['sub_section']=$menu->sub_section_name;
-            }
-            else{
-                $menuGroupResult[$i][$menu->menu][$i][$menu->section_name][$i]['menu']=$menu->menu;
-                $menuGroupResult[$i][$menu->menu][$i][$menu->section_name][$i]['section']=$menu->section_name;
-            }
-        }
-        return $menugroup_result1;
+       return $menuDetails;
     }
     function geteaterymenu($id)
     {
-        $menu = DB::table('dishes')
+        /*$menu = DB::table('dishes')
+            ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
+            ->where('dishes.eatery_id', '=', $id)
+            ->where('dishes.is_visible', '=', '1')
+            ->select(DB::raw('eateries.business_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
+            ->get();*/
+        $dish_details = DB::table('dishes')
             ->join('eateries', 'dishes.eatery_id', '=', 'eateries.id')
             ->where('dishes.eatery_id', '=', $id)
             ->where('dishes.is_visible', '=', '1')
             ->select(DB::raw('eateries.business_name,dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
             ->get();
 
+        $dish_array = [];
+        foreach($dish_details as $dishes){
+            $dish = new Dishes();
+            $dish->business_name = $dishes->business_name;
+            $dish->id = $dishes->id;
+            $dish->dish_name = $dishes->dish_name;
+            $dish->description = $dishes->description;
+            $dish->img_url = $dishes->img_url;
+            $dish->default_price = $dishes->default_price;
+            $dish->menus_ids = $dishes->menus_ids;
+            $dish->sections_ids = $dishes->sections_ids;
+            $dish->subsections_ids = $dishes->subsections_ids;
+            $dish_array[] = $dish;
+        }
 
-        return $menu;
+
+        return $dish_array;
 
     }
 
