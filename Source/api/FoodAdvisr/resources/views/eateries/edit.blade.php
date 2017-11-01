@@ -269,9 +269,9 @@ function initialize() {
     });
 }
 function bindDataToForm(address,lat,lng){
-   document.getElementById('Address').value = address;
-   document.getElementById('Latitude').value = lat;
-   document.getElementById('Longitude').value = lng;
+   document.getElementById('address').value = address;
+   document.getElementById('latitude').value = lat;
+   document.getElementById('longitude').value = lng;
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script> 

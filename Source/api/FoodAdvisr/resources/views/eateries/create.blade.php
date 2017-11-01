@@ -142,14 +142,6 @@ Eatery
  </div>
  <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDQRQHxDzP0SoX_WMbskBK3OOr5qT3QK08&libraries=places"></script>
   <script>
-/* script */
-$(document).ready(function(){
-    $('#myDynamicSelectBox').change(function(){
-         localStorage.setItem('cuisines_ids', $(this).val());
-         $('#myDynamicSelectBox').value(localStorage.getItem('mySelectLocalstorageValue'));
-    });
-});
-
  function ChooseContact(data) {
 
 var location = document.getElementById ("searchInput").value = data.value;
@@ -211,9 +203,9 @@ function initialize() {
     });
 }
 function bindDataToForm(address,lat,lng){
-   document.getElementById('Address').value = address;
-   document.getElementById('Latitude').value = lat;
-   document.getElementById('Longitude').value = lng;
+   document.getElementById('address').value = address;
+   document.getElementById('latitude').value = lat;
+   document.getElementById('longitude').value = lng;
 }
 google.maps.event.addDomListener(window, 'load', initialize);
 </script> 
