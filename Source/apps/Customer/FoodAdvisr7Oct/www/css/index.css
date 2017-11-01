@@ -2806,7 +2806,19 @@ font-size: 0.9rem;
     border: 1px solid #da2a2a;
     margin: 0px 10px 10px 0px;
 	}
-.filter-button-submit{ background:#00b2a9; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
+.filter-button-submit {
+    background: #00b2a9;
+    padding: 10px;
+    margin: auto;
+    position: fixed;
+    top: 100px;
+    bottom: 10px;
+    color: #fff;
+    width: 73%;
+    height: 40px;
+    text-align: center;
+    cursor: pointer;
+}
 .filter-button-cancel{ background:gray; padding:10px; margin:auto; display:block; color:#fff; width:80px; text-align:center; cursor:pointer}
 .filter{float: right;
     margin: 18px;
