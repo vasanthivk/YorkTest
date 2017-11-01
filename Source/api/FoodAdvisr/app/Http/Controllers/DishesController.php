@@ -78,13 +78,21 @@ class DishesController extends Controller
 
         $menuAll = Menu::where('is_visible','=','1')->where('company','=','FoodAdvisr')->get();
         $menus = Menu::all()->where('is_visible','=','1')->where('company','=','FoodAdvisr')->pluck('menu','ref');
-       
+        $menus_count = $menus->count();
+        if($menus_count == 0)
+        {
+            return Redirect::back()->with('warning','Please Add Menu Details While Adding Dish!');
+        }
         $menusection=null;
         if($menus->count()>0)
         {
             $menusection = MenuSection::where('menu_id','=',$menuAll[0]->ref)->pluck('section_name','id');
         }
-
+        $menusection_count = $menus->count();
+        if($menusection_count == 0)
+        {
+            return Redirect::back()->with('warning','Please Add Menu Section Details While Adding Dish!');
+        }
         $menusubsection=null;
         if($menusection->count()>0)
         {
@@ -562,17 +570,17 @@ class DishesController extends Controller
      */
     public function destroy($id)
     {
-        $dish = Dishes::where('id','=',$id)->get();
+        $dish = Dishes::find($id);
         if (is_null($dish))
         {
          return Redirect::back()->with('warning','Dish Details Are Not Found!');
         }
         else
         {
-           Items::where('id','=',$id)->delete();
+           Dishes::find($id)->delete();
 
-            try {
-                $this->deleteLogo($dish->img_url);
+             try {
+                $this->deleteLogo($dish->id, $dish->logo_extension);
             } catch (Exception $e) {
             }
 
