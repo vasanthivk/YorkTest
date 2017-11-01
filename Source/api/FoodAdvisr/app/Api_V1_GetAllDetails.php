@@ -154,21 +154,21 @@ ini_set('max_execution_time', 5000);
         return $result;
     }
 
-    function v1_addtofavouriteeatery($email, $eatery_id)
+    function v1_addtofavouriteeatery($userid, $eatery_id)
     {
-        $user_count = AppCustomers::where('email',$email)->count();
+        $user_count = AppCustomers::where('id',$userid)->count();
         if($user_count == 0)
             return -2002;
         $eatery_count = Eateries::where('id',$eatery_id)->count();
         if($eatery_count == 0)
             return -2001;
             
-        $user_insert_count = UserFavouriteEateries::where('email',$email)
+        $user_insert_count = UserFavouriteEateries::where('userid',$userid)
         ->where('eatery_id',$eatery_id)->count();
         if($user_insert_count == 0)
         {
             $userfavouriteeateries = new UserFavouriteEateries();
-            $userfavouriteeateries->email = $email;
+            $userfavouriteeateries->userid = $userid;
             $userfavouriteeateries->eatery_id = $eatery_id;
             $userfavouriteeateries->save();
             return 'Added Favourite Eatery Successfully';
@@ -177,41 +177,41 @@ ini_set('max_execution_time', 5000);
             return -2003;
     }
 
-    function v1_removefromfavouriteeatery($email, $eatery_id)
+    function v1_removefromfavouriteeatery($userid, $eatery_id)
     {
-        $user_count = AppCustomers::where('email',$email)->count();
+        $user_count = AppCustomers::where('id',$userid)->count();
         if($user_count == 0)
             return -2005;
         $eatery_count = Eateries::where('id',$eatery_id)->count();
         if($eatery_count == 0)
             return -2004;
 
-        $user_remove_count = UserFavouriteEateries::where('email',$email)
+        $user_remove_count = UserFavouriteEateries::where('userid',$userid)
         ->where('eatery_id',$eatery_id)->count();
         if($user_remove_count == 0)
             return -2006;
         else
         {
-           $result = DB::table('user_favourite_eateries')->where('email', $email)->where('eatery_id',$eatery_id)->delete();
+           $result = DB::table('user_favourite_eateries')->where('userid', $userid)->where('eatery_id',$eatery_id)->delete();
             return 'Removed Favourite Eatery Successfully';
         }
     }
 
-    function v1_getfavouriteeateries($email)
+    function v1_getfavouriteeateries($userid)
     {
-        $sql  = "select eatery_id from user_favourite_eateries where email='". $email."'";
+        $sql  = "select eatery_id from user_favourite_eateries where userid='". $userid."'";
         $result = DB::select( DB::raw($sql));
         return $result;
     }
 
-    function v1_removefavouriteeateries($email,$eatery_id)
+    function v1_removefavouriteeateries($userid,$eatery_id)
     {
-     $user_remove_count = AppUsersDelete::where('email',$email)
+     $user_remove_count = AppUsersDelete::where('userid',$userid)
         ->where('eatery_id',$eatery_id)->count();
       if($user_remove_count == 0)
       {
        $removefavouriteeateries = new AppUsersDelete();
-       $removefavouriteeateries->email = $email;
+       $removefavouriteeateries->userid = $userid;
        $removefavouriteeateries->eatery_id = $eatery_id;
        $removefavouriteeateries->deleted_on =  Carbon::now(new DateTimeZone('Europe/London'));
        $removefavouriteeateries->save();
@@ -329,7 +329,7 @@ ini_set('max_execution_time', 5000);
     }
 
     function getmenubygroupid($id){
-        $menugroup = 'select m.id as menu_id,m.menu, ms.id as section_id,ms.section_name,mss.id as sub_section_id, mss.sub_section_name from menu as m
+        $menugroup = 'select m.id as menu_id,m.menu, ms.id as section_id,ms.section_name,mss.id as sub_section_id,mss.sub_section_name from menu as m
                       inner join eateries as e
                       on m.eatery_id = e.id
                       left join groups as g
@@ -341,9 +341,10 @@ ini_set('max_execution_time', 5000);
                       where m.eatery_id='.$id.';';
         $menugroup_result = DB::select(DB::raw($menugroup));
         foreach($menugroup_result as $menu){
-            $menuGroup[$menu->menu][$menu->section_name] = $menu->sub_section_name;
+            $menuGroup['menu'] = $menu->menu;
+            
         }
-        return $menuGroup;
+        return $menugroup_result;
     }
     function geteaterymenu($id)
     {
