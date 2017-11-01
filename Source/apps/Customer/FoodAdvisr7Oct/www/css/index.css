@@ -558,9 +558,10 @@ label.star:before {
   color: black;
   float: left;
 }
-.eatery-menu{color:red}
-.eatery-menu-section{color:green}
-.eatery-menu-subsection{color:orange}
+.eatery-menu{display:block; padding:10px 5px 5px 5px; font-size:1rem;color:#000;  background:#fff; font-weight:bold;text-transform: uppercase; text-align:center; border-top:1px solid #ccc;}
+.eatery-menu-section{display:block; padding:2px 5px 5px 30px; font-size:0.95rem;color:#000; background:#fff}
+.eatery-menu-subsection{display:block;padding:2px 5px 5px 60px; font-size:0.95rem;color:#000;background:#fff;}
+
 /*fire42 end*/
 .intol-tab-wrap{
   display:block;
