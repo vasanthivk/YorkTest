@@ -153,10 +153,15 @@ Dish
             </div>
             <div class="col-md-6">
                 <div class="form-group" style="margin:5px">
-                    <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>
-                    <div class="col-sm-6 ingrediants">
-                        <input class="form-control" maxlength="100" name="item_ingredients[]" type="text" value="" id="item_ingredients">
+                    <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>                  
+
+                   <?php if(count($ingredients) > 0 ) {?>
+                        <div class="col-sm-6 ingrediants">
+                            @foreach($ingredients as $ingredient)
+                        <input class="form-control" maxlength="100" name="item_ingredients[]" type="text" value="{{$ingredient->name}}" id="item_ingredients">
+                         @endforeach
                     </div>
+                    <?php } ?>
                     <div class="col-sm-2">
                         <a class="btn btn-primary" id="ingrediant_add">Add</a>
                     </div>
