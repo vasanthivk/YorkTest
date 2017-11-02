@@ -135,7 +135,8 @@ api.getEateryDetails=function(eateryid, callBack)
 
 api.getFavouriteEateries=function(callBack)
 {
-    postData = '{"userid":"'+ userdata.email + '"}';
+    //postData = '{"userid":"'+ userdata.email + '"}';
+    postData = '{"userid":"1"}';
     $.post(api.eateiesroot+'getfavouriteeateries',postData,function(data){
       callBack(data);
     }).fail(function(error){
@@ -145,7 +146,8 @@ api.getFavouriteEateries=function(callBack)
 
 api.addToFavouriteEatery=function(eateryid,callBack)
 {
-    postData = '{"userid":"'+ userdata.email + '","eatery_id" : "' + eateryid + '"}';
+    //postData = '{"userid":"'+ userdata.email + '","eatery_id" : "' + eateryid + '"}';
+    postData = '{"userid":"1","eatery_id" : "' + eateryid + '"}';
     $.post(api.eateiesroot+'addtofavouriteeatery',postData,function(data){
       callBack(data);
     }).fail(function(error){
@@ -155,7 +157,8 @@ api.addToFavouriteEatery=function(eateryid,callBack)
 
 api.removeFromFavouriteEatery=function(eateryid,callBack)
 {
-    postData = '{"userid":"'+ userdata.email + '","eatery_id" : "' + eateryid + '"}';
+    //postData = '{"userid":"'+ userdata.email + '","eatery_id" : "' + eateryid + '"}';
+    postData = '{"userid":"1","eatery_id" : "' + eateryid + '"}';
     $.post(api.eateiesroot+'removefromfavouriteeatery',postData,function(data){
       callBack(data);
     }).fail(function(error){

@@ -848,13 +848,13 @@ body.on('click','.act-clear-search',function(){
           for(idx in data.result){
             if(data.result[idx].is_associated == 1)
             {
-                var favouriticon = ''; //<i class="fa fa-heart-o"></i>'; 
-                // favouriteseateries.forEach(function(data){
-                //   if(data.eatery_id == data.result[idx].id)
-                //   {
-                //     favouriticon = '<i class="fa fa-heart"  style="color:red"></i>';
-                //   }
-                // })
+                var favouriticon = '<i class="fa fa-heart-o" style="margin: 0 5px 0 5px;"></i>'; 
+                favouriteseateries.forEach(function(favdata){
+                  if(favdata.eatery_id == data.result[idx].id)
+                  {
+                    favouriticon = '<i class="fa fa-heart"  style="color:red; margin: 0 5px 0 5px;"></i>';
+                  }
+                })
             var opCuisines = [];
                 if(!(data.result[idx].cuisines_ids == null || data.result[idx].cuisines_ids == ""))
                 {
@@ -873,7 +873,8 @@ body.on('click','.act-clear-search',function(){
             $('#eatery-list').append('<li class="act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id 
               + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:30px; color:#000; margin:15px 5px 10px 5px">&nbsp</i><br>Delete</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:30px; color:#f00;  margin:15px 5px 0 5px">&nbsp</i><br><br><br>Favourite</a></div><a href="" data-id="' + data.result[idx].id 
               + '"><img style="height:75px;top:10px;left:10px; " src="'+objInit.mediaPath + data.result[idx].logo_path+'"/><h3>' + data.result[idx].business_name 
-              + '</h3><p> ' + opCuisines.toString()  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].foodadvisr_overall_rating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].clicks_after_associated+'</p></a></li>');
+              + '</h3><p> ' + opCuisines.toString()  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].foodadvisr_overall_rating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].clicks_after_associated + 
+               favouriticon +'</p></a></li>');
                 $(function() {
 
                 function prevent_default(e) {
