@@ -56,5 +56,16 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "cordova-plugin-camera": {
+        "source": {
+            "type": "registry",
+            "id": "cordova-plugin-camera@^2.4.1"
+        },
+        "is_top_level": true,
+        "variables": {
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": "App would like to access the library to store screenshot results.",
+            "CAMERA_USAGE_DESCRIPTION": "we use camera to scan barcode of products to give accurrate results."
+        }
     }
 }

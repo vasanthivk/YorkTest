@@ -26,6 +26,11 @@
         "phonegap-plugin-barcodescanner": {
             "CAMERA_USAGE_DESCRIPTION": " ",
             "PACKAGE_NAME": "com.foodadvisr.main"
+        },
+        "cordova-plugin-camera": {
+            "CAMERA_USAGE_DESCRIPTION": "we use camera to scan barcode of products to give accurrate results.",
+            "PHOTOLIBRARY_USAGE_DESCRIPTION": "App would like to access the library to store screenshot results.",
+            "PACKAGE_NAME": "foodadvisr.testfilght.002"
         }
     },
     "dependent_plugins": {
