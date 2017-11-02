@@ -40,25 +40,6 @@
         <div class="page-container">
             
             <div class="page-content" style="margin-left: 0px;">
-                <!-- START X-NAVIGATION VERTICAL -->
-                <ul class="x-navigation x-navigation-horizontal x-navigation-panel">
-                    <!-- TOGGLE NAVIGATION -->
-                    
-                    <!-- END TOGGLE NAVIGATION -->
-                    <!-- SEARCH -->
-                    
-                    <li class="xn-icon-button pull-right">
-                        <a href="#" class="mb-control" data-box="#mb-signout"><span class="fa fa-sign-out"></span></a>                        
-                    </li> 
-                    
-                        <img src="../../img/profile-thumbnail.png" alt="" / class="img-circle pull-right" height="38" style="margin-top: 5px;">                           
-                    <!-- END SEARCH -->
-                    <!-- SIGN OUT -->
-                    
-                </ul>
-                <!-- END X-NAVIGATION VERTICAL -->                     
-
-                <!-- START BREADCRUMB -->
                 <ul class="breadcrumb">
                     <li><a>@yield('module')</a></li>
                 </ul>

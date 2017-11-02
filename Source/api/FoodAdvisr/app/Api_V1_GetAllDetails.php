@@ -26,7 +26,7 @@ ini_set('max_execution_time', 5000);
                     * pi()/180 / 2), 2) ))),2) as distance
                     from eateries where id  in (select id from eateries
                     where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +
-                    COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ) and is_associated = 1 ";
+                    COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ) and is_associated = 1 and is_enabled = 1 ";
         if(isset($cuisines_ids) && !empty($cuisines_ids) && $cuisines_ids != NULL){
             $associated_sql  .= " and cuisines_ids in(".$cuisines_ids.")";
         }
@@ -43,7 +43,7 @@ ini_set('max_execution_time', 5000);
                     * pi()/180 / 2), 2) ))),2) as distance
                     from eateries where id  in (select id from eateries
                     where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +
-                    COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ) and ifnull(is_associated,0) = 0  order by distance asc
+                    COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ) and ifnull(is_associated,0) = 0 and is_enabled = 1 order by distance asc
                     limit 5";
 
         $eateries_unassociated = DB::select( DB::raw($unassociated_sql));
@@ -56,12 +56,13 @@ ini_set('max_execution_time', 5000);
     function v1_geteaterydetailsbyid($id)
     {
         $result = Eateries::find($id);
+
         if($result <> null)
         {
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
-            $result->menus = getmenubygroupid($id);
-            $result->dishes = geteaterymenu($id);
+            $result->menus = getmenubygroupid($result->group_id,$id);
+            $result->dishes = geteaterydishes($result->group_id,$id);
         }
         return $result;     
     }
@@ -107,6 +108,7 @@ ini_set('max_execution_time', 5000);
                 ->orwhereNull('is_associated')
                 ->Where('is_associated', '=', 0)
                 ->Where('clicks_before_associated', '>', 0)
+                ->where('is_enabled','=', 1)
                 ->orderby('clicks_before_associated','DESC')
                 ->LIMIT(5)
                 ->get();
@@ -118,6 +120,7 @@ ini_set('max_execution_time', 5000);
        $result  = DB::table('eateries')
                 ->select(DB::raw('business_name,clicks_after_associated'))
                 ->Where('is_associated', '=', 1)
+                ->where('is_enabled','=', 1)
                 ->orderby('clicks_after_associated','DESC')
                 ->LIMIT(5)
                 ->get();
@@ -220,10 +223,11 @@ ini_set('max_execution_time', 5000);
 
     }
 
-    function getmenubygroupid($id){
+    function getmenubygroupid($groupid,$eateryid){
         $menu_details = DB::table('menu')
             ->select(DB::raw('ref,menu,description'))
-            ->where('eatery_id','=',$id)
+            ->where('group_id','=',$groupid)
+            ->orWhere('eatery_id','=',$eateryid)
             ->get();
         $menuDetails = [];
 
@@ -266,10 +270,11 @@ ini_set('max_execution_time', 5000);
 
        return $menuDetails;
     }
-    function geteaterymenu($id)
+    function geteaterydishes($groupid,$eateryid)
     {
         $dish_details = DB::table('dishes')
-            ->where('dishes.eatery_id', '=', $id)
+            ->where('dishes.group_id', '=', $groupid)
+            ->orWhere('dishes.eatery_id', '=', $eateryid)
             ->where('dishes.is_visible', '=', '1')
             ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
             ->get();

@@ -14,6 +14,7 @@ Dish
 {{Form::component('ahNumber', 'components.form.number', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
+{{Form::component('ahReadonly', 'components.form.readonly', ['name', 'labeltext'=>null, 'value' => null])}}
 
 {{ Form::open(array('method' => 'PUT', 'route' => array('dishes.update',$dish->id),'files'=>true)) }}
 <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
@@ -65,21 +66,7 @@ Dish
                 </div>             
                 {{ Form::ahSelect('menus_ids','Menu Name :',$dish->menus_ids,$menus) }}
                 {{ Form::ahSelect('sections_ids','Section Name :',$dish->sections_ids,$menusection) }}
-                <div class="form-group" style="margin:5px">
-                    <label for="subsections_ids" class="control-label col-sm-4">Sub Section Name :</label>
-                     <div class="col-sm-8">
-                            <select class="form-control" id="subsections_id" name="subsections_ids">
-                                <option value="0">Please select sub section</option>
-                                @foreach($menusubsection as $subsection)
-                                <option value="{{ $subsection->id }}"  
-                                    $res = $subsection->id;
-                                    $db_res = $dish->id;
-                                if($res == $db_res) echo 'selected="selected"' ?>> 
-                                  {{ $subsection->sub_section_name }}</option>
-                                @endforeach
-                            </select>
-                       </div>
-                </div>
+                {{ Form::ahSelect('subsections_ids','Sub Section Name :',null,$menusubsection) }}
                  {{ Form::ahText('dish_name','Dish Name :',$dish->dish_name,array('maxlength' => '100'))  }}
                  {{ Form::ahNumber('default_price','Price :',$dish->default_price,array('min'=>'0','maxlength' => '20'))  }}
                  {{ Form::ahTextarea('description','Description :',$dish->description,array('size' => '30x5'))  }}
@@ -152,6 +139,8 @@ Dish
                 </br>
             </div>
             <div class="col-md-6">
+                {{ Form::ahReadonly('eatery_id','Eatery :',$eateries->business_name,array('maxlength' => '100'))  }}
+                <br/>
                 <div class="form-group" style="margin:5px">
                     <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>                  
 

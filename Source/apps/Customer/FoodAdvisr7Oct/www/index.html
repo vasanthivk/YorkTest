@@ -78,7 +78,7 @@ default-src 'self' data: 'unsafe-inline' 'unsafe-eval'; script-src 'self' 'unsaf
       </div>
       <div class="mode-switch-50 act-set-mode" data-mode="eating">
           <i class="fa fa-cutlery" aria-hidden="true"  style="font-size:3.5rem;text-align:center;"></i>
-          <a href="#">Meal Match</a>
+          <a href="#">Dine</a>
       </div>
   </div>
 
@@ -333,7 +333,7 @@ You can select membership of a range of communities to belong to, which allows y
         <span class="icon">
           <i class="fa fa-cutlery" aria-hidden="true"  style="color:white;font-size:1.5rem;"></i>
       </span>
-        <span class="tab-label">Meal Match</span>
+        <span class="tab-label">Dine</span>
       </a>
       <a class="tab-item act-menu" data-extra="list" href="#profile">
         <span class="icon">
@@ -584,7 +584,7 @@ You can select membership of a range of communities to belong to, which allows y
            
             <div data-role="content">
               <div id="loadeateries"></div>
-                <ul data-role="listview" id="eatery-list" class="swipe-delete" style="bottom: 50px;"></ul>
+                <ul data-role="listview" id="eatery-list" class="swipe-delete" style="margin-bottom:50px;"></ul>
             </div>
         </div>
 
@@ -716,11 +716,354 @@ You can select membership of a range of communities to belong to, which allows y
                  </div>
              </div>
 
-              <div class='eaterymenu-list' ></div>
-              <div class='eaterydish-list' ></div>
+             <div class='eaterymenu-list' ></div>
+             <div class='eaterydish-list' ></div>
+
+             <!--  <div class='eaterymenu-list' ></div> -->
+
+
+
+             <div class="eateryMenuDetails"  id="menu-section-Recommended">
+                <div class="rec-menu-background">
+                    <div class="menu-category">Recommended</div>
+                    <div class="menu-section-img">
+                        <div class="res-tiles">
+                            <div class="res-img_div">
+                                <div class="res-img"><img class="res-img-tile" src="img/chickenbiryani.jpg" alt=""></div>
+                                <div class="res-details">
+                                    <img src="img/nonveg_icon.png" class="meat-icon" alt="">
+                                    <span class="item-name"> Chicken Biryani</span>
+                                </div>
+                            </div>
+                            <div class="res-img_div">
+                                <div class="res-img"><img class="res-img-tile" src="img/muttonbiryani.jpg" alt=""></div>
+                                <div class="res-details">
+                                    <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Mutton Biryani</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="res-tiles">
+                            <div class="res-img_div">
+                                <div class="res-img"><img class="res-img-tile" src="img/eggbiryani.jpg" alt=""></div>
+                                <div class="res-details">
+                                    <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Egg biryani</span>
+                                </div>
+                            </div>
+                            <div class="res-img_div">
+                                <div class="res-img"><img class="res-img-tile" src="img/veg-biryani.jpg" alt=""></div>
+                                <div class="res-details">
+                                    <img src="img/veg_icon.png"  class="meat-icon" alt="" >
+                                    <span class="item-name">Veg Biryani</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="res-tiles">
+                            <div class="res-img_div">
+                                <div class="res-img"><img class="res-img-tile" src="img/muttoncurry.jpg" alt=""></div>
+                                <div class="res-details">
+                                    <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Mutton Curry</span>
+                                </div>
+                            </div>
+                            <div class="res-img_div">
+                                <div class="res-img"><img class="res-img-tile" src="img/mincemeat-samosas.jpg" alt=""></div>
+                                <div class="res-details">
+                                    <img src="img/veg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Samosa</span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
             
             <div class="eateryMenuDetails"  id="menu-section-Starters">
+                <div class="rec-menu-background">
+                    <div class="menu-category">Starters</div>
+                    <div class="menu-section-img">
+                        <div class="res-item_div res-details-veg item-toggle">
+                            <span class="item-name item-name-padding">Veg</span><br/>
+                            <div class="item-desc-toggle">Stir Fried Veg with Cottage Cheese and more</div>
+                            <hr class="hr"/>
+                            <div id="toggled-items" style="display: none;">
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Bread and Olives</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png" alt=""  class="meat-icon" >
+                                    <span class="item-name">Mini Green Goddess Salad</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png" alt=""  class="meat-icon">
+                                    <span class="item-name">Capresa</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png" alt="" class="meat-icon">
+                                    <span class="item-name">Gralic Bread</span><br/>
+                                    <div class="item-desc">Brushed with garlic butter and rosemary</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg item-toggle">
+                            <span class="item-name item-name-padding">Non Veg</span><br/>
+                            <div class="item-desc-toggle">Dragon Chicken, Chicken Spring Roll and more</div>
+                            <hr class="hr"/>
+                            <div id="toggled-items" style="display: none;">
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Dragon Chicken</span><br/>
+                                    <div class="item-desc">Shredded chicken in red chilli, butter and cashew nuts.</div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png" alt=""  class="meat-icon" >
+                                    <span class="item-name">Chicken Spring Roll</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png" alt=""  class="meat-icon">
+                                    <span class="item-name">Chicken in Wangs Style</span><br/>
+                                    <div class="item-desc">Fried Chicken in garlic and sweet chilli sauce.</div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png" alt="" class="meat-icon">
+                                    <span class="item-name">Loose Prawns</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+
+
+                    </div>
+                </div>
+            </div>
+            <div class="eateryMenuDetails" id="menu-section-Maincourse">
+                <div class="rec-menu-background">
+                    <div class="menu-category">Main Course</div>
+                    <div class="menu-section-img">
+                        <div class="res-item_div res-details-veg item-toggle">
+                            <span class="item-name item-name-padding">Veg Main Course</span><br/>
+                            <div class="item-desc-toggle">Stir Fried Veg with Cottage Cheese and more</div>
+                            <hr class="hr"/>
+                            <div id="toggled-items" style="display: none;">
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Aloo Gobhi Masala</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png" alt=""  class="meat-icon" >
+                                    <span class="item-name">Paneer chat path</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png" alt=""  class="meat-icon">
+                                    <span class="item-name">vegetable Jaipur</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/veg_icon.png" alt="" class="meat-icon">
+                                    <span class="item-name">Baby Corn Masala</span><br/>
+                                    <div class="item-desc">A Fresh Vegetable, with vanigar, chilli sauce, chilli and lime.</div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg item-toggle">
+                            <span class="item-name item-name-padding">Non Veg Main Course</span><br/>
+                            <div class="item-desc-toggle">Dragon Chicken, Afghani Chicken and more</div>
+                            <hr class="hr"/>
+                            <div id="toggled-items" style="display: none;">
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Dragon Chicken</span><br/>
+                                    <div class="item-desc">Shredded chicken in red chilli, butter and cashew nuts.</div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png" alt=""  class="meat-icon" >
+                                    <span class="item-name">Afghani Chicken</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png" alt=""  class="meat-icon">
+                                    <span class="item-name">Boneless Chicken Curry</span><br/>
+                                    <div class="item-desc">Fried Chicken in garlic and sweet chilli sauce.</div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png" alt="" class="meat-icon">
+                                    <span class="item-name">Butter Chicken</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+                        <div class="clearfix"></div>
+                           <div class="res-item_div res-details-veg item-toggle">
+                            <span class="item-name item-name-padding">Egg Main Course</span><br/>
+                               <div class="item-desc-toggle">Egg Curry,Egg Burji and more</div>
+                            <div class="item-desc-toggle"></div>
+                            <hr class="hr"/>
+                            <div id="toggled-items" style="display: none;">
+                                <div class="res-item_div res-details-veg">
+                                    <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                    <span class="item-name">Egg Curry</span><br/>
+                                    <div class="item-desc"></div>
+                                </div>
+                                <div class="clearfix"></div>
+                                <div class="res-item_div res-details-veg">
+                                        <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                        <span class="item-name">Egg Burji</span><br/>
+                                        <div class="item-desc"></div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                        <div class="res-item_div res-details-veg">
+                                            <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                                            <span class="item-name">Egg Kheema</span><br/>
+                                            <div class="item-desc"></div>
+                                        </div>
+                                <div class="clearfix"></div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+            <div class="eateryMenuDetails"  id="menu-section-Salads">
+                <div class="rec-menu-background">
+                    <div class="menu-category">Salads</div>
+                    <div class="menu-section-img">
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png"  class="meat-icon" alt="">
+                            <span class="item-name">Som Tam Salad
+                            </span><br/>
+                            <div class="item-desc">A Thai salad, crisp raw shredded papaya dressing with spicy, sweet and tangy sauce.</div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png" alt=""  class="meat-icon" >
+                            <span class="item-name">Garden Green Salad</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png" alt=""  class="meat-icon">
+                            <span class="item-name">Kimchi Salad</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/nonveg_icon.png" alt="" class="meat-icon">
+                            <span class="item-name">Deep Fried Fish Thai Salad</span><br/>
+                            <div class="item-desc">A Spicy Thai salad, dressing with fish sauce, chilli and lime.</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+             <div class="eateryMenuDetails" id="menu-section-Specials">
+                <div class="rec-menu-background">
+                    <div class="menu-category">Specials</div>
+                    <div class="menu-section-img">
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/nonveg_icon.png"  class="meat-icon" alt="">
+                            <span class="item-name">Rabit Curry
+                            </span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png" alt=""  class="meat-icon" >
+                            <span class="item-name">Turkeys Curry</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png" alt=""  class="meat-icon">
+                            <span class="item-name">Quails Curry</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/nonveg_icon.png" alt="" class="meat-icon">
+                            <span class="item-name">Deep Fried Fish </span><br/>
+                            <div class="item-desc">A Spicy Thai salad, dressing with fish sauce, chilli and lime.</div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+             <div class="eateryMenuDetails" id="menu-section-Combos">
+                <div class="rec-menu-background">
+                    <div class="menu-category">Combos</div>
+                    <div class="menu-section-img">
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png"  class="meat-icon" alt="">
+                            <span class="item-name">Special Mini Combo
+                            </span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png" alt=""  class="meat-icon" >
+                            <span class="item-name">Special Couple Pack</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/veg_icon.png" alt=""  class="meat-icon">
+                            <span class="item-name">Veg Mini Combo</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                        <div class="res-item_div res-details-veg">
+                            <img src="img/nonveg_icon.png" alt="" class="meat-icon">
+                            <span class="item-name">Special Combo</span><br/>
+                            <div class="item-desc"></div>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                </div>
+            </div>
+             <!--<div class="fixed-menu toggle-menu" id="fixed-menu">
+                <img src="img/menu.png" class="meat-icon"/><span class="item-name">Menu</span>
+            </div>
+            <div id="menu-categories" style="display:none;">
+            		
+                <div><a href="#menu-section-Recommended" class="menu-cat">Recommended</a></div>
+                <div><a href="#menu-section-Starters" class="menu-cat">Starters</a></div>
+                <div><a href="#menu-section-Maincourse" class="menu-cat">Main Course</a></div>
+                <div><a href="#menu-section-Salads" class="menu-cat">Salads</a></div>
+                <div><a href="#menu-section-Specials" class="menu-cat">Specials</a></div>
+                <div><a href="#menu-section-Combos" class="menu-cat">Combos</a></div>
+            </div>-->
         </div>
+
+        <!--<div id='loadeateries'></div>-->
+        <!--</div>-->
+
 
         <div class="ctpanel loggedin hide helpable" id="ct-profile">
         <div class="targ-myprofiles">
@@ -730,14 +1073,14 @@ You can select membership of a range of communities to belong to, which allows y
     <div class="fixed-menu toggle-menu" id="fixed-menu" style="display:none;">
         <img src="img/menu.png" class="meat-icon" /><span class="item-name">Menu</span>
     </div>
-    <div id="menu-categories" class="menu-categories" style="display:none;">
+    <div id="menu-categories" style="display:none;">
     
-        <!--<div><a href="#menu-section-Recommended" class="menu-cat">Recommended</a></div>
+        <div><a href="#menu-section-Recommended" class="menu-cat">Recommended</a></div>
         <div><a href="#menu-section-Starters" class="menu-cat">Starters</a></div>
         <div><a href="#menu-section-Maincourse" class="menu-cat">Main Course</a></div>
         <div><a href="#menu-section-Salads" class="menu-cat">Salads</a></div>
         <div><a href="#menu-section-Specials" class="menu-cat">Specials</a></div>
-        <div><a href="#menu-section-Combos" class="menu-cat">Combos</a></div>-->
+        <div><a href="#menu-section-Combos" class="menu-cat">Combos</a></div>
     </div>
  <div id="myNav" class="fire42overlay">
     <div class="fire42overlay-content">
