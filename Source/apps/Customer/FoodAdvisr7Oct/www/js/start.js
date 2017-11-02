@@ -68,7 +68,7 @@ myProfile.person.settings=1;
           var op = '';
           op += "<h2>cuisines</h2>"
           for(idx in data.result){
-             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' checked>" + data.result[idx].cuisine_name +"</input></br>" ;
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' >" + data.result[idx].cuisine_name +"</input></br>" ;
           }
 	      $(".cusineslist").html(op);
          
@@ -80,7 +80,7 @@ myProfile.person.settings=1;
           var op = '';
           op += "<h2>Lifestylechoices</h2>"
           for(idx in data.result){
-             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' checked>" + data.result[idx].description +"</input></br>" ;
+             op +=  "<input type='checkbox' value='" + data.result[idx].id + "' >" + data.result[idx].description +"</input></br>" ;
           }
 		  $(".lifestylelist").html(op);
       });
