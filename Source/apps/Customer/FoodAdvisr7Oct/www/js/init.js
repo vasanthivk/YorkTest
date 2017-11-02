@@ -1035,11 +1035,11 @@ body.on('click','.act-clear-search',function(){
                     opdishes +="<div class='eatery-dish-description'>"+(dishvalue.description == null ? "" : dishvalue.description)+"</div>";
                     if(!(dishvalue.img_url == null || dishvalue.img_url == ""))
                     {
-                      opdishes +="<div class='eatery-dish-img-non'></div>";
+                        opdishes +="<div class='eatery-dish-img'><img src='"+objInit.mediaPath +dishvalue.img_url+"' alt=''/></div>";
                     }
                     else
                     {
-                      opdishes +="<div class='eatery-dish-img'><img src='"+objInit.mediaPath +dishvalue.img_url+"' alt=''/></div>";
+                        opdishes +="<div class='eatery-dish-img-non'></div>";
                     }
                 opdishes+="</div>";
               });
