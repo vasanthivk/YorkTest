@@ -42,13 +42,21 @@ class MenuSectionController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $menu_id = $request['menu_id'];
-        $menusections = DB::table('menu_section')
+        $menusections = DB::table('menu_section')  
         ->select(DB::raw('menu_section.*,if(ifnull(menu_section.is_visible,1)=1,"Visible","InVisible") as status'))
         ->where('menu_id','=',$menu_id)
         ->get();
+        $menus = DB::table('menu')
+        ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
+        ->join('groups', 'groups.id', '=', 'menu.group_id')
+        ->select(DB::raw('eateries.business_name,groups.description'))
+        ->where('menu.company','=','FoodAdvisr')
+        ->where('ref','=',$menu_id)
+        ->get();
          return View('menusections.index', compact('menusections'))         
         ->with('privileges',$privileges)
-        ->with('menu_id',$menu_id);
+        ->with('menu_id',$menu_id)
+        ->with('menus',$menus);
     }
 
     /**
@@ -62,11 +70,15 @@ class MenuSectionController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $menu_id = $request['menu_id'];
+        
         $menus = DB::table('menu')
-            ->where('is_visible','=','1')
-            ->where('company','=','FoodAdvisr')
-            ->select(DB::raw('menu.menu,menu.ref as id'))
-            ->pluck('menu','id');
+        ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
+        ->join('groups', 'groups.id', '=', 'menu.group_id')
+        ->select(DB::raw('menu.*,eateries.business_name,groups.description'))
+        ->where('menu.company','=','FoodAdvisr')
+        ->where('ref','=',$menu_id)
+        ->get();
+        
         $menus_count = $menus->count();
         if($menus_count == 0)
         {
@@ -107,6 +119,8 @@ class MenuSectionController extends Controller
             $menusection->section_name = Input::get('section_name');
             $menusection->description = Input::get('description');
             $menusection->menu_id = Input::get('menu_id');
+            $menusection->eatery_id = Input::get('eatery_id');
+            $menusection->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
             $menusection->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
             $menusection->display_order = 1;
             $menusection->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
@@ -154,12 +168,15 @@ class MenuSectionController extends Controller
         if($privileges['Edit'] !='true')
             return Redirect::to('/');        
         $menusections = MenuSection::find($id);
+        $menu_id = $request['menu_id'];
         $menus = DB::table('menu')
-        ->where('is_visible','=','1')
-        ->where('company','=','FoodAdvisr')
-        ->select(DB::raw('menu.menu,menu.ref as id'))
-        ->pluck('menu','id');
-         $menu_id = $request['menu_id'];
+        ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
+        ->join('groups', 'groups.id', '=', 'menu.group_id')
+        ->select(DB::raw('menu.*,eateries.business_name,groups.description'))
+        ->where('menu.company','=','FoodAdvisr')
+        ->where('ref','=',$menu_id)
+        ->get();
+        
         return View('menusections.edit')          
         ->with('menusections',$menusections)
         ->with('menus',$menus)

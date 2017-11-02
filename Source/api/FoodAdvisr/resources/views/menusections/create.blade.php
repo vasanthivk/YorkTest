@@ -3,7 +3,7 @@
 FoodAdvisr-Menu Sections
 @endsection
 @section('module')
-Menu Section
+{{$menus[0]->business_name}} - Menu Section
 @endsection
 
 @section('content')
@@ -17,6 +17,8 @@ Menu Section
 
 {{ Form::open(array('route' => 'menusections.store','files'=>true)) }}
 <input type="hidden" id="menu_id" name="menu_id" value="{{$menu_id}}"></input>
+<input type="hidden" id="eatery_id" name="eatery_id" value="{{$menus[0]->eatery_id}}"></input>
+<input type="hidden" id="group_id" name="group_id" value="{{$menus[0]->group_id}}"></input>
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>

@@ -23,6 +23,8 @@ Menus
                                         <thead>
                                             <tr>
                                                 <th>Menu Name</th>
+                                                <th>Group</th>
+                                                <th>Eatery</th>
                                                 <th>Status</th>
                                                 <th>Edit/Delete</th>
                                                 <th></th>
@@ -32,9 +34,11 @@ Menus
                                     <tr>
                                         <td>
                                             {{$menu->menu}}
-                                        </td>    
+                                        </td>  
+                                        <td>{{$menu->description}}</td> 
+                                        <td>{{$menu->business_name}}</td>  
                                         <td>{{$menu->status}}</td>
-                                        <td width="30%">
+                                        <td width="20%">
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')

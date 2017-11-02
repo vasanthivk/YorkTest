@@ -3,7 +3,7 @@
 FoodAdvisr-Menu Sections
 @endsection
 @section('module')
-Menu Section
+{{$menus[0]->business_name}} - Menu Section
 @endsection
 
 @section('content')

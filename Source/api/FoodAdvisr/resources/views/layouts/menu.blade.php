@@ -31,7 +31,7 @@ if(in_array(Session::get("role_id"),array(1)))
                     <li class="xn-openable {{ Request::segment(1) === 'menu' || Request::segment(1) === 'menusections' || Request::segment(1) === 'menusubsections' || Request::segment(1) === 'dishes' ? 'active' : null }}">
                          <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Manage Menu</span></a>
                         <ul>
-                            <li class="{{ Request::segment(1) === 'menu'? 'active' : null }}"><a href="{{action('MenuController@index')}}"><span class="fa fa-cutlery"></span> Menu</a></li>
+                            <li class="{{ Request::segment(1) === 'menu' || Request::segment(1) === 'menusections' || Request::segment(1) === 'menusubsections' ? 'active' : null }}"><a href="{{action('MenuController@index')}}"><span class="fa fa-cutlery"></span> Menu</a></li>
                             <li  class="{{ Request::segment(1) === 'dishes'? 'active' : null }}"><a href="{{action('DishesController@index')}}"><span class="fa fa-cutlery"></span> Dishes</a></li>
                         </ul>
                     </li>  

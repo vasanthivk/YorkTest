@@ -40,6 +40,7 @@ class DashboardController extends Controller
         
         $registered_count = DB::table('person')
             ->select(DB::raw('*'))
+            ->where('status','=',1)
             ->count();
                 
         $sql = 'select count(*) as Total from eateries where is_associated = 0 or isnull(is_associated)  and is_enabled=1';

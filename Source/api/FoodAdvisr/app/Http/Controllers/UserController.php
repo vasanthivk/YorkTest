@@ -51,6 +51,7 @@ class UserController extends Controller
         $users = DB::table('person')
                ->join('role', 'role.id', '=', 'person.roles')
                 ->select(DB::raw('person.*,role.name as role_name,if(ifnull(person.status,1)=1,"Active","Inactive") as status'))
+                ->where('status','=',1)
                 ->get();
          return View::make('user.index', compact('users'))         
         ->with('privileges',$privileges);

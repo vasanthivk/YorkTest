@@ -49,7 +49,9 @@ class MenuController extends Controller
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         $menus = DB::table('menu')
-        ->select(DB::raw('menu.ref as id,menu.menu,menu.submenu,if(ifnull(menu.is_visible,1)=1,"Visible","InVisible") as status'))
+        ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
+        ->join('groups', 'groups.id', '=', 'menu.group_id')
+        ->select(DB::raw('menu.ref as id,menu.menu,menu.submenu,if(ifnull(menu.is_visible,1)=1,"Visible","InVisible") as status,eateries.business_name,groups.description'))
         ->where('menu.company','=','FoodAdvisr')
         ->get();
          return View('menu.index', compact('menus'))         

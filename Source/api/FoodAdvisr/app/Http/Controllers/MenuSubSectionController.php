@@ -9,6 +9,7 @@ use DB;
 use Session;
 use Input;
 use App\Menu;
+use App\Eateries;
 use App\MenuSection;
 use App\MenuSubSection;
 use App\Log;
@@ -52,8 +53,11 @@ class MenuSubSectionController extends Controller
         ->select(DB::raw('menu_sub_section.*,if(ifnull(menu_sub_section.is_visible,1)=1,"Visible","InVisible") as status'))
         ->where('section_id','=',$section_id)
         ->get();
+        $menusections = MenuSection::find($section_id);
+        $eatery = Eateries::find($menusections->eatery_id);
          return View('menusubsections.index', compact('menusubsections'))         
         ->with('privileges',$privileges)
+        ->with('eatery',$eatery)
         ->with('section_id',$section_id);
     }
 
@@ -67,15 +71,20 @@ class MenuSubSectionController extends Controller
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
+        $section_id = $request['section_id'];
         $sections = MenuSection::where('is_visible','=',1)->pluck('section_name','id');
+        $menusections = MenuSection::find($section_id);
+        $eatery = Eateries::find($menusections->eatery_id);
         $sections_count = $sections->count();
         if($sections_count == 0)
         {
             return Redirect::back()->with('warning','Please Add Menu Sections Details While Adding Menu Sub Section!');
         }
-        $section_id = $request['section_id'];
+        
         return View('menusubsections.create')  
         ->with('sections',$sections)
+        ->with('eatery',$eatery)
+        ->with('menusections',$menusections)
         ->with('privileges',$privileges)
         ->with('section_id',$section_id);
     }
@@ -109,6 +118,8 @@ class MenuSubSectionController extends Controller
             $menusubsection->sub_section_name = Input::get('sub_section_name');
             $menusubsection->description = Input::get('description');
             $menusubsection->section_id = Input::get('section_id');
+            $menusubsection->eatery_id = Input::get('eatery_id');
+            $menusubsection->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
             $menusubsection->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
             $menusubsection->display_order = 1;
             $menusubsection->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
@@ -157,9 +168,12 @@ class MenuSubSectionController extends Controller
             return Redirect::to('/');        
         $menusubsections = MenuSubSection::find($id);
          $section_id = $request['section_id'];
+         $menusections = MenuSection::find($section_id);
+        $eatery = Eateries::find($menusections->eatery_id);
         $sections = MenuSection::where('is_visible','=',1)->pluck('section_name','id');
         return View('menusubsections.edit')          
         ->with('menusubsections',$menusubsections)
+        ->with('eatery',$eatery)
         ->with('sections',$sections)
         ->with('section_id',$section_id)
         ->with('privileges',$privileges);
