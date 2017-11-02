@@ -1,6 +1,6 @@
 appSettings=new Object();
 
-appSettings.version='2.1.17';
+appSettings.version='2.2.5';
 appSettings.api_version='v14';
 appSettings.defaultProfile=1;
 appSettings.showErrors=false;

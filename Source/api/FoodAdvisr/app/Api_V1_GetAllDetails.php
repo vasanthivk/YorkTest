@@ -56,12 +56,13 @@ ini_set('max_execution_time', 5000);
     function v1_geteaterydetailsbyid($id)
     {
         $result = Eateries::find($id);
+
         if($result <> null)
         {
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
-            $result->menus = getmenubygroupid($id);
-            $result->dishes = geteaterymenu($id);
+            $result->menus = getmenubygroupid($result->group_id,$id);
+            $result->dishes = geteaterydishes($result->group_id,$id);
         }
         return $result;     
     }
@@ -220,10 +221,11 @@ ini_set('max_execution_time', 5000);
 
     }
 
-    function getmenubygroupid($id){
+    function getmenubygroupid($groupid,$eateryid){
         $menu_details = DB::table('menu')
             ->select(DB::raw('ref,menu,description'))
-            ->where('eatery_id','=',$id)
+            ->where('group_id','=',$groupid)
+            ->orWhere('eatery_id','=',$eateryid)
             ->get();
         $menuDetails = [];
 
@@ -266,10 +268,11 @@ ini_set('max_execution_time', 5000);
 
        return $menuDetails;
     }
-    function geteaterymenu($id)
+    function geteaterydishes($groupid,$eateryid)
     {
         $dish_details = DB::table('dishes')
-            ->where('dishes.eatery_id', '=', $id)
+            ->where('dishes.group_id', '=', $groupid)
+            ->orWhere('dishes.eatery_id', '=', $eateryid)
             ->where('dishes.is_visible', '=', '1')
             ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
             ->get();

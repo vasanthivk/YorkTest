@@ -37,7 +37,7 @@
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">
                     <div class="form-group">
                         <div class="col-md-12">
-                            <input type="text" name="login" id="login" class="form-control" placeholder="Login" maxlength="100" required>
+                            <input type="text" name="email" id="email" class="form-control" placeholder="Email" maxlength="100" required>
                         </div>
                     </div>
                     <div class="form-group">

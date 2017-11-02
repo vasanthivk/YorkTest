@@ -1006,7 +1006,7 @@ body.on('click','.act-clear-search',function(){
           {
             opmenus='';
             data.result.menus.forEach(function(menuvalue){
-              opmenus += "<div class='eatery-menu'>"+ menuvalue.menu_name+ "</div>"; 
+              opmenus += "<div id='menu-section-"+ menuvalue.menu_name+ "' class='eatery-menu'>"+ menuvalue.menu_name+ "</div>"; 
               if(!(menuvalue.sections == null || menuvalue.sections == ""))
               {
                 opmenus += "<div>";  
@@ -1026,6 +1026,36 @@ body.on('click','.act-clear-search',function(){
             })            
             $(".eaterymenu-list").html(opmenus);
           }
+          if(!(data.result.dishes == null || data.result.dishes == ""))
+          {
+              var opdishes='';
+              data.result.dishes.forEach(function(dishvalue){
+                opdishes +="<div class='eatery-dish'>";
+                    opdishes +="<div class='eatery-dish-name'>"+(dishvalue.dish_name == null ? "" : dishvalue.dish_name) +"</div>";
+                    opdishes +="<div class='eatery-dish-description'>"+(dishvalue.description == null ? "" : dishvalue.description)+"</div>";
+                    if(!(dishvalue.img_url == null || dishvalue.img_url == ""))
+                    {
+                      opdishes +="<div class='eatery-dish-img-non'></div>";
+                    }
+                    else
+                    {
+                      opdishes +="<div class='eatery-dish-img'><img src='"+objInit.mediaPath +dishvalue.img_url+"' alt=''/></div>";
+                    }
+                opdishes+="</div>";
+              });
+              $(".eaterydish-list").html(opdishes);
+          }
+
+          if(!(data.result.menus == null || data.result.menus == ""))
+          {
+            opmenus='';
+            data.result.menus.forEach(function(menuvalue){
+              opmenus += "<div><a href='#menu-section-"+ menuvalue.menu_name+ "' class='menu-cat'>"+ menuvalue.menu_name+ "</a></div>"; 
+            })            
+            $(".menu-categories").html(opmenus);
+          }
+            
+
           if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
           {
             var opLifeStyles = '';
