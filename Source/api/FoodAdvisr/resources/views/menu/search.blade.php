@@ -1,9 +1,9 @@
-@extends('layouts.master')
+@extends('layouts.blankpage')
 @section('title')
-FoodAdvisr-Menus
+FoodAdvisr-Seach Eateries
 @endsection
 @section('module')
-Menu
+Seach Eateries
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ Menu
 {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 {{Form::component('ahSelect', 'components.form.select', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
 
-{{ Form::open(array('method' => 'GET','route' => 'menu.create')) }}
+ <form action="{{URL::to('searcheateries')}}" class="form-horizontal" method="get">
 <div class="form-group form-horizontal">
         <div class="panel panel-default">
         </br>
@@ -38,32 +38,13 @@ Menu
             </div> 
      </div>
  </div>
- {{ Form::close() }}
+  </form>
 
-{{ Form::open(array('route' => 'menu.store','files'=>true)) }}
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
-		</br>
-			<div class="col-md-6">
-		        {{ Form::ahText('menu','Menu Name:','',array('maxlength' => '100'))  }}
-            	{{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
-            	<div class="form-group" style="margin:5px">
-                    <label for="location_id" class="control-label col-sm-4">Groups :</label>
-	            	 <div class="col-sm-8">
-	                        <select class="form-control" id="group_id" name="group_id">
-	                            <option value="0">Please select group</option>
-	                            @foreach($groups as $group)
-	                            <option value="{{ $group->id }}"> 
-	                              {{ $group->description }}</option>
-	                            @endforeach
-	                        </select>
-	                   </div>
-                </div>
-		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }}
-				</br>
-		    </div>
 		    <div class="col-md-6">
-		        <div class="form-group" style="margin:5px">
+                <br/>
+              <div class="form-group" style="margin:5px">
                     <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
                      <div class="col-sm-8">
                             <select class="form-control" id="eatery_id" name="eatery_id">
@@ -74,17 +55,22 @@ Menu
                             </select>
                        </div>
                 </div>
-              </div> 		   
-	    <div class="form-group">
-		    <div class="panel-footer">
-		        <div class="col-md-6 col-md-offset-3">
-		            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-		            {{ link_to_route('menu.index','Cancel',null, array('class' => 'btn btn-danger')) }}
-		        </div>
-		    </div>
-	    </div>
+              <br/>
+		    </div>	
+            <div class="form-group">
+            <div class="panel-footer">
+                <div class="col-md-6 col-md-offset-3">
+                    <button type="button" class="btn btn-info active" onclick="window.close()">Submit</button>
+                </div>
+            </div>
+        </div>    
 	 </div>
  </div>
- {{ Form::close() }}
+
+<script>
+    $("#eatery_id").on('change', function () {
+    alert($(this).val());
+});
+</script>
 
 @endsection

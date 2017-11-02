@@ -63,18 +63,19 @@ Menu
 				</br>
 		    </div>
 		    <div class="col-md-6">
-		        <div class="form-group" style="margin:5px">
-                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
-                     <div class="col-sm-8">
-                            <select class="form-control" id="eatery_id" name="eatery_id">
-                                <option value="0">Please select eatery</option>
-                                @foreach($eateries as $eatery)
-                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
-                                 @endforeach
-                            </select>
-                       </div>
-                </div>
-              </div> 		   
+		    	<?php if(count($eateries) > 0) { ?>
+		    	<div class="form-group" style="margin:5px">   
+		        <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
+		        <div class="col-sm-8">
+                    <select multiple class="form-control" id="eatery_id" name="eatery_id">
+                    	@foreach($eateries as $eatery)
+                    	 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
+                    	 @endforeach
+                     </select>  
+                 </div> 
+              </div> 
+              <?php } ?>
+		    </div>
 	    <div class="form-group">
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">

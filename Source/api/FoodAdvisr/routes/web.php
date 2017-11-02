@@ -11,6 +11,7 @@
 |
 */
 Route::get('/', function () {
+	Session::flush();
     return view('login.login');
 });
 Route::get('/forgot', function () {
@@ -27,6 +28,7 @@ Route::resource('itemgroups', 'ItemGroupsController');
 Route::resource('itemcategory', 'ItemCategoriesController');
 Route::resource('uploadeatery', 'FoodController');
 Route::resource('menu', 'MenuController');
+Route::get('searcheateries', 'MenuController@searcheateries');
 Route::resource('menusections', 'MenuSectionController');
 Route::resource('menusubsections', 'MenuSubSectionController');
 Route::resource('dishes', 'DishesController');

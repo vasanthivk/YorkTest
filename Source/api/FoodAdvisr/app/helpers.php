@@ -124,3 +124,43 @@ function getMenusubsectionByMenuSection($section_id){
                 ->get();
     return $menu_sub_section;
 }
+
+ function searchalleateries($search)
+   {
+
+    if($search)
+            $searchvalue = $search;
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+
+     if($searchvalue =='')
+        {
+            $eateries = DB::table('eateries')
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
+            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
+            ->where('eateries.location_id','=','')
+            ->where('eateries.is_enabled','=',1)
+            ->get();
+        }
+        else{
+            
+        $eateries = DB::table('eateries')
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
+             ->leftjoin('cuisines', 'cuisines.id', '=', 'eateries.cuisines_ids')
+             ->leftjoin('groups', 'groups.id', '=', 'eateries.group_id')
+             ->leftjoin('locations', 'locations.location_id', '=', 'eateries.location_id')
+             ->where(function ($query) use ($search){
+                    $query->where('eateries.business_name', 'like', $search)
+                            ->orwhere('eateries.locality', 'like', $search)
+                            ->orwhere('groups.description', 'like', $search)
+                            ->orwhere('locations.description', 'like', $search);
+                })
+            ->select(DB::raw('eateries.id,eateries.business_name'))
+            ->where('eateries.is_enabled','=',1)
+            ->get();
+        }
+
+         return $eateries;
+
+   }

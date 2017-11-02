@@ -13,6 +13,7 @@ use Session;
 use Input;
 use App\Dishes;
 use App\Groups;
+use App\Eateries;
 use File;
 use Image;
 use App\Category;
@@ -86,7 +87,7 @@ class DishesController extends Controller
         $menusection=null;
         if($menus->count()>0)
         {
-            $menusection = MenuSection::where('menu_id','=',$menuAll[0]->ref)->pluck('section_name','id');
+            $menusection = MenuSection::where('menu_id','=',$menuAll[0]->ref)->where('is_visible','=','1')->pluck('section_name','id');
         }
         $menusection_count = $menus->count();
         if($menusection_count == 0)
@@ -96,8 +97,8 @@ class DishesController extends Controller
         $menusubsection=null;
         if($menusection->count()>0)
         {
-            $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->get();
-            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->get();
+            $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->where('is_visible','=','1')->get();
+            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->where('is_visible','=','1')->pluck('sub_section_name','id');
         }
         
         $allergentypes = DB::table('allergens')
@@ -110,6 +111,13 @@ class DishesController extends Controller
         $lifestyle_choices_types = 'select id,description from lifestyle_choices where ifnull(is_enabled,0) = 1';
         $lifestyle_choices = DB::select( DB::raw($lifestyle_choices_types));
         $groups = Groups::all();
+        if($request['search'])
+            $searchvalue = $request['search'];
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+        
+        $eateries = searchalleateries($searchvalue);
 //return $ingredients;
         return View('dishes.create')
             ->with('privileges',$privileges)
@@ -117,7 +125,9 @@ class DishesController extends Controller
             ->with('menusection',$menusection)
             ->with('menusubsection',$menusubsection)
             ->with('menus',$menus)
-             ->with('groups',$groups)
+            ->with('groups',$groups)
+            ->with('eateries',$eateries)
+            ->with('searchvalue',$searchvalue)
             ->with('allergentypes',$allergentypes)
             ->with('lifestyle_choices',$lifestyle_choices)
             ->with('cuisines',$cuisines);
@@ -177,6 +187,10 @@ class DishesController extends Controller
         Session::put('applicable_days',Input::get('applicable_days'));
         Session::put('allergens_may_contain',Input::get('allergens_may_contain'));
 
+        if ($input['eatery_id'] == 0) {
+           return Redirect::back()->with('warning','Please Search Eateries And Select Aleast One Eatery!');
+        }
+
         $file_size = $_FILES['logo']['size'];
         if($file_size > 2097152)
         {
@@ -198,8 +212,8 @@ class DishesController extends Controller
 
         if ($validator->fails())
         {
-            $eatery_id = $request['eatery_id'];
-            return Redirect::route('dishes.create')
+            $search = Input::get('search');
+            return Redirect::route('dishes.create',array('search' => $search))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -351,13 +365,13 @@ class DishesController extends Controller
         $menus = Menu::all()->where('is_visible','=','1')->where('company','=','FoodAdvisr')->pluck('menu','ref');
         $menusection=null;
         if($menus->count()>0)
-            $menusection = MenuSection::where('menu_id','=',$menuAll[0]->ref)->pluck('section_name','id');
+            $menusection = MenuSection::where('menu_id','=',$menuAll[0]->ref)->where('is_visible','=','1')->pluck('section_name','id');
 
         $menusubsection=null;
         if($menusection->count()>0)
         {
-            $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->get();
-            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->get();
+            $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->where('is_visible','=','1')->get();
+            $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->where('is_visible','=','1')->pluck('sub_section_name','id');
         }
         
         $allergentypes = DB::table('allergens')
@@ -370,12 +384,14 @@ class DishesController extends Controller
         $lifestyle_choices_types = 'select id,description from lifestyle_choices where ifnull(is_enabled,0) = 1';
         $lifestyle_choices = DB::select( DB::raw($lifestyle_choices_types));
         $groups = Groups::all();
+        $eateries = Eateries::find($dish->eatery_id);
 
         return View('dishes.edit')
             ->with('eatery_id',$eatery_id)
             ->with('menusection',$menusection)
             ->with('menusubsection',$menusubsection)
             ->with('menus',$menus)
+            ->with('eateries',$eateries)
             ->with('allergentypes',$allergentypes)
             ->with('lifestyle_choices',$lifestyle_choices)
             ->with('cuisines',$cuisines)

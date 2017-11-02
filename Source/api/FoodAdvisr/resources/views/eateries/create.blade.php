@@ -60,6 +60,7 @@ Eatery
             {{ Form::ahText('longitude','Longitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahText('latitude','Latitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahSwitch('is_associated','Is Associated :',null) }}
+            {{ Form::ahSwitch('is_enabled','Is Enabled :',null) }}
             {{ Form::ahDate('associated_on','Associated On :', \Carbon\Carbon::now()) }}
             <?php 
             if(isset($cuisines) || isset($lifestyle_choices))

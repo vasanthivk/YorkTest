@@ -55,24 +55,74 @@ class MenuController extends Controller
          return View('menu.index', compact('menus'))         
         ->with('privileges',$privileges);
     }
-
+   
     /**
      * Show the form for creating a new resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         // $eateries = Eateries::all()->pluck('business_name','id');
+       if($request['search'])
+            $searchvalue = $request['search'];
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+        
+        $eateries = searchalleateries($searchvalue);
+
         $groups = Groups::all();
         return View('menu.create')          
         ->with('privileges',$privileges)
+         ->with('eateries',$eateries)
+        ->with('searchvalue',$searchvalue)
         ->with('groups',$groups);
     }
 
+    public function searcheateries(Request $request)
+   {
+     if($request['search'])
+            $searchvalue = $request['search'];
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+
+        if($searchvalue =='')
+        {
+            $eateries = DB::table('eateries')
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
+            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
+            ->where('eateries.location_id','=','')
+            ->get();
+        }
+        else{
+            
+        $eateries = DB::table('eateries')
+            ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
+             ->leftjoin('cuisines', 'cuisines.id', '=', 'eateries.cuisines_ids')
+             ->leftjoin('groups', 'groups.id', '=', 'eateries.group_id')
+             ->leftjoin('locations', 'locations.location_id', '=', 'eateries.location_id')
+             ->where(function ($query) use ($search){
+                    $query->where('eateries.business_name', 'like', $search)
+                            ->orwhere('eateries.locality', 'like', $search)
+                            ->orwhere('groups.description', 'like', $search)
+                            ->orwhere('locations.description', 'like', $search);
+                })
+            ->select(DB::raw('eateries.id,eateries.business_name'))
+             ->where('eateries.is_enabled','=',1)
+            ->limit(10)
+            ->get();
+        }
+
+         return View('menu.search')          
+        ->with('eateries',$eateries)
+        ->with('searchvalue',$searchvalue);
+
+   }
     /**
      * Store a newly created resource in storage.
      *
@@ -82,6 +132,10 @@ class MenuController extends Controller
     public function store(Request $request)
     {
         $input = Input::all();
+        
+        if ($input['eatery_id'] == 0) {
+           return Redirect::back()->with('warning','Please Search Eateries And Select Aleast One Eatery!');
+        }
         $this->validate($request, [
             'menu'  => 'required']);        
         
@@ -89,7 +143,8 @@ class MenuController extends Controller
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('menu.create')
+            $search = Input::get('search');
+            return Redirect::route('menu.create',array('search' => $search))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -100,6 +155,7 @@ class MenuController extends Controller
             $menu = new Menu();
             $menu->menu =  Input::get('menu');
             $menu->company =  'FoodAdvisr';
+            $menu->eatery_id =  (Input::get('eatery_id')== ''  ? '0' : Input::get('eatery_id'));
             $menu->group_id =  (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
             $menu->submenu =  'NULL';
             $menu->description =  (Input::get('description')=='' ? ' ' : Input::get('description'));
@@ -138,18 +194,19 @@ class MenuController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
         if($privileges['Edit'] !='true')
             return Redirect::to('/');        
-        $menu = Menu::where('ref','=',$id)->get();
-        // $eateries = Eateries::all()->pluck('business_name','id');
+        $menu = Menu::where('ref','=',$id)->get();       
+        $eateries = Eateries::find($menu[0]->eatery_id);
         $groups = Groups::all();
         return View('menu.edit')
         ->with('menu',$menu[0])
+        ->with('eateries',$eateries)
         ->with('groups',$groups)
         ->with('privileges',$privileges);
     }
@@ -163,7 +220,8 @@ class MenuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $input = Input::all(); 
+        $input = Input::all();       
+
         $this->validate($request, [
             'menu'  => 'required']);        
         
@@ -171,6 +229,7 @@ class MenuController extends Controller
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
+            
             return Redirect::route('menu.edit')
                 ->withInput()
                 ->withErrors($validator)

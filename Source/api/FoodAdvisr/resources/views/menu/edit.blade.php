@@ -12,7 +12,7 @@ Menu
 {{Form::component('ahTextarea', 'components.form.textarea', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahNumber', 'components.form.number', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
-
+{{Form::component('ahReadonly', 'components.form.readonly', ['name', 'labeltext'=>null, 'value' => null])}}
 
 {{ Form::open(array('method' => 'PUT', 'route' => array('menu.update',$menu->ref),'files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -43,6 +43,10 @@ Menu
                 </div>
                 {{ Form::ahSwitch('is_visible','Is Visible :',null,$menu->is_visible) }} 
 		    </div>
+		     <div class="col-md-6">
+                            {{ Form::ahReadonly('eatery_id','Eatery :',$eateries->business_name,array('maxlength' => '100'))  }}
+                    
+              </div> 
 	    <div class="form-group">
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">
