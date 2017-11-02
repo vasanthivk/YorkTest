@@ -14,6 +14,31 @@ Menu
 {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 {{Form::component('ahSelect', 'components.form.select', ['name', 'labeltext'=>null, 'value' => null,'valuearray' => [], 'attributes' => []])}}
 
+{{ Form::open(array('method' => 'GET','route' => 'menu.create')) }}
+<div class="form-group form-horizontal">
+        <div class="panel panel-default">
+        </br>
+           <div class="col-md-8">                            
+               <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4"></label>
+                        <div class="input-group push-down-10">
+                            <span class="input-group-addon"><span class="fa fa-info-circle fa-1x" title='Eatery Names,Locations,Zip'></span></span>                            
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search...." value="{{$searchvalue}}"/>
+                            <div id="searchresult"></div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary">Search Eateries</button>
+                            </div>
+                        </div>  
+                </div>
+               <br/>
+            </div>
+            <div class="col-md-4" style="padding-top: 5px;"> 
+                
+                </br>
+            </div> 
+     </div>
+ </div>
+ {{ Form::close() }}
 
 {{ Form::open(array('route' => 'menu.store','files'=>true)) }}
 <div class="form-group form-horizontal">
@@ -34,41 +59,22 @@ Menu
 	                        </select>
 	                   </div>
                 </div>
-		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }} 
+		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }}
 				</br>
-		    </div>	
-		    <!-- <div class="container">
-  				<button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Eateries</button>
-				  <div class="modal fade" id="myModal" role="dialog">
-				    <div class="modal-dialog">
-				      <div class="modal-content">
-				        <div class="modal-header">
-				          <button type="button" class="close" data-dismiss="modal">&times;</button>
-				          <h4 class="modal-title">Eateries</h4>
-				        </div>
-				        <br/>
-				        
-					      <div class="form-group" style="margin:5px">
-                    		<label for="eatery_id" class="control-label col-sm-4"></label>
-                        	<div class="input-group push-down-10">
-                            <span class="input-group-addon"><span class="fa fa-info-circle fa-1x" title='Eatery Names,Locations,Contact Numbers,Zip,Cuisines'></span></span>                           
-                            <input type="text" class="form-control" name="search" id="search" placeholder="Search...." value=""/>
-                            <div id="searchresult"></div>
-                            <div class="input-group-btn">
-                                <button class="btn btn-primary">Search</button>
-                            </div>
-                        </div>  
+		    </div>
+		    <div class="col-md-6">
+		        <div class="form-group" style="margin:5px">
+                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="eatery_id" name="eatery_id">
+                                <option value="0">Please select eatery</option>
+                                @foreach($eateries as $eatery)
+                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
+                                 @endforeach
+                            </select>
+                       </div>
                 </div>
-           
-                <br/>
-				        <div class="modal-footer">
-				          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				        </div>
-				      </div>
-				      
-				    </div>
-				  </div>
-			</div> -->	     
+              </div> 		   
 	    <div class="form-group">
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">
@@ -79,5 +85,6 @@ Menu
 	    </div>
 	 </div>
  </div>
- 
+ {{ Form::close() }}
+
 @endsection

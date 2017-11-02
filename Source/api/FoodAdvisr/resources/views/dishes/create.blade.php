@@ -15,6 +15,32 @@
 {{Form::component('ahSwitch', 'components.form.switch', ['name', 'labeltext'=>null, 'value' => null, 'checkstatus' => false, 'attributes' => []])}}
 {{Form::component('ahDate', 'components.form.date', ['name', 'labeltext'=>null, 'value' => null, 'attributes' => []])}}
 
+
+{{ Form::open(array('method' => 'GET','route' => 'dishes.create')) }}
+<div class="form-group form-horizontal">
+        <div class="panel panel-default">
+        </br>
+           <div class="col-md-8">                            
+               <div class="form-group" style="margin:5px">
+                    <label for="location_id" class="control-label col-sm-4"></label>
+                        <div class="input-group push-down-10">
+                            <span class="input-group-addon"><span class="fa fa-info-circle fa-1x" title='Eatery Names,Locations,Zip'></span></span>                            
+                            <input type="text" class="form-control" name="search" id="search" placeholder="Search...." value="{{$searchvalue}}"/>
+                            <div id="searchresult"></div>
+                            <div class="input-group-btn">
+                                <button class="btn btn-primary">Search Eateries</button>
+                            </div>
+                        </div>  
+                </div>
+               <br/>
+            </div>
+            <div class="col-md-4" style="padding-top: 5px;"> 
+                
+                </br>
+            </div> 
+     </div>
+ </div>
+ {{ Form::close() }}
 {{ Form::open(array('route' => 'dishes.store','files'=>true)) }}
 <input type="hidden" id="eatery_id" name="eatery_id" value="{{$eatery_id}}">
 
@@ -47,18 +73,7 @@
                 </div>                
                 {{ Form::ahSelect('menus_ids','Menu Name :',null,$menus) }}
                 {{ Form::ahSelect('sections_ids','Section Name :',null,$menusection) }}
-                <div class="form-group" style="margin:5px">
-                    <label for="subsections_ids" class="control-label col-sm-4">Sub Section Name :</label>
-                     <div class="col-sm-8">
-                            <select class="form-control" id="subsections_id" name="subsections_ids">
-                                <option value="0">Please select sub section</option>
-                                @foreach($menusubsection as $subsection)
-                                <option value="{{ $subsection->id }}"> 
-                                  {{ $subsection->sub_section_name }}</option>
-                                @endforeach
-                            </select>
-                       </div>
-                </div>
+                {{ Form::ahSelect('subsections_ids','Sub Section Name :',null,$menusubsection) }}
                  {{ Form::ahText('dish_name','Dish Name :','',array('maxlength' => '100'))  }}
                  {{ Form::ahNumber('default_price','Price :','',array('min'=>'0','maxlength' => '20'))  }}
                  {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
@@ -129,6 +144,18 @@
                 </br>
             </div>
             <div class="col-md-6">
+                <div class="form-group" style="margin:5px">
+                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="eatery_id" name="eatery_id">
+                                <option value="0">Please select eatery</option>
+                                @foreach($eateries as $eatery)
+                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
+                                 @endforeach
+                            </select>
+                       </div>
+                </div>
+                <br/>
                 <div class="form-group" style="margin:5px">
                     <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>
                     <div class="col-sm-6 ingrediants">
@@ -268,15 +295,7 @@
     });
     function menuChange(){
 
-        
-
-        var ids = $("#applicable_id").val(dataarray);
-        var data = ids; 
-        var dataarray = data.split(",");
-        alert(dataarray);
-
-
-  var id = $("#menus_ids").val();
+     var id = $("#menus_ids").val();
             $.get("../../api/getmenusectionbymenuIds?menu_id="+id, function(data){
                 $('#sections_ids').empty();
                 var section_value ='<?php echo Session::get('section_ids') ?>';

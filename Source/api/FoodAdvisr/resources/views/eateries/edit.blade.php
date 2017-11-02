@@ -74,6 +74,7 @@ My Profile
             {{ Form::ahText('longitude','Longitude :',$eateries->longitude,array("readonly"=>"true"))  }}
             {{ Form::ahText('latitude','Latitude :',$eateries->latitude,array("readonly"=>"true"))  }}
             {{ Form::ahSwitch('is_associated','Is Associated :',null,$eateries->is_associated) }}
+            {{ Form::ahSwitch('is_enabled','Is Enabled :',null,$eateries->is_enabled) }}
             {{ Form::ahDate('associated_on','Associated On :', $eateries->associated_on) }}
             <?php 
             $cuisines_ids = $eateries->cuisines_ids;

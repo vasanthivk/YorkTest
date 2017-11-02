@@ -89,6 +89,7 @@ class EateriesController extends Controller
                             ->orwhere('groups.description', 'like', $search)
                             ->orwhere('locations.description', 'like', $search);
                 })
+             ->where('eateries.is_enabled','=',1)
             ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
             ->get();
         }
@@ -285,6 +286,7 @@ class EateriesController extends Controller
             $eateries->latitude = Input::get('latitude');
             $eateries->created_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $eateries->is_associated =  (Input::get('is_associated')== ''  ? '0' : '1');
+            $eateries->is_enabled =  (Input::get('is_enabled')== ''  ? '0' : '1');
             $eateries->associated_on = Input::get('associated_on');
             $eateries->cuisines_ids = $cuisines_ids;
             $eateries->lifestyle_choices_ids = $lifestyle_choices_ids;
@@ -518,6 +520,7 @@ class EateriesController extends Controller
             $eateries->latitude = Input::get('latitude');
             $eateries->created_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $eateries->is_associated =  (Input::get('is_associated')== ''  ? '0' : '1');
+            $eateries->is_enabled =  (Input::get('is_enabled')== ''  ? '0' : '1');
             $eateries->associated_on = Input::get('associated_on');
             $eateries->cuisines_ids = $cuisines_ids;
             $eateries->lifestyle_choices_ids = $lifestyle_choices_ids;

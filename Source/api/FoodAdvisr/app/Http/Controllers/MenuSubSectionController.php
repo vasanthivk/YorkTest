@@ -64,7 +64,7 @@ class MenuSubSectionController extends Controller
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
-        $sections = MenuSection::pluck('section_name','id');
+        $sections = MenuSection::where('is_visible','=',1)->pluck('section_name','id');
         $sections_count = $sections->count();
         if($sections_count == 0)
         {
@@ -150,7 +150,7 @@ class MenuSubSectionController extends Controller
         if($privileges['Edit'] !='true')
             return Redirect::to('/');        
         $menusubsections = MenuSubSection::find($id);
-        $sections = MenuSection::pluck('section_name','id');
+        $sections = MenuSection::where('is_visible','=',1)->pluck('section_name','id');
         return View('menusubsections.edit')          
         ->with('menusubsections',$menusubsections)
         ->with('sections',$sections)
