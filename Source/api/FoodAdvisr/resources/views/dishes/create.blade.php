@@ -79,8 +79,8 @@
                  {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
                  {{ Form::ahSwitch('is_visible','Is Enabled :',null) }}
                  {{ Form::ahSwitch('is_featured','Is Featured :',null) }}
-                 {{ Form::ahDate('valid_from','From :', \Carbon\Carbon::now()) }}
-                 {{ Form::ahDate('valid_till','To :', \Carbon\Carbon::now()) }}
+                 {{ Form::ahDate('valid_from','From :', \Carbon\Carbon::now()->format('Y-m-d')) }}
+                 {{ Form::ahDate('valid_till','To :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                  <div class="form-group" style="margin:5px">
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">
@@ -140,7 +140,7 @@
                     </div>
                 </div>
                 {{ Form::ahSwitch('is_new','Is New :',null) }} 
-                {{ Form::ahDate('new_till_date','New Till Date :', \Carbon\Carbon::now()) }}
+                {{ Form::ahDate('new_till_date','New Till Date :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                 </br>
             </div>
             <div class="col-md-6">

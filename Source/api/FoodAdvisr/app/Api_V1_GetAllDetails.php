@@ -273,8 +273,7 @@ ini_set('max_execution_time', 5000);
     function geteaterydishes($groupid,$eateryid)
     {
         $dish_details = DB::table('dishes')
-            ->where('dishes.group_id', '=', $groupid)
-            ->orWhere('dishes.eatery_id', '=', $eateryid)
+            ->where('dishes.eatery_id', '=', $eateryid)
             ->where('dishes.is_visible', '=', '1')
             ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
             ->get();
