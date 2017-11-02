@@ -152,6 +152,12 @@ Dish
                         <input class="form-control" maxlength="100" name="item_ingredients[]" type="text" value="{{$ingredient->name}}" id="item_ingredients">
                          @endforeach
                     </div>
+                    <?php } 
+                    else {
+                    ?>
+                    <div class="col-sm-6 ingrediants">
+                        <input class="form-control" maxlength="100" name="item_ingredients[]" type="text" value="" id="item_ingredients">
+                    </div>
                     <?php } ?>
                     <div class="col-sm-2">
                         <a class="btn btn-primary" id="ingrediant_add">Add</a>

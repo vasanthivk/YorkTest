@@ -181,6 +181,7 @@ class DishesController extends Controller
     public function store(Request $request)
     {
        $input = Input::all();
+
         Session::put('cuisines',Input::get('cuisines_ids'));
         Session::put('cuisines',Input::get('cuisines_ids'));
         Session::put('lifestyle_choices',Input::get('lifestyle_choices_ids'));
@@ -225,7 +226,6 @@ class DishesController extends Controller
         else
         {
             $ingredient_items = Input::get('item_ingredients');
-
             if(isset($ingredient_items) && !empty($ingredient_items)){
                 foreach($ingredient_items as $ingredient){
                     $token = openssl_random_pseudo_bytes(3);
@@ -244,80 +244,54 @@ class DishesController extends Controller
                     $ingre->save();
                     $ingredients_ids[] = $ingre->id;
                 }
-                $ingredients = '"'.implode(',',$ingredients_ids).'"';
             }
             else{
-                $ingredients = "";
+                $ingredients_ids[] = array();
             }
 
             $allergens_may_contain_detail = Input::get('allergens_may_contain');
 
             if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) {
-                $allergens_may_contain = '"'.implode(',',$allergens_may_contain_detail).'"';
+                $allergens_may_contain = implode(',',$allergens_may_contain_detail);
             }
             else{
-                $allergens_may_contain = '""';
+                $allergens_may_contain[] = array();;
             }
-
             
             $dish = new Dishes();
-            $dish->dish_name = '"'.Input::get('dish_name').'"';
-            $dish->description = '"'.Input::get('description').'"';
-            $dish->cuisines_ids = '"'.implode(',',Input::get('cuisines_ids')).'"';
-            $dish->lifestyle_choices_ids = '"'.implode(',',Input::get('lifestyle_choices_ids')).'"';
-            $dish->allergens_contain_ids = '"'.implode(',',Input::get('allergens_contain_ids')).'"';
+            $dish->dish_name = Input::get('dish_name');
+            $dish->description = Input::get('description');
+            $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
+            $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
+            $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
             $dish->allergens_may_contain = $allergens_may_contain;
-            $dish->ingredients_ids = $ingredients;
-            $dish->menus_ids = '"'.Input::get('menus_ids').'"';
-            $dish->sections_ids = '"'.Input::get('sections_ids').'"';
-            $dish->subsections_ids = '"'.Input::get('subsections_ids').'"';
+            $dish->ingredients_ids = implode(',',$ingredients_ids);
+            $dish->menus_ids = Input::get('menus_ids');
+            $dish->sections_ids = Input::get('sections_ids');
+            $dish->subsections_ids = Input::get('subsections_ids');
             $dish->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
-            $dish->eatery_id = (Input::get('eatery_id')== ''  ? '0' : Input::get('eatery_id'));
-            $dish->valid_from = '"'.date('Y-m-d',strtotime(Input::get('valid_from'))).'"';
-            $dish->valid_till = '"'.date('Y-m-d',strtotime(Input::get('valid_till'))).'"';
-            $dish->applicable_days = '"'.implode(',',Input::get('applicable_days')).'"';
+            $dish->eatery_id = Input::get('eatery_id');
+            $dish->valid_from = date('Y-m-d',strtotime(Input::get('valid_from')));
+            $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
+            $dish->applicable_days = implode(',',Input::get('applicable_days'));
             $dish->default_price = Input::get('default_price');
-            $is_visible = Input::get('is_visible');
-            if(isset($is_visible) && !empty($is_visible)){
-                $dish->is_visible = 1;
-            }else{
-                $dish->is_visible = 0;
-            }
-            $is_featured = Input::get('is_featured');
-            if(isset($is_featured) && !empty($is_featured)){
-                $dish->is_featured = 1;
-            }else{
-                $dish->is_featured = 0;
-            }
-            $is_new = Input::get('is_new');
-            if(isset($is_new) && !empty($is_new)){
-                $dish->is_new = 1;
-            }else{
-                $dish->is_new = 0;
-            }
-            $dish->new_till_date = '"'.date('Y-m-d',strtotime(Input::get('new_till_date'))).'"';
-            $nutrition_fat = Input::get('nutrition_fat');
-            $dish->nutrition_fat =  isset($nutrition_fat)?$nutrition_fat:0;
-            $nutrition_cholesterol = Input::get('nutrition_cholesterol');
-            $dish->nutrition_cholesterol =  isset($nutrition_cholesterol)?$nutrition_cholesterol:0;
-            $nutrition_sugar = Input::get('nutrition_sugar');
-            $dish->nutrition_sugar =  isset($nutrition_sugar)?$nutrition_sugar:0;
-            $nutrition_fibre = Input::get('nutrition_fibre');
-            $dish->nutrition_fibre =  isset($nutrition_fibre)?$nutrition_fibre:0;
-            $nutrition_protein = Input::get('nutrition_protein');
-            $dish->nutrition_protein =  isset($nutrition_protein)?$nutrition_protein:0;
-            $nutrition_saturated_fat = Input::get('nutrition_saturated_fat');
-            $dish->nutrition_saturated_fat =  isset($nutrition_saturated_fat)?$nutrition_saturated_fat:0;
-            $nutrition_calories = Input::get('nutrition_calories');
-            $dish->nutrition_calories =  isset($nutrition_calories)?$nutrition_calories:0;
-            $nutrition_carbohydrates =  Input::get('nutrition_carbohydrates');
-            $dish->nutrition_carbohydrates =  isset($nutrition_carbohydrates)?$nutrition_carbohydrates:0;
-            $nutrition_salt =  Input::get('nutrition_salt');
-            $dish->nutrition_salt =  isset($nutrition_salt)?$nutrition_salt:0;
+            $dish->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
+            $dish->is_featured = (Input::get('is_featured')== ''  ? '0' : '1');
+            $dish->is_new = (Input::get('is_new')== ''  ? '0' : '1');
+            $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
+            $dish->nutrition_fat =  Input::get('nutrition_fat');
+            $dish->nutrition_cholesterol =  Input::get('nutrition_cholesterol');
+            $dish->nutrition_sugar =  Input::get('nutrition_sugar');
+            $dish->nutrition_fibre =  Input::get('nutrition_fibre');
+            $dish->nutrition_protein =  Input::get('nutrition_protein');
+            $dish->nutrition_saturated_fat =  Input::get('nutrition_saturated_fat');
+            $dish->nutrition_calories =  Input::get('nutrition_calories');
+            $dish->nutrition_carbohydrates =  Input::get('nutrition_carbohydrates');
+            $dish->nutrition_salt =  Input::get('nutrition_salt');
             $dish->display_order =  1;
-            $dish->added_on = '"'.Carbon::now(new DateTimeZone('Asia/Kolkata')).'"';
+            $dish->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $dish->added_by = Session::get('user_id');
-            $dish->modified_on = '"'.Carbon::now(new DateTimeZone('Asia/Kolkata')).'"';
+            $dish->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $dish->modified_by = Session::get('user_id');
 
             if($file <> null)
@@ -381,8 +355,15 @@ class DishesController extends Controller
         $lifestyle_choices_ids = $dish->lifestyle_choices_ids;
         $ingredients_ids = $dish->ingredients_ids;
         // return $ingredients_ids;
+        if(!empty(($ingredients_ids)))
+        {
         $sql = 'select id,name from _product_ingredients where id in('.$ingredients_ids.')';
         $ingredients = DB::select( DB::raw($sql));
+        }
+        else{
+            $ingredients = array();
+        }
+        
         $applicable_days = array('0'=>'Sunday','1'=>'Monday','2' => 'Tuesday','3'=>'Wednesday','4' => 'Thursday','5'=>'Friday','6'=> 'Saturday');
         $allergens_contain_ids = $dish->allergens_contain_ids;
         $menus_ids = $dish->menus_ids;
@@ -506,21 +487,19 @@ class DishesController extends Controller
                     $ingre->save();
                     $ingredients_ids[] = $ingre->id;
                 }
-                $ingredients = '"'.implode(',',$ingredients_ids).'"';
             }
             else{
-                $ingredients = "";
+                $ingredients_ids[] = array();
             }
 
-            $allergens_may_contain_detail = '"'.Input::get('allergens_may_contain').'"';
+            $allergens_may_contain_detail = Input::get('allergens_may_contain');
 
             if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) {
-                $allergens_may_contain = '"'.implode(',',$allergens_may_contain_detail).'"';
+                $allergens_may_contain = implode(',',$allergens_may_contain_detail);
             }
             else{
-                $allergens_may_contain = "";
+                $allergens_may_contain[] = array();;
             }
-
              if($file <> null)
              {
             $success = File::delete($dish->img_url);
@@ -540,63 +519,39 @@ class DishesController extends Controller
             }
 
             $dish->dish_name = Input::get('dish_name');
-            $dish->description = '"'.Input::get('description').'"';
-            $dish->cuisines_ids = '"'.implode(',',Input::get('cuisines_ids')).'"';
-            $dish->lifestyle_choices_ids = '"'.implode(',',Input::get('lifestyle_choices_ids')).'"';
-            $dish->allergens_contain_ids = '"'.implode(',',Input::get('allergens_contain_ids')).'"';
+            $dish->description = Input::get('description');
+            $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
+            $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
+            $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
             $dish->allergens_may_contain = $allergens_may_contain;
-            $dish->ingredients_ids = $ingredients;
-            $dish->menus_ids = '"'.Input::get('menus_ids').'"';
-            $dish->sections_ids = '"'.Input::get('sections_ids').'"';
-            $dish->subsections_ids = '"'.Input::get('subsections_ids').'"';
+            $dish->ingredients_ids = implode(',',$ingredients_ids);
+            $dish->menus_ids = Input::get('menus_ids');
+            $dish->sections_ids = Input::get('sections_ids');
+            $dish->subsections_ids = Input::get('subsections_ids');
             $dish->group_id = (Input::get('group_id')== ''  ? '0' : Input::get('group_id'));
-             $dish->eatery_id = (Input::get('eatery_id')== ''  ? '0' : Input::get('eatery_id'));
-            $dish->valid_from = '"'.date('Y-m-d',strtotime(Input::get('valid_from'))).'"';
-            $dish->valid_till = '"'.date('Y-m-d',strtotime(Input::get('valid_till'))).'"';
-            $dish->applicable_days = '"'.implode(',',Input::get('applicable_days')).'"';
+            $dish->valid_from = date('Y-m-d',strtotime(Input::get('valid_from')));
+            $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
+            $dish->applicable_days = implode(',',Input::get('applicable_days'));
             $dish->default_price = Input::get('default_price');
-            $is_visible = Input::get('is_visible');
-            if(isset($is_visible) && !empty($is_visible)){
-                $dish->is_visible = 1;
-            }else{
-                $dish->is_visible = 0;
-            }
-            $is_featured = Input::get('is_featured');
-            if(isset($is_featured) && !empty($is_featured)){
-                $dish->is_featured = 1;
-            }else{
-                $dish->is_featured = 0;
-            }
-            $is_new = Input::get('is_new');
-            if(isset($is_new) && !empty($is_new)){
-                $dish->is_new = 1;
-            }else{
-                $dish->is_new = 0;
-            }
-            $dish->new_till_date = '"'.date('Y-m-d',strtotime(Input::get('new_till_date'))).'"';
-            $nutrition_fat = Input::get('nutrition_fat');
-            $dish->nutrition_fat =  isset($nutrition_fat)?$nutrition_fat:0;
-            $nutrition_cholesterol = Input::get('nutrition_cholesterol');
-            $dish->nutrition_cholesterol =  isset($nutrition_cholesterol)?$nutrition_cholesterol:0;
-            $nutrition_sugar = Input::get('nutrition_sugar');
-            $dish->nutrition_sugar =  isset($nutrition_sugar)?$nutrition_sugar:0;
-            $nutrition_fibre = Input::get('nutrition_fibre');
-            $dish->nutrition_fibre =  isset($nutrition_fibre)?$nutrition_fibre:0;
-            $nutrition_protein = Input::get('nutrition_protein');
-            $dish->nutrition_protein =  isset($nutrition_protein)?$nutrition_protein:0;
-            $nutrition_saturated_fat = Input::get('nutrition_saturated_fat');
-            $dish->nutrition_saturated_fat =  isset($nutrition_saturated_fat)?$nutrition_saturated_fat:0;
-            $nutrition_calories = Input::get('nutrition_calories');
-            $dish->nutrition_calories =  isset($nutrition_calories)?$nutrition_calories:0;
-            $nutrition_carbohydrates =  Input::get('nutrition_carbohydrates');
-            $dish->nutrition_carbohydrates =  isset($nutrition_carbohydrates)?$nutrition_carbohydrates:0;
-            $nutrition_salt =  Input::get('nutrition_salt');
-            $dish->nutrition_salt =  isset($nutrition_salt)?$nutrition_salt:0;
+            $dish->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
+            $dish->is_featured = (Input::get('is_featured')== ''  ? '0' : '1');
+            $dish->is_new = (Input::get('is_new')== ''  ? '0' : '1');
+            $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
+            $dish->nutrition_fat =  Input::get('nutrition_fat');
+            $dish->nutrition_cholesterol =  Input::get('nutrition_cholesterol');
+            $dish->nutrition_sugar =  Input::get('nutrition_sugar');
+            $dish->nutrition_fibre =  Input::get('nutrition_fibre');
+            $dish->nutrition_protein =  Input::get('nutrition_protein');
+            $dish->nutrition_saturated_fat =  Input::get('nutrition_saturated_fat');
+            $dish->nutrition_calories =  Input::get('nutrition_calories');
+            $dish->nutrition_carbohydrates =  Input::get('nutrition_carbohydrates');
+            $dish->nutrition_salt =  Input::get('nutrition_salt');
             $dish->display_order =  1;
-            $dish->added_on = '"'.Carbon::now(new DateTimeZone('Asia/Kolkata')).'"';
+            $dish->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
             $dish->added_by = Session::get('user_id');
-            $dish->modified_on = '"'.Carbon::now(new DateTimeZone('Asia/Kolkata')).'"';
-            $dish->modified_by = Session::get('user_id');            
+            $dish->modified_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+            $dish->modified_by = Session::get('user_id');
+
             
              if($file <> null)
                 $dish->logo_extension = $extension;

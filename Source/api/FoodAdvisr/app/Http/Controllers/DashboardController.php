@@ -24,6 +24,7 @@ class DashboardController extends Controller
             $week[] =  $date;
             $week[] = DB::table('eateries')
                 ->select(DB::raw('*'))
+                ->where('is_enabled','=',1)
                 ->where('associated_on' ,'<=', $date)
                 ->count();                
             $weeks[] = $week ;
