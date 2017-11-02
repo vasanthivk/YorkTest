@@ -1031,8 +1031,6 @@ body.on('click','.act-clear-search',function(){
               var opdishes='';
               data.result.dishes.forEach(function(dishvalue){
                 opdishes +="<div class='eatery-dish'>";
-                    opdishes +="<div class='eatery-dish-name'>"+(dishvalue.dish_name == null ? "" : dishvalue.dish_name) +"</div>";
-                    opdishes +="<div class='eatery-dish-description'>"+(dishvalue.description == null ? "" : dishvalue.description)+"</div>";
                     if(!(dishvalue.img_url == null || dishvalue.img_url == ""))
                     {
                         opdishes +="<div class='eatery-dish-img'><img src='"+objInit.mediaPath +dishvalue.img_url+"' alt=''/></div>";
@@ -1041,6 +1039,8 @@ body.on('click','.act-clear-search',function(){
                     {
                         opdishes +="<div class='eatery-dish-img-non'></div>";
                     }
+                    opdishes +="<h2>"+(dishvalue.dish_name == null ? "" : dishvalue.dish_name) +"</h2>";
+                    opdishes +="<h3>"+(dishvalue.description == null ? "" : dishvalue.description)+"</h3>";
                 opdishes+="</div>";
               });
               $(".eaterydish-list").html(opdishes);
