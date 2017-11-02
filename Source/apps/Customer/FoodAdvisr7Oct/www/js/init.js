@@ -871,7 +871,7 @@ body.on('click','.act-clear-search',function(){
                 }
                
             $('#eatery-list').append('<li class="act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id 
-              + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:30px; color:#000; margin:15px 5px 10px 5px">&nbsp</i><br>Delete</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:30px; color:#f00;  margin:15px 5px 0 5px">&nbsp</i><br><br><br>Favourite</a></div><a href="" data-id="' + data.result[idx].id 
+              + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:30px; color:#000; margin:15px 5px 10px 5px">&nbsp</i><br>Delete</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:30px;margin:15px 5px 0 5px">&nbsp</i><br><br><br>Favourite</a></div><a href="" data-id="' + data.result[idx].id 
               + '"><img style="height:75px;top:10px;left:10px; " src="'+objInit.mediaPath + data.result[idx].logo_path+'"/><h3>' + data.result[idx].business_name 
               + '</h3><p> ' + opCuisines.toString()  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].foodadvisr_overall_rating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].clicks_after_associated + 
                favouriticon +'</p></a></li>');
@@ -984,6 +984,11 @@ body.on('click','.act-clear-search',function(){
     
 
     body.on('click','.act-eatery',function(){
+      var favouriteseateries = [];
+      api.getFavouriteEateries(function(data){
+        favouriteseateries = data.result;
+      });
+      
       $('.eateryfav').css({"color": "black"}).removeClass('fa-heart').addClass('fa-heart-o');
       var eateryId=$(this).find('#eateryId').val();
       api.getAddClickAfterAssociated(eateryId,function(data){
@@ -1002,6 +1007,13 @@ body.on('click','.act-clear-search',function(){
                               (data.result.postal_town == null ? "" : data.result.postal_town + "") +
                               (data.result.postal_code == null ? "" : data.result.postal_code + "") ;
           $("#eateryaddress").html(eateryAddress);
+
+          favouriteseateries.forEach(function(favdata){
+            if(favdata.eatery_id == eateryId)
+            {
+              $('.eateryfav').css({"color": "red"}).removeClass('fa-heart-o').addClass('fa-heart');
+            }
+          })
 
           if(!(data.result.menus == null || data.result.menus == ""))
           {
@@ -1361,24 +1373,22 @@ body.on('click','.act-clear-search',function(){
       {
          $(this).css({"color": "red"}).removeClass('fa-heart-o').addClass('fa-heart');
         api.addToFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
-           //alert(JSON.stringify(data));
-          if(data.status == "0")
-          {
+          // if(data.status == "0")
+          // {
             // $(this).removeClass( "fa-heart-o" );
             // $(this).addClass( "fa-heart" );
-          }
+          //}
         });
       }
       else
       {
         $(this).css({"color": "black"}).removeClass('fa-heart').addClass('fa-heart-o');
         api.removeFromFavouriteEatery(document.getElementById("selected_eateryId").value,function(data){
-          //alert(JSON.stringify(data));
-          if(data.status == "0")
-          {
+          //if(data.status == "0")
+          //{
             // $(this).removeClass( "fa-heart" );
             // $(this).addClass( "fa-heart-o" );
-          }
+          //}
         });
       }
     });
