@@ -560,15 +560,15 @@ label.star:before {
   color: black;
   float: left;
 }
-.eatery-menu{display:block; padding:10px 5px 5px 5px; font-size:1rem;color:#000;  background:#fff; font-weight:bold;text-transform: uppercase; text-align:center; border-top:1px solid #ccc;}
-.eatery-menu-section{display:block; padding:2px 5px 5px 30px; font-size:0.95rem;color:#000; background:#fff}
-.eatery-menu-subsection{display:block;padding:2px 5px 5px 30px; font-size:0.95rem;color:#000;background:#fff;}
+.eatery-menu{display:block; padding:10px 5px 5px 5px; font-size:1rem;color:#000;  background:#fff; font-weight:bold;text-transform: uppercase; text-align:center; border-top:1px solid #ece8e8;}
+.eatery-menu-section{display:block; padding:2px 5px 5px 10px; font-size:0.95rem;color:#000; background:#fff}
+.eatery-menu-subsection{display:block;padding:2px 5px 5px 10px; font-size:0.95rem;color:#000;background:#fff;}
 
-.eatery-dish{display:block; padding:2px 5px 5px 30px; font-size:0.95rem;color:#000; background:#fff;}
+.eatery-dish{display:block; padding:2px 5px 5px 10px; font-size:0.95rem;color:#000; background:#fff;}
 .eatery-dish-name{display:block; padding:2px 5px 5px 5px; font-size:0.95rem;color:#000; background:#fff;}
 .eatery-dish-description{display:block; padding:2px 5px 5px 5px; font-size:0.95rem;color:#000; background:#fff;}
 .eatery-dish-img{display:block; padding:2px 5px 5px 5px; font-size:0.95rem;color:#000; background:#fff; width:100px; height:100px; border:1px solid #ccc;display: table-cell; }
-.additional-text{display:block; padding:20px 25px 20px 25px; font-size:0.93rem;color:#000; background:#fff; text-align:justify; border-bottom:1px solid #ccc;}
+.additional-text{display:block; padding:20px 15px 20px 15px; font-size:0.93rem;color:#000; background:#fff; text-align:justify; border-bottom:1px solid #ccc;}
 
 /*fire42 end*/
 .intol-tab-wrap{
