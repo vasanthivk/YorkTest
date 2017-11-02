@@ -47,7 +47,6 @@ class DishesController extends Controller
 
     public function index(Request $request)
     {
-
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
@@ -221,6 +220,7 @@ class DishesController extends Controller
         else
         {
             $ingredient_items = Input::get('item_ingredients');
+
             if(isset($ingredient_items) && !empty($ingredient_items)){
                 foreach($ingredient_items as $ingredient){
                     $token = openssl_random_pseudo_bytes(3);
@@ -272,9 +272,24 @@ class DishesController extends Controller
             $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
             $dish->applicable_days = implode(',',Input::get('applicable_days'));
             $dish->default_price = Input::get('default_price');
-            $dish->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
-            $dish->is_featured = (Input::get('is_featured')== ''  ? '0' : '1');
-            $dish->is_new = (Input::get('is_new')== ''  ? '0' : '1');
+            $is_visible = Input::get('is_visible');
+            if(isset($is_visible) && !empty($is_visible)){
+                $dish->is_visible = 1;
+            }else{
+                $dish->is_visible = 0;
+            }
+            $is_featured = Input::get('is_featured');
+            if(isset($is_featured) && !empty($is_featured)){
+                $dish->is_featured = 1;
+            }else{
+                $dish->is_featured = 0;
+            }
+            $is_new = Input::get('is_new');
+            if(isset($is_new) && !empty($is_new)){
+                $dish->is_new = 1;
+            }else{
+                $dish->is_new = 0;
+            }
             $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
             $dish->nutrition_fat =  Input::get('nutrition_fat');
             $dish->nutrition_cholesterol =  Input::get('nutrition_cholesterol');
@@ -526,9 +541,24 @@ class DishesController extends Controller
             $dish->valid_till = date('Y-m-d',strtotime(Input::get('valid_till')));
             $dish->applicable_days = implode(',',Input::get('applicable_days'));
             $dish->default_price = Input::get('default_price');
-            $dish->is_visible = (Input::get('is_visible')== ''  ? '0' : '1');
-            $dish->is_featured = (Input::get('is_featured')== ''  ? '0' : '1');
-            $dish->is_new = (Input::get('is_new')== ''  ? '0' : '1');
+            $is_visible = Input::get('is_visible');
+            if(isset($is_visible) && !empty($is_visible)){
+                $dish->is_visible = 1;
+            }else{
+                $dish->is_visible = 0;
+            }
+            $is_featured = Input::get('is_featured');
+            if(isset($is_featured) && !empty($is_featured)){
+                $dish->is_featured = 1;
+            }else{
+                $dish->is_featured = 0;
+            }
+            $is_new = Input::get('is_new');
+            if(isset($is_new) && !empty($is_new)){
+                $dish->is_new = 1;
+            }else{
+                $dish->is_new = 0;
+            }
             $dish->new_till_date = date('Y-m-d',strtotime(Input::get('new_till_date')));
             $dish->nutrition_fat =  Input::get('nutrition_fat');
             $dish->nutrition_cholesterol =  Input::get('nutrition_cholesterol');

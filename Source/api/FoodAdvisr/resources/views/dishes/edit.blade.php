@@ -49,6 +49,7 @@ Dish
                      <div class="col-sm-8">
                             <select class="form-control" id="group_id" name="group_id">
                                 <option value="0">Please select group</option>
+                                @if(isset($groups) && !empty($groups) && $groups != '')
                                 @foreach($groups as $group)
                                 <option value="{{ $group->id }}"  <?php 
                                 $val = $group->id;
@@ -61,6 +62,7 @@ Dish
                                 } ?>>  
                                   {{ $group->description }}</option>
                                 @endforeach
+                                @endif
                             </select>
                        </div>
                 </div>             
