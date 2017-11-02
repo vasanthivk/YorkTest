@@ -62,7 +62,7 @@ ini_set('max_execution_time', 5000);
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
             $result->menus = getmenubygroupid($result->group_id,$id);
-            $result->dishes = geteaterydishes($result->group_id,$id);
+            $result->dishes = geteaterydishes($id);
         }
         return $result;     
     }
@@ -270,7 +270,7 @@ ini_set('max_execution_time', 5000);
 
        return $menuDetails;
     }
-    function geteaterydishes($groupid,$eateryid)
+    function geteaterydishes($eateryid)
     {
         $dish_details = DB::table('dishes')
             ->where('dishes.eatery_id', '=', $eateryid)
