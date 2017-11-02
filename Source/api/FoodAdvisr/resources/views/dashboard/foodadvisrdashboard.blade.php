@@ -34,7 +34,7 @@
                     <span class="fa fa-thumbs-o-down"></span>
                 </div>                             
                 <div class="widget-data" style="margin-top: 19px;margin-right: 9px;text-align: center;">
-                    <div class="widget-int num-count">{{$nonassociatedeateries}}</div>
+                    <div class="widget-int num-count">{{$nonassociatedeateries[0]->Total}}</div>
                     <div class="widget-title">Yet To Be OnBoarded</div>
                     <div class="widget-subtitle"></div>
                 </div>      

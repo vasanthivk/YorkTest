@@ -45,16 +45,15 @@ class EateriesController extends Controller
 
     public function index(Request $request)
     {
+        if ( !Session::has('user_id') || Session::get('user_id') == '' )
+            return Redirect::to('/');
+        $privileges = $this->getPrivileges();
+        $location_id = Input::get('location_id');  
          if($request['search'])
             $searchvalue = $request['search'];
         else
             $searchvalue='';
-        $search = '%' . $searchvalue . '%';
-
-        if ( !Session::has('user_id') || Session::get('user_id') == '' )
-            return Redirect::to('/');
-        $privileges = $this->getPrivileges();
-        $location_id = Input::get('location_id');       
+        $search = '%' . $searchvalue . '%';     
         
         if(in_array(Session::get("role_id"),array(2)))
         {

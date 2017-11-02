@@ -153,6 +153,8 @@ function getMenusubsectionByMenuSection($section_id){
              ->where(function ($query) use ($search){
                     $query->where('eateries.business_name', 'like', $search)
                             ->orwhere('eateries.locality', 'like', $search)
+                            ->orwhere('eateries.address', 'like', $search)
+                            ->orwhere('eateries.postal_code', 'like', $search)
                             ->orwhere('groups.description', 'like', $search)
                             ->orwhere('locations.description', 'like', $search);
                 })
