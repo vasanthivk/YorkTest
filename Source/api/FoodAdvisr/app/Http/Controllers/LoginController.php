@@ -13,7 +13,8 @@ use Input;
 use DB;
 use Session;
 use DateTimeZone;
-
+use Mail;
+use Hash;
 
 class LoginController extends Controller
 {
@@ -45,34 +46,35 @@ class LoginController extends Controller
 
 
         }
+       
         $logindetails = DB::table('person')
-            ->where('person.email','=', Input::get("login"))
-            ->where('person.password','=', Input::get("password"))
+            ->where('person.email','=', Input::get("email"))
+            ->where('person.password','=', Hash::check('password', Input::get('password')))
             ->get();
 
         $login = DB::table('person')
-            ->where('person.email','=', Input::get("login"))
-            ->where('person.password','=', Input::get("password"))
+            ->where('person.email','=', Input::get("email"))
+            ->where('person.password','=', Hash::check('password', Input::get('password')))
             ->count();
 
         $loginerr = DB::table('person')
-            ->where('person.email','=', Input::get("login"))
+            ->where('person.email','=', Input::get("email"))
             ->count();
 
         if($loginerr > 0)
         {
 
             $passerr = DB::table('person')
-                ->where('person.email','=', Input::get("login"))
-                ->where('person.password','=', Input::get("password"))
+                ->where('person.email','=', Input::get("email"))
+                ->where('person.password','=', Hash::check('password', Input::get('password')))
                 ->count();
 
             if($passerr > 0)
             {
 
                 $allowerr = DB::table('person')
-                    ->where('person.email','=', Input::get("login"))
-                    ->where('person.password','=', Input::get("password"))
+                    ->where('person.email','=', Input::get("email"))
+                    ->where('person.password','=', Hash::check('password', Input::get('password')))
                     ->whereNotIn('person.roles',[5])
                     ->count();
 
@@ -83,12 +85,13 @@ class LoginController extends Controller
                     {
 
 
-                        if($logindetails[0]->roles ==1)
+                        if($logindetails[0]->status == 1)
                         {
-                            Session::put("user_id",$logindetails[0]->ref);
+                            Session::put("user_id",$logindetails[0]->id);
                             Session::put("role_id",$logindetails[0]->roles);
                             Session::put("name",$logindetails[0]->firstnames);
                             Session::put("eatery_id",'');
+                            Session::put("status",$logindetails[0]->status);
                             Session::put("mobile_no",$logindetails[0]->mobileno);
 
                             return Redirect::route('dashboard.index');
@@ -218,8 +221,9 @@ class LoginController extends Controller
     public function forgot(Request $request)
     {
         $input = Input::all();
+       
          $this->validate($request, [
-            'login'  => 'required|string','password'=>'required'
+            'email'  => 'required|email'
         ]);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -231,21 +235,30 @@ class LoginController extends Controller
             ->withErrors($validator)
             ->with('errors', 'There were validation errors.');
         }
-        $login = DB::table('user')
-            ->where('user.login','=', Input::get("login"))           
+        $login_details = DB::table('person')
+            ->where('person.email','=', Input::get("email")) 
+            ->get();
+        $login = DB::table('person')
+            ->where('person.email','=', Input::get("email"))           
             ->count();
         if($login == 1)
         {
-           DB::table('user')
-            ->where('login', Input::get("login"))
-            ->update(['password' => Input::get("password")]);
+            Mail::send('login.forgottemplate', ['title' => $login_details[0]->email], function ($message)
+        {
+            $message->subject('Fogot Password From FoodAdvisr');
+            $message->from('itsmyview1@gmail.com', 'FoodAdvisr');
+            $message->to('ch.raviteja2@gmail.com');
+
+
+        });
            return redirect('/login')->with('success','Updated Password Successfully!');
         }
         else{
-             return \Redirect::back()->withErrors( 'Invalid Login')
+             return \Redirect::back()->withErrors( 'Invalid Email')
                 ->withInput();  
         }   
     }
+
     public function create()
     {
         
