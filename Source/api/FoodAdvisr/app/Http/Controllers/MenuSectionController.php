@@ -36,16 +36,19 @@ class MenuSectionController extends Controller
         return $privileges;
      }
 
-    public function index()
+    public function index(Request $request)
     {
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
+        $menu_id = $request['menu_id'];
         $menusections = DB::table('menu_section')
         ->select(DB::raw('menu_section.*,if(ifnull(menu_section.is_visible,1)=1,"Visible","InVisible") as status'))
+        ->where('menu_id','=',$menu_id)
         ->get();
          return View('menusections.index', compact('menusections'))         
-        ->with('privileges',$privileges);
+        ->with('privileges',$privileges)
+        ->with('menu_id',$menu_id);
     }
 
     /**
@@ -53,11 +56,12 @@ class MenuSectionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
          if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
         $privileges = $this->getPrivileges();
+        $menu_id = $request['menu_id'];
         $menus = DB::table('menu')
             ->where('is_visible','=','1')
             ->where('company','=','FoodAdvisr')
@@ -70,7 +74,8 @@ class MenuSectionController extends Controller
         }
         return View('menusections.create')          
         ->with('menus',$menus)
-        ->with('privileges',$privileges);
+        ->with('privileges',$privileges)
+        ->with('menu_id',$menu_id);
     }
 
     /**
@@ -90,7 +95,8 @@ class MenuSectionController extends Controller
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('itemcategory.create')
+            $menu_id = $request['menu_id'];
+            return Redirect::route('menusections.create',array('menu_id' => $menu_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -118,7 +124,7 @@ class MenuSectionController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('menusections.index')->with('success','Menu Section Created Successfully!');
+        return Redirect::route('menusections.index',array('menu_id' => $menusection->menu_id))->with('success','Menu Section Created Successfully!');
         
         }
     }
@@ -140,7 +146,7 @@ class MenuSectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request,$id)
     {
         if ( !Session::has('user_id') || Session::get('user_id') == '' )
             return Redirect::to('/');
@@ -153,9 +159,11 @@ class MenuSectionController extends Controller
         ->where('company','=','FoodAdvisr')
         ->select(DB::raw('menu.menu,menu.ref as id'))
         ->pluck('menu','id');
+         $menu_id = $request['menu_id'];
         return View('menusections.edit')          
         ->with('menusections',$menusections)
         ->with('menus',$menus)
+        ->with('menu_id',$menu_id)
         ->with('privileges',$privileges);
     }
 
@@ -177,7 +185,8 @@ class MenuSectionController extends Controller
         $validator = Validator::make(Input::all(), $rules);
         if ($validator->fails()) 
         {
-            return Redirect::route('menusections.edit')
+             $menu_id = $request['menu_id'];
+            return Redirect::route('menusections.edit',array('menu_id' => $menu_id))
                 ->withInput()
                 ->withErrors($validator)
                 ->with('errors', 'There were validation errors');
@@ -205,7 +214,7 @@ class MenuSectionController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('menusections.index')->with('success','Menu Section Updated Successfully!');
+        return Redirect::route('menusections.index',array('menu_id' => $menusection->menu_id))->with('success','Menu Section Updated Successfully!');
         
         }
     }

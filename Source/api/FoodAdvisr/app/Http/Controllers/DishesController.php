@@ -88,7 +88,7 @@ class DishesController extends Controller
         {
             $menusection = MenuSection::where('menu_id','=',$menuAll[0]->ref)->where('is_visible','=','1')->pluck('section_name','id');
         }
-        $menusection_count = $menus->count();
+        $menusection_count = $menusection->count();
         if($menusection_count == 0)
         {
             return Redirect::back()->with('warning','Please Add Menu Section Details While Adding Dish!');
@@ -99,7 +99,11 @@ class DishesController extends Controller
             $menusectionAll = MenuSection::where('menu_id','=',$menuAll[0]->ref)->where('is_visible','=','1')->get();
             $menusubsection = MenuSubSection::where('section_id','=',$menusectionAll[0]->id)->where('is_visible','=','1')->pluck('sub_section_name','id');
         }
-        
+        $menusubsection_count = $menusubsection->count();
+        if($menusection_count == 0)
+        {
+            return Redirect::back()->with('warning','Please Add Menu Sub Section Details While Adding Dish!');
+        }
         $allergentypes = DB::table('allergens')
             ->where('type','=',"I")
             ->select(DB::raw('ref,title'))

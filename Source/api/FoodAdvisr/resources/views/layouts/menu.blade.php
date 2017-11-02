@@ -32,9 +32,7 @@ if(in_array(Session::get("role_id"),array(1)))
                          <a href="#"><span class="fa fa-files-o"></span> <span class="xn-text">Manage Menu</span></a>
                         <ul>
                             <li class="{{ Request::segment(1) === 'menu'? 'active' : null }}"><a href="{{action('MenuController@index')}}"><span class="fa fa-cutlery"></span> Menu</a></li>
-                            <li  class="{{ Request::segment(1) === 'menusections'? 'active' : null }}"><a href="{{action('MenuSectionController@index')}}"><span class="fa fa-cutlery"></span> Menu Sections</a></li>
-                            <li  class="{{ Request::segment(1) === 'menusubsections'? 'active' : null }}"><a href="{{action('MenuSubSectionController@index')}}"><span class="fa fa-cutlery"></span> Menu Sub Sections</a></li>
-                            <li  class="{{ Request::segment(1) === 'dishes'? 'active' : null }}"><a href="{{action('DishesController@index')}}"><span class="fa fa-cutlery"></span> dishes</a></li>
+                            <li  class="{{ Request::segment(1) === 'dishes'? 'active' : null }}"><a href="{{action('DishesController@index')}}"><span class="fa fa-cutlery"></span> Dishes</a></li>
                         </ul>
                     </li>  
                      <!-- <li class="{{ Request::segment(1) === 'appcustomers' ? 'active' : null }}"><a href="{{action('AppCustomersController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">Customers</span></a>     

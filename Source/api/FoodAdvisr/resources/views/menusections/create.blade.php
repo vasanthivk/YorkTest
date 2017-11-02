@@ -16,13 +16,13 @@ Menu Section
 
 
 {{ Form::open(array('route' => 'menusections.store','files'=>true)) }}
+<input type="hidden" id="menu_id" name="menu_id" value="{{$menu_id}}"></input>
 <div class="form-group form-horizontal">
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
 		        {{ Form::ahText('section_name','Section Name :','',array('maxlength' => '100'))  }}
                 {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
-                {{ Form::ahSelect('menu_id','Menu Name :',null,$menus) }}
                 {{ Form::ahSwitch('is_visible','Is Visible :',null) }} 
 		        </br>
 		    </div>
@@ -30,7 +30,7 @@ Menu Section
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">
 		            {{ Form::submit('Save', array('class' => 'btn btn-primary')) }}
-		            {{ link_to_route('menusections.index','Cancel',null, array('class' => 'btn btn-danger')) }}
+		            {{ link_to_route('menusections.index','Cancel',array('menu_id' => $menu_id), array('class' => 'btn btn-danger')) }}
 		        </div>
 		    </div>
 	    </div>

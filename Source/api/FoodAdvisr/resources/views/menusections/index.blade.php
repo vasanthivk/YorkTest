@@ -14,7 +14,7 @@ Menu Section
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="{{URL::to('menusections/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Section</a>
+                                        <a href="../../menusections/create?menu_id={{$menu_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Section</a>
                                         @endif
                                     </div>
                                 </div>
@@ -25,6 +25,7 @@ Menu Section
                                                 <th>Section Name</th>
                                                 <th>Status</th>            
                                                 <th>Edit/Delete</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>                                                    @foreach($menusections as $section)
@@ -39,7 +40,7 @@ Menu Section
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('menusections.edit','Edit',array($section->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('menusections.edit','Edit',array($section->id,'menu_id' => $menu_id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
@@ -51,6 +52,11 @@ Menu Section
                                                 </div>
                                             </div>
                                         </td>
+                                        <td>
+                                            <div class="btn-group pull-left">
+                                                    <a href="../../menusubsections?section_id={{$section->id}}" class="btn btn-success">Menu Sub Section</a>
+                                                </div>
+                                        </td>
                                          </tr>
                                     @endforeach
                                         </tbody>
@@ -58,6 +64,11 @@ Menu Section
                                     
                                 </div>
                             </div>
+                            <div class="btn-group pull-left">
+                                   
+                                        <a href="../../menu" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Menu</a>
+                                       
+                                    </div>
     					</div>
     				</div>        
 @endsection

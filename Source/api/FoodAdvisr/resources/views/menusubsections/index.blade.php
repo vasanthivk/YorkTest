@@ -14,7 +14,7 @@ Menu Sub Sections
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="{{URL::to('menusubsections/create')}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Sub Section</a>
+                                        <a href="../../menusubsections/create?section_id={{$section_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Sub Section</a>
                                         @endif
                                     </div>
                                 </div>
@@ -39,7 +39,7 @@ Menu Sub Sections
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
-                                                {{ link_to_route('menusubsections.edit','Edit',array($subsection->id), array('class' => 'btn btn-info')) }}
+                                                {{ link_to_route('menusubsections.edit','Edit',array($subsection->id,'section_id' => $section_id), array('class' => 'btn btn-info')) }}
                                                 @endif 
                                                 </div>
                                                 <div style="float:left;padding-right:10px;">
@@ -58,6 +58,11 @@ Menu Sub Sections
                                     
                                 </div>
                             </div>
+                            <div class="btn-group pull-left">
+                                   
+                                        <a href="../../menu" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Menu</a>
+                                       
+                                    </div>
     					</div>
     				</div>        
 @endsection

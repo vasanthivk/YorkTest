@@ -25,6 +25,7 @@ Menus
                                                 <th>Menu Name</th>
                                                 <th>Status</th>
                                                 <th>Edit/Delete</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>                                                    @foreach($menus as $menu)
@@ -48,6 +49,11 @@ Menus
                                                    @endif
                                                 </div>
                                             </div>
+                                        </td>
+                                          <td>
+                                            <div class="btn-group pull-left">
+                                                    <a href="../../menusections?menu_id={{$menu->id}}" class="btn btn-success">Menu Section</a>
+                                                </div>
                                         </td>
                                          </tr>
                                     @endforeach
