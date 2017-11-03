@@ -1,6 +1,6 @@
 appSettings=new Object();
 
-appSettings.version='2.2.5';
+appSettings.version='2.2.6';
 appSettings.api_version='v14';
 appSettings.defaultProfile=1;
 appSettings.showErrors=false;
@@ -10,8 +10,15 @@ appSettings.logoPath='http://api.foodadvisr.com/logos/';
 
 //appSettings.apiPath='http://52.56.130.182/cxx/workspace/quicr/content/api_'+appSettings.api_version;
 appSettings.apiPath='https://api.foodadvisr.com/api_'+appSettings.api_version;
-appSettings.apiEateriesPath='http://qafoodadvisr.fire42.com/api/v1/';
-appSettings.mediaPath = "http://qafoodadvisr.fire42.com/";
+
+//Live
+appSettings.apiEateriesPath='http://foodadvisr.fire42.com/api/v1/';
+appSettings.mediaPath = "http://foodadvisr.fire42.com/";
+
+//testing
+// appSettings.apiEateriesPath='http://qafoodadvisr.fire42.com/api/v1/';
+// appSettings.mediaPath = "http://qafoodadvisr.fire42.com/";
+
 appSettings.orgName = "FoodAdvisr";
 
 appSettings.hash='.xfa8flP4K03LsT3jeya3O38FCMaE3p';
