@@ -6,6 +6,7 @@ use App\Dishes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Menu;
+use App\LifestyleChoices;
 use Redirect;
 use Session;
 use App\Log;
@@ -111,7 +112,10 @@ class UploadMenuController extends Controller
                 $dish->dish_name = $value['dish_name'];
                 $dish->description = $value['description'];
                 $dish->cuisines_ids = $value['cuisines_ids'];
-                $dish->lifestyle_choices_ids = $value['lifestyle_choices_ids'];
+                
+                //$dish->lifestyle_choices_ids = $value['lifestyle_choices'];
+                $dish->lifestyle_choices_ids = getLifestyleChoicesIds($value['lifestyle_choices']);
+
                 $dish->allergens_contain_ids = $value['allergens_contain_ids'];
                 $dish->ingredients_string = $value['ingredients_string'];
                 $dish->nutrition_fat = $value['nutrition_fat'];
@@ -139,6 +143,20 @@ class UploadMenuController extends Controller
         }
         return back()->with('success','Inserted Menu successfully.'); 
         }
+    }
+    private function getLifestyleChoicesIds($lifestyle_choices)
+    {
+        $LifeStyleChoicesIds = [];
+        $lifestyle_choices_list = $lifestyle_choices.split(",");
+        foreach($lifestyle_choices_list as $lifestyle_choices_value)
+        {
+            $LifeStyle = DB::table('lifestyle_choices')->where('description', $lifestyle_choices_value)->first();
+            if($LifeStyle != null) 
+            {
+                $LifeStyleChoicesIds[] = $LifeStyle->id;
+            }
+        }
+        return implode(",",$LifeStyleChoicesIds);
     }
 
     /**
