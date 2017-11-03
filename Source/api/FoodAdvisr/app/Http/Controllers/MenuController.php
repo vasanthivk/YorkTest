@@ -136,7 +136,8 @@ class MenuController extends Controller
         $input = Input::all();
         
         if ($input['eatery_id'] == 0) {
-           return Redirect::back()->with('warning','Please Search Eateries And Select Aleast One Eatery!');
+           return Redirect::back()->with('warning','Please Search Eateries And Select Aleast One Eatery!')
+           ->withInput();
         }
         $this->validate($request, [
             'menu'  => 'required']);        
