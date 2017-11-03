@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Menu Sub Sections
+FoodAdvisr-Sub Sections
 @endsection
 @section('module')
-{{$eatery->business_name}} - Menu Sub Sections
+{{$eatery->business_name}} - Sub Sections
 @endsection
 
 @section('content')

@@ -54,7 +54,7 @@ Menus
                                         </td>
                                           <td>
                                             <div class="btn-group pull-left">
-                                                    <a href="../../menusections?menu_id={{$menu->id}}" class="btn btn-success">Menu Section</a>
+                                                    <a href="../../menusections?menu_id={{$menu->id}}" class="btn btn-success">Section</a>
                                                 </div>
                                         </td>
                                          </tr>

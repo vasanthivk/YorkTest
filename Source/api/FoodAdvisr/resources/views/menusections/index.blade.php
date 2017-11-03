@@ -1,9 +1,9 @@
 @extends('layouts.master')
 @section('title')
-FoodAdvisr-Menu Sections
+FoodAdvisr-Sections
 @endsection
 @section('module')
-{{$menus[0]->business_name}} - Menu Section
+{{$menus[0]->business_name}} - Section
 @endsection
 
 @section('content')
@@ -54,7 +54,7 @@ FoodAdvisr-Menu Sections
                                         </td>
                                         <td>
                                             <div class="btn-group pull-left">
-                                                    <a href="../../menusubsections?section_id={{$section->id}}" class="btn btn-success">Menu Sub Section</a>
+                                                    <a href="../../menusubsections?section_id={{$section->id}}" class="btn btn-success">Sub Section</a>
                                                 </div>
                                         </td>
                                          </tr>

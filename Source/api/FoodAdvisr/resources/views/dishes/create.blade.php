@@ -86,7 +86,7 @@
                 {{ Form::ahSelect('sections_ids','Section Name :',null,$menusection) }}
                 {{ Form::ahSelect('subsections_ids','Sub Section Name :',null,$menusubsection) }}
                  {{ Form::ahText('dish_name','Dish Name :','',array('maxlength' => '100'))  }}
-                 {{ Form::ahNumber('default_price','Price :','',array('min'=>'0','maxlength' => '20'))  }}
+                 {{ Form::ahNumber('default_price','Price :','',['class' => 'form-control','step'=>'any'],array('maxlength' => '5','min'=>'0','max'=>'50')) }} 
                  {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
                  {{ Form::ahSwitch('is_visible','Is Enabled :',null) }}
                  {{ Form::ahSwitch('is_featured','Is Featured :',null) }}
@@ -96,7 +96,7 @@
                     <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
                     <div class="col-sm-8">
                         <select multiple name="applicable_days[]" id="applicable_id" class="form-control select">
-                            <option value="0" if>Sunday</option>
+                            <option value="0">Sunday</option>
                             <option value="1">Monday</option>
                             <option value="2">Tuesday</option>
                             <option value="3">Wednesday</option>

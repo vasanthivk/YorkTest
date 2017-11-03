@@ -1,41 +1,41 @@
 {
-    "prepare_queue": {
-        "installed": [],
-        "uninstalled": []
+  "prepare_queue": {
+    "installed": [],
+    "uninstalled": []
+  },
+  "config_munge": {
+    "files": {}
+  },
+  "installed_plugins": {
+    "cordova-plugin-camera": {
+      "CAMERA_USAGE_DESCRIPTION": "we use camera to scan barcode of products to give accurrate results.",
+      "PHOTOLIBRARY_USAGE_DESCRIPTION": "App would like to access the library to store screenshot results.",
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
     },
-    "config_munge": {
-        "files": {}
+    "cordova-plugin-device": {
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
     },
-    "installed_plugins": {
-        "cordova-plugin-device": {
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        },
-        "cordova-plugin-geolocation": {
-            "GEOLOCATION_USAGE_DESCRIPTION": "We use your location to help improve our data accuracy",
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        },
-        "cordova-plugin-network-information": {
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        },
-        "cordova-plugin-statusbar": {
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        },
-        "cordova-plugin-whitelist": {
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        },
-        "phonegap-plugin-barcodescanner": {
-            "CAMERA_USAGE_DESCRIPTION": " ",
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        },
-        "cordova-plugin-camera": {
-            "CAMERA_USAGE_DESCRIPTION": "we use camera to scan barcode of products to give accurrate results.",
-            "PHOTOLIBRARY_USAGE_DESCRIPTION": "App would like to access the library to store screenshot results.",
-            "PACKAGE_NAME": "foodadvisr.testfilght.002"
-        }
+    "cordova-plugin-geolocation": {
+      "GEOLOCATION_USAGE_DESCRIPTION": "We use your location to help improve our data accuracy",
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
     },
-    "dependent_plugins": {
-        "cordova-plugin-compat": {
-            "PACKAGE_NAME": "com.foodadvisr.main"
-        }
+    "cordova-plugin-network-information": {
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
+    },
+    "cordova-plugin-statusbar": {
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
+    },
+    "cordova-plugin-whitelist": {
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
+    },
+    "phonegap-plugin-barcodescanner": {
+      "CAMERA_USAGE_DESCRIPTION": " ",
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
     }
+  },
+  "dependent_plugins": {
+    "cordova-plugin-compat": {
+      "PACKAGE_NAME": "foodadvisr.testfilght.002"
+    }
+  }
 }

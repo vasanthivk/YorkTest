@@ -290,6 +290,11 @@ ini_set('max_execution_time', 5000);
             $dish->menus_ids = $dishes->menus_ids;
             $dish->sections_ids = $dishes->sections_ids;
             $dish->subsections_ids = $dishes->subsections_ids;
+            $dish->cuisines_ids = $dishes->cuisines_ids;
+            $dish->lifestyle_choices_ids = $dishes->lifestyle_choices_ids;
+            $dish->allergens_contain_ids = $dishes->allergens_contain_ids;
+            $dish->ingredients_ids = $dishes->ingredients_ids;
+
             $dish_array[] = $dish;
         }
 

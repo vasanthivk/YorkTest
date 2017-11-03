@@ -1,10 +1,10 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="com.foodadvisr.main" version="2.1.17" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="foodadvisr.testfilght.002" version="2.2.6" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>FoodAdvisr</name>
     <description>
       FoodAdvisr
   </description>
-    <author email="andyderrick@advisrtech.com" href="http://advisrtech.com">
+    <author email="sreekar.saladi@hellocurry.com" href="http://advisrtech.com">
       AdvisrTech Ltd
   </author>
     <preference name="orientation" value="portrait" />
