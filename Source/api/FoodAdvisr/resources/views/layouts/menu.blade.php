@@ -33,6 +33,8 @@ if(in_array(Session::get("role_id"),array(1)))
                         <ul>
                             <li class="{{ Request::segment(1) === 'menu' || Request::segment(1) === 'menusections' || Request::segment(1) === 'menusubsections' ? 'active' : null }}"><a href="{{action('MenuController@index')}}"><span class="fa fa-cutlery"></span> Menu</a></li>
                             <li  class="{{ Request::segment(1) === 'dishes'? 'active' : null }}"><a href="{{action('DishesController@index')}}"><span class="fa fa-cutlery"></span> Dishes</a></li>
+                            <li class="{{ Request::segment(1) === 'uploadmenu' ? 'active' : null }}"><a href="{{action('UploadMenuController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Dishes</span></a>
+                            </li>
                         </ul>
                     </li>  
                      <!-- <li class="{{ Request::segment(1) === 'appcustomers' ? 'active' : null }}"><a href="{{action('AppCustomersController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">Customers</span></a>     
@@ -43,8 +45,6 @@ if(!in_array(Session::get("role_id"),array(2)))
 { ?>                 
                    <!--  <li class="{{ Request::segment(1) === 'uploadeatery' ? 'active' : null }}"><a href="{{action('FoodController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Eateries</span></a>     
                     </li>  -->
-                    <!--  <li class="{{ Request::segment(1) === 'uploadmenu' ? 'active' : null }}"><a href="{{action('UploadMenuController@index')}}"><span class="fa fa-upload"></span> <span class="xn-text">Upload Menu</span></a>     
-                    </li>  -->                                      
                     <li class="{{ Request::segment(1) === 'user' || Request::segment(1) === 'userpermissions' ? 'active' : null }}"><a href="{{action('UserController@index')}}"><span class="fa fa-users"></span> <span class="xn-text">User</span></a>     
                     </li>
                     <li class="{{ Request::segment(1) === 'privileges' ? 'active' : null }}"><a href="{{action('PrivilegesController@index')}}"><span class="fa fa-list"></span> <span class="xn-text">Privileges</span></a>     
