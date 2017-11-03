@@ -48,7 +48,7 @@ class MenuSectionController extends Controller
         ->get();
         $menus = DB::table('menu')
         ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
-        ->select(DB::raw('eateries.business_name'))
+        ->select(DB::raw('eateries.business_name,menu.menu'))
         ->where('menu.company','=','FoodAdvisr')
         ->where('ref','=',$menu_id)
         ->get();

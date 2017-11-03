@@ -25,7 +25,7 @@ Dishes
                                             <tr>
                                                 <th>Title</th>
                                                 <th>Description</th>   
-                                                <th>Is Visible</th>                                  
+                                                <th>Is Visible</th>             
                                                 <th>Edit/Delete</th>
                                             </tr>
                                         </thead>

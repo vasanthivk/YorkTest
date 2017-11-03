@@ -211,7 +211,7 @@ class DishesController extends Controller
 
 
         $this->validate($request, [
-            'dish_name'  => 'required','default_price' => 'required','cuisines_ids'=>'required','lifestyle_choices_ids'=>'required','allergens_contain_ids'=>'required','applicable_days'=>'required']);
+            'dish_name'  => 'required','default_price' => 'required','applicable_days' => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
@@ -227,10 +227,30 @@ class DishesController extends Controller
         else
         {
             $ingredient_items = Input::get('item_ingredients');
+            $cuisines_details = Input::get('cuisines_ids');
+            if(isset($cuisines_details) && !empty($cuisines_details)) {
+                $cuisines_ids = implode(',',$cuisines_details);
+            }
+            else{
+                $cuisines_ids = "0";
+            }
+            $lifestyle_choices_details = Input::get('lifestyle_choices_ids');
+            if(isset($lifestyle_choices_details) && !empty($lifestyle_choices_details)) {
+                $lifestyle_choices_ids = implode(',',$lifestyle_choices_details);
+            }
+            else{
+                $lifestyle_choices_ids = "0";
+            }
 
+             $allergens_contain_details = Input::get('allergens_contain_ids');
+            if(isset($allergens_contain_details) && !empty($allergens_contain_details)) {
+                $allergens_contain_ids = implode(',',$allergens_contain_details);
+            }
+            else{
+                $allergens_contain_ids = "0";
+            }
 
             $allergens_may_contain_detail = Input::get('allergens_may_contain');
-
             if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) {
                 $allergens_may_contain = implode(',',$allergens_may_contain_detail);
             }
@@ -241,9 +261,9 @@ class DishesController extends Controller
             $dish = new Dishes();
             $dish->dish_name = Input::get('dish_name');
             $dish->description = Input::get('description');
-            $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
-            $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
-            $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
+            $dish->cuisines_ids = $cuisines_ids;
+            $dish->lifestyle_choices_ids = $lifestyle_choices_ids;
+            $dish->allergens_contain_ids = $allergens_contain_ids;
             $dish->allergens_may_contain = $allergens_may_contain;
             $dish->ingredients_string = $ingredient_items;
             $dish->menus_ids = Input::get('menus_ids');
@@ -432,7 +452,7 @@ class DishesController extends Controller
 
 
          $this->validate($request, [
-              'dish_name'  => 'required','default_price' => 'required','cuisines_ids'=>'required','lifestyle_choices_ids'=>'required','allergens_contain_ids'=>'required','applicable_days'=>'required']);
+              'dish_name'  => 'required','default_price' => 'required','applicable_days'=>'required']);
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);
         
@@ -447,11 +467,30 @@ class DishesController extends Controller
         else
         {   
             $dish = Dishes::find($id);
-
             $ingredient_items = Input::get('item_ingredients');            
+            $cuisines_details = Input::get('cuisines_ids');
+            if(isset($cuisines_details) && !empty($cuisines_details)) {
+                $cuisines_ids = implode(',',$cuisines_details);
+            }
+            else{
+                $cuisines_ids = "0";
+            }
+            $lifestyle_choices_details = Input::get('lifestyle_choices_ids');
+            if(isset($lifestyle_choices_details) && !empty($lifestyle_choices_details)) {
+                $lifestyle_choices_ids = implode(',',$lifestyle_choices_details);
+            }
+            else{
+                $lifestyle_choices_ids = "0";
+            }
 
+             $allergens_contain_details = Input::get('allergens_contain_ids');
+            if(isset($allergens_contain_details) && !empty($allergens_contain_details)) {
+                $allergens_contain_ids = implode(',',$allergens_contain_details);
+            }
+            else{
+                $allergens_contain_ids = "0";
+            }
             $allergens_may_contain_detail = Input::get('allergens_may_contain');
-
             if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) {
                 $allergens_may_contain = implode(',',$allergens_may_contain_detail);
             }
@@ -479,11 +518,11 @@ class DishesController extends Controller
 
             $dish->dish_name = Input::get('dish_name');
             $dish->description = Input::get('description');
-            $dish->cuisines_ids = implode(',',Input::get('cuisines_ids'));
-            $dish->lifestyle_choices_ids = implode(',',Input::get('lifestyle_choices_ids'));
-            $dish->allergens_contain_ids = implode(',',Input::get('allergens_contain_ids'));
+            $dish->cuisines_ids = $cuisines_ids;
+            $dish->lifestyle_choices_ids = $lifestyle_choices_ids;
+            $dish->allergens_contain_ids = $allergens_contain_ids;
             $dish->allergens_may_contain = $allergens_may_contain;
-            $dish->ingredients_ids = $ingredient_items;
+            $dish->ingredients_string = $ingredient_items;
             $dish->menus_ids = Input::get('menus_ids');
             $dish->sections_ids = Input::get('sections_ids');
             $dish->subsections_ids = Input::get('subsections_ids');

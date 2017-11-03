@@ -3,7 +3,7 @@
 FoodAdvisr-Sub Sections
 @endsection
 @section('module')
-{{$eatery->business_name}} - Sub Sections
+{{$eatery->business_name}} - {{$menus[0]->menu}} - {{$menusections->section_name}} - Sub Section
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ FoodAdvisr-Sub Sections
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="../../menusubsections/create?section_id={{$section_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Sub Section</a>
+                                        <a href="../../menusubsections/create?section_id={{$section_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Sub Section</a>
                                         @endif
                                     </div>
                                 </div>
@@ -60,7 +60,7 @@ FoodAdvisr-Sub Sections
                             </div>
                             <div class="btn-group pull-left">
                                    
-                                        <a href="../../menu" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Menu</a>
+                                        <a href="../../menusections?menu_id={{$menusections->menu_id}}" class="btn btn-primary"><i class="fa fa-arrow-left"></i>Back To Section</a>
                                        
                                     </div>
     					</div>

@@ -133,6 +133,16 @@ api.getEateryDetails=function(eateryid, callBack)
     });
 }
 
+api.getDishDetails=function(dishid, callBack)
+{
+    postData = '{"id":"'+ dishid+ '"}';
+    $.post(api.eateiesroot+'getdishdetailsbyid',postData,function(data){
+      callBack(data);
+    }).fail(function(error){
+      msg.show('Network error.',1000,false,true);
+    });
+}
+
 api.getFavouriteEateries=function(callBack)
 {
     //postData = '{"userid":"'+ userdata.email + '"}';

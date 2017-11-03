@@ -3,7 +3,7 @@
 FoodAdvisr-Sections
 @endsection
 @section('module')
-{{$menus[0]->business_name}} - Section
+{{$menus[0]->business_name}} - {{$menus[0]->menu}} - Section
 @endsection
 
 @section('content')
@@ -14,7 +14,7 @@ FoodAdvisr-Sections
                                 <div class="panel-heading">          
                                     <div class="btn-group pull-left">
                                     @if($privileges['Add']=='true') 
-                                        <a href="../../menusections/create?menu_id={{$menu_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Menu Section</a>
+                                        <a href="../../menusections/create?menu_id={{$menu_id}}" class="btn btn-info"><i class="fa fa-edit"></i>Add Section</a>
                                         @endif
                                     </div>
                                 </div>

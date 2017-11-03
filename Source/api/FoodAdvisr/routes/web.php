@@ -62,6 +62,7 @@ Route::post('api/v1/addclickbeforeassociated', array('as' => 'v1_addclickbeforea
 Route::post('api/v1/addclickafterassociated', array('as' => 'v1_addclickafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_AddClickAfterAssociated'));
 Route::post('api/v1/getclicksbeforeassociated', array('as' => 'v1_getclicksbeforeassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksBeforeAssociated'));
 Route::post('api/v1/getclicksafterassociated', array('as' => 'v1_getclicksafterassociated', 'uses' => 'RestApi_V1_GeneralController@V1_GetClicksAfterAssociated'));
+Route::post('api/v1/getdishdetailsbyid', array('as' => 'v1_getdishdetailsbyid', 'uses' => 'RestApi_V1_GeneralController@V1_GetDishDetailsById'));
 
 Route::get('api/v1/getcuisines','RestApi_V1_GeneralController@V1_GetCuisines');
 Route::get('api/v1/getlifestylechoices','RestApi_V1_GeneralController@V1_GetLifeStyleChoices');

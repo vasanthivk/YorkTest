@@ -143,7 +143,7 @@ Dish
             </div>
             <div class="col-md-6">
                 <br/>
-                <div class="form-group" style="margin:5px">
+                <!-- <div class="form-group" style="margin:5px">
                     <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>                  
 
                    <?php if(count($ingredients) > 0 ) {?>
@@ -162,7 +162,8 @@ Dish
                     <div class="col-sm-2">
                         <a class="btn btn-primary" id="ingrediant_add">Add</a>
                     </div>
-                </div>
+                </div> -->
+                {{ Form::ahTextarea('item_ingredients','Ingredients :',$dish->ingredients_string,array('size' => '30x5'))  }}
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="col-sm-4 control-label">Nutrition :</label>
                 </div>
