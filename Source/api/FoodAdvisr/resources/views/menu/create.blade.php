@@ -45,7 +45,18 @@ Menu
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-		        {{ Form::ahText('menu','Menu Name:','',array('maxlength' => '100'))  }}
+                <div class="form-group" style="margin:5px">
+                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="eatery_id" name="eatery_id">
+                                <option value="0">Please select eatery</option>
+                                @foreach($eateries as $eatery)
+                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
+                                 @endforeach
+                            </select>
+                       </div>
+                </div>
+		        {{ Form::ahText('menu','Menu Name :','',array('maxlength' => '100'))  }}
             	{{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
             	<div class="form-group" style="margin:5px">
                     <label for="location_id" class="control-label col-sm-4">Groups :</label>
@@ -61,20 +72,7 @@ Menu
                 </div>
 		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }}
 				</br>
-		    </div>
-		    <div class="col-md-6">
-		        <div class="form-group" style="margin:5px">
-                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
-                     <div class="col-sm-8">
-                            <select class="form-control" id="eatery_id" name="eatery_id">
-                                <option value="0">Please select eatery</option>
-                                @foreach($eateries as $eatery)
-                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
-                                 @endforeach
-                            </select>
-                       </div>
-                </div>
-              </div> 		   
+		    </div>	   
 	    <div class="form-group">
 		    <div class="panel-footer">
 		        <div class="col-md-6 col-md-offset-3">

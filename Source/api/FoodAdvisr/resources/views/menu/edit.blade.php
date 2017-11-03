@@ -19,7 +19,8 @@ Menu
 		<div class="panel panel-default">
 		</br>
 			<div class="col-md-6">
-                {{ Form::ahText('menu','Menu Name:',$menu->menu,array('maxlength' => '100'))  }}
+				 {{ Form::ahReadonly('eatery_id','Eatery :',$eateries->business_name,array('maxlength' => '100'))  }}
+                {{ Form::ahText('menu','Menu Name :',$menu->menu,array('maxlength' => '100'))  }}
                 {{ Form::ahTextarea('description','Description :',$menu->description,array('size' => '30x5'))  }}
                 <div class="form-group" style="margin:5px">
                     <label for="location_id" class="control-label col-sm-4">Groups :</label>
@@ -44,7 +45,7 @@ Menu
                 {{ Form::ahSwitch('is_visible','Is Visible :',null,$menu->is_visible) }} 
 		    </div>
 		     <div class="col-md-6">
-                            {{ Form::ahReadonly('eatery_id','Eatery :',$eateries->business_name,array('maxlength' => '100'))  }}
+                           
                     
               </div> 
 	    <div class="form-group">
