@@ -93,20 +93,20 @@
                  {{ Form::ahDate('valid_from','From :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                  {{ Form::ahDate('valid_till','To :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                  <div class="form-group" style="margin:5px">
-                    <label for="group_name" class="control-label col-sm-4">Applicable Days :</label>
-                    <div class="col-sm-8">
-                        <select multiple name="applicable_days[]" id="applicable_id" class="form-control select">
-                            <option value="0">Sunday</option>
-                            <option value="1">Monday</option>
-                            <option value="2">Tuesday</option>
-                            <option value="3">Wednesday</option>
-                            <option value="4">Thursday</option>
-                            <option value="5">Friday</option>
-                            <option value="6">Saturday</option>
+                  <label for="cuisine" class="control-label col-sm-4">Applicable Days :</label>
+                 <div class="col-sm-8">
+                        <select multiple name="applicable_days[]" class="form-control select">
+                            <?php 
+                             $applicable_days = array("Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday");
+                             $arrlength = count($applicable_days);
+                             for($x = 0; $x < $arrlength; $x++) { ?>
+                                <option value="{{$x}}">{{$applicable_days[$x]}}</option>
+                                <?php
+                                }
+                            ?>
                         </select>
-                    </div>
-                </div>               
-           
+                    </div>              
+                </div>
              <div class="form-group" style="margin:5px">
                   <label for="cuisine" class="control-label col-sm-4">Cuisines :</label>
                   <div class="col-md-8">
@@ -155,7 +155,7 @@
                 </br>
             </div>
             <div class="col-md-6">
-                <div class="form-group" style="margin:5px">
+                <!-- <div class="form-group" style="margin:5px">
                     <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>
                     <div class="col-sm-6 ingrediants">
                         <input class="form-control" maxlength="100" name="item_ingredients[]" type="text" value="" id="item_ingredients">
@@ -163,7 +163,8 @@
                     <div class="col-sm-2">
                         <a class="btn btn-primary" id="ingrediant_add">Add</a>
                     </div>
-                </div>
+                </div> -->
+                {{ Form::ahTextarea('item_ingredients','Ingredients :','',array('size' => '30x5'))  }}
                 <div class="form-group" style="margin:5px">
                     <label for="group_name" class="col-sm-4 control-label">Nutrition :</label>
                 </div>
