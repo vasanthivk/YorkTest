@@ -226,6 +226,7 @@ ini_set('max_execution_time', 5000);
     function getmenubygroupid($groupid,$eateryid){
         $menu_details = DB::table('menu')
             ->select(DB::raw('ref,menu,description'))
+            ->where('company','=','FoodAdvisr')
             ->where('group_id','=',$groupid)
             ->orWhere('eatery_id','=',$eateryid)
             ->get();

@@ -30,20 +30,36 @@ class UploadMenuController extends Controller
     public function generateExcel(Request $request) 
     {
       $data = Menu::get()->toArray();
-       Excel::create('Menu_'.Carbon::now(new DateTimeZone('Asia/Kolkata')),function($excel) use($data) 
+       Excel::create('Menu_'.Carbon::now(new DateTimeZone('Europe/London')),function($excel) use($data)
                 {
                     $excel->sheet('Sheet 1',function($sheet) use($data){
                         $sheet->getCell('A1')->setValueExplicit('SlNo');
-                        $sheet->getCell('B1')->setValueExplicit('ItemName');
-                        $sheet->getCell('C1')->setValueExplicit('ItemDescription');
-                        $sheet->getCell('D1')->setValueExplicit('ItemShortName');
-                        $sheet->getCell('E1')->setValueExplicit('ContainsNuts');
-                        $sheet->getCell('F1')->setValueExplicit('DairyFree');
-                        $sheet->getCell('G1')->setValueExplicit('GlutenFree');
-                        $sheet->getCell('H1')->setValueExplicit('Vegan');
-                        $sheet->getCell('I1')->setValueExplicit('ItemDefaultPrice');
-                        $sheet->getCell('J1')->setValueExplicit('IsDineIn');
-                    });    
+                        $sheet->getCell('B1')->setValueExplicit('dish_name');
+                        $sheet->getCell('C1')->setValueExplicit('description');
+                        $sheet->getCell('D1')->setValueExplicit('cuisines_ids');
+                        $sheet->getCell('E1')->setValueExplicit('lifestyle_choices_ids');
+                        $sheet->getCell('F1')->setValueExplicit('allergens_contain_ids');
+                        $sheet->getCell('G1')->setValueExplicit('ingredients_string');
+                        $sheet->getCell('H1')->setValueExplicit('nutrition_fat');
+                        $sheet->getCell('I1')->setValueExplicit('nutrition_cholesterol');
+                        $sheet->getCell('J1')->setValueExplicit('nutrition_sugar');
+                        $sheet->getCell('K1')->setValueExplicit('nutrition_fibre');
+                        $sheet->getCell('L1')->setValueExplicit('nutrition_protein');
+                        $sheet->getCell('M1')->setValueExplicit('nutrition_saturated_fat');
+                        $sheet->getCell('N1')->setValueExplicit('nutrition_calories');
+                        $sheet->getCell('O1')->setValueExplicit('nutrition_carbohydrates');
+                        $sheet->getCell('P1')->setValueExplicit('nutrition_salt');
+                        $sheet->getCell('Q1')->setValueExplicit('menus_ids');
+                        $sheet->getCell('R1')->setValueExplicit('sections_ids');
+                        $sheet->getCell('S1')->setValueExplicit('subsections_ids');
+                        $sheet->getCell('T1')->setValueExplicit('group_id');
+                        $sheet->getCell('U1')->setValueExplicit('eatery_id');
+                        $sheet->getCell('V1')->setValueExplicit('valid_from');
+                        $sheet->getCell('W1')->setValueExplicit('valid_till');
+                        $sheet->getCell('X1')->setValueExplicit('applicable_days');
+                        $sheet->getCell('Y1')->setValueExplicit('default_price');
+                        $sheet->getCell('Z1')->setValueExplicit('allergens_may_contain');
+                    });
                 })->export('xls');   
     }
     /**
@@ -97,7 +113,7 @@ class UploadMenuController extends Controller
                     $menu->is_dinein = $value['isdinein'];
                     $menu->category_id = 1;
                     $menu->company_id = 1;
-                    $menu->added_on = Carbon::now(new DateTimeZone('Asia/Kolkata'));
+                    $menu->added_on = Carbon::now(new DateTimeZone('Europe/London'));
                     $menu->added_by = Session::get('user_id');
                     $menu->modified_by = Session::get('user_id');
                     $menu->Save();
