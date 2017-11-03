@@ -70,7 +70,7 @@ Menu
 	                        </select>
 	                   </div>
                 </div>
-		        {{ Form::ahSwitch('is_visible','Is Visible :',null) }}
+		        {{ Form::ahSwitch('is_visible','Is Visible :',null,1) }}
 				</br>
 		    </div>	   
 	    <div class="form-group">

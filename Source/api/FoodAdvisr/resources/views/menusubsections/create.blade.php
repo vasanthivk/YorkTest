@@ -3,7 +3,7 @@
 FoodAdvisr-Sub Sections
 @endsection
 @section('module')
-{{$eatery->business_name}} - Sub Sections
+{{$eatery->business_name}} - {{$menus[0]->menu}} - {{$menusections->section_name}} - Sub Section
 @endsection
 
 @section('content')
@@ -25,7 +25,7 @@ FoodAdvisr-Sub Sections
 			<div class="col-md-6">
 		        {{ Form::ahText('sub_section_name','Sub Section Name :','',array('maxlength' => '100'))  }}
                 {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
-                {{ Form::ahSwitch('is_visible','Is Visible :',null) }} 
+                {{ Form::ahSwitch('is_visible','Is Visible :',null,1) }} 
 		        </br>
 		    </div>
 		     

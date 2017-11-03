@@ -3,7 +3,7 @@
 FoodAdvisr-Sub Sections
 @endsection
 @section('module')
-{{$eatery->business_name}} - Sub Sections
+{{$eatery->business_name}} - {{$menus[0]->menu}} - {{$menusections->section_name}} - Sub Section
 @endsection
 
 @section('content')

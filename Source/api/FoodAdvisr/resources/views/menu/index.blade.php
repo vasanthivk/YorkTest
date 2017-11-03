@@ -23,10 +23,10 @@ Menus
                                         <thead>
                                             <tr>
                                                 <th>Menu Name</th>
+                                                <th>Group</th>
                                                 <th>Eatery</th>
                                                 <th>Status</th>
                                                 <th>Edit/Delete</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>                                                    @foreach($menus as $menu)
@@ -34,9 +34,10 @@ Menus
                                         <td>
                                             {{$menu->menu}}
                                         </td>   
+                                        <td>{{$menu->description}}</td> 
                                         <td>{{$menu->business_name}}</td>  
                                         <td>{{$menu->status}}</td>
-                                        <td width="20%">
+                                        <td width="30%">
                                             <div >
                                                 <div style="float:left;padding-right:10px;">
                                                  @if($privileges['Edit']=='true')
@@ -50,13 +51,11 @@ Menus
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                            </div>
-                                        </td>
-                                          <td>
-                                            <div class="btn-group pull-left">
+                                                <div class="btn-group pull-left">
                                                     <a href="../../menusections?menu_id={{$menu->id}}" class="btn btn-success">Section</a>
                                                 </div>
-                                        </td>
+                                            </div>
+                                        </td>                                          
                                          </tr>
                                     @endforeach
                                         </tbody>

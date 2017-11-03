@@ -88,8 +88,8 @@
                  {{ Form::ahText('dish_name','Dish Name :','',array('maxlength' => '100'))  }}
                  {{ Form::ahNumber('default_price','Price :','',['class' => 'form-control','step'=>'any'],array('maxlength' => '5','min'=>'0','max'=>'50')) }} 
                  {{ Form::ahTextarea('description','Description :','',array('size' => '30x5'))  }}
-                 {{ Form::ahSwitch('is_visible','Is Enabled :',null) }}
-                 {{ Form::ahSwitch('is_featured','Is Featured :',null) }}
+                 {{ Form::ahSwitch('is_visible','Is Enabled :',null,1) }}
+                 {{ Form::ahSwitch('is_featured','Is Featured :',null,1) }}
                  {{ Form::ahDate('valid_from','From :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                  {{ Form::ahDate('valid_till','To :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                  <div class="form-group" style="margin:5px">
@@ -150,7 +150,7 @@
                         </select>
                     </div>
                 </div>
-                {{ Form::ahSwitch('is_new','Is New :',null) }} 
+                {{ Form::ahSwitch('is_new','Is New :',null,1) }} 
                 {{ Form::ahDate('new_till_date','New Till Date :', \Carbon\Carbon::now()->format('Y-m-d')) }}
                 </br>
             </div>
