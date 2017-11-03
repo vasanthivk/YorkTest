@@ -566,7 +566,7 @@ label.star:before {
 }
 .eatery-menu{display:block; padding:10px 5px 5px 5px; font-size:1rem;color:#000;  background:#fff; font-weight:bold;text-transform: uppercase; text-align:center; border-top:1px solid #ece8e8;}
 .eatery-menu-section{display:block; padding:2px 5px 5px 10px; font-size:0.95rem;color:#000; background:#fff}
-.eatery-menu-subsection{display:block;padding:2px 5px 5px 10px; font-size:0.95rem;color:#000;background:#fff;}
+.eatery-menu-subsection{display:block;padding:2px 5px 5px 30px; font-size:0.95rem;color:#000;background:#fff; color:#666}
 
 .eaterydish-list {display:inline-block}
 .eatery-dish{display:inline-block;width:96%; margin:5px; border-bottom:1px solid #ccc;padding: 8px 0;}
