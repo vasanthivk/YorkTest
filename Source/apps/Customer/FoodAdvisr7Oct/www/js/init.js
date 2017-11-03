@@ -1054,8 +1054,10 @@ body.on('click','.act-clear-search',function(){
                     {
                         opdishes +="<div class='eatery-dish-img-non'></div>";
                     }
-                    opdishes +="<h2>"+(dishvalue.dish_name == null ? "" : dishvalue.dish_name) +"</h2>";
-                    opdishes +="<p>"+(dishvalue.description == null ? "" : dishvalue.description)+"</p>";
+                    opdishes +="<div class='eatery-dish-data'>";
+                      opdishes +="<p>"+(dishvalue.dish_name == null ? "" : dishvalue.dish_name) +"</p>";
+                      opdishes +="<span>"+(dishvalue.description == null ? "" : dishvalue.description)+"</span>";
+                    opdishes+="</div>";
                 opdishes+="</div>";
               });
               $(".eaterydish-list").html(opdishes);
