@@ -857,25 +857,17 @@ body.on('click','.act-clear-search',function(){
                     favouriticoncolor = 'color:red;';
                   }
                 })
-            var opCuisines = [];
-                if(!(data.result[idx].cuisines_ids == null || data.result[idx].cuisines_ids == ""))
-                {
-                  data.result[idx].cuisines_ids.split(',').forEach(function(value){
-                    for(idxc in cuisines.list)
-                    {
-                      if(value == cuisines.list[idxc].id)
-                      {
-                        opCuisines.push(cuisines.list[idxc].cuisine_name);              
-                        break;
-                      }
-                    }
-                  })
-                }
+                
+            var opCuisines = '';
+            if(!(data.result[idx].cuisines_ids == null || data.result[idx].cuisines_ids == ""))
+            {
+                opCuisines = getCuisinesNames(data.result[idx].cuisines_ids);
+            }
                
             $('#eatery-list').append('<li class="act-eatery"><input type=hidden id="eateryId" value="' + data.result[idx].id 
               + '" /> <div class="behind"> <a href="#" class="ui-btn delete-btn"><i class="fa fa-trash-o" aria-hidden="true" style="font-size:30px; color:#000; margin:15px 5px 10px 5px">&nbsp</i><br>Delete</a> <a href="#" class="ui-btn edit-btn pull-left"><i class="fa fa-heart-o" aria-hidden="true" style="font-size:30px;margin:15px 5px 0 5px;'+favouriticoncolor+'">&nbsp</i><br><br><br>Favourite</a></div><a href="" data-id="' + data.result[idx].id 
               + '"><img style="height:75px;top:10px;left:10px; " src="'+objInit.mediaPath + data.result[idx].logo_path+'"/><h3>' + data.result[idx].business_name 
-              + '</h3><p> ' + opCuisines.toString()  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].foodadvisr_overall_rating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].clicks_after_associated + 
+              + '</h3><p> ' + opCuisines  + ' </p><p> <i class="fa fa-map-marker" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>'+ data.result[idx].distance+' miles <i class="fa fa-star" aria-hidden="true" style="font-size:12px; color:#000; margin:0 5px 0 5px">&nbsp</i>' + data.result[idx].foodadvisr_overall_rating + '/5 <i class="fa fa-eye" aria-hidden="true" style="font-size:12px; color:#000;margin:0 5px 0 5px""></i>'+ data.result[idx].clicks_after_associated + 
                favouriticon +'</p></a></li>');
                 $(function() {
 
@@ -984,11 +976,60 @@ body.on('click','.act-clear-search',function(){
       $('.cuisinetypes').addClass('hide');
     });
     body.on('click','.eatery-dish',function(){
-      $('.dish-details').removeClass('hide');
+      var dishId=$(this).find('#hdndishid').val();
+      api.getDishDetails(dishId,function(data){
+        $('.dish-details-name').html((data.result.dish_name == null ? "" : data.result.dish_name));
+        $('.dish-details-description').html((data.result.description == null ? "" : data.result.description));
+        if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == "" ))
+          $('.dish-details-life-styles').html(getLifeStyleChoicesImages(data.result.lifestyle_choices_ids));
+        else
+          $('.dish-details-life-styles').html("");
+
+        if(!(data.result.cuisines_ids == null || data.result.cuisines_ids == "" ))
+          $('.dish-details-cusines').html(getCuisinesNames(data.result.cuisines_ids));
+        else
+          $('.dish-details-cusines').html("");
+          
+        
+        $('.dish-details').removeClass('hide');
+      })
     });
     body.on('click','.dish-details-close',function(){
       $('.dish-details').addClass('hide');
     });    
+
+    function getLifeStyleChoicesImages(lifestyle_choices_ids)
+    {
+        var opLSC ="<span>"; 
+        var opLifeStyles = '';
+        lifestyle_choices_ids.split(',').forEach(function(value){
+          for(idxc in lifestylechoices.list)
+          {
+            if(value == lifestylechoices.list[idxc].id)
+            {
+              opLSC += "<img width='25px' height='25px' src='"+ objInit.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
+              break;
+            }
+          }
+        })
+        opLSC +="</span>";
+        return opLSC; 
+    }
+    function getCuisinesNames(cuisines_ids)
+    {
+        var opCuisines = [];
+        cuisines_ids.split(',').forEach(function(value){
+          for(idxc in cuisines.list)
+          {
+            if(value == cuisines.list[idxc].id)
+            {
+              opCuisines.push(cuisines.list[idxc].cuisine_name);              
+              break;
+            }
+          }
+        })
+        return opCuisines.toString(',');
+    }
     
 
     body.on('click','.act-eatery',function(){
@@ -1052,6 +1093,7 @@ body.on('click','.act-clear-search',function(){
               var opdishes='';
               data.result.dishes.forEach(function(dishvalue){
                 opdishes +="<div class='eatery-dish'>";
+                opdishes +="<input type=hidden id='hdndishid' value='" + dishvalue.dish_id + "'/>";
                     if(!(dishvalue.img_url == null || dishvalue.img_url == ""))
                     {
                         opdishes +="<div class='eatery-dish-img'><img src='"+objInit.mediaPath +dishvalue.img_url+"' alt=''/></div>";
@@ -1066,19 +1108,7 @@ body.on('click','.act-clear-search',function(){
 
                       if(!(dishvalue.lifestyle_choices_ids==null || dishvalue.lifestyle_choices_ids == ""))
                       {
-                        opdishes +="<span>"; 
-                        var opLifeStyles = '';
-                        dishvalue.lifestyle_choices_ids.split(',').forEach(function(value){
-                          for(idxc in lifestylechoices.list)
-                          {
-                            if(value == lifestylechoices.list[idxc].id)
-                            {
-                              opdishes += "<img width='25px' height='25px' src='"+ objInit.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
-                              break;
-                            }
-                          }
-                        })
-                        opdishes +="</span>";
+                        opdishes += getLifeStyleChoicesImages(dishvalue.lifestyle_choices_ids);
                       }
 
                     opdishes+="</div>";
@@ -1099,18 +1129,7 @@ body.on('click','.act-clear-search',function(){
 
           if(!(data.result.lifestyle_choices_ids == null || data.result.lifestyle_choices_ids == ""))
           {
-            var opLifeStyles = '';
-            data.result.lifestyle_choices_ids.split(',').forEach(function(value){
-              for(idxc in lifestylechoices.list)
-              {
-                if(value == lifestylechoices.list[idxc].id)
-                {
-                   opLifeStyles += "<img width='25px' height='25px' src='"+ objInit.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
-                   break;
-                }
-              }
-            })
-            $("#eaterylifestylechoices").html(opLifeStyles);
+            $("#eaterylifestylechoices").html(getLifeStyleChoicesImages(data.result.lifestyle_choices_ids));
           }
 
 
