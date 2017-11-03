@@ -61,8 +61,8 @@ My Profile
                                     @if(Session::get("role_id")==1)
                                     <table id="customers2" class="table datatable">
                                         <thead>
-                                            <tr>
-                                                <th></th>
+                                            <tr>   
+                                                <th>Logo</th>
                                                 <th>Business Name</th>
                                                 <th>Business Type</th>  
                                                 <th>Edit/Delete</th>

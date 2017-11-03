@@ -48,8 +48,7 @@ class MenuSectionController extends Controller
         ->get();
         $menus = DB::table('menu')
         ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
-        ->join('groups', 'groups.id', '=', 'menu.group_id')
-        ->select(DB::raw('eateries.business_name,groups.description'))
+        ->select(DB::raw('eateries.business_name'))
         ->where('menu.company','=','FoodAdvisr')
         ->where('ref','=',$menu_id)
         ->get();
@@ -73,8 +72,7 @@ class MenuSectionController extends Controller
         
         $menus = DB::table('menu')
         ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
-        ->join('groups', 'groups.id', '=', 'menu.group_id')
-        ->select(DB::raw('menu.*,eateries.business_name,groups.description'))
+        ->select(DB::raw('menu.*,eateries.business_name'))
         ->where('menu.company','=','FoodAdvisr')
         ->where('ref','=',$menu_id)
         ->get();
@@ -171,8 +169,7 @@ class MenuSectionController extends Controller
         $menu_id = $request['menu_id'];
         $menus = DB::table('menu')
         ->join('eateries', 'eateries.id', '=', 'menu.eatery_id')
-        ->join('groups', 'groups.id', '=', 'menu.group_id')
-        ->select(DB::raw('menu.*,eateries.business_name,groups.description'))
+        ->select(DB::raw('menu.*,eateries.business_name'))
         ->where('menu.company','=','FoodAdvisr')
         ->where('ref','=',$menu_id)
         ->get();
