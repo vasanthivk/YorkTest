@@ -138,7 +138,7 @@ function getMenusubsectionByMenuSection($section_id){
         {
             $eateries = DB::table('eateries')
             ->join('businesstype', 'businesstype.business_type_id', '=', 'eateries.business_type_id')
-            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension'))
+            ->select(DB::raw('eateries.business_name,businesstype.description as business_type,eateries.id,eateries.logo_extension,eateries.address'))
             ->where('eateries.location_id','=','')
             ->where('eateries.is_enabled','=',1)
             ->get();
@@ -158,7 +158,7 @@ function getMenusubsectionByMenuSection($section_id){
                             ->orwhere('groups.description', 'like', $search)
                             ->orwhere('locations.description', 'like', $search);
                 })
-            ->select(DB::raw('eateries.id,eateries.business_name'))
+            ->select(DB::raw('eateries.id,eateries.business_name,eateries.address'))
             ->where('eateries.is_enabled','=',1)
             ->get();
         }

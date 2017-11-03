@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Dishes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Menu;
@@ -22,9 +23,18 @@ class UploadMenuController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-         return view('uploadmenu.index');
+        if($request['search'])
+            $searchvalue = $request['search'];
+        else
+            $searchvalue='';
+        $search = '%' . $searchvalue . '%';
+
+        $eateries = searchalleateries($searchvalue);
+         return view('uploadmenu.index')
+             ->with('eateries',$eateries)
+             ->with('searchvalue',$searchvalue);
     }
 
     public function generateExcel(Request $request) 
@@ -52,13 +62,8 @@ class UploadMenuController extends Controller
                         $sheet->getCell('Q1')->setValueExplicit('menus_ids');
                         $sheet->getCell('R1')->setValueExplicit('sections_ids');
                         $sheet->getCell('S1')->setValueExplicit('subsections_ids');
-                        $sheet->getCell('T1')->setValueExplicit('group_id');
-                        $sheet->getCell('U1')->setValueExplicit('eatery_id');
-                        $sheet->getCell('V1')->setValueExplicit('valid_from');
-                        $sheet->getCell('W1')->setValueExplicit('valid_till');
-                        $sheet->getCell('X1')->setValueExplicit('applicable_days');
-                        $sheet->getCell('Y1')->setValueExplicit('default_price');
-                        $sheet->getCell('Z1')->setValueExplicit('allergens_may_contain');
+                        $sheet->getCell('T1')->setValueExplicit('default_price');
+                        $sheet->getCell('U1')->setValueExplicit('allergens_may_contain');
                     });
                 })->export('xls');   
     }
@@ -80,6 +85,7 @@ class UploadMenuController extends Controller
      */
     public function store(Request $request)
     {
+        $eatery_id  = $request['eatery_id'];
          $excelvalues = $request['import_file'];
          $file = explode(".", $_FILES['import_file']['name']);
          $allowed_extensions = array('csv','xls','xlsx');
@@ -101,22 +107,33 @@ class UploadMenuController extends Controller
         if(!empty($data) && $data[0]->count()){
             foreach ($data->toArray() as $key => $value) 
             {        
-                 $menu    = new Menu();
-                    $menu->item_name = $value['itemname'];
-                    $menu->item_description = $value['itemdescription'];
-                    $menu->item_short_name = $value['itemshortname'];
-                    $menu->contains_nuts = $value['containsnuts'];
-                    $menu->dairy_free = $value['dairyfree'];
-                    $menu->gluten_free = $value['glutenfree'];
-                    $menu->vegan = $value['vegan'];
-                    $menu->item_default_price = $value['itemdefaultprice'];
-                    $menu->is_dinein = $value['isdinein'];
-                    $menu->category_id = 1;
-                    $menu->company_id = 1;
-                    $menu->added_on = Carbon::now(new DateTimeZone('Europe/London'));
-                    $menu->added_by = Session::get('user_id');
-                    $menu->modified_by = Session::get('user_id');
-                    $menu->Save();
+                $dish = new Dishes();
+                $dish->dish_name = $value['dish_name'];
+                $dish->description = $value['description'];
+                $dish->cuisines_ids = $value['cuisines_ids'];
+                $dish->lifestyle_choices_ids = $value['lifestyle_choices_ids'];
+                $dish->allergens_contain_ids = $value['allergens_contain_ids'];
+                $dish->ingredients_string = $value['ingredients_string'];
+                $dish->nutrition_fat = $value['nutrition_fat'];
+                $dish->nutrition_cholesterol = $value['nutrition_cholesterol'];
+                $dish->nutrition_sugar = $value['nutrition_sugar'];
+                $dish->nutrition_fibre = $value['nutrition_fibre'];
+                $dish->nutrition_protein = $value['nutrition_protein'];
+                $dish->nutrition_saturated_fat = $value['nutrition_saturated_fat'];
+                $dish->nutrition_calories = $value['nutrition_calories'];
+                $dish->nutrition_carbohydrates = $value['nutrition_carbohydrates'];
+                $dish->nutrition_salt = $value['nutrition_salt'];
+                $dish->menus_ids = $value['menus_ids'];
+                $dish->sections_ids = $value['sections_ids'];
+                $dish->subsections_ids = $value['subsections_ids'];
+                $dish->eatery_id = $eatery_id;
+                $dish->default_price = $value['default_price'];
+                $dish->allergens_may_contain = $value['allergens_may_contain'];
+                $dish->added_on = Carbon::now(new DateTimeZone('Europe/London'));
+                $dish->added_by = Session::get('user_id');
+                $dish->modified_by = Session::get('user_id');
+                $dish->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
+                $dish->Save();
                 
             }
         }
