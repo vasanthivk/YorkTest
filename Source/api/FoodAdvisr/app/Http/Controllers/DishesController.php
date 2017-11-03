@@ -193,7 +193,7 @@ class DishesController extends Controller
         Session::put('allergens_may_contain',Input::get('allergens_may_contain'));
 
         if ($input['eatery_id'] == 0) {
-           return Redirect::back()->with('warning','Please Search Eateries And Select Aleast One Eatery!');
+           return Redirect::back()->with('warning','Please Search Eateries And Select Aleast One Eatery!')->withInput();
         }
 
         $file_size = $_FILES['logo']['size'];

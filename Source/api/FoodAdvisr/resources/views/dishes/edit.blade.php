@@ -71,7 +71,7 @@ Dish
                 {{ Form::ahSelect('sections_ids','Section Name :',$dish->sections_ids,$menusection) }}
                 {{ Form::ahSelect('subsections_ids','Sub Section Name :',null,$menusubsection) }}
                  {{ Form::ahText('dish_name','Dish Name :',$dish->dish_name,array('maxlength' => '100'))  }}
-                 {{ Form::ahNumber('default_price','Price :',$dish->default_price,array('min'=>'0','maxlength' => '20'))  }}
+                 {{ Form::ahNumber('default_price','Price :',$dish->default_price,['class' => 'form-control','step'=>'any'],array('maxlength' => '5','min'=>'0','max'=>'50')) }} 
                  {{ Form::ahTextarea('description','Description :',$dish->description,array('size' => '30x5'))  }}
                  {{ Form::ahSwitch('is_visible','Is Enabled :',null,$dish->is_visible) }}
                  {{ Form::ahSwitch('is_featured','Is Featured :',null,$dish->is_featured) }}
