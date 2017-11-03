@@ -60,6 +60,17 @@
         </br>
             <div class="col-md-6">
                 <div class="form-group" style="margin:5px">
+                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
+                     <div class="col-sm-8">
+                            <select class="form-control" id="eatery_id" name="eatery_id">
+                                <option value="0">Please select eatery</option>
+                                @foreach($eateries as $eatery)
+                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
+                                 @endforeach
+                            </select>
+                       </div>
+                </div>
+                <div class="form-group" style="margin:5px">
                     <label for="location_id" class="control-label col-sm-4">Groups :</label>
                      <div class="col-sm-8">
                             <select class="form-control" id="group_id" name="group_id">
@@ -144,18 +155,6 @@
                 </br>
             </div>
             <div class="col-md-6">
-                <div class="form-group" style="margin:5px">
-                    <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
-                     <div class="col-sm-8">
-                            <select class="form-control" id="eatery_id" name="eatery_id">
-                                <option value="0">Please select eatery</option>
-                                @foreach($eateries as $eatery)
-                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
-                                 @endforeach
-                            </select>
-                       </div>
-                </div>
-                <br/>
                 <div class="form-group" style="margin:5px">
                     <label for="item_ingredients" class="control-label col-sm-4">Ingredients :</label>
                     <div class="col-sm-6 ingrediants">
