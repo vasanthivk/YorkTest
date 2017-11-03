@@ -61,6 +61,23 @@ class RestApi_V1_GeneralController extends Controller
             return $this->appendHeaders($data);
         }
     }
+    public function V1_GetDishDetailsById(Request $request)
+    {
+         $postdata = file_get_contents("php://input");
+        if (isset($postdata)) 
+        {
+            $request = json_decode($postdata);
+            $id = $request->{'id'};
+            $v1_getdishdetailsbyid = v1_getdishdetailsbyid($id);
+            $data = array('status' => 0,'message' => 'Success','result' => $v1_getdishdetailsbyid);
+            return $this->appendHeaders($data);
+        }
+        else
+        {
+            $data = array('status' => '201','message' => 'Invalid Inputdata','result' => -1000);
+            return $this->appendHeaders($data);
+        }
+    }    
 
     public function V1_AddClickBeforeAssociated(Request $request)
     {
