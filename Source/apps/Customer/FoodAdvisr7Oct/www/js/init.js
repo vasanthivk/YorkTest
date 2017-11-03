@@ -983,6 +983,12 @@ body.on('click','.act-clear-search',function(){
     body.on('click','.filter-button-cancel',function(){
       $('.cuisinetypes').addClass('hide');
     });
+    body.on('click','.eatery-dish',function(){
+      $('.dish-details').removeClass('hide');
+    });
+    body.on('click','.dish-details-close',function(){
+      $('.dish-details').addClass('hide');
+    });    
     
 
     body.on('click','.act-eatery',function(){
@@ -1057,6 +1063,24 @@ body.on('click','.act-clear-search',function(){
                     opdishes +="<div class='eatery-dish-data'>";
                       opdishes +="<p>"+(dishvalue.dish_name == null ? "" : dishvalue.dish_name) +"</p>";
                       opdishes +="<span>"+(dishvalue.description == null ? "" : dishvalue.description)+"</span>";
+
+                      if(!(dishvalue.lifestyle_choices_ids==null || dishvalue.lifestyle_choices_ids == ""))
+                      {
+                        opdishes +="<span>"; 
+                        var opLifeStyles = '';
+                        dishvalue.lifestyle_choices_ids.split(',').forEach(function(value){
+                          for(idxc in lifestylechoices.list)
+                          {
+                            if(value == lifestylechoices.list[idxc].id)
+                            {
+                              opdishes += "<img width='25px' height='25px' src='"+ objInit.mediaPath + "/" + lifestylechoices.list[idxc].img_url + "'/>  ";
+                              break;
+                            }
+                          }
+                        })
+                        opdishes +="</span>";
+                      }
+
                     opdishes+="</div>";
                 opdishes+="</div>";
               });
@@ -1090,7 +1114,7 @@ body.on('click','.act-clear-search',function(){
           }
 
 
-          lifestylechoices.list
+          //lifestylechoices.list
 
             var media = data.result.media.images;
             var mediaPath = [];
