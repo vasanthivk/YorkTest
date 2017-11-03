@@ -20,8 +20,8 @@
         "CAMERA_USAGE_DESCRIPTION": "Scan QR-Codes"
       },
       "cordova-plugin-camera": {
-        "PHOTOLIBRARY_USAGE_DESCRIPTION": "App would like to access the library to store screenshot results.",
-        "CAMERA_USAGE_DESCRIPTION": "we use camera to scan barcode of products to give accurrate results."
+        "CAMERA_USAGE_DESCRIPTION": "we use camera to scan barcode of products to give accurrate results.",
+        "PHOTOLIBRARY_USAGE_DESCRIPTION": "App would like to access the library to store screenshot results."
       }
     }
   },
