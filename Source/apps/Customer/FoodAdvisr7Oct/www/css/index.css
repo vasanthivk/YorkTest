@@ -565,7 +565,7 @@ label.star:before {
 .eatery-menu-subsection{display:block;padding:2px 5px 5px 10px; font-size:0.95rem;color:#000;background:#fff;}
 
 .eaterydish-list {display:inline-block}
-.eatery-dish{display:inline-block;width:96%; margin:5px; border-bottom:1px solid #ccc}
+.eatery-dish{display:inline-block;width:96%; margin:5px; border-bottom:1px solid #ccc;padding: 8px 0;}
 .eatery-dish-img{width:100px; height:100px; float:left  }
 .eatery-dish-img img{width:100px!important; height:100px!important; float:left; display:block; box-shadow:0px 1px 1px 0px }
 .eatery-dish-img-non{border:1px solid #ccc; box-shadow:0px 1px 1px 0px; width:100px; height:100px; float:left  }
