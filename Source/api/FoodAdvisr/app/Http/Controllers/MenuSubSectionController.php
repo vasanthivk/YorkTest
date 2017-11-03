@@ -226,7 +226,7 @@ class MenuSubSectionController extends Controller
             $log->category=1;    
             $log->log_type=1;
             createLog($log);
-        return Redirect::route('menusubsections.index',array('section_id' => $menusubsection->section_id))->with('success','Menu Sub Section Created Successfully!');
+        return Redirect::route('menusubsections.index',array('section_id' => $menusubsection->section_id))->with('success','Menu Sub Section Updated Successfully!');
         
         }
     }
