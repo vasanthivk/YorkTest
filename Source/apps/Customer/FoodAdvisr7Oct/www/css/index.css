@@ -564,11 +564,17 @@ label.star:before {
 .eatery-menu-section{display:block; padding:2px 5px 5px 10px; font-size:0.95rem;color:#000; background:#fff}
 .eatery-menu-subsection{display:block;padding:2px 5px 5px 10px; font-size:0.95rem;color:#000;background:#fff;}
 
-.eaterydish-list {border:1px solid #000;display:inline-block}
-.eatery-dish{border:2px solid #090; display:inline-block}
-.eatery-dish-img{border:1px solid #F30; width:100px; height:100px; float:left  }
-.eatery-dish-img-non{border:1px solid #F30; width:100px; height:100px; float:left  }
-.eatery-dish-data{border:1px solid #6CC; float:left}
+.eaterydish-list {display:inline-block}
+.eatery-dish{display:inline-block;width:96%; margin:5px; border-bottom:1px solid #ccc}
+.eatery-dish-img{width:100px; height:100px; float:left  }
+.eatery-dish-img img{width:100px!important; height:100px!important; float:left; display:block; box-shadow:0px 1px 1px 0px }
+.eatery-dish-img-non{border:1px solid #ccc; box-shadow:0px 1px 1px 0px; width:100px; height:100px; float:left  }
+.eatery-dish-data{border:0px solid #fff;}
+.eatery-dish-data p{font-size: 1em;font-weight: 700;display: block;margin:0px 0px 0px 5px!important;text-overflow: ellipsis;
+overflow: hidden;white-space: nowrap; padding: 0 0 0 20px;}
+.eatery-dish-data span{font-size:.75em;font-weight: 400;display: block;padding: 0 0 0 20px; text-align:left;margin: 0 0 0 100px;}
+
+
 
 /*.eatery-dish-name{display:block; padding:2px 5px 5px 5px; font-size:0.95rem;color:#000; background:#fff;}
 .eatery-dish-description{display:block; padding:2px 5px 5px 5px; font-size:0.95rem;color:#000; background:#fff;}*/
