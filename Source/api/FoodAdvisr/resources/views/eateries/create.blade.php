@@ -59,8 +59,8 @@ Eatery
             {{ Form::ahText('email_id','EmailId :','',array('maxlength' => '100'))  }}
             {{ Form::ahText('longitude','Longitude :','',array("readonly"=>"true"))  }}
             {{ Form::ahText('latitude','Latitude :','',array("readonly"=>"true"))  }}
-            {{ Form::ahSwitch('is_associated','Is Associated :',null) }}
-            {{ Form::ahSwitch('is_enabled','Is Enabled :',null) }}
+            {{ Form::ahSwitch('is_associated','Is Associated :',null,1) }}
+            {{ Form::ahSwitch('is_enabled','Is Enabled :',null,1) }}
             {{ Form::ahDate('associated_on','Associated On :', \Carbon\Carbon::now()) }}
             <?php 
             if(isset($cuisines) || isset($lifestyle_choices))

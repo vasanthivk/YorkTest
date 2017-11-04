@@ -53,11 +53,15 @@ class MenuSubSectionController extends Controller
         ->select(DB::raw('menu_sub_section.*,if(ifnull(menu_sub_section.is_visible,1)=1,"Visible","InVisible") as status'))
         ->where('section_id','=',$section_id)
         ->get();
+        
         $menusections = MenuSection::find($section_id);
+        $menus = Menu::where('ref','=',$menusections->menu_id)->get();
         $eatery = Eateries::find($menusections->eatery_id);
          return View('menusubsections.index', compact('menusubsections'))         
         ->with('privileges',$privileges)
         ->with('eatery',$eatery)
+        ->with('menus',$menus)
+        ->with('menusections',$menusections)
         ->with('section_id',$section_id);
     }
 
@@ -75,6 +79,8 @@ class MenuSubSectionController extends Controller
         $sections = MenuSection::where('is_visible','=',1)->pluck('section_name','id');
         $menusections = MenuSection::find($section_id);
         $eatery = Eateries::find($menusections->eatery_id);
+        $menus = Menu::where('ref','=',$menusections->menu_id)->get();
+
         $sections_count = $sections->count();
         if($sections_count == 0)
         {
@@ -84,6 +90,7 @@ class MenuSubSectionController extends Controller
         return View('menusubsections.create')  
         ->with('sections',$sections)
         ->with('eatery',$eatery)
+        ->with('menus',$menus)
         ->with('menusections',$menusections)
         ->with('privileges',$privileges)
         ->with('section_id',$section_id);
@@ -170,11 +177,14 @@ class MenuSubSectionController extends Controller
          $section_id = $request['section_id'];
          $menusections = MenuSection::find($section_id);
         $eatery = Eateries::find($menusections->eatery_id);
+        $menus = Menu::where('ref','=',$menusections->menu_id)->get();
         $sections = MenuSection::where('is_visible','=',1)->pluck('section_name','id');
         return View('menusubsections.edit')          
         ->with('menusubsections',$menusubsections)
         ->with('eatery',$eatery)
         ->with('sections',$sections)
+        ->with('menus',$menus)
+        ->with('menusections',$menusections)
         ->with('section_id',$section_id)
         ->with('privileges',$privileges);
     }

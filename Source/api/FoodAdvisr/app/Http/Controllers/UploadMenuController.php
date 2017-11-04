@@ -3,9 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Dishes;
+use App\MenuSection;
+use App\MenuSubSection;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
 use App\Menu;
+use App\LifestyleChoices;
 use Redirect;
 use Session;
 use App\Log;
@@ -46,9 +49,9 @@ class UploadMenuController extends Controller
                         $sheet->getCell('A1')->setValueExplicit('SlNo');
                         $sheet->getCell('B1')->setValueExplicit('dish_name');
                         $sheet->getCell('C1')->setValueExplicit('description');
-                        $sheet->getCell('D1')->setValueExplicit('cuisines_ids');
-                        $sheet->getCell('E1')->setValueExplicit('lifestyle_choices_ids');
-                        $sheet->getCell('F1')->setValueExplicit('allergens_contain_ids');
+                        $sheet->getCell('D1')->setValueExplicit('cuisines');
+                        $sheet->getCell('E1')->setValueExplicit('lifestyle_choices');
+                        $sheet->getCell('F1')->setValueExplicit('allergens_contain');
                         $sheet->getCell('G1')->setValueExplicit('ingredients_string');
                         $sheet->getCell('H1')->setValueExplicit('nutrition_fat');
                         $sheet->getCell('I1')->setValueExplicit('nutrition_cholesterol');
@@ -59,9 +62,9 @@ class UploadMenuController extends Controller
                         $sheet->getCell('N1')->setValueExplicit('nutrition_calories');
                         $sheet->getCell('O1')->setValueExplicit('nutrition_carbohydrates');
                         $sheet->getCell('P1')->setValueExplicit('nutrition_salt');
-                        $sheet->getCell('Q1')->setValueExplicit('menus_ids');
-                        $sheet->getCell('R1')->setValueExplicit('sections_ids');
-                        $sheet->getCell('S1')->setValueExplicit('subsections_ids');
+                        $sheet->getCell('Q1')->setValueExplicit('menus');
+                        $sheet->getCell('R1')->setValueExplicit('sections');
+                        $sheet->getCell('S1')->setValueExplicit('subsections');
                         $sheet->getCell('T1')->setValueExplicit('default_price');
                         $sheet->getCell('U1')->setValueExplicit('allergens_may_contain');
                     });
@@ -90,6 +93,9 @@ class UploadMenuController extends Controller
          $file = explode(".", $_FILES['import_file']['name']);
          $allowed_extensions = array('csv','xls','xlsx');
          $extension = array_pop($file);
+        if($eatery_id == 0){
+            return back()->with('warning','Please Select the Eatery First!');
+        }
          if (!in_array($extension, $allowed_extensions)) {
             return back()->with('warning','Only Allowed Excel File.');
          }
@@ -99,48 +105,305 @@ class UploadMenuController extends Controller
         }        
         if($request->hasFile('import_file'))
         {
-        $path = $request->file('import_file')->getRealPath();
-        $data = Excel::load($path, function($reader) {})->get();
-        // return $data;
-        if( $data->count()<=1)
-            return back()->with('warning','No records to import.');
-        if(!empty($data) && $data[0]->count()){
-            foreach ($data->toArray() as $key => $value) 
-            {        
-                $dish = new Dishes();
-                $dish->dish_name = $value['dish_name'];
-                $dish->description = $value['description'];
-                $dish->cuisines_ids = $value['cuisines_ids'];
-                $dish->lifestyle_choices_ids = $value['lifestyle_choices_ids'];
-                $dish->allergens_contain_ids = $value['allergens_contain_ids'];
-                $dish->ingredients_string = $value['ingredients_string'];
-                $dish->nutrition_fat = $value['nutrition_fat'];
-                $dish->nutrition_cholesterol = $value['nutrition_cholesterol'];
-                $dish->nutrition_sugar = $value['nutrition_sugar'];
-                $dish->nutrition_fibre = $value['nutrition_fibre'];
-                $dish->nutrition_protein = $value['nutrition_protein'];
-                $dish->nutrition_saturated_fat = $value['nutrition_saturated_fat'];
-                $dish->nutrition_calories = $value['nutrition_calories'];
-                $dish->nutrition_carbohydrates = $value['nutrition_carbohydrates'];
-                $dish->nutrition_salt = $value['nutrition_salt'];
-                $dish->menus_ids = $value['menus_ids'];
-                $dish->sections_ids = $value['sections_ids'];
-                $dish->subsections_ids = $value['subsections_ids'];
-                $dish->eatery_id = $eatery_id;
-                $dish->default_price = $value['default_price'];
-                $dish->allergens_may_contain = $value['allergens_may_contain'];
-                $dish->added_on = Carbon::now(new DateTimeZone('Europe/London'));
-                $dish->added_by = Session::get('user_id');
-                $dish->modified_by = Session::get('user_id');
-                $dish->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
-                $dish->Save();
-                
+            $path = $request->file('import_file')->getRealPath();
+            $data = Excel::load($path, function($reader) {})->get();
+            // return $data;
+            if( $data->count()<1)
+                return back()->with('warning','No records to import.');
+            if(!empty($data) && $data[0]->count())
+            {
+                foreach ($data->toArray() as $key => $value)
+                {
+                    $dish = new Dishes();
+                    $dish->dish_name = $value['dish_name'];
+                    $dish->description = $value['description'];
+                    $dish->cuisines_ids = $this->getCuisineIds($value['cuisines']);
+
+                    //$dish->lifestyle_choices_ids = $value['lifestyle_choices'];
+                    $dish->lifestyle_choices_ids = $this->getLifestyleChoicesIds($value['lifestyle_choices']);
+
+                    //$dish->allergens_contain_ids = $value['allergens_contain'];
+                    $dish->allergens_contain_ids = $this->getAllergensContain($value['allergens_contain']);
+                    $dish->ingredients_string = $value['ingredients_string'];
+                    $dish->nutrition_fat = $value['nutrition_fat'];
+                    $dish->nutrition_cholesterol = $value['nutrition_cholesterol'];
+                    $dish->nutrition_sugar = $value['nutrition_sugar'];
+                    $dish->nutrition_fibre = $value['nutrition_fibre'];
+                    $dish->nutrition_protein = $value['nutrition_protein'];
+                    $dish->nutrition_saturated_fat = $value['nutrition_saturated_fat'];
+                    $dish->nutrition_calories = $value['nutrition_calories'];
+                    $dish->nutrition_carbohydrates = $value['nutrition_carbohydrates'];
+                    $dish->nutrition_salt = $value['nutrition_salt'];
+                    $menuid = $this->getMenus($value['menus'],$eatery_id);
+                    $dish->menus_ids = $menuid;
+                    $menusection = $this->getMenuSection($value['sections'],$menuid,$eatery_id);
+                    $dish->sections_ids = $menusection;
+                    $menusubsection = $this->getMenuSubSection($value['subsections'],$menusection,$eatery_id);
+                    $dish->subsections_ids = $menusubsection;
+                    $dish->eatery_id = $eatery_id;
+                    $dish->default_price = $value['default_price'];
+                    $dish->allergens_may_contain = $value['allergens_may_contain'];
+                    $dish->added_on = Carbon::now(new DateTimeZone('Europe/London'));
+                    $dish->added_by = Session::get('user_id');
+                    $dish->modified_by = Session::get('user_id');
+                    $dish->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
+                    $dish->Save();
+
+                }
             }
-        }
-        return back()->with('success','Inserted Menu successfully.'); 
+            return back()->with('success','Inserted Dishes successfully.');
         }
     }
+    private function getLifestyleChoicesIds($lifestyle_choices)
+    {
+        $LifeStyleChoicesIds = [];
+        //$lifestyle_choices_list = $lifestyle_choices.split(",");
+        if( strpos($lifestyle_choices, ',') !== false )
+        {
+            $lifestyle_choices_list = explode(", ",$lifestyle_choices);
+            foreach($lifestyle_choices_list as $lifestyle_choices_value)
+            {
+                $LifeStyle = DB::table('lifestyle_choices')->where('description', $lifestyle_choices_value)->first();
+                if($LifeStyle != null)
+                {
+                    $LifeStyleChoicesIds[] = $LifeStyle->id;
+                }
+            }
+            $lifestyle_choices_ids = implode(",",$LifeStyleChoicesIds);
+        }else{
+            $lifestyle_choice_query = DB::table('lifestyle_choices')->where('description', $lifestyle_choices)->first();
+            $lifestyle_choices_ids = $lifestyle_choice_query->id;
+        }
+        return $lifestyle_choices_ids;
+    }
 
+    private function getCuisineIds($cuisine_ids)
+    {
+        $CuisineIds = [];
+
+        if( strpos($cuisine_ids, ',') !== false ) {
+            $cuisines_list = explode(", ", $cuisine_ids);
+            foreach($cuisines_list as $cuisines_values)
+            {
+                $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisines_values)->first();
+                if($CuisineTable != null){
+                    $CuisineIds[] = $CuisineTable->id;
+                }
+            }
+            $CuisineIds = implode(",",$CuisineIds);
+        }
+        else{
+            $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisine_ids)->first();
+            $CuisineIds = $CuisineTable->id;
+        }
+        return $CuisineIds;
+    }
+
+    private function getAllergensContain($allergens_contain)
+    {
+        $allergens_contain_ids =[];
+        if( strpos($allergens_contain, ',') !== false ) {
+            $allergens_contain_list = explode(", ", $allergens_contain);
+            foreach($allergens_contain_list as $allergens_values)
+            {
+                $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_values)->first();
+                if($allergensTable != null)
+                {
+                    $allergens_contain_ids[] = $allergensTable->ref;
+                }
+            }
+            $allergens_contains = implode(",",$allergens_contain_ids);
+        }
+        else{
+            $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_contain)->first();
+            $allergens_contains = $allergensTable->ref;
+        }
+        return $allergens_contains;
+    }
+
+    private function getMenus($menus,$eateryId)
+    {
+        $menu_ids = [];
+        if( strpos($menus, ',') !== false )
+        {
+            $menu_list = explode(", ", $menus);
+            foreach($menu_list as $menu_values)
+            {
+                $menuTable = DB::table('menu')->where('menu',$menu_values)->where('company','FoodAdvisr')->where('eatery_id',$eateryId)->first();
+                if($menuTable != null)
+                {
+                    $menu_ids = $menuTable->ref;
+                }
+                else
+                {
+                    $menu = new Menu();
+                    $menu->company = "FoodAdvisr";
+                    $menu->menu = $menu_values;
+                    $menu->sub_menu="NULL";
+                    $menu->description="NULL";
+                    $menu->eatery_id = $eateryId;
+                    $menu->group_id = 0;
+                    $menu->sort_order=1;
+                    $menu->is_visible=1;
+                    $menu->save();
+                    $menu_ids[] = $menu->ref;
+                }
+            }
+            $menus_ids = implode(",",$menu_ids);
+        }
+        else{
+            $menuTable = DB::table('menu')->where('menu',$menus)->where('company','FoodAdvisr')->where('eatery_id',$eateryId)->first();
+            if($menuTable != null)
+            {
+                $menu_ids = $menuTable->ref;
+            }
+            else
+            {
+                $menu = new Menu();
+                $menu->company = "FoodAdvisr";
+                $menu->menu = $menus;
+                $menu->sub_menu="NULL";
+                $menu->description="NULL";
+                $menu->eatery_id = $eateryId;
+                $menu->group_id = 0;
+                $menu->sort_order=1;
+                $menu->is_visible=1;
+                $menu->save();
+                $menu_ids = $menu->ref;
+            }
+            $menus_ids = $menu_ids;
+        }
+        return $menus_ids;
+    }
+
+    private function getMenuSection($menusections,$menuid,$eateryId)
+    {
+        $menussections_ids = [];
+        if( strpos($menusections, ',') !== false )
+        {
+            $menusection_list = explode(", ", $menusections);
+            foreach($menusection_list as $menusection_values)
+            {
+                $menusectionTable = DB::table('menu_section')->where('section_name',$menusection_values)->where('menu_id',$menuid)->where('eatery_id',$eateryId)->first();
+                if($menusectionTable != null)
+                {
+                    $menusections_ids = $menusectionTable->id;
+                }
+                else
+                {
+                    $menusection = new MenuSection();
+                    $menusection->section_name = $menusection_values;
+                    $menusection->description="NULL";
+                    $menusection->menu_id=$menuid;
+                    $menusection->eatery_id = $eateryId;
+                    $menusection->group_id = 0;
+                    $menusection->sort_order=1;
+                    $menusection->is_visible=1;
+                    $menusection->display_order=1;
+                    $menusection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
+                    $menusection->added_by = Session::get('user_id');
+                    $menusection->modified_by = Session::get('user_id');
+                    $menusection->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
+                    $menusection->save();
+                    $menusections_ids[] = $menusection->id;
+                }
+            }
+            $menussections_ids = implode(",",$menusections_ids);
+        }
+        else{
+            $menusectionTable = DB::table('menu_section')->where('section_name',$menusections)->where('menu_id',$menuid)->where('eatery_id',$eateryId)->first();
+            if($menusectionTable != null)
+            {
+                $menusections_ids = $menusectionTable->id;
+            }
+            else
+            {
+                $menusection = new MenuSection();
+                $menusection->section_name = $menusections;
+                $menusection->description="NULL";
+                $menusection->menu_id=$menuid;
+                $menusection->eatery_id = $eateryId;
+                $menusection->group_id = 0;
+                $menusection->sort_order=1;
+                $menusection->is_visible=1;
+                $menusection->display_order=1;
+                $menusection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
+                $menusection->added_by = Session::get('user_id');
+                $menusection->modified_by = Session::get('user_id');
+                $menusection->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
+                $menusection->save();
+                $menusections_ids[] = $menusection->id;
+            }
+            $menussections_ids = $menusections_ids;
+        }
+
+        return $menussections_ids;
+    }
+
+    private function getMenuSubSection($menusubsections,$menusection,$eateryId)
+    {
+        $menussubsections_ids = [];
+        if( strpos($menusubsections, ',') !== false )
+        {
+            $menusubsection_list = explode(", ", $menusubsections);
+            foreach($menusubsection_list as $menusubsection_values)
+            {
+                $menusubsectionTable = DB::table('menu_sub_section')->where('sub_section_name',$menusubsection_values)->where('section_id',$menusection)->where('eatery_id',$eateryId)->first();
+                if($menusubsectionTable != null)
+                {
+                    $menusubsections_ids = $menusubsectionTable->id;
+                }
+                else
+                {
+                    $menusubsection = new MenuSubSection();
+                    $menusubsection->sub_section_name = $menusubsection_values;
+                    $menusubsection->description="NULL";
+                    $menusubsection->section_id=$menusection;
+                    $menusubsection->eatery_id = $eateryId;
+                    $menusubsection->group_id = 0;
+                    $menusubsection->sort_order=1;
+                    $menusubsection->is_visible=1;
+                    $menusubsection->display_order=1;
+                    $menusubsection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
+                    $menusubsection->added_by = Session::get('user_id');
+                    $menusubsection->modified_by = Session::get('user_id');
+                    $menusubsection->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
+                    $menusubsection->save();
+                    $menusubsections_ids[] = $menusubsection->id;
+                }
+            }
+            $menussubsections_ids = implode(",",$menusubsections_ids);
+        }
+        else{
+            $menusubsectionTable = DB::table('menu_sub_section')->where('sub_section_name',$menusubsections)->where('section_id',$menusection)->where('eatery_id',$eateryId)->first();
+            if($menusubsectionTable != null)
+            {
+                $menusubsections_ids = $menusubsectionTable->id;
+            }
+            else
+            {
+                $menusubsection = new MenuSubSection();
+                $menusubsection->sub_section_name = $menusubsections;
+                $menusubsection->description="NULL";
+                $menusubsection->section_id=$menusection;
+                $menusubsection->eatery_id = $eateryId;
+                $menusubsection->group_id = 0;
+                $menusubsection->sort_order=1;
+                $menusubsection->is_visible=1;
+                $menusubsection->display_order=1;
+                $menusubsection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
+                $menusubsection->added_by = Session::get('user_id');
+                $menusubsection->modified_by = Session::get('user_id');
+                $menusubsection->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
+                $menusubsection->save();
+                $menusubsections_ids[] = $menusubsection->id;
+            }
+            $menussubsections_ids = $menusubsections_ids;
+        }
+
+
+        return $menussubsections_ids;
+    }
     /**
      * Display the specified resource.
      *
