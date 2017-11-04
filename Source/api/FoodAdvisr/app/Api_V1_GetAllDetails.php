@@ -37,18 +37,21 @@ ini_set('max_execution_time', 5000);
                     limit $search_result_limit";
          $eateries_associated = DB::select( DB::raw($associated_sql));
 
-        $unassociated_sql  = "select id, fhrsid, business_name, address, logo_path, is_associated, longitude, latitude,clicks_after_associated, foodadvisr_overall_rating,cuisines_ids,lifestyle_choices_ids,
-                    round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2)
-                    +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude)
-                    * pi()/180 / 2), 2) ))),2) as distance
-                    from eateries where id  in (select id from eateries
-                    where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +
-                    COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ) and ifnull(is_associated,0) = 0 and is_enabled = 1 order by distance asc
-                    limit 5";
-
-        $eateries_unassociated = DB::select( DB::raw($unassociated_sql));
-
-        $eateries = array_merge($eateries_associated,$eateries_unassociated);
+        if(!(!empty($cuisines_ids) || $cuisines_ids != "" || !empty($lifestyle_choices_ids) || $lifestyle_choices_ids != ""))
+        {
+            $unassociated_sql  = "select id, fhrsid, business_name, address, logo_path, is_associated, longitude, latitude,clicks_after_associated, foodadvisr_overall_rating,cuisines_ids,lifestyle_choices_ids,
+                        round((6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2)
+                        +  COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude)
+                        * pi()/180 / 2), 2) ))),2) as distance
+                        from eateries where id  in (select id from eateries
+                        where (6371*0.621371 * 2 * ASIN(SQRT( POWER(SIN(($latitude - abs(latitude)) * pi()/180 / 2),2) +
+                        COS($latitude * pi()/180 ) * COS(abs(latitude) * pi()/180) * POWER(SIN(($longitude - longitude) * pi()/180 / 2), 2) ))  <= $search_radius) ) and ifnull(is_associated,0) = 0 and is_enabled = 1 order by distance asc
+                        limit 5";
+            $eateries_unassociated = DB::select( DB::raw($unassociated_sql));
+            $eateries = array_merge($eateries_associated,$eateries_unassociated);
+        }
+        else
+            $eateries = $eateries_associated;
 
         return $eateries;
 	}
