@@ -136,9 +136,9 @@ class UploadMenuController extends Controller
                     $dish->nutrition_salt = $value['nutrition_salt'];
                     $menuid = $this->getMenus($value['menus'],$eatery_id);
                     $dish->menus_ids = $menuid;
-                    $menusection = $this->getMenuSection($value['sections'],$menuid,$eatery_id);
+                    $menusection = $this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id);
                     $dish->sections_ids = $menusection;
-                    $menusubsection = $this->getMenuSubSection($value['subsections'],$menusection,$eatery_id);
+                    $menusubsection = $this->getMenuSubSection($value['subsections'],$this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id),$eatery_id);
                     $dish->subsections_ids = $menusubsection;
                     $dish->eatery_id = $eatery_id;
                     $dish->group_id = 0;
