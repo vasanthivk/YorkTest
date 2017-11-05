@@ -57,7 +57,7 @@ Upload Menu
 <input type="hidden" name="_token" value="{{ csrf_token() }}">
 <div class="form-group form-horizontal">
     <div class="panel panel-default" style="padding: 15px 26px 10px 74px;">
-        <div>
+        <div class="col-md-6">
             <div class="form-group" style="margin:5px">
                 <label for="eatery_id" class="control-label col-sm-4">Eateries :</label>
                 <div class="col-sm-8">
@@ -70,7 +70,6 @@ Upload Menu
                 </div>
             </div>
         </div>
-        <br/>
         <div class="col-md-3">
             <div class="form-group" style="margin:5px;">
                 <input name="import_file" type="file">                

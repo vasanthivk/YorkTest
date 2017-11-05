@@ -166,3 +166,65 @@ function getMenusubsectionByMenuSection($section_id){
          return $eateries;
 
    }
+     function ValidateCuisines($cuisines)
+        {
+            return $cuisines[] = $cuisines;
+            $CuisineTable = DB::table('cuisines')->whereIn('cuisine_name',$cuisines)->get();
+            return $CuisineTable;
+        }
+    function ValidateLifestyleChoices($lifestyle_choices)
+        {
+            $LifeStyle = DB::table('lifestyle_choices')->where('description', $lifestyle_choices)->count();
+            return $LifeStyle;
+        }
+    function ValidateAllergensContain($allergens_contain)
+    {
+        $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_contain)->count();
+        return $allergensTable;
+    }
+
+    function getLifestyleChoicesIds($lifestyle_choices)
+    {
+        $myString = $lifestyle_choices;
+        $LifeStyleChoicesIds = [];
+        if( strpos($lifestyle_choices, ',') !== false )
+        {
+            $lifestyle_choices_list = explode(',', $myString);
+            foreach($lifestyle_choices_list as $lifestyle_choices_value)
+            {
+                $LifeStyle = DB::table('lifestyle_choices')->where('description', $lifestyle_choices_value)->first();
+                if($LifeStyle != null)
+                {
+                    $LifeStyleChoicesIds[] = $LifeStyle->id;
+                }
+            }
+            $lifestyle_choices_ids = implode(",",$LifeStyleChoicesIds);
+        }else{
+            $lifestyle_choice_query = DB::table('lifestyle_choices')->where('description', $lifestyle_choices)->first();
+            $lifestyle_choices_ids = $lifestyle_choice_query->id;
+        }
+        return $lifestyle_choices_ids;
+    }
+
+    function getCuisineIds($cuisines)
+    {
+        $myString = $cuisines;
+        $CuisineIds = [];
+        if( strpos($cuisines, ',') !== false ) {
+            $cuisines_list = explode(',', $myString);
+            foreach($cuisines_list as $cuisines_values)
+            {
+                $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisines_values)->first();
+                if($CuisineTable != null){
+                    $CuisineIds[] = $CuisineTable->id;
+                }
+            }
+            $CuisineIds = implode(",",$CuisineIds);
+        }
+        else{
+            $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisine_ids)->first();
+            $CuisineIds = $CuisineTable->id;
+        }
+        return $CuisineIds;
+    }
+

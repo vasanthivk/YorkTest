@@ -52,7 +52,9 @@ class DishesController extends Controller
         $privileges = $this->getPrivileges();
         $eatery_id = $request['eatery_id'];
         $dishes = DB::table('dishes')
-        ->select(DB::raw('*,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Visible","InVisible") as is_visible'))
+        ->leftjoin('groups', 'groups.id', '=', 'dishes.group_id')
+        ->join('eateries', 'eateries.id', '=', 'dishes.eatery_id')
+        ->select(DB::raw('*,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Visible","InVisible") as is_visible,eateries.business_name,groups.description'))
         ->get();
         $eatery_details = DB::table('eateries')
         ->select(DB::raw('*'))
