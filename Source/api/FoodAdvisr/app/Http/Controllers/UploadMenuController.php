@@ -340,7 +340,7 @@ class UploadMenuController extends Controller
                 $menusection->modified_by = Session::get('user_id');
                 $menusection->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
                 $menusection->save();
-                $menusections_ids[] = $menusection->id;
+                $menusections_ids = $menusection->id;
             }
             $menussections_ids = $menusections_ids;
         }
