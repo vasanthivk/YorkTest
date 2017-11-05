@@ -253,11 +253,14 @@
       midpop.css({top:'50px'});
 
       $('body').on('click','.popuprating-act-button',function(){
-          // overlay.hide();
+           overlay.hide();
           //var message=$('.rating-text').text();
-          var x=document.details.star.value;
-          var y=document.getElementById("text").value;
-          alert("User Rating:"+x+"\n text:"+y);
+          var rating=document.details.star.value;
+          var message=document.getElementById("text").value;
+          var eatery_id = document.details.eatery_id.value;
+          //alert("User Rating:"+rating+"\n text:"+message);
+          api.addFeedbackEateries(eatery_id,rating,message,function(data){
+          });
 
 
       });

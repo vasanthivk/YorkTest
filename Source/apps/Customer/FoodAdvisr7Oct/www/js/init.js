@@ -1175,10 +1175,12 @@ body.on('click','.act-clear-search',function(){
 			
 			
             body.on('click','#rating',function(){
+                var eateryId=document.getElementById("selected_eateryId").value;
                 var message = "Leave a Review ";
                 var html_fields = "<div class='rating-text'>"+"Did you visit "+data.result.business_name+ ", London? Let us and your communities know what you thought! "
-                        +"<br><div class='stars'>" +
-                "<form action='' name='details'>" +
+                    +"<br><div class='stars'>" +
+                    "<form action='' name='details'>" +
+                    "<input type='hidden' name='eatery_id' value='"+eateryId+"'/>"  +
                 "<input class='star star-5' id='star-5' type='radio' name='star' value='5'/>" +
                 "<label class='star star-5' for='star-5'></label>" +
                 "<input class='star star-4' id='star-4' type='radio' name='star' value='4' />" +
