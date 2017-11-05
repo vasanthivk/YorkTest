@@ -467,7 +467,7 @@ class EateriesController extends Controller
         if($file <> null)
             $extension = $this->saveLogoInTempLocation($file);
 
-        $this->validate($request,['fhrsid'  => 'required|unique:eateries','business_name'  => 'required','website'=>'required','email_id' =>'required|email','longitude'=>'required','latitude'=>'required','address' => 'required','contact_number' => 'required']);
+        $this->validate($request,['fhrsid'  => 'required','business_name'  => 'required','website'=>'required','email_id' =>'required|email','longitude'=>'required','latitude'=>'required','address' => 'required','contact_number' => 'required']);
         
         $rules = array('');
         $validator = Validator::make(Input::all(), $rules);

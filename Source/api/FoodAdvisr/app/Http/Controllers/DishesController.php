@@ -54,7 +54,7 @@ class DishesController extends Controller
         $dishes = DB::table('dishes')
         ->leftjoin('groups', 'groups.id', '=', 'dishes.group_id')
         ->join('eateries', 'eateries.id', '=', 'dishes.eatery_id')
-        ->select(DB::raw('*,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Visible","InVisible") as is_visible,eateries.business_name,groups.description'))
+        ->select(DB::raw('*,dishes.description as dish_description,dishes.id as id,if(ifnull(dishes.is_visible,1)=1,"Visible","InVisible") as is_visible,eateries.business_name,groups.description'))
         ->get();
         $eatery_details = DB::table('eateries')
         ->select(DB::raw('*'))

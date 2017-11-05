@@ -11,7 +11,7 @@ Upload Menu
 {{Form::component('ahFile', 'components.form.file', ['name', 'labeltext'=>null,'value' =>null, 'attributes' => []])}}
 
 
-<div class="form-group form-horizontal">
+{{--<div class="form-group form-horizontal">
     <div class="panel panel-default" style="padding: 15px 26px 10px 74px;">
         <div class="col-md-3">
            <div class="btn-group pull-right" style="padding-right: 10px;">
@@ -26,7 +26,7 @@ Upload Menu
         <div class="col-md-3">            
         </div>
     </div>
-</div>
+</div>--}}
 {{ Form::open(array('method' => 'GET','route' => 'uploadmenu.index')) }}
 <div class="form-group form-horizontal">
     <div class="panel panel-default">
