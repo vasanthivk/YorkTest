@@ -1048,8 +1048,9 @@ body.on('click','.act-clear-search',function(){
           document.getElementById("selected_eateryId").value = data.result.id;
           $('#eaterylogo').attr("src",objInit.mediaPath +data.result.logo_path);
           $("#eaterybusinessname").text(data.result.business_name);
-          $("#eateryrating").text(data.result.foodadvisr_overall_rating);
-          var eateryAddress = data.result.address + "" + 
+          //$("#eateryrating").text(data.result.foodadvisr_overall_rating);
+          $("#eateryrating").text(data.result.rating.TotalRating);
+          var eateryAddress = data.result.address + "" +
                               (data.result.locality == null ? "" : data.result.locality + "") +
                               (data.result.area_level_1 == null ? "" : data.result.area_level_1 + "") +
                               (data.result.area_level_2 == null ? "" : data.result.area_level_2 + "") +
