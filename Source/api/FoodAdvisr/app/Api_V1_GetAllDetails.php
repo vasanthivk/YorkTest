@@ -62,6 +62,7 @@ ini_set('max_execution_time', 5000);
 
         if($result <> null)
         {
+            $result->rating  = getRatingEateries($id);
             $result->distance = getDistanceById($id);
             $result->media = getImagesById($id);
             $result->menus = getmenubygroupid($result->group_id,$id);
@@ -367,5 +368,12 @@ ini_set('max_execution_time', 5000);
             return -2003;
     }
 
+    function getRatingEateries($eateryId){
+        $rating_query = "select sum(rating)/count(ref) as TotalRating from feedback where eatery_id='+$eateryId+';";
+
+        $rating = DB::select(DB::raw($rating_query));
+
+        return $rating;
+    }
 
 ?>
