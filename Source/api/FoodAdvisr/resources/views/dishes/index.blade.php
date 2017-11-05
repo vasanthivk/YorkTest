@@ -24,7 +24,9 @@ Dishes
                                         <thead>
                                             <tr>
                                                 <th>Title</th>
-                                                <th>Description</th>   
+                                                <th>Description</th> 
+                                                <th>Group</th>
+                                                <th>Eatery</th>  
                                                 <th>Is Visible</th>             
                                                 <th>Edit/Delete</th>
                                             </tr>
@@ -34,9 +36,11 @@ Dishes
                                         <td>
                                             {{$dish->dish_name}}
                                         </td> 
-                                        <td width="40%">
+                                        <td>
                                             {{$dish->description}}
-                                        </td> 
+                                        </td>
+                                         <td>{{$dish->description}}</td> 
+                                        <td>{{$dish->business_name}}</td> 
                                         <td>
                                             {{$dish->is_visible}}
                                         </td>       

@@ -118,7 +118,7 @@ class UploadMenuController extends Controller
                     $dish->dish_name = $value['dish_name'];
                     $dish->description = $value['description'];
                     $dish->cuisines_ids = $this->getCuisineIds($value['cuisines']);
-
+                    
                     //$dish->lifestyle_choices_ids = $value['lifestyle_choices'];
                     $dish->lifestyle_choices_ids = $this->getLifestyleChoicesIds($value['lifestyle_choices']);
 
@@ -141,8 +141,18 @@ class UploadMenuController extends Controller
                     $menusubsection = $this->getMenuSubSection($value['subsections'],$menusection,$eatery_id);
                     $dish->subsections_ids = $menusubsection;
                     $dish->eatery_id = $eatery_id;
+                    $dish->group_id = 0;
                     $dish->default_price = $value['default_price'];
-                    $dish->allergens_may_contain = $value['allergens_may_contain'];
+                    $allergens_may_contain_detail = $value['allergens_may_contain'];
+                    if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) 
+                    {
+                    $allergens_may_contain = implode(',',$allergens_may_contain_detail);
+                    }
+                    else
+                    {
+                    $allergens_may_contain = "0";
+                    }
+                    $dish->allergens_may_contain = $allergens_may_contain;
                     $dish->added_on = Carbon::now(new DateTimeZone('Europe/London'));
                     $dish->added_by = Session::get('user_id');
                     $dish->modified_by = Session::get('user_id');
@@ -151,16 +161,16 @@ class UploadMenuController extends Controller
 
                 }
             }
-            return back()->with('success','Inserted Dishes successfully.');
+            return back()->with('success','Inserted Dishes Successfully.');
         }
     }
     private function getLifestyleChoicesIds($lifestyle_choices)
     {
+        $myString = $lifestyle_choices;
         $LifeStyleChoicesIds = [];
-        //$lifestyle_choices_list = $lifestyle_choices.split(",");
         if( strpos($lifestyle_choices, ',') !== false )
         {
-            $lifestyle_choices_list = explode(", ",$lifestyle_choices);
+            $lifestyle_choices_list = explode(',', $myString);
             foreach($lifestyle_choices_list as $lifestyle_choices_value)
             {
                 $LifeStyle = DB::table('lifestyle_choices')->where('description', $lifestyle_choices_value)->first();
@@ -177,12 +187,12 @@ class UploadMenuController extends Controller
         return $lifestyle_choices_ids;
     }
 
-    private function getCuisineIds($cuisine_ids)
+    private function getCuisineIds($cuisines)
     {
+        $myString = $cuisines;
         $CuisineIds = [];
-
-        if( strpos($cuisine_ids, ',') !== false ) {
-            $cuisines_list = explode(", ", $cuisine_ids);
+        if( strpos($cuisines, ',') !== false ) {
+            $cuisines_list = explode(',', $myString);
             foreach($cuisines_list as $cuisines_values)
             {
                 $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisines_values)->first();
@@ -193,7 +203,7 @@ class UploadMenuController extends Controller
             $CuisineIds = implode(",",$CuisineIds);
         }
         else{
-            $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisine_ids)->first();
+            $CuisineTable = DB::table('cuisines')->where('cuisine_name',$cuisines)->first();
             $CuisineIds = $CuisineTable->id;
         }
         return $CuisineIds;
@@ -203,7 +213,7 @@ class UploadMenuController extends Controller
     {
         $allergens_contain_ids =[];
         if( strpos($allergens_contain, ',') !== false ) {
-            $allergens_contain_list = explode(", ", $allergens_contain);
+            $allergens_contain_list = explode(', ', $allergens_contain);
             foreach($allergens_contain_list as $allergens_values)
             {
                 $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_values)->first();
@@ -226,7 +236,7 @@ class UploadMenuController extends Controller
         $menu_ids = [];
         if( strpos($menus, ',') !== false )
         {
-            $menu_list = explode(", ", $menus);
+            $menu_list = explode(', ', $menus);
             foreach($menu_list as $menu_values)
             {
                 $menuTable = DB::table('menu')->where('menu',$menu_values)->where('company','FoodAdvisr')->where('eatery_id',$eateryId)->first();
@@ -239,7 +249,7 @@ class UploadMenuController extends Controller
                     $menu = new Menu();
                     $menu->company = "FoodAdvisr";
                     $menu->menu = $menu_values;
-                    $menu->sub_menu="NULL";
+                    $menu->submenu="NULL";
                     $menu->description="NULL";
                     $menu->eatery_id = $eateryId;
                     $menu->group_id = 0;
@@ -262,7 +272,7 @@ class UploadMenuController extends Controller
                 $menu = new Menu();
                 $menu->company = "FoodAdvisr";
                 $menu->menu = $menus;
-                $menu->sub_menu="NULL";
+                $menu->submenu="NULL";
                 $menu->description="NULL";
                 $menu->eatery_id = $eateryId;
                 $menu->group_id = 0;
@@ -281,7 +291,7 @@ class UploadMenuController extends Controller
         $menussections_ids = [];
         if( strpos($menusections, ',') !== false )
         {
-            $menusection_list = explode(", ", $menusections);
+            $menusection_list = explode(', ', $menusections);
             foreach($menusection_list as $menusection_values)
             {
                 $menusectionTable = DB::table('menu_section')->where('section_name',$menusection_values)->where('menu_id',$menuid)->where('eatery_id',$eateryId)->first();
@@ -297,7 +307,6 @@ class UploadMenuController extends Controller
                     $menusection->menu_id=$menuid;
                     $menusection->eatery_id = $eateryId;
                     $menusection->group_id = 0;
-                    $menusection->sort_order=1;
                     $menusection->is_visible=1;
                     $menusection->display_order=1;
                     $menusection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
@@ -324,7 +333,6 @@ class UploadMenuController extends Controller
                 $menusection->menu_id=$menuid;
                 $menusection->eatery_id = $eateryId;
                 $menusection->group_id = 0;
-                $menusection->sort_order=1;
                 $menusection->is_visible=1;
                 $menusection->display_order=1;
                 $menusection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
@@ -345,7 +353,7 @@ class UploadMenuController extends Controller
         $menussubsections_ids = [];
         if( strpos($menusubsections, ',') !== false )
         {
-            $menusubsection_list = explode(", ", $menusubsections);
+            $menusubsection_list = explode(', ', $menusubsections);
             foreach($menusubsection_list as $menusubsection_values)
             {
                 $menusubsectionTable = DB::table('menu_sub_section')->where('sub_section_name',$menusubsection_values)->where('section_id',$menusection)->where('eatery_id',$eateryId)->first();
@@ -361,7 +369,6 @@ class UploadMenuController extends Controller
                     $menusubsection->section_id=$menusection;
                     $menusubsection->eatery_id = $eateryId;
                     $menusubsection->group_id = 0;
-                    $menusubsection->sort_order=1;
                     $menusubsection->is_visible=1;
                     $menusubsection->display_order=1;
                     $menusubsection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
@@ -388,7 +395,6 @@ class UploadMenuController extends Controller
                 $menusubsection->section_id=$menusection;
                 $menusubsection->eatery_id = $eateryId;
                 $menusubsection->group_id = 0;
-                $menusubsection->sort_order=1;
                 $menusubsection->is_visible=1;
                 $menusubsection->display_order=1;
                 $menusubsection->added_on = Carbon::now(new DateTimeZone('Europe/London'));
@@ -396,7 +402,7 @@ class UploadMenuController extends Controller
                 $menusubsection->modified_by = Session::get('user_id');
                 $menusubsection->modified_on = Carbon::now(new DateTimeZone('Europe/London'));
                 $menusubsection->save();
-                $menusubsections_ids[] = $menusubsection->id;
+                $menusubsections_ids = $menusubsection->id;
             }
             $menussubsections_ids = $menusubsections_ids;
         }

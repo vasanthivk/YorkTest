@@ -11,7 +11,7 @@
 |
 */
 Route::get('/', function () {
-	Session::flush();
+	// Session::flush();
     return view('login.login');
 });
 Route::get('/forgot', function () {

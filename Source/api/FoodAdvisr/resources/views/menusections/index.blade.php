@@ -25,7 +25,6 @@ FoodAdvisr-Sections
                                                 <th>Section Name</th>
                                                 <th>Status</th>            
                                                 <th>Edit/Delete</th>
-                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>                                                    @foreach($menusections as $section)
@@ -50,12 +49,10 @@ FoodAdvisr-Sections
                                                     {{ Form::close() }}
                                                    @endif
                                                 </div>
-                                            </div>
-                                        </td>
-                                        <td>
-                                            <div class="btn-group pull-left">
+                                                <div class="btn-group pull-left">
                                                     <a href="../../menusubsections?section_id={{$section->id}}" class="btn btn-success">Sub Section</a>
                                                 </div>
+                                            </div>
                                         </td>
                                          </tr>
                                     @endforeach

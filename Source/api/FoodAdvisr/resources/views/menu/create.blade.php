@@ -51,7 +51,7 @@ Menu
                             <select class="form-control" id="eatery_id" name="eatery_id">
                                 <option value="0">Please select eatery</option>
                                 @foreach($eateries as $eatery)
-                                 <option value="{{$eatery->id}}">{{$eatery->business_name}}</option>
+                                 <option value="{{$eatery->id}}">{{$eatery->business_name .' - '.$eatery->address}}</option>
                                  @endforeach
                             </select>
                        </div>
