@@ -36,7 +36,7 @@ Dishes
                                         <td>
                                             {{$dish->dish_name}}
                                         </td> 
-                                        <td>
+                                        <td width="20%">
                                             {{$dish->dish_description}}
                                         </td>
                                          <td>{{$dish->description}}</td> 
