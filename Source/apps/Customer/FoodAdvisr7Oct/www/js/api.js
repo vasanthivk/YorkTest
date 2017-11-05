@@ -178,7 +178,7 @@ api.removeFromFavouriteEatery=function(eateryid,callBack)
 
 api.addFeedbackEateries=function(eateryId,rating,message,callBack)
 {
-    postData = '{"userid": "' + userdata.userid + '","eatery_id":"'+ eateryId +'","rating":"'+ rating + '","message":"'+message + '","email":"'+userdata.email+'","msgdate":'+'""'+',"response":'+'""'+',"resptime":'+'""'+',"version":'+'""'+',"device":'+'""'+',"os":'+'""'+',"osversion":'+'""'+',"model":'+'""'+',"maker":'+'""'+'}';
+    postData = '{"userid": "' + userdata.userid + '","eatery_id":"'+ eateryId +'","rating":"'+ rating + '","message":"'+message + '","email":"'+userdata.email+'","msgdate":'+'"'+Date.now()+'"'+',"response":'+'""'+',"resptime":'+'""'+',"version":'+'"'+device.version+'"'+',"device":'+'"'+device.getInfo()+'"'+',"os":'+'"'+device.platform+'"'+',"osversion":'+'""'+',"model":'+'"'+device.model+'"'+',"maker":'+'"'+device.manufacturer+'"'+'}';
     $.post(api.eateiesroot+'addfeedbackeateries',postData,function(data){
         callBack(data);
     }).fail(function(error){
