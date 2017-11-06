@@ -212,7 +212,7 @@ class UploadMenuController extends Controller
     {
         $allergens_contain_ids =[];
         if( strpos($allergens_contain, ',') !== false ) {
-            $allergens_contain_list = explode(', ', $allergens_contain);
+            $allergens_contain_list = explode(',', $allergens_contain);
             foreach($allergens_contain_list as $allergens_values)
             {
                 $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_values)->first();
@@ -234,7 +234,7 @@ class UploadMenuController extends Controller
     {
         $allergens_may_contain_ids =[];
         if( strpos($allergens_may_contain, ',') !== false ) {
-            $allergens_contain_list = explode(', ', $allergens_may_contain);
+            $allergens_contain_list = explode(',', $allergens_may_contain);
             foreach($allergens_contain_list as $allergens_values)
             {
                 $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_values)->first();
