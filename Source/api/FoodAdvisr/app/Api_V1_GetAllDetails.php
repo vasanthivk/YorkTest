@@ -312,21 +312,25 @@ ini_set('max_execution_time', 5000);
                 }
 
                 $ingredients_ids = $dishes->ingredients_ids;
-                $ingredients_array = explode(",",$ingredients_ids);
-                $dish_ingredients_array = [];
-                foreach($ingredients_array as $ingredient_values)
+                if($ingredients_ids != NULL && isset($ingredients_ids))
                 {
-                    $ingredient_result = DB::table('_product_ingredients')
-                        ->select()->where()->where()->first();
-                    $ingredients = new ProductIngredients();
-                    $ingredients->name = $ingredient_result;
+                    $ingredients_array = explode(",",$ingredients_ids);
+                    $dish_ingredients_array = [];
+                    foreach($ingredients_array as $ingredient_values)
+                    {
+                        $ingredient_result = DB::table('_product_ingredients')
+                            ->select('name')->where('id',$ingredient_values)->first();
+                        $ingredients = new ProductIngredients();
+                        $ingredients->name = $ingredient_result;
 
-                    $dish_ingredients_array =  $ingredients;
+                        $dish_ingredients_array =  $ingredients;
+                    }
+                    $dish->ingredients = $dish_ingredients_array;
                 }
                 $dish->cuisines = $dish_cuisine_array;
                 $dish->lifestyle_choice = $dish_life_choice_array;
                 $dish->allergens_contain = $dish_allergens_contain_array;
-                $dish->ingredients = $dish_ingredients_array;
+
                 $dish_array[] = $dish;
             }
             $menu_section_details = DB::table('menu_section')
