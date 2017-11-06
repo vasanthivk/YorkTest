@@ -270,28 +270,7 @@ ini_set('max_execution_time', 5000);
                 $menu_section->section_id = $section->id;
                 $menu_section->section_name = $section->section_name;
                 $menu_section->description = $section->description;
-                $dish_details = DB::table('dishes')
-                    ->where('dishes.eatery_id', '=', $section->eatery_id)
-                    ->whereIn('dishes.sections_ids',array($section->id))
-                    ->where('dishes.is_visible', '=', '1')
-                    ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
-                    ->get();
 
-                $section_dish_array = [];
-                foreach($dish_details as $dishes){
-                    $dish = new Dishes();
-                    $dish->dish_id = $dishes->dish_id;
-                    $dish->dish_name = $dishes->dish_name;
-                    $dish->description = $dishes->description;
-                    $dish->img_url = $dishes->img_url;
-                    $dish->default_price = $dishes->default_price;
-                    $dish->cuisines_ids = $dishes->cuisines_ids;
-                    $dish->lifestyle_choices_ids = $dishes->lifestyle_choices_ids;
-                    $dish->allergens_contain_ids = $dishes->allergens_contain_ids;
-                    $dish->ingredients_ids = $dishes->ingredients_ids;
-
-                    $section_dish_array[] = $dish;
-                }
                 $menu_sub_section_details = DB::table('menu_sub_section')
                     ->select(DB::raw('id,sub_section_name,description,eatery_id'))
                     ->where('section_id','=',$section->id)
@@ -302,32 +281,11 @@ ini_set('max_execution_time', 5000);
                     $menu_sub_section->sub_section_id = $sub_section->id;
                     $menu_sub_section->sub_section_name = $sub_section->sub_section_name;
                     $menu_sub_section->description = $sub_section->description;
-                    $dish_details = DB::table('dishes')
-                        ->where('dishes.eatery_id', '=', $section->eatery_id)
-                        ->whereIn('dishes.sections_ids',array($section->id))
-                        ->where('dishes.is_visible', '=', '1')
-                        ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
-                        ->get();
 
-                    $subsection_dish_array = [];
-                    foreach($dish_details as $dishes){
-                        $dish = new Dishes();
-                        $dish->dish_id = $dishes->dish_id;
-                        $dish->dish_name = $dishes->dish_name;
-                        $dish->description = $dishes->description;
-                        $dish->img_url = $dishes->img_url;
-                        $dish->default_price = $dishes->default_price;
-                        $dish->cuisines_ids = $dishes->cuisines_ids;
-                        $dish->lifestyle_choices_ids = $dishes->lifestyle_choices_ids;
-                        $dish->allergens_contain_ids = $dishes->allergens_contain_ids;
-                        $dish->ingredients_ids = $dishes->ingredients_ids;
 
-                        $subsection_dish_array[] = $dish;
-                    }
-                    $sub_section_array['sub_section_dishes'] = $subsection_dish_array;
                     $sub_section_array[] = $menu_sub_section;
                 }
-                $menu_section['section_dishes'] = $section_dish_array ;
+                
                 $menu_section['sub_sections'] = $sub_section_array ;
                 $section_array[] = $menu_section;
             }
