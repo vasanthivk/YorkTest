@@ -146,13 +146,12 @@ class UploadMenuController extends Controller
                     $allergens_may_contain_detail = $value['allergens_may_contain'];
                     if(isset($allergens_may_contain_detail) && !empty($allergens_may_contain_detail)) 
                     {
-                    $allergens_may_contain = implode(',',$allergens_may_contain_detail);
+                        $dish->allergens_may_contain = $this->getAllergensMayContain($value['allergens_may_contain']);
                     }
                     else
                     {
-                    $allergens_may_contain = "0";
+                        $dish->allergens_may_contain = 0;
                     }
-                    $dish->allergens_may_contain = $allergens_may_contain;
                     $dish->added_on = Carbon::now(new DateTimeZone('Europe/London'));
                     $dish->added_by = Session::get('user_id');
                     $dish->modified_by = Session::get('user_id');
@@ -226,6 +225,28 @@ class UploadMenuController extends Controller
         }
         else{
             $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_contain)->first();
+            $allergens_contains = $allergensTable->ref;
+        }
+        return $allergens_contains;
+    }
+
+    private function getAllergensMayContain($allergens_may_contain)
+    {
+        $allergens_contain_ids =[];
+        if( strpos($allergens_may_contain, ',') !== false ) {
+            $allergens_contain_list = explode(', ', $allergens_may_contain);
+            foreach($allergens_contain_list as $allergens_values)
+            {
+                $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_values)->first();
+                if($allergensTable != null)
+                {
+                    $allergens_contain_ids[] = $allergensTable->ref;
+                }
+            }
+            $allergens_contains = implode(",",$allergens_contain_ids);
+        }
+        else{
+            $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_may_contain)->first();
             $allergens_contains = $allergensTable->ref;
         }
         return $allergens_contains;

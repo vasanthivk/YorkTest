@@ -8,9 +8,13 @@ use App\Dishes;
 use App\Menu;
 use App\MenuSection;
 use App\MenuSubSection;
+use App\Cuisines;
+use App\LifestyleChoices;
+use App\Allergens;
 use App\AppUsersDelete;
 use Carbon\Carbon;
 use App\AppCustomers;
+use App\ProductIngredients;
 
 ini_set('memory_limit', '5048M');
 ini_set('max_execution_time', 5000);
@@ -243,7 +247,7 @@ ini_set('max_execution_time', 5000);
 
     function getmenubygroupid($groupid,$eateryid){
         $menu_details = DB::table('menu')
-            ->select(DB::raw('ref,menu,description'))
+            ->select(DB::raw('ref,menu,description,eatery_id'))
             ->where('company','=','FoodAdvisr')
             ->where('group_id','=',$groupid)
             ->orWhere('eatery_id','=',$eateryid)
@@ -255,8 +259,78 @@ ini_set('max_execution_time', 5000);
             $menus->id = $menu->ref;
             $menus->menu_name = $menu->menu;
             $menus->menu_description = $menu->description;
+            $dish_details = DB::table('dishes')
+                ->where('dishes.eatery_id', '=', $menu->eatery_id)
+                ->whereIn('dishes.menus_ids',array($menu->ref))
+                ->where('dishes.is_visible', '=', '1')
+                ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
+                ->get();
+
+            $dish_array = [];
+            foreach($dish_details as $dishes){
+                $dish = new Dishes();
+                $dish->dish_id = $dishes->dish_id;
+                $dish->dish_name = $dishes->dish_name;
+                $dish->description = $dishes->description;
+                $dish->img_url = $dishes->img_url;
+                $dish->default_price = $dishes->default_price;
+                $cuisines_ids = $dishes->cuisines_ids;
+                $cuisines_array = explode(",",$cuisines_ids);
+                $dish_cuisine_array = [];
+                foreach($cuisines_array as $cuisines_value)
+                {
+                    $cuisine_result = DB::table('cuisines')
+                        ->select('cuisine_name')->where('id',$cuisines_value)->get();
+                    $cuisines = new Cuisines();
+                    $cuisines->cuisine_name = $cuisine_result;
+
+                    $dish_cuisine_array[] = $cuisines;
+                }
+                $lifestyle_choices_ids = $dishes->lifestyle_choices_ids;
+                $lifestyle_choices_array = explode(",",$lifestyle_choices_ids);
+                $dish_life_choice_array = [];
+                foreach($lifestyle_choices_array as $lifestyle_values)
+                {
+                    $lifestyle_result = DB::table('lifestyle_choices')
+                        ->select('description')->where('id',$lifestyle_values)->get();
+                    $lifestyle_choice = new LifestyleChoices();
+                    $lifestyle_choice->description = $lifestyle_result;
+
+                    $dish_life_choice_array[] = $lifestyle_choice;
+                }
+                $allergens_contain_ids = $dishes->allergens_contain_ids;
+                $allergens_contain_array = explode(",",$allergens_contain_ids);
+                $dish_allergens_contain_array = [];
+                foreach($allergens_contain_array as $allergen_values)
+                {
+                    $allergens_result = DB::table('allergens')
+                        ->select('title')->where('type',"I")->where('ref',$allergen_values)->get();
+                    $allergens = new Allergens();
+                    $allergens->title =$allergens_result;
+
+                    $dish_allergens_contain_array[] = $allergens;
+                }
+
+                $ingredients_ids = $dishes->ingredients_ids;
+                $ingredients_array = explode(",",$ingredients_ids);
+                $dish_ingredients_array = [];
+                foreach($ingredients_array as $ingredient_values)
+                {
+                    $ingredient_result = DB::table('_product_ingredients')
+                        ->select()->where()->where()->first();
+                    $ingredients = new ProductIngredients();
+                    $ingredients->name = $ingredient_result;
+
+                    $dish_ingredients_array =  $ingredients;
+                }
+                $dish->cuisines = $dish_cuisine_array;
+                $dish->lifestyle_choice = $dish_life_choice_array;
+                $dish->allergens_contain = $dish_allergens_contain_array;
+                $dish->ingredients = $dish_ingredients_array;
+                $dish_array[] = $dish;
+            }
             $menu_section_details = DB::table('menu_section')
-                ->select(DB::raw('id,section_name,description'))
+                ->select(DB::raw('id,section_name,description,eatery_id'))
                 ->where('menu_id','=',$menu->ref)
                 ->get();
             $section_array = [];
@@ -266,9 +340,30 @@ ini_set('max_execution_time', 5000);
                 $menu_section->section_id = $section->id;
                 $menu_section->section_name = $section->section_name;
                 $menu_section->description = $section->description;
+                $dish_details = DB::table('dishes')
+                    ->where('dishes.eatery_id', '=', $section->eatery_id)
+                    ->whereIn('dishes.sections_ids',array($section->id))
+                    ->where('dishes.is_visible', '=', '1')
+                    ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
+                    ->get();
 
+                $section_dish_array = [];
+                foreach($dish_details as $dishes){
+                    $dish = new Dishes();
+                    $dish->dish_id = $dishes->dish_id;
+                    $dish->dish_name = $dishes->dish_name;
+                    $dish->description = $dishes->description;
+                    $dish->img_url = $dishes->img_url;
+                    $dish->default_price = $dishes->default_price;
+                    $dish->cuisines_ids = $dishes->cuisines_ids;
+                    $dish->lifestyle_choices_ids = $dishes->lifestyle_choices_ids;
+                    $dish->allergens_contain_ids = $dishes->allergens_contain_ids;
+                    $dish->ingredients_ids = $dishes->ingredients_ids;
+
+                    $section_dish_array[] = $dish;
+                }
                 $menu_sub_section_details = DB::table('menu_sub_section')
-                    ->select(DB::raw('id,sub_section_name,description'))
+                    ->select(DB::raw('id,sub_section_name,description,eatery_id'))
                     ->where('section_id','=',$section->id)
                     ->get();
                 $sub_section_array = [];
@@ -277,12 +372,36 @@ ini_set('max_execution_time', 5000);
                     $menu_sub_section->sub_section_id = $sub_section->id;
                     $menu_sub_section->sub_section_name = $sub_section->sub_section_name;
                     $menu_sub_section->description = $sub_section->description;
+                    $dish_details = DB::table('dishes')
+                        ->where('dishes.eatery_id', '=', $section->eatery_id)
+                        ->whereIn('dishes.sections_ids',array($section->id))
+                        ->where('dishes.is_visible', '=', '1')
+                        ->select(DB::raw('dishes.id as dish_id,dishes.dish_name,dishes.description,dishes.img_url,dishes.cuisines_ids,dishes.lifestyle_choices_ids,dishes.allergens_contain_ids,dishes.ingredients_ids,dishes.default_price,dishes.menus_ids,dishes.sections_ids,dishes.subsections_ids'))
+                        ->get();
 
+                    $subsection_dish_array = [];
+                    foreach($dish_details as $dishes){
+                        $dish = new Dishes();
+                        $dish->dish_id = $dishes->dish_id;
+                        $dish->dish_name = $dishes->dish_name;
+                        $dish->description = $dishes->description;
+                        $dish->img_url = $dishes->img_url;
+                        $dish->default_price = $dishes->default_price;
+                        $dish->cuisines_ids = $dishes->cuisines_ids;
+                        $dish->lifestyle_choices_ids = $dishes->lifestyle_choices_ids;
+                        $dish->allergens_contain_ids = $dishes->allergens_contain_ids;
+                        $dish->ingredients_ids = $dishes->ingredients_ids;
+
+                        $subsection_dish_array[] = $dish;
+                    }
+                    $sub_section_array['sub_section_dishes'] = $subsection_dish_array;
                     $sub_section_array[] = $menu_sub_section;
                 }
+                $menu_section['section_dishes'] = $section_dish_array ;
                 $menu_section['sub_sections'] = $sub_section_array ;
                 $section_array[] = $menu_section;
             }
+            $menus['dishes'] = $dish_array;
             $menus['sections'] = $section_array;
             $menuDetails[] = $menus;
         }
