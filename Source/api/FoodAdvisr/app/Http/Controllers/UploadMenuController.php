@@ -139,7 +139,12 @@ class UploadMenuController extends Controller
                     //$menusection = $this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id);
                     $dish->sections_ids = $this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id);
                     //$menusubsection = $this->getMenuSubSection($value['subsections'],$this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id),$eatery_id);
-                    $dish->subsections_ids = $this->getMenuSubSection($value['subsections'],$this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id),$eatery_id);
+                    if($value['subsections'] != ''){
+                        $dish->subsections_ids = $this->getMenuSubSection($value['subsections'],$this->getMenuSection($value['sections'],$this->getMenus($value['menus'],$eatery_id),$eatery_id),$eatery_id);
+                    }
+                    else{
+                        $dish->subsections_ids = 0;
+                    }
                     $dish->eatery_id = $eatery_id;
                     $dish->group_id = 0;
                     $dish->default_price = $value['default_price'];
