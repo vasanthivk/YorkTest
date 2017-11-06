@@ -232,7 +232,7 @@ class UploadMenuController extends Controller
 
     private function getAllergensMayContain($allergens_may_contain)
     {
-        $allergens_contain_ids =[];
+        $allergens_may_contain_ids =[];
         if( strpos($allergens_may_contain, ',') !== false ) {
             $allergens_contain_list = explode(', ', $allergens_may_contain);
             foreach($allergens_contain_list as $allergens_values)
@@ -240,16 +240,16 @@ class UploadMenuController extends Controller
                 $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_values)->first();
                 if($allergensTable != null)
                 {
-                    $allergens_contain_ids[] = $allergensTable->ref;
+                    $allergens_may_contain_ids[] = $allergensTable->ref;
                 }
             }
-            $allergens_contains = implode(",",$allergens_contain_ids);
+            $allergens_may_contains = implode(",",$allergens_may_contain_ids);
         }
         else{
             $allergensTable = DB::table('allergens')->where('type','I')->where('title',$allergens_may_contain)->first();
-            $allergens_contains = $allergensTable->ref;
+            $allergens_may_contains = $allergensTable->ref;
         }
-        return $allergens_contains;
+        return $allergens_may_contains;
     }
 
     private function getMenus($menus,$eateryId)

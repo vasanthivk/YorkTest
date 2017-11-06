@@ -259,7 +259,7 @@ ini_set('max_execution_time', 5000);
             $menus->id = $menu->ref;
             $menus->menu_name = $menu->menu;
             $menus->menu_description = $menu->description;
-            $dish_details = DB::table('dishes')
+            /*$dish_details = DB::table('dishes')
                 ->where('dishes.eatery_id', '=', $menu->eatery_id)
                 ->whereIn('dishes.menus_ids',array($menu->ref))
                 ->where('dishes.is_visible', '=', '1')
@@ -332,7 +332,7 @@ ini_set('max_execution_time', 5000);
                 $dish->allergens_contain = $dish_allergens_contain_array;
 
                 $dish_array[] = $dish;
-            }
+            }*/
             $menu_section_details = DB::table('menu_section')
                 ->select(DB::raw('id,section_name,description,eatery_id'))
                 ->where('menu_id','=',$menu->ref)
